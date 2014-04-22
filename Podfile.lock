@@ -1,0 +1,10 @@
+PODS:
+  - GBInfiniteScrollView (1.1)
+
+DEPENDENCIES:
+  - GBInfiniteScrollView (~> 1.1)
+
+SPEC CHECKSUMS:
+  GBInfiniteScrollView: fca33aa7d9cf47465663eb9200a455706f5218f9
+
+COCOAPODS: 0.32.1

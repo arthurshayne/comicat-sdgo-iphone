@@ -21,6 +21,8 @@
 		05023B0319052791001D04F0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 05023B0119052791001D04F0 /* InfoPlist.strings */; };
 		05023B0519052791001D04F0 /* GdApp2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 05023B0419052791001D04F0 /* GdApp2Tests.m */; };
 		05023B10190527E7001D04F0 /* GDHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05023B0F190527E7001D04F0 /* GDHomeViewController.m */; };
+		0530C96B190636E900CE51FA /* GDHome2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0530C96A190636E900CE51FA /* GDHome2ViewController.m */; };
+		773E1A7A51404A8B868FF807 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4857FB5C393B4558AF917BDA /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,10 @@
 		05023B0419052791001D04F0 /* GdApp2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GdApp2Tests.m; sourceTree = "<group>"; };
 		05023B0E190527E7001D04F0 /* GDHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDHomeViewController.h; sourceTree = "<group>"; };
 		05023B0F190527E7001D04F0 /* GDHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDHomeViewController.m; sourceTree = "<group>"; };
+		0530C969190636E900CE51FA /* GDHome2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDHome2ViewController.h; sourceTree = "<group>"; };
+		0530C96A190636E900CE51FA /* GDHome2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDHome2ViewController.m; sourceTree = "<group>"; };
+		2B967E099E454FEA98E0D6E3 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		4857FB5C393B4558AF917BDA /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +69,7 @@
 				05023ADC19052791001D04F0 /* CoreGraphics.framework in Frameworks */,
 				05023ADE19052791001D04F0 /* UIKit.framework in Frameworks */,
 				05023ADA19052791001D04F0 /* Foundation.framework in Frameworks */,
+				773E1A7A51404A8B868FF807 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +93,7 @@
 				05023AFE19052791001D04F0 /* GdApp2Tests */,
 				05023AD819052791001D04F0 /* Frameworks */,
 				05023AD719052791001D04F0 /* Products */,
+				2B967E099E454FEA98E0D6E3 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,6 +113,7 @@
 				05023ADB19052791001D04F0 /* CoreGraphics.framework */,
 				05023ADD19052791001D04F0 /* UIKit.framework */,
 				05023AF819052791001D04F0 /* XCTest.framework */,
+				4857FB5C393B4558AF917BDA /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -117,6 +126,8 @@
 				05023AE019052791001D04F0 /* Supporting Files */,
 				05023B0E190527E7001D04F0 /* GDHomeViewController.h */,
 				05023B0F190527E7001D04F0 /* GDHomeViewController.m */,
+				0530C969190636E900CE51FA /* GDHome2ViewController.h */,
+				0530C96A190636E900CE51FA /* GDHome2ViewController.m */,
 			);
 			path = GdApp2;
 			sourceTree = "<group>";
@@ -159,9 +170,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 05023B0819052791001D04F0 /* Build configuration list for PBXNativeTarget "GdApp2" */;
 			buildPhases = (
+				BD1CD48DB5134F9988C24B3A /* Check Pods Manifest.lock */,
 				05023AD219052791001D04F0 /* Sources */,
 				05023AD319052791001D04F0 /* Frameworks */,
 				05023AD419052791001D04F0 /* Resources */,
+				C549736D234645399DD2B38E /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -245,6 +258,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		BD1CD48DB5134F9988C24B3A /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C549736D234645399DD2B38E /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		05023AD219052791001D04F0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -253,6 +299,7 @@
 				05023B10190527E7001D04F0 /* GDHomeViewController.m in Sources */,
 				05023AE619052791001D04F0 /* main.m in Sources */,
 				05023AEA19052791001D04F0 /* GDAppDelegate.m in Sources */,
+				0530C96B190636E900CE51FA /* GDHome2ViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,6 +421,7 @@
 		};
 		05023B0919052791001D04F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B967E099E454FEA98E0D6E3 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -388,6 +436,7 @@
 		};
 		05023B0A19052791001D04F0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B967E099E454FEA98E0D6E3 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -459,6 +508,7 @@
 				05023B0A19052791001D04F0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		05023B0B19052791001D04F0 /* Build configuration list for PBXNativeTarget "GdApp2Tests" */ = {
 			isa = XCConfigurationList;
@@ -467,6 +517,7 @@
 				05023B0D19052791001D04F0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
