@@ -20,8 +20,14 @@
 		05023AFB19052791001D04F0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05023ADD19052791001D04F0 /* UIKit.framework */; };
 		05023B0319052791001D04F0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 05023B0119052791001D04F0 /* InfoPlist.strings */; };
 		05023B0519052791001D04F0 /* GdApp2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 05023B0419052791001D04F0 /* GdApp2Tests.m */; };
-		05023B10190527E7001D04F0 /* GDHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05023B0F190527E7001D04F0 /* GDHomeViewController.m */; };
 		0530C96B190636E900CE51FA /* GDHome2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0530C96A190636E900CE51FA /* GDHome2ViewController.m */; };
+		0565B3AF19089C6700CCE77E /* HomeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0565B3AE19089C6700CCE77E /* HomeInfo.m */; };
+		0565B3B219089CA400CCE77E /* CarouselInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0565B3B119089CA400CCE77E /* CarouselInfo.m */; };
+		0565B3B519089D4F00CCE77E /* PostInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0565B3B419089D4F00CCE77E /* PostInfo.m */; };
+		0565B3B91908A01E00CCE77E /* GDCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0565B3B81908A01E00CCE77E /* GDCommunicator.m */; };
+		0565B3C11908A52A00CCE77E /* GDInfoBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0565B3C01908A52A00CCE77E /* GDInfoBuilder.m */; };
+		0565B3C41908A7BA00CCE77E /* GDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0565B3C31908A7BA00CCE77E /* GDManager.m */; };
+		0565B3C8190904D000CCE77E /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0565B3C7190904D000CCE77E /* ImageIO.framework */; };
 		773E1A7A51404A8B868FF807 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4857FB5C393B4558AF917BDA /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -53,10 +59,23 @@
 		05023B0019052791001D04F0 /* GdApp2Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GdApp2Tests-Info.plist"; sourceTree = "<group>"; };
 		05023B0219052791001D04F0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		05023B0419052791001D04F0 /* GdApp2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GdApp2Tests.m; sourceTree = "<group>"; };
-		05023B0E190527E7001D04F0 /* GDHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDHomeViewController.h; sourceTree = "<group>"; };
-		05023B0F190527E7001D04F0 /* GDHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDHomeViewController.m; sourceTree = "<group>"; };
 		0530C969190636E900CE51FA /* GDHome2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDHome2ViewController.h; sourceTree = "<group>"; };
 		0530C96A190636E900CE51FA /* GDHome2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDHome2ViewController.m; sourceTree = "<group>"; };
+		0565B3AB19089C2000CCE77E /* GDManagerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GDManagerDelegate.h; sourceTree = "<group>"; };
+		0565B3AD19089C6700CCE77E /* HomeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeInfo.h; sourceTree = "<group>"; };
+		0565B3AE19089C6700CCE77E /* HomeInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeInfo.m; sourceTree = "<group>"; };
+		0565B3B019089CA400CCE77E /* CarouselInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarouselInfo.h; sourceTree = "<group>"; };
+		0565B3B119089CA400CCE77E /* CarouselInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarouselInfo.m; sourceTree = "<group>"; };
+		0565B3B319089D4F00CCE77E /* PostInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostInfo.h; sourceTree = "<group>"; };
+		0565B3B419089D4F00CCE77E /* PostInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostInfo.m; sourceTree = "<group>"; };
+		0565B3B619089F9400CCE77E /* GDCommunicatorDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GDCommunicatorDelegate.h; sourceTree = "<group>"; };
+		0565B3B71908A01E00CCE77E /* GDCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDCommunicator.h; sourceTree = "<group>"; };
+		0565B3B81908A01E00CCE77E /* GDCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDCommunicator.m; sourceTree = "<group>"; };
+		0565B3BF1908A52A00CCE77E /* GDInfoBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDInfoBuilder.h; sourceTree = "<group>"; };
+		0565B3C01908A52A00CCE77E /* GDInfoBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDInfoBuilder.m; sourceTree = "<group>"; };
+		0565B3C21908A7BA00CCE77E /* GDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDManager.h; sourceTree = "<group>"; };
+		0565B3C31908A7BA00CCE77E /* GDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDManager.m; sourceTree = "<group>"; };
+		0565B3C7190904D000CCE77E /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		2B967E099E454FEA98E0D6E3 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		4857FB5C393B4558AF917BDA /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -66,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0565B3C8190904D000CCE77E /* ImageIO.framework in Frameworks */,
 				05023ADC19052791001D04F0 /* CoreGraphics.framework in Frameworks */,
 				05023ADE19052791001D04F0 /* UIKit.framework in Frameworks */,
 				05023ADA19052791001D04F0 /* Foundation.framework in Frameworks */,
@@ -109,6 +129,7 @@
 		05023AD819052791001D04F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0565B3C7190904D000CCE77E /* ImageIO.framework */,
 				05023AD919052791001D04F0 /* Foundation.framework */,
 				05023ADB19052791001D04F0 /* CoreGraphics.framework */,
 				05023ADD19052791001D04F0 /* UIKit.framework */,
@@ -121,13 +142,16 @@
 		05023ADF19052791001D04F0 /* GdApp2 */ = {
 			isa = PBXGroup;
 			children = (
+				0565B3BA1908A41E00CCE77E /* Manager */,
+				0565B3AC19089C4000CCE77E /* Model */,
+				0565B3AA1908999500CCE77E /* GDCommunication */,
 				05023AEB19052791001D04F0 /* Main.storyboard */,
 				05023AF119052791001D04F0 /* Images.xcassets */,
 				05023AE019052791001D04F0 /* Supporting Files */,
-				05023B0E190527E7001D04F0 /* GDHomeViewController.h */,
-				05023B0F190527E7001D04F0 /* GDHomeViewController.m */,
 				0530C969190636E900CE51FA /* GDHome2ViewController.h */,
 				0530C96A190636E900CE51FA /* GDHome2ViewController.m */,
+				0565B3BF1908A52A00CCE77E /* GDInfoBuilder.h */,
+				0565B3C01908A52A00CCE77E /* GDInfoBuilder.m */,
 			);
 			path = GdApp2;
 			sourceTree = "<group>";
@@ -161,6 +185,39 @@
 				05023B0119052791001D04F0 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0565B3AA1908999500CCE77E /* GDCommunication */ = {
+			isa = PBXGroup;
+			children = (
+				0565B3B619089F9400CCE77E /* GDCommunicatorDelegate.h */,
+				0565B3B71908A01E00CCE77E /* GDCommunicator.h */,
+				0565B3B81908A01E00CCE77E /* GDCommunicator.m */,
+			);
+			name = GDCommunication;
+			sourceTree = "<group>";
+		};
+		0565B3AC19089C4000CCE77E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0565B3AD19089C6700CCE77E /* HomeInfo.h */,
+				0565B3AE19089C6700CCE77E /* HomeInfo.m */,
+				0565B3B019089CA400CCE77E /* CarouselInfo.h */,
+				0565B3B119089CA400CCE77E /* CarouselInfo.m */,
+				0565B3B319089D4F00CCE77E /* PostInfo.h */,
+				0565B3B419089D4F00CCE77E /* PostInfo.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		0565B3BA1908A41E00CCE77E /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				0565B3AB19089C2000CCE77E /* GDManagerDelegate.h */,
+				0565B3C21908A7BA00CCE77E /* GDManager.h */,
+				0565B3C31908A7BA00CCE77E /* GDManager.m */,
+			);
+			name = Manager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -296,10 +353,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05023B10190527E7001D04F0 /* GDHomeViewController.m in Sources */,
+				0565B3B219089CA400CCE77E /* CarouselInfo.m in Sources */,
+				0565B3AF19089C6700CCE77E /* HomeInfo.m in Sources */,
+				0565B3C11908A52A00CCE77E /* GDInfoBuilder.m in Sources */,
+				0565B3C41908A7BA00CCE77E /* GDManager.m in Sources */,
 				05023AE619052791001D04F0 /* main.m in Sources */,
 				05023AEA19052791001D04F0 /* GDAppDelegate.m in Sources */,
+				0565B3B519089D4F00CCE77E /* PostInfo.m in Sources */,
 				0530C96B190636E900CE51FA /* GDHome2ViewController.m in Sources */,
+				0565B3B91908A01E00CCE77E /* GDCommunicator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,6 +487,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/GdApp2",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GdApp2/GdApp2-Prefix.pch";
 				INFOPLIST_FILE = "GdApp2/GdApp2-Info.plist";
@@ -440,6 +506,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/GdApp2",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GdApp2/GdApp2-Prefix.pch";
 				INFOPLIST_FILE = "GdApp2/GdApp2-Info.plist";
