@@ -4,7 +4,17 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Pods-AAPullToRefresh.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-GBInfiniteScrollView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-MBProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -22,17 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>36E8B74742B247F8AEBC6B52</key>
+		<key>2095FEBC81844A049E2597D8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C552AA8CFC8A438FA00F60A7</key>
+		<key>34E0FF4CE9264F05B30D5614</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E1A2D13D25C84875AD69C0FE</key>
+		<key>3D4E60FFC41E46AE81347E5A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C02A8ADF4A8E448BAEF30077</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F47424E9DD4147189DA5BCA4</key>
 		<dict>
 			<key>primary</key>
 			<true/>

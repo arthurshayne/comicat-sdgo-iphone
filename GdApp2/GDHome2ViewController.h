@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <GBInfiniteScrollView/GBInfiniteScrollView.h>
+#import <GBInfiniteScrollView.h>
 #import "GDManager.h"
 
 @interface GDHome2ViewController : UIViewController <GBInfiniteScrollViewDataSource, GBInfiniteScrollViewDelegate, GDManagerDelegate>

@@ -9,36 +9,36 @@
 #import "GDHome2ViewController.h"
 #import "GDManager.h"
 #import "GDCommunicator.h"
+#import "GDInfoBuilder.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "CarouselInfo.h"
 #import "HomeInfo.h"
+#import "MBProgressHUD.h"
+//#import "UIScrollView+SVPullToRefresh.h"
+#import "AAPullToRefresh.h"
 
 @interface GDHome2ViewController ()
+
 //@property (strong, nonatomic) NSArray *images;  // of UIImage
 @property (strong, nonatomic) HomeInfo *homeInfo;
 
-@property (strong, nonatomic) UILabel *carouselLabel;
-@property (strong, nonatomic) UIPageControl *carouselPageControl;
-@property (strong, nonatomic) GBInfiniteScrollView *infiniteScrollView;
+
+@property (weak, nonatomic) IBOutlet UIScrollView *rootScrollView;
+
+@property (weak, nonatomic) IBOutlet GBInfiniteScrollView *infiniteScrollView;
+@property (weak, nonatomic) IBOutlet UILabel *carouselLabel;
+@property (weak, nonatomic) IBOutlet UIPageControl *carouselPageControl;
+
+@property (weak, nonatomic) AAPullToRefresh *aaptr;
 @end
 
 @implementation GDHome2ViewController
 
 GDManager *manager;
-HomeInfo *homeInfo;
-
-//- (NSArray *) images {
-//    if (!_images) {
-//        _images = @[[UIImage imageNamed:@"1"],
-//                    [UIImage imageNamed:@"2"],
-//                    [UIImage imageNamed:@"3"],
-//                    [UIImage imageNamed:@"4"],
-//                    [UIImage imageNamed:@"5"]];
-//    }
-//    return _images;
-//}
 
 - (void)viewDidLoad {
+    NSLog(@"viewDidLoad");
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
@@ -46,11 +46,7 @@ HomeInfo *homeInfo;
     manager.communicator = [[GDCommunicator alloc] init];
     manager.communicator.delegate = manager;
     manager.delegate = self;
-    
-    // Add label and page control (as indicator)
-    CGRect labelFrame = CGRectMake(0, 243, 320, 21);
-    self.carouselLabel = [[UILabel alloc] initWithFrame:labelFrame];
-    
+  
     self.carouselLabel.textColor = [UIColor whiteColor];
     self.carouselLabel.backgroundColor = [UIColor blackColor];
     self.carouselLabel.opaque = false;
@@ -58,12 +54,16 @@ HomeInfo *homeInfo;
     [self.carouselLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
     [self.carouselLabel setFont:[UIFont systemFontOfSize:12]];
     
-    [self.view addSubview:self.carouselLabel];
+    // TODO: animation, hide the view
+    self.view.hidden = YES;
     
-    CGRect pageControlFrame = CGRectMake(200, 235, 120, 37);
-    self.carouselPageControl = [[UIPageControl alloc] initWithFrame:pageControlFrame];
-    [self.view addSubview:self.carouselPageControl];
-   
+    self.rootScrollView.contentSize = CGSizeMake(320, 20000);
+    
+    self.aaptr = [self.rootScrollView addPullToRefreshPosition:AAPullToRefreshPositionTop ActionHandler:^(AAPullToRefresh *v){
+        // do something...
+        // then must call stopIndicatorAnimation method.
+        [manager fetchHomeInfo];
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -73,42 +73,53 @@ HomeInfo *homeInfo;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    NSLog(@"viewWillAppear");
+    
+    [super viewWillAppear:animated];
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     // get home info
     [manager fetchHomeInfo];
-    
-    [self prepareCarousel];
 }
 
 - (void) prepareCarousel {
-    CGRect carouselFrame = CGRectMake(0, 64, 320, 200);
-    
-    self.infiniteScrollView = [[GBInfiniteScrollView alloc] initWithFrame:carouselFrame];
-    
     self.infiniteScrollView.infiniteScrollViewDataSource = self;
     self.infiniteScrollView.infiniteScrollViewDelegate = self;
     
+    [self.infiniteScrollView reloadData];
+    [self.infiniteScrollView startAutoScroll];
+
     self.infiniteScrollView.pageIndex = 0;
-    
-    [self.view addSubview:self.infiniteScrollView];
 }
 
+- (IBAction)updateButton:(id)sender {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    // get home info
+    [manager fetchHomeInfo];
+}
 
 #pragma mark - GDManagerDelegate
 
 - (void)didReceiveHomeInfo:(HomeInfo *)homeInfo {
-//     NSLog(@"%c", homeInfo.success);
+    NSLog(@"didReceiveHomeInfo");
     
     self.homeInfo = homeInfo;
     
-    [self.infiniteScrollView reloadData];
-    [self.infiniteScrollView startAutoScroll];
-    
-    [self updatePageControlAccordingly];
+    [self prepareCarousel];
     
     [self.view bringSubviewToFront:self.carouselLabel];
     
     self.carouselPageControl.numberOfPages = homeInfo.carousel.count;
     [self.view bringSubviewToFront:self.carouselPageControl];
+    
+    self.view.hidden = NO;
+   
+    [self updatePageControlAccordingly];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    });
+    [self.aaptr performSelector:@selector(stopIndicatorAnimation) withObject:nil afterDelay:0];
 }
 
 - (void)fetchingHomeInfoWithError:(NSError *)error {
@@ -139,7 +150,7 @@ HomeInfo *homeInfo;
 }
 
 - (GBInfiniteScrollViewPage *)infiniteScrollView:(GBInfiniteScrollView *)infiniteScrollView pageAtIndex:(NSUInteger)index {
-    NSLog(@"pageAtIndex:%lu", (unsigned long)index);
+    NSLog(@"infiniteScrollView:pageAtIndex:%lu", (unsigned long)index);
     
     if (!self.homeInfo) {
         return nil;
@@ -147,8 +158,6 @@ HomeInfo *homeInfo;
     
     CGRect frame = CGRectMake(0, 0, infiniteScrollView.bounds.size.width, infiniteScrollView.bounds.size.height);
     
-//    UIImage *image = [self.images objectAtIndex:index];
-
     GBInfiniteScrollViewPage *page = [infiniteScrollView dequeueReusablePage];
     
     if (page == nil) {
@@ -162,14 +171,27 @@ HomeInfo *homeInfo;
 //    page.textLabel.font = [UIFont fontWithName: @"HelveticaNeue-UltraLight" size:128.0f];
     
     CarouselInfo *ci = (CarouselInfo*)[self.homeInfo.carousel objectAtIndex:index];
-    
+  
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:frame];
     [imageView setImageWithURL:[NSURL URLWithString:ci.imageURL]];
+    imageView.tag = index;
     
+    imageView.userInteractionEnabled = YES;
+    
+    // TODO: bind tap event
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(carouselTapped:)];
+    tap.numberOfTapsRequired = 1;
+    tap.cancelsTouchesInView = YES;
+    imageView.userInteractionEnabled = YES;
+    [imageView addGestureRecognizer:tap];
+
     [page.contentView addSubview:imageView];
     
-    
     return page;
+}
+
+- (void) carouselTapped:(UITapGestureRecognizer *)gesture {
+    
 }
 
 - (void) updatePageControlAccordingly {
@@ -180,6 +202,8 @@ HomeInfo *homeInfo;
     // update the label
     self.carouselLabel.text = ci.title;
     self.carouselPageControl.currentPage = pageIndex;
+    
+    NSLog(@"updatePageControlAccordingly %d %@", pageIndex, ci.title);
 }
 
 /*
