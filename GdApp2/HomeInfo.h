@@ -12,6 +12,6 @@
 @property BOOL success;
 @property (strong, nonatomic) NSDate *generated;
 @property (strong, nonatomic) NSArray *carousel;    // of CarouselInfo
-@property (strong, nonatomic) NSArray *postList;    // of PostInfo
+@property (strong, nonatomic) NSArray *videoList;    // of VideoListItem
 
 @end

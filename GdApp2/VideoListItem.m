@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 COMICAT. All rights reserved.
 //
 
-#import "PostInfo.h"
+#import "VideoListItem.h"
 
-@implementation PostInfo
+@implementation VideoListItem
 
 @end

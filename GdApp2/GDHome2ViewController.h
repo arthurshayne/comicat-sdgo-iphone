@@ -10,6 +10,7 @@
 #import <GBInfiniteScrollView.h>
 #import "GDManager.h"
 
-@interface GDHome2ViewController : UIViewController <GBInfiniteScrollViewDataSource, GBInfiniteScrollViewDelegate, GDManagerDelegate>
+@interface GDHome2ViewController : UIViewController <GBInfiniteScrollViewDataSource, GBInfiniteScrollViewDelegate,
+    GDManagerDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
 @end

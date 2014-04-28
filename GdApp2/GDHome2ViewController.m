@@ -12,6 +12,7 @@
 #import "GDInfoBuilder.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "CarouselInfo.h"
+#import "VideoListItem.h"
 #import "HomeInfo.h"
 #import "MBProgressHUD.h"
 //#import "UIScrollView+SVPullToRefresh.h"
@@ -22,7 +23,6 @@
 //@property (strong, nonatomic) NSArray *images;  // of UIImage
 @property (strong, nonatomic) HomeInfo *homeInfo;
 
-
 @property (weak, nonatomic) IBOutlet UIScrollView *rootScrollView;
 
 @property (weak, nonatomic) IBOutlet GBInfiniteScrollView *infiniteScrollView;
@@ -30,6 +30,10 @@
 @property (weak, nonatomic) IBOutlet UIPageControl *carouselPageControl;
 
 @property (weak, nonatomic) AAPullToRefresh *aaptr;
+
+@property (weak, nonatomic) IBOutlet UICollectionView *videoListCollectionView;
+@property (weak, nonatomic) IBOutlet UIView *blurStatusBar;
+
 @end
 
 @implementation GDHome2ViewController
@@ -57,13 +61,15 @@ GDManager *manager;
     // TODO: animation, hide the view
     self.view.hidden = YES;
     
-    self.rootScrollView.contentSize = CGSizeMake(320, 20000);
-    
     self.aaptr = [self.rootScrollView addPullToRefreshPosition:AAPullToRefreshPositionTop ActionHandler:^(AAPullToRefresh *v){
         // do something...
-        // then must call stopIndicatorAnimation method.
         [manager fetchHomeInfo];
+        // then must call stopIndicatorAnimation method.
     }];
+    self.aaptr.imageIcon = [UIImage imageNamed:@"halo"];
+    self.aaptr.threshold = 60.0f;
+    
+    [self.videoListCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"VideoListCell"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -98,6 +104,21 @@ GDManager *manager;
     [manager fetchHomeInfo];
 }
 
+- (void) prepareVideoList {
+    self.videoListCollectionView.dataSource = self;
+    self.videoListCollectionView.delegate = self;
+    
+    CGRect frame = self.videoListCollectionView.frame;
+    frame.size.height = 135 * self.homeInfo.videoList.count / 2;
+    [self.videoListCollectionView setFrame: frame];
+    self.videoListCollectionView.contentSize = frame.size;
+    
+    // [self.videoListCollectionView.collectionViewLayout invalidateLayout];
+    
+
+    
+}
+
 #pragma mark - GDManagerDelegate
 
 - (void)didReceiveHomeInfo:(HomeInfo *)homeInfo {
@@ -116,6 +137,18 @@ GDManager *manager;
    
     [self updatePageControlAccordingly];
     
+    
+    [self prepareVideoList];
+    
+    // update layout
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        
+//    });
+    
+    self.rootScrollView.contentSize = CGSizeMake(320,
+                                                 self.videoListCollectionView.bounds.size.height + self.infiniteScrollView.bounds.size.height + 40);
+    [self.rootScrollView layoutSubviews];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     });
@@ -130,13 +163,13 @@ GDManager *manager;
 
 - (void)infiniteScrollViewDidScrollNextPage:(GBInfiniteScrollView *)infiniteScrollView
 {
-    NSLog(@"Next page");
+//    NSLog(@"Next page");
     [self updatePageControlAccordingly];
 }
 
 - (void)infiniteScrollViewDidScrollPreviousPage:(GBInfiniteScrollView *)infiniteScrollView
 {
-    NSLog(@"Previous page");
+//    NSLog(@"Previous page");
     [self updatePageControlAccordingly];
 }
 
@@ -150,7 +183,7 @@ GDManager *manager;
 }
 
 - (GBInfiniteScrollViewPage *)infiniteScrollView:(GBInfiniteScrollView *)infiniteScrollView pageAtIndex:(NSUInteger)index {
-    NSLog(@"infiniteScrollView:pageAtIndex:%lu", (unsigned long)index);
+//    NSLog(@"infiniteScrollView:pageAtIndex:%lu", (unsigned long)index);
     
     if (!self.homeInfo) {
         return nil;
@@ -160,10 +193,12 @@ GDManager *manager;
     
     GBInfiniteScrollViewPage *page = [infiniteScrollView dequeueReusablePage];
     
-    if (page == nil) {
+    if (!page) {
         page = [[GBInfiniteScrollViewPage alloc] initWithFrame:frame
                                                          style:GBInfiniteScrollViewPageStyleText];
     }
+    
+    [page prepareForReuse];
     
 //    page.textLabel.text = record.text;
 //    page.textLabel.textColor = record.textColor;
@@ -203,7 +238,75 @@ GDManager *manager;
     self.carouselLabel.text = ci.title;
     self.carouselPageControl.currentPage = pageIndex;
     
-    NSLog(@"updatePageControlAccordingly %d %@", pageIndex, ci.title);
+//    NSLog(@"updatePageControlAccordingly %d %@", pageIndex, ci.title);
+}
+
+#pragma mark - UICollectionViewDataSource
+- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
+    return self.homeInfo.videoList.count;
+}
+- (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView {
+    return 1;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"indexPath.row: %d", indexPath.row);
+    
+    VideoListItem *vli = (VideoListItem*)[self.homeInfo.videoList objectAtIndex:indexPath.row];
+//    NSLog(@"should: %@, %@", vli.title, vli.title2);
+    
+    UICollectionViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"VideoListCell" forIndexPath:indexPath];
+    [cell prepareForReuse];
+    
+    cell.backgroundColor = [UIColor whiteColor];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 150, 84)];
+    [imageView setImageWithURL:[NSURL URLWithString:vli.imageURL]];
+    imageView.tag = indexPath.row;
+    
+    [cell addSubview:imageView];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 84, 150, 21)];
+    [label setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
+    [label setFont:[UIFont systemFontOfSize:11]];
+    label.text = vli.title;
+    label.tag = 10 + indexPath.row;
+    [cell addSubview:label];
+    
+    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(0, 67, 150, 17)];
+    label2.textAlignment = NSTextAlignmentRight;
+    label2.backgroundColor = [UIColor blackColor];
+    label2.textColor = [UIColor whiteColor];
+    label2.opaque = false;
+    label2.alpha = 0.7;
+    [label2 setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
+    [label2 setFont:[UIFont systemFontOfSize:11]];
+    label2.text = vli.title2;
+    label2.tag = 30 + indexPath.row;
+    [cell addSubview:label2];
+    
+    [cell setNeedsLayout];
+    
+    return cell;
+}
+
+#pragma mark - UICollectionViewDelegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+    // TODO: Deselect item
+}
+
+#pragma mark – UICollectionViewDelegateFlowLayout
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(150, 135);
+}
+
+- (UIEdgeInsets)collectionView:
+(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
 /*

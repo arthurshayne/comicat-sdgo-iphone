@@ -24,7 +24,7 @@
 		0530C96B190636E900CE51FA /* GDHome2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0530C96A190636E900CE51FA /* GDHome2ViewController.m */; };
 		0565B3AF19089C6700CCE77E /* HomeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0565B3AE19089C6700CCE77E /* HomeInfo.m */; };
 		0565B3B219089CA400CCE77E /* CarouselInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0565B3B119089CA400CCE77E /* CarouselInfo.m */; };
-		0565B3B519089D4F00CCE77E /* PostInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0565B3B419089D4F00CCE77E /* PostInfo.m */; };
+		0565B3B519089D4F00CCE77E /* VideoListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0565B3B419089D4F00CCE77E /* VideoListItem.m */; };
 		0565B3B91908A01E00CCE77E /* GDCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0565B3B81908A01E00CCE77E /* GDCommunicator.m */; };
 		0565B3C11908A52A00CCE77E /* GDInfoBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0565B3C01908A52A00CCE77E /* GDInfoBuilder.m */; };
 		0565B3C41908A7BA00CCE77E /* GDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0565B3C31908A7BA00CCE77E /* GDManager.m */; };
@@ -68,8 +68,8 @@
 		0565B3AE19089C6700CCE77E /* HomeInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeInfo.m; sourceTree = "<group>"; };
 		0565B3B019089CA400CCE77E /* CarouselInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarouselInfo.h; sourceTree = "<group>"; };
 		0565B3B119089CA400CCE77E /* CarouselInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarouselInfo.m; sourceTree = "<group>"; };
-		0565B3B319089D4F00CCE77E /* PostInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostInfo.h; sourceTree = "<group>"; };
-		0565B3B419089D4F00CCE77E /* PostInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostInfo.m; sourceTree = "<group>"; };
+		0565B3B319089D4F00CCE77E /* VideoListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoListItem.h; sourceTree = "<group>"; };
+		0565B3B419089D4F00CCE77E /* VideoListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoListItem.m; sourceTree = "<group>"; };
 		0565B3B619089F9400CCE77E /* GDCommunicatorDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GDCommunicatorDelegate.h; sourceTree = "<group>"; };
 		0565B3B71908A01E00CCE77E /* GDCommunicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDCommunicator.h; sourceTree = "<group>"; };
 		0565B3B81908A01E00CCE77E /* GDCommunicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDCommunicator.m; sourceTree = "<group>"; };
@@ -208,8 +208,8 @@
 				0565B3AE19089C6700CCE77E /* HomeInfo.m */,
 				0565B3B019089CA400CCE77E /* CarouselInfo.h */,
 				0565B3B119089CA400CCE77E /* CarouselInfo.m */,
-				0565B3B319089D4F00CCE77E /* PostInfo.h */,
-				0565B3B419089D4F00CCE77E /* PostInfo.m */,
+				0565B3B319089D4F00CCE77E /* VideoListItem.h */,
+				0565B3B419089D4F00CCE77E /* VideoListItem.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -366,7 +366,7 @@
 				0565B3C41908A7BA00CCE77E /* GDManager.m in Sources */,
 				05023AE619052791001D04F0 /* main.m in Sources */,
 				05023AEA19052791001D04F0 /* GDAppDelegate.m in Sources */,
-				0565B3B519089D4F00CCE77E /* PostInfo.m in Sources */,
+				0565B3B519089D4F00CCE77E /* VideoListItem.m in Sources */,
 				0530C96B190636E900CE51FA /* GDHome2ViewController.m in Sources */,
 				0565B3B91908A01E00CCE77E /* GDCommunicator.m in Sources */,
 			);

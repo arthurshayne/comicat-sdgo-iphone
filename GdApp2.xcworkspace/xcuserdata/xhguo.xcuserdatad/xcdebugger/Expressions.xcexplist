@@ -3,6 +3,14 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "__44-[GDHome2ViewController didReceiveHomeInfo:]_block_invoke:GDHome2ViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.videoListCollectionView">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[GDManager receivedHomeInfoJSON:]:GDManager.m">
          <PersistentStrings>
             <PersistentString

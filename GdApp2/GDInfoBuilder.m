@@ -9,6 +9,7 @@
 #import "GDInfoBuilder.h"
 #import "HomeInfo.h"
 #import "CarouselInfo.h"
+#import "VideoListItem.h"
 
 @implementation GDInfoBuilder
 + (HomeInfo *) homeInfoFromJSON:(NSData *)objectNotation error:(NSError **)error {
@@ -42,6 +43,22 @@
         [carousel addObject:tempCi];
     }
     homeInfo.carousel = carousel;
+    
+    // videolist
+    NSArray *videoListFromDictionary = [parsed objectForKey:@"videoList"];
+    NSMutableArray *videoList = [[NSMutableArray alloc] init];
+    for (NSDictionary *d in videoListFromDictionary) {
+        VideoListItem *tempVli = [[VideoListItem alloc] init];
+        tempVli.title = [d objectForKey:@"title"];
+        tempVli.title2 = [d objectForKey:@"title2"];
+        tempVli.imageURL = [d objectForKey:@"imageURL"];
+        tempVli.videoHost = [d objectForKey:@"videoHost"];
+        tempVli.videoId = [d objectForKey:@"videoId"];
+        // TODO: Add more?
+        
+        [videoList addObject:tempVli];
+    }
+    homeInfo.videoList = videoList;
     
     return homeInfo;
 }

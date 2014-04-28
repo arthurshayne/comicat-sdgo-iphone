@@ -8,15 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PostInfo : NSObject
+@interface VideoListItem : NSObject
 @property int id;
 @property (strong, nonatomic) NSString *title;
-@property (strong, nonatomic) NSURL *imageURL;
-@property (strong, nonatomic) NSNumber *gdPostType;   // post: 1, video: 2
+@property (strong, nonatomic) NSString *title2; // display on image if exists
+@property (strong, nonatomic) NSString *imageURL;
+@property int gdPostCategory;
 @property (strong, nonatomic) NSString *videoHost;
 @property (strong, nonatomic) NSString *videoId;
-@property (strong, nonatomic) NSString *contentHtml;
 @property (strong, nonatomic) NSDate *created;
-@property (strong, nonatomic) NSDate *lastModified;
 @property (strong, nonatomic) NSString *createdBy;
 @end
