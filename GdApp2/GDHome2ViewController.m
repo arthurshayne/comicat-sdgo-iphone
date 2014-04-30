@@ -17,6 +17,7 @@
 #import "MBProgressHUD.h"
 //#import "UIScrollView+SVPullToRefresh.h"
 #import "AAPullToRefresh.h"
+#import "GDPostViewController.h"
 
 @interface GDHome2ViewController ()
 
@@ -59,7 +60,7 @@ GDManager *manager;
     [self.carouselLabel setFont:[UIFont systemFontOfSize:12]];
     
     // TODO: animation, hide the view
-    self.view.hidden = YES;
+//    self.view.hidden = YES;
     
     self.aaptr = [self.rootScrollView addPullToRefreshPosition:AAPullToRefreshPositionTop ActionHandler:^(AAPullToRefresh *v){
         // do something...
@@ -86,6 +87,8 @@ GDManager *manager;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     // get home info
     [manager fetchHomeInfo];
+    
+    [self.navigationController setNavigationBarHidden:YES];
 }
 
 - (void) prepareCarousel {
@@ -112,11 +115,15 @@ GDManager *manager;
     frame.size.height = 135 * self.homeInfo.videoList.count / 2;
     [self.videoListCollectionView setFrame: frame];
     self.videoListCollectionView.contentSize = frame.size;
-    
-    // [self.videoListCollectionView.collectionViewLayout invalidateLayout];
-    
+}
 
-    
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"ViewPost"]) {
+        if ([segue.destinationViewController isKindOfClass:[GDPostViewController class]]) {
+            GDPostViewController *gdpvc = (GDPostViewController *)segue.destinationViewController;
+            gdpvc.hidesBottomBarWhenPushed = YES;
+        }
+    }
 }
 
 #pragma mark - GDManagerDelegate
@@ -133,20 +140,14 @@ GDManager *manager;
     self.carouselPageControl.numberOfPages = homeInfo.carousel.count;
     [self.view bringSubviewToFront:self.carouselPageControl];
     
-    self.view.hidden = NO;
+//    self.view.hidden = NO;
    
     [self updatePageControlAccordingly];
     
-    
     [self prepareVideoList];
     
-    // update layout
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        
-//    });
-    
     self.rootScrollView.contentSize = CGSizeMake(320,
-                                                 self.videoListCollectionView.bounds.size.height + self.infiniteScrollView.bounds.size.height + 40);
+                                                 self.videoListCollectionView.bounds.size.height + self.infiniteScrollView.bounds.size.height + 60);
     [self.rootScrollView layoutSubviews];
     
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -209,24 +210,26 @@ GDManager *manager;
   
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:frame];
     [imageView setImageWithURL:[NSURL URLWithString:ci.imageURL]];
-    imageView.tag = index;
-    
     imageView.userInteractionEnabled = YES;
     
-    // TODO: bind tap event
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(carouselTapped:)];
     tap.numberOfTapsRequired = 1;
     tap.cancelsTouchesInView = YES;
-    imageView.userInteractionEnabled = YES;
-    [imageView addGestureRecognizer:tap];
+    
+    [page addGestureRecognizer:tap];
 
     [page.contentView addSubview:imageView];
+    
+    page.tag = index;
     
     return page;
 }
 
 - (void) carouselTapped:(UITapGestureRecognizer *)gesture {
-    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Carousel Item Clicked!"
+                                                    message: [NSString stringWithFormat:@"You clcked on %d!", gesture.view.tag]
+                                                   delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
 }
 
 - (void) updatePageControlAccordingly {
@@ -268,7 +271,7 @@ GDManager *manager;
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 84, 150, 21)];
     [label setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
-    [label setFont:[UIFont systemFontOfSize:11]];
+    [label setFont:[UIFont systemFontOfSize:12]];
     label.text = vli.title;
     label.tag = 10 + indexPath.row;
     [cell addSubview:label];
@@ -280,10 +283,16 @@ GDManager *manager;
     label2.opaque = false;
     label2.alpha = 0.7;
     [label2 setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
-    [label2 setFont:[UIFont systemFontOfSize:11]];
+    [label2 setFont:[UIFont systemFontOfSize:12]];
     label2.text = vli.title2;
     label2.tag = 30 + indexPath.row;
     [cell addSubview:label2];
+    
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(videoListTapped:)];
+//    tap.numberOfTapsRequired = 1;
+//    tap.cancelsTouchesInView = YES;
+//    imageView.userInteractionEnabled = YES;
+//    [imageView addGestureRecognizer:tap];
     
     [cell setNeedsLayout];
     
@@ -292,6 +301,16 @@ GDManager *manager;
 
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+//    GDPostViewController *gdpvc = [[GDPostViewController alloc] init];
+//    gdpvc.postId = 12345;
+//    
+    [self performSegueWithIdentifier:@"ViewPost" sender:self];
+    
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Video List Item Clicked!"
+//                                                    message: [NSString stringWithFormat:@"You clcked on %d!", indexPath.row]
+//                                                   delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//    [alert show];
+    
     
 }
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {

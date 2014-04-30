@@ -15,12 +15,12 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="ROR-jx-yyO" kind="relationship" relationship="viewControllers" id="4Rm-4a-nm8"/>
+                        <segue destination="e4r-XD-c0X" kind="relationship" relationship="viewControllers" id="jRc-BB-gDx"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7NB-8d-mvG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-324" y="532"/>
+            <point key="canvasLocation" x="-146" y="524"/>
         </scene>
         <!--Home2 View Controller-->
         <scene sceneID="ufC-wZ-h7g">
@@ -60,9 +60,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1334" y="298"/>
+            <point key="canvasLocation" x="2386" y="298"/>
         </scene>
-        <!--Home2 View Controller - 首页-->
+        <!--Home2 View Controller-->
         <scene sceneID="eOW-lM-YXb">
             <objects>
                 <viewController id="ROR-jx-yyO" customClass="GDHome2ViewController" sceneMemberID="viewController">
@@ -120,7 +120,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="首页" id="Xht-xJ-tOr"/>
+                    <navigationItem key="navigationItem" id="9WW-Lq-cUv"/>
                     <connections>
                         <outlet property="blurStatusBar" destination="4LN-ku-3rJ" id="Div-4C-3bs"/>
                         <outlet property="carouselLabel" destination="hfW-Gs-gbF" id="wvV-x2-lOX"/>
@@ -129,6 +129,7 @@
                         <outlet property="rootScrollView" destination="7Jf-ag-sZT" id="aOD-4v-Dtg"/>
                         <outlet property="searchDisplayController" destination="q11-ea-nPX" id="RIa-By-xx0"/>
                         <outlet property="videoListCollectionView" destination="Gyd-kA-TJq" id="Dal-yt-8L8"/>
+                        <segue destination="xx8-lO-ygV" kind="push" identifier="ViewPost" id="hco-Bl-9vV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FfW-gg-mjv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -141,7 +142,58 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="203" y="192"/>
+            <point key="canvasLocation" x="849" y="524"/>
+        </scene>
+        <!--Post View Controller-->
+        <scene sceneID="FHX-fo-FcE">
+            <objects>
+                <viewController id="xx8-lO-ygV" customClass="GDPostViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WpV-Mo-D9T">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" id="96L-M4-T4L">
+                                <rect key="frame" x="0.0" y="82" width="320" height="186"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </webView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EXq-IV-6VA">
+                                <rect key="frame" x="139" y="310" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ZPh-PX-5Ij"/>
+                    <connections>
+                        <outlet property="test" destination="EXq-IV-6VA" id="xuG-Ip-5DQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Cs-Pu-rqy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1304" y="524"/>
+        </scene>
+        <!--Navigation Controller - Item-->
+        <scene sceneID="9Ap-8l-N1e">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="e4r-XD-c0X" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="MQS-8J-uKm"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="AHZ-TG-GbJ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ROR-jx-yyO" kind="relationship" relationship="rootViewController" id="rcb-id-dEH"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tug-Mv-nZM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="323" y="524"/>
         </scene>
     </scenes>
     <color key="tintColor" red="1" green="0.21722669410000001" blue="0.15822746009999999" alpha="1" colorSpace="calibratedRGB"/>

@@ -29,6 +29,7 @@
 		0565B3C11908A52A00CCE77E /* GDInfoBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0565B3C01908A52A00CCE77E /* GDInfoBuilder.m */; };
 		0565B3C41908A7BA00CCE77E /* GDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0565B3C31908A7BA00CCE77E /* GDManager.m */; };
 		0565B3C8190904D000CCE77E /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0565B3C7190904D000CCE77E /* ImageIO.framework */; };
+		05742BAB1910B70D00893A7F /* GDPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05742BAA1910B70D00893A7F /* GDPostViewController.m */; };
 		773E1A7A51404A8B868FF807 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4857FB5C393B4558AF917BDA /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +79,8 @@
 		0565B3C21908A7BA00CCE77E /* GDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDManager.h; sourceTree = "<group>"; };
 		0565B3C31908A7BA00CCE77E /* GDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDManager.m; sourceTree = "<group>"; };
 		0565B3C7190904D000CCE77E /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		05742BA91910B70D00893A7F /* GDPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDPostViewController.h; sourceTree = "<group>"; };
+		05742BAA1910B70D00893A7F /* GDPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDPostViewController.m; sourceTree = "<group>"; };
 		2B967E099E454FEA98E0D6E3 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		4857FB5C393B4558AF917BDA /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -156,6 +159,8 @@
 				0530C96A190636E900CE51FA /* GDHome2ViewController.m */,
 				0565B3BF1908A52A00CCE77E /* GDInfoBuilder.h */,
 				0565B3C01908A52A00CCE77E /* GDInfoBuilder.m */,
+				05742BA91910B70D00893A7F /* GDPostViewController.h */,
+				05742BAA1910B70D00893A7F /* GDPostViewController.m */,
 			);
 			path = GdApp2;
 			sourceTree = "<group>";
@@ -369,6 +374,7 @@
 				0565B3B519089D4F00CCE77E /* VideoListItem.m in Sources */,
 				0530C96B190636E900CE51FA /* GDHome2ViewController.m in Sources */,
 				0565B3B91908A01E00CCE77E /* GDCommunicator.m in Sources */,
+				05742BAB1910B70D00893A7F /* GDPostViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
