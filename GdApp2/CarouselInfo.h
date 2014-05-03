@@ -11,6 +11,6 @@
 @interface CarouselInfo : NSObject
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *imageURL;
-@property (strong, nonatomic) NSNumber *objectType;
-@property (strong, nonatomic) NSString *objectId;
+@property int gdPostType;
+@property int postId;
 @end

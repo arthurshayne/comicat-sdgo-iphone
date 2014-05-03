@@ -14,8 +14,9 @@
 @property (strong, nonatomic) NSString *title2; // display on image if exists
 @property (strong, nonatomic) NSString *imageURL;
 @property int gdPostCategory;
-@property (strong, nonatomic) NSString *videoHost;
-@property (strong, nonatomic) NSString *videoId;
+//@property (strong, nonatomic) NSString *videoHost;
+//@property (strong, nonatomic) NSString *videoId;
+@property int postId;
 @property (strong, nonatomic) NSDate *created;
 @property (strong, nonatomic) NSString *createdBy;
 @end

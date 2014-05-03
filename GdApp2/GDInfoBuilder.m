@@ -38,8 +38,8 @@
         CarouselInfo *tempCi = [[CarouselInfo alloc] init];
         tempCi.title = [d objectForKey:@"title"];
         tempCi.imageURL = [d objectForKey:@"imageURL"];
-        tempCi.objectType = [d objectForKey:@"objectType"];
-        tempCi.objectId = [d objectForKey:@"objectId"];
+        tempCi.gdPostType = [(NSNumber *)[d objectForKey:@"gdPostType"] intValue];
+        tempCi.postId = [(NSNumber *)[d objectForKey:@"objectId"] intValue];
         [carousel addObject:tempCi];
     }
     homeInfo.carousel = carousel;
@@ -52,10 +52,12 @@
         tempVli.title = [d objectForKey:@"title"];
         tempVli.title2 = [d objectForKey:@"title2"];
         tempVli.imageURL = [d objectForKey:@"imageURL"];
-        tempVli.videoHost = [d objectForKey:@"videoHost"];
-        tempVli.videoId = [d objectForKey:@"videoId"];
-        // TODO: Add more?
-        
+//        tempVli.videoHost = [d objectForKey:@"videoHost"];
+//        tempVli.videoId = [d objectForKey:@"videoId"];
+        tempVli.gdPostCategory = [(NSNumber *)[d objectForKey:@"gdPostCategory"] intValue];
+        tempVli.postId = [(NSNumber *)[d objectForKey:@"postId"] intValue];
+        tempVli.created = [dateFormatter dateFromString:(NSString *)[d objectForKey:@"created"]];
+
         [videoList addObject:tempVli];
     }
     homeInfo.videoList = videoList;

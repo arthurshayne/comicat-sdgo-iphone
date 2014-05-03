@@ -40,6 +40,7 @@
 @implementation GDHome2ViewController
 
 GDManager *manager;
+int postIdForSegue;
 
 - (void)viewDidLoad {
     NSLog(@"viewDidLoad");
@@ -69,8 +70,10 @@ GDManager *manager;
     }];
     self.aaptr.imageIcon = [UIImage imageNamed:@"halo"];
     self.aaptr.threshold = 60.0f;
+    self.aaptr.borderWidth = 0;
     
     [self.videoListCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"VideoListCell"];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -121,6 +124,7 @@ GDManager *manager;
     if ([segue.identifier isEqualToString:@"ViewPost"]) {
         if ([segue.destinationViewController isKindOfClass:[GDPostViewController class]]) {
             GDPostViewController *gdpvc = (GDPostViewController *)segue.destinationViewController;
+            gdpvc.postId = postIdForSegue;
             gdpvc.hidesBottomBarWhenPushed = YES;
         }
     }
@@ -226,10 +230,12 @@ GDManager *manager;
 }
 
 - (void) carouselTapped:(UITapGestureRecognizer *)gesture {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Carousel Item Clicked!"
-                                                    message: [NSString stringWithFormat:@"You clcked on %d!", gesture.view.tag]
-                                                   delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Carousel Item Clicked!"
+//                                                    message: [NSString stringWithFormat:@"You clcked on %d!", gesture.view.tag]
+//                                                   delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//    [alert show];
+
+    
 }
 
 - (void) updatePageControlAccordingly {
@@ -303,7 +309,10 @@ GDManager *manager;
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 //    GDPostViewController *gdpvc = [[GDPostViewController alloc] init];
 //    gdpvc.postId = 12345;
-//    
+//
+    VideoListItem *vli = [self.homeInfo.videoList objectAtIndex: indexPath.row];
+    postIdForSegue = vli.postId;
+    
     [self performSegueWithIdentifier:@"ViewPost" sender:self];
     
 //    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Video List Item Clicked!"

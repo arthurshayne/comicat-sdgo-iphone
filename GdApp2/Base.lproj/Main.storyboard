@@ -60,7 +60,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2386" y="298"/>
+            <point key="canvasLocation" x="2912" y="298"/>
         </scene>
         <!--Home2 View Controller-->
         <scene sceneID="eOW-lM-YXb">
@@ -144,32 +144,28 @@
             </objects>
             <point key="canvasLocation" x="849" y="524"/>
         </scene>
-        <!--Post View Controller-->
+        <!--Post View Controller - 视频-->
         <scene sceneID="FHX-fo-FcE">
             <objects>
-                <viewController id="xx8-lO-ygV" customClass="GDPostViewController" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="xx8-lO-ygV" customClass="GDPostViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WpV-Mo-D9T">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" id="96L-M4-T4L">
-                                <rect key="frame" x="0.0" y="82" width="320" height="186"/>
+                                <rect key="frame" x="0.0" y="72" width="320" height="200"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <dataDetectorType key="dataDetectorTypes"/>
                             </webView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EXq-IV-6VA">
-                                <rect key="frame" x="139" y="310" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="ZPh-PX-5Ij"/>
+                    <navigationItem key="navigationItem" title="视频" id="ZPh-PX-5Ij">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="WWP-nM-kAZ"/>
+                    </navigationItem>
                     <connections>
-                        <outlet property="test" destination="EXq-IV-6VA" id="xuG-Ip-5DQ"/>
+                        <outlet property="videoPlayer" destination="96L-M4-T4L" id="W8H-4X-UYq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Cs-Pu-rqy" userLabel="First Responder" sceneMemberID="firstResponder"/>

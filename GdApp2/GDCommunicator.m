@@ -12,10 +12,14 @@
 @implementation GDCommunicator
 
 - (void)fetchHomeInfo {
-    NSString *urlAsString = [NSString stringWithFormat:@"http://www.sdgundam.cn/app/test.json?r=%d", rand()];
+    NSString *urlAsString = @"http://www.sdgundam.cn/services/app.ashx";
     NSURL *url = [[NSURL alloc] initWithString:urlAsString];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    NSString *postString = @"a=home&p=1&s=2";
+    [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
     
-    [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:url]
+    [NSURLConnection sendAsynchronousRequest:request
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
                                if (connectionError) {
@@ -24,5 +28,9 @@
                                    [self.delegate receivedHomeInfoJSON:data];
                                }
                            }];
+}
+
+- (void) fetchPostVideoInfo {
+    
 }
 @end
