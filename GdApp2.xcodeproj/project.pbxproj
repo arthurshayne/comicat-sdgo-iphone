@@ -30,6 +30,8 @@
 		0565B3C41908A7BA00CCE77E /* GDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0565B3C31908A7BA00CCE77E /* GDManager.m */; };
 		0565B3C8190904D000CCE77E /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0565B3C7190904D000CCE77E /* ImageIO.framework */; };
 		05742BAB1910B70D00893A7F /* GDPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05742BAA1910B70D00893A7F /* GDPostViewController.m */; };
+		05A417C21915027B0040A679 /* GDPostCategoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A417C11915027B0040A679 /* GDPostCategoryView.m */; };
+		05A417C71915186D0040A679 /* NSDate+PrettyDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A417C61915186D0040A679 /* NSDate+PrettyDate.m */; };
 		773E1A7A51404A8B868FF807 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4857FB5C393B4558AF917BDA /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +83,10 @@
 		0565B3C7190904D000CCE77E /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		05742BA91910B70D00893A7F /* GDPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDPostViewController.h; sourceTree = "<group>"; };
 		05742BAA1910B70D00893A7F /* GDPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDPostViewController.m; sourceTree = "<group>"; };
+		05A417C01915027B0040A679 /* GDPostCategoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDPostCategoryView.h; sourceTree = "<group>"; };
+		05A417C11915027B0040A679 /* GDPostCategoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDPostCategoryView.m; sourceTree = "<group>"; };
+		05A417C51915186D0040A679 /* NSDate+PrettyDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+PrettyDate.h"; sourceTree = "<group>"; };
+		05A417C61915186D0040A679 /* NSDate+PrettyDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+PrettyDate.m"; sourceTree = "<group>"; };
 		2B967E099E454FEA98E0D6E3 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		4857FB5C393B4558AF917BDA /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -149,6 +155,8 @@
 		05023ADF19052791001D04F0 /* GdApp2 */ = {
 			isa = PBXGroup;
 			children = (
+				05A417C31915182E0040A679 /* lib */,
+				05A417BF191502690040A679 /* View */,
 				0565B3BA1908A41E00CCE77E /* Manager */,
 				0565B3AC19089C4000CCE77E /* Model */,
 				0565B3AA1908999500CCE77E /* GDCommunication */,
@@ -227,6 +235,32 @@
 				0565B3C31908A7BA00CCE77E /* GDManager.m */,
 			);
 			name = Manager;
+			sourceTree = "<group>";
+		};
+		05A417BF191502690040A679 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				05A417C01915027B0040A679 /* GDPostCategoryView.h */,
+				05A417C11915027B0040A679 /* GDPostCategoryView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		05A417C31915182E0040A679 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				05A417C4191518350040A679 /* NSDate+PrettyDate */,
+			);
+			name = lib;
+			sourceTree = "<group>";
+		};
+		05A417C4191518350040A679 /* NSDate+PrettyDate */ = {
+			isa = PBXGroup;
+			children = (
+				05A417C51915186D0040A679 /* NSDate+PrettyDate.h */,
+				05A417C61915186D0040A679 /* NSDate+PrettyDate.m */,
+			);
+			name = "NSDate+PrettyDate";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -369,11 +403,13 @@
 				0565B3AF19089C6700CCE77E /* HomeInfo.m in Sources */,
 				0565B3C11908A52A00CCE77E /* GDInfoBuilder.m in Sources */,
 				0565B3C41908A7BA00CCE77E /* GDManager.m in Sources */,
+				05A417C21915027B0040A679 /* GDPostCategoryView.m in Sources */,
 				05023AE619052791001D04F0 /* main.m in Sources */,
 				05023AEA19052791001D04F0 /* GDAppDelegate.m in Sources */,
 				0565B3B519089D4F00CCE77E /* VideoListItem.m in Sources */,
 				0530C96B190636E900CE51FA /* GDHome2ViewController.m in Sources */,
 				0565B3B91908A01E00CCE77E /* GDCommunicator.m in Sources */,
+				05A417C71915186D0040A679 /* NSDate+PrettyDate.m in Sources */,
 				05742BAB1910B70D00893A7F /* GDPostViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

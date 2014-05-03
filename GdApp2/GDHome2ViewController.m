@@ -18,6 +18,8 @@
 //#import "UIScrollView+SVPullToRefresh.h"
 #import "AAPullToRefresh.h"
 #import "GDPostViewController.h"
+#import "GDPostCategoryView.h"
+#import "NSDate+PrettyDate.h"
 
 @interface GDHome2ViewController ()
 
@@ -299,6 +301,17 @@ int postIdForSegue;
 //    tap.cancelsTouchesInView = YES;
 //    imageView.userInteractionEnabled = YES;
 //    [imageView addGestureRecognizer:tap];
+    
+    GDPostCategoryView *postCategory = [[GDPostCategoryView alloc] initWithFrame:CGRectMake(0, 106, 30, 15)];
+    postCategory.gdPostCategory = vli.gdPostCategory;
+    [cell addSubview:postCategory];
+    
+    UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(36, 105, 110, 17)];
+    [dateLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
+    [dateLabel setFont:[UIFont systemFontOfSize:11]];
+    dateLabel.textColor = [UIColor grayColor];
+    dateLabel.text = [vli.created prettyDate];
+    [cell addSubview:dateLabel];
     
     [cell setNeedsLayout];
     
