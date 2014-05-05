@@ -26,7 +26,7 @@
         self.categoryTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 30, 15)];
         
         self.categoryTextLabel.backgroundColor = [UIColor clearColor];
-        self.categoryTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+//        self.categoryTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
         self.categoryTextLabel.font = [UIFont systemFontOfSize:10];
         self.categoryTextLabel.textAlignment = NSTextAlignmentCenter;
         

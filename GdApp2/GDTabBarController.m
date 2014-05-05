@@ -34,6 +34,17 @@
     UITabBarItem *tabBarItem3 = [self.tabBar.items objectAtIndex:3];
     tabBarItem3.image = [[UIImage imageNamed:@"tab-unit"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     tabBarItem3.selectedImage = [[UIImage imageNamed:@"tab-unit-selected"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+
+    for (UITabBarItem *item in self.tabBar.items) {
+        [self setTabBarTextColor:item];
+    }
+}
+
+- (void) setTabBarTextColor:(UITabBarItem *)tabBarItem {
+    UIColor *tintColor = [UIColor colorWithRed:1 green:0.29 blue:0.27 alpha:1];
+    
+    [tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor grayColor], NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
+    [tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:tintColor, NSForegroundColorAttributeName,nil] forState:UIControlStateHighlighted];
 }
 
 

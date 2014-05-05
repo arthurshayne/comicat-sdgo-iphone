@@ -60,7 +60,7 @@ int postIdForSegue;
     self.carouselLabel.opaque = false;
     self.carouselLabel.alpha = 0.7;
     [self.carouselLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
-    [self.carouselLabel setFont:[UIFont systemFontOfSize:12]];
+    [self.carouselLabel setFont:[UIFont systemFontOfSize:14]];
     
     // TODO: animation, hide the view
 //    self.view.hidden = YES;
@@ -70,12 +70,13 @@ int postIdForSegue;
         [manager fetchHomeInfo];
         // then must call stopIndicatorAnimation method.
     }];
+    // don't display at once
+    [self.aaptr stopIndicatorAnimation];
     self.aaptr.imageIcon = [UIImage imageNamed:@"halo"];
     self.aaptr.threshold = 60.0f;
     self.aaptr.borderWidth = 0;
     
     [self.videoListCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"VideoListCell"];
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -90,10 +91,9 @@ int postIdForSegue;
     [super viewWillAppear:animated];
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
     // get home info
     [manager fetchHomeInfo];
-    
-    [self.navigationController setNavigationBarHidden:YES];
 }
 
 - (void) prepareCarousel {
@@ -106,11 +106,6 @@ int postIdForSegue;
     self.infiniteScrollView.pageIndex = 0;
 }
 
-- (IBAction)updateButton:(id)sender {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    // get home info
-    [manager fetchHomeInfo];
-}
 
 - (void) prepareVideoList {
     self.videoListCollectionView.dataSource = self;

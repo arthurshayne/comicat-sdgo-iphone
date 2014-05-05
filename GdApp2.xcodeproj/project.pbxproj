@@ -20,6 +20,7 @@
 		05023AFB19052791001D04F0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05023ADD19052791001D04F0 /* UIKit.framework */; };
 		05023B0319052791001D04F0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 05023B0119052791001D04F0 /* InfoPlist.strings */; };
 		05023B0519052791001D04F0 /* GdApp2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 05023B0419052791001D04F0 /* GdApp2Tests.m */; };
+		0506D4BD19171DC100EFAC83 /* GDTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0506D4BC19171DC100EFAC83 /* GDTabBarController.m */; };
 		05191567190C16AE007439EA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05191566190C16AE007439EA /* QuartzCore.framework */; };
 		0530C96B190636E900CE51FA /* GDHome2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0530C96A190636E900CE51FA /* GDHome2ViewController.m */; };
 		0565B3AF19089C6700CCE77E /* HomeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0565B3AE19089C6700CCE77E /* HomeInfo.m */; };
@@ -63,6 +64,8 @@
 		05023B0019052791001D04F0 /* GdApp2Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GdApp2Tests-Info.plist"; sourceTree = "<group>"; };
 		05023B0219052791001D04F0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		05023B0419052791001D04F0 /* GdApp2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GdApp2Tests.m; sourceTree = "<group>"; };
+		0506D4BB19171DC100EFAC83 /* GDTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDTabBarController.h; sourceTree = "<group>"; };
+		0506D4BC19171DC100EFAC83 /* GDTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDTabBarController.m; sourceTree = "<group>"; };
 		05191566190C16AE007439EA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		0530C969190636E900CE51FA /* GDHome2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDHome2ViewController.h; sourceTree = "<group>"; };
 		0530C96A190636E900CE51FA /* GDHome2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDHome2ViewController.m; sourceTree = "<group>"; };
@@ -155,6 +158,7 @@
 		05023ADF19052791001D04F0 /* GdApp2 */ = {
 			isa = PBXGroup;
 			children = (
+				0506D4BA19171D8C00EFAC83 /* Controller */,
 				05A417C31915182E0040A679 /* lib */,
 				05A417BF191502690040A679 /* View */,
 				0565B3BA1908A41E00CCE77E /* Manager */,
@@ -202,6 +206,15 @@
 				05023B0119052791001D04F0 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0506D4BA19171D8C00EFAC83 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0506D4BB19171DC100EFAC83 /* GDTabBarController.h */,
+				0506D4BC19171DC100EFAC83 /* GDTabBarController.m */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 		0565B3AA1908999500CCE77E /* GDCommunication */ = {
@@ -402,6 +415,7 @@
 				0565B3B219089CA400CCE77E /* CarouselInfo.m in Sources */,
 				0565B3AF19089C6700CCE77E /* HomeInfo.m in Sources */,
 				0565B3C11908A52A00CCE77E /* GDInfoBuilder.m in Sources */,
+				0506D4BD19171DC100EFAC83 /* GDTabBarController.m in Sources */,
 				0565B3C41908A7BA00CCE77E /* GDManager.m in Sources */,
 				05A417C21915027B0040A679 /* GDPostCategoryView.m in Sources */,
 				05023AE619052791001D04F0 /* main.m in Sources */,
