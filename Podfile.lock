@@ -7,7 +7,7 @@ PODS:
   - SDWebImage/Core (3.6)
 
 DEPENDENCIES:
-  - AAPullToRefresh
+  - AAPullToRefresh (~> 1.0.2)
   - GBInfiniteScrollView (~> 1.1)
   - MBProgressHUD (~> 0.8)
   - SDWebImage (~> 3.6)

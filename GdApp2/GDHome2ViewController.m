@@ -7,19 +7,24 @@
 //
 
 #import "GDHome2ViewController.h"
+
+#import "GDManagerFactory.h"
 #import "GDManager.h"
-#import "GDCommunicator.h"
 #import "GDInfoBuilder.h"
+
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "AAPullToRefresh.h"
+#import "MBProgressHUD.h"
+#import "NSDate+PrettyDate.h"
+
 #import "CarouselInfo.h"
 #import "VideoListItem.h"
 #import "HomeInfo.h"
-#import "MBProgressHUD.h"
-//#import "UIScrollView+SVPullToRefresh.h"
-#import "AAPullToRefresh.h"
+
+#import "GDVideoViewController.h"
 #import "GDPostViewController.h"
+
 #import "GDPostCategoryView.h"
-#import "NSDate+PrettyDate.h"
 
 @interface GDHome2ViewController ()
 
@@ -35,7 +40,6 @@
 @property (weak, nonatomic) AAPullToRefresh *aaptr;
 
 @property (weak, nonatomic) IBOutlet UICollectionView *videoListCollectionView;
-@property (weak, nonatomic) IBOutlet UIView *blurStatusBar;
 
 @end
 
@@ -50,11 +54,8 @@ int postIdForSegue;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    manager = [[GDManager alloc] init];
-    manager.communicator = [[GDCommunicator alloc] init];
-    manager.communicator.delegate = manager;
-    manager.delegate = self;
-  
+    manager = [GDManagerFactory getGDManagerWithDelegate:self];
+    
     self.carouselLabel.textColor = [UIColor whiteColor];
     self.carouselLabel.backgroundColor = [UIColor blackColor];
     self.carouselLabel.opaque = false;
@@ -66,6 +67,7 @@ int postIdForSegue;
 //    self.view.hidden = YES;
     
     self.aaptr = [self.rootScrollView addPullToRefreshPosition:AAPullToRefreshPositionTop ActionHandler:^(AAPullToRefresh *v){
+        NSLog(@"aaptr fetchHomeInfo");
         // do something...
         [manager fetchHomeInfo];
         // then must call stopIndicatorAnimation method.
@@ -77,6 +79,13 @@ int postIdForSegue;
     self.aaptr.borderWidth = 0;
     
     [self.videoListCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"VideoListCell"];
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    // get home info
+    NSLog(@"selfDidLoad fetchHomeInfo");
+    [manager fetchHomeInfo];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -90,13 +99,16 @@ int postIdForSegue;
     
     [super viewWillAppear:animated];
     
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-    // get home info
-    [manager fetchHomeInfo];
+    if (!self.view.window) {
+            [self.infiniteScrollView stopAutoScroll];
+    }
 }
 
-- (void) prepareCarousel {
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.infiniteScrollView stopAutoScroll];
+}
+
+- (void)prepareCarousel {
     self.infiniteScrollView.infiniteScrollViewDataSource = self;
     self.infiniteScrollView.infiniteScrollViewDelegate = self;
     
@@ -118,14 +130,24 @@ int postIdForSegue;
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"ViewPost"]) {
-        if ([segue.destinationViewController isKindOfClass:[GDPostViewController class]]) {
-            GDPostViewController *gdpvc = (GDPostViewController *)segue.destinationViewController;
+    if ([segue.identifier isEqualToString:@"ViewVideo"]) {
+        if ([segue.destinationViewController isKindOfClass:[GDVideoViewController class]]) {
+            GDVideoViewController *gdpvc = (GDVideoViewController *)segue.destinationViewController;
             gdpvc.postId = postIdForSegue;
             gdpvc.hidesBottomBarWhenPushed = YES;
         }
+    } else if([segue.identifier isEqualToString:@"ViewPost"])  {
+        if ([segue.destinationViewController isKindOfClass:[GDPostViewController class]]) {
+            GDVideoViewController *gdvvc = (GDVideoViewController *)segue.destinationViewController;
+            gdvvc.postId = postIdForSegue;
+        }
     }
 }
+
+- (IBAction)prepareForSearchUnit:(id)sender {
+    
+}
+
 
 #pragma mark - GDManagerDelegate
 
@@ -231,8 +253,15 @@ int postIdForSegue;
 //                                                    message: [NSString stringWithFormat:@"You clcked on %d!", gesture.view.tag]
 //                                                   delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 //    [alert show];
-
     
+    CarouselInfo *vli = [self.homeInfo.carousel objectAtIndex: gesture.view.tag];
+    if (vli.gdPostType == 1) {
+        postIdForSegue = vli.postId;
+        [self performSegueWithIdentifier:@"ViewPost" sender:self];
+    } else if (vli.gdPostType == 2) {
+        postIdForSegue = vli.postId;
+        [self performSegueWithIdentifier:@"ViewVideo" sender:self];
+    }
 }
 
 - (void) updatePageControlAccordingly {
@@ -256,7 +285,7 @@ int postIdForSegue;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"indexPath.row: %d", indexPath.row);
+//    NSLog(@"indexPath.row: %d", indexPath.row);
     
     VideoListItem *vli = (VideoListItem*)[self.homeInfo.videoList objectAtIndex:indexPath.row];
 //    NSLog(@"should: %@, %@", vli.title, vli.title2);
@@ -315,13 +344,13 @@ int postIdForSegue;
 
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-//    GDPostViewController *gdpvc = [[GDPostViewController alloc] init];
+//    GDVideoViewController *gdpvc = [[GDVideoViewController alloc] init];
 //    gdpvc.postId = 12345;
 //
     VideoListItem *vli = [self.homeInfo.videoList objectAtIndex: indexPath.row];
     postIdForSegue = vli.postId;
     
-    [self performSegueWithIdentifier:@"ViewPost" sender:self];
+    [self performSegueWithIdentifier:@"ViewVideo" sender:self];
     
 //    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Video List Item Clicked!"
 //                                                    message: [NSString stringWithFormat:@"You clcked on %d!", indexPath.row]

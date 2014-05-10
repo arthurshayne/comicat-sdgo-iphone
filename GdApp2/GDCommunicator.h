@@ -14,4 +14,6 @@
 @property (weak, nonatomic) id<GDCommunicatorDelegate> delegate;
 
 - (void)fetchHomeInfo;
+- (void)fetchPostInfo: (int)postId;
+- (void)searchUnitsWithKeyword: (NSString *)keyword;
 @end
