@@ -1,0 +1,36 @@
+
+/* Class = "IBUIButton"; normalTitle = "Search"; ObjectID = "5xK-Gc-3Z8"; */
+"5xK-Gc-3Z8.normalTitle" = "搜索机体";
+
+/* Class = "IBUILabel"; text = "机体"; ObjectID = "69j-Xh-VVv"; */
+"69j-Xh-VVv.text" = "机体";
+
+/* Class = "IBUITabBarItem"; title = "机体"; ObjectID = "BkR-fS-Zbe"; */
+"BkR-fS-Zbe.title" = "机体";
+
+/* Class = "IBUITabBarItem"; title = "首页"; ObjectID = "MQS-8J-uKm"; */
+"MQS-8J-uKm.title" = "首页";
+
+/* Class = "IBUISearchBar"; placeholder = "昵称或机体名"; ObjectID = "NBq-A2-n0L"; */
+"NBq-A2-n0L.placeholder" = "昵称或机体名";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "Qsd-Cv-dNw"; */
+"Qsd-Cv-dNw.text" = "Label";
+
+/* Class = "IBUINavigationItem"; title = "新闻"; ObjectID = "XII-Ug-lUS"; */
+"XII-Ug-lUS.title" = "新闻";
+
+/* Class = "IBUINavigationItem"; title = "视频"; ObjectID = "ZPh-PX-5Ij"; */
+"ZPh-PX-5Ij.title" = "视频";
+
+/* Class = "IBUITabBarItem"; title = "新闻"; ObjectID = "dSR-1G-xwV"; */
+"dSR-1G-xwV.title" = "新闻";
+
+/* Class = "IBUISearchBar"; placeholder = "机体名或昵称"; ObjectID = "eTE-70-Dgt"; */
+"eTE-70-Dgt.placeholder" = "机体名或昵称";
+
+/* Class = "IBUITabBarItem"; title = "视频"; ObjectID = "hT8-b6-CvE"; */
+"hT8-b6-CvE.title" = "视频";
+
+/* Class = "IBUINavigationItem"; title = "机体"; ObjectID = "x98-4Y-yRO"; */
+"x98-4Y-yRO.title" = "机体";

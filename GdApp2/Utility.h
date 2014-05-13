@@ -10,4 +10,5 @@
 
 @interface Utility : NSObject
 + (UIColor *)UIColorFromRGB:(int)rgbHex;
++ (NSString *)dateStringByDay:(NSDate *)date;
 @end

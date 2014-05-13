@@ -9,13 +9,15 @@
 #import <Foundation/Foundation.h>
 
 @protocol GDCommunicatorDelegate <NSObject>
-@optional
 - (void)receivedHomeInfoJSON: (NSData *)objectNotation;
 - (void)fetchHomeInfoFailedWithError: (NSError *)error;
 
 - (void)receivedPostInfoJSON: (NSData *)objectNotation;
 - (void)fetchPostInfoFailedWithError: (NSError *)error;
 
-- (void)receivedUnitSearchResults: (NSData *)objectNotation;
+- (void)receivedUnitSearchResultsJSON: (NSData *)objectNotation;
 - (void)searchUnitsWithError:(NSError *)error;
+
+- (void)receivedPostListJSON: (NSData *)objectNotation;
+- (void)fetchPostListWithError:(NSError *)error;
 @end

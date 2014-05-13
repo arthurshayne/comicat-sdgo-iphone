@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GDPostCategoryViewDelegate.h"
 
-@interface GDPostCategoryView : UIView
+@interface GDPostCategoryView : UIScrollView
 
 @property (nonatomic) int gdPostCategory;
+@property (weak, nonatomic) id<GDPostCategoryViewDelegate> delegate;
+- (id)initWithFrame:(CGRect)frame fontSize:(CGFloat)fontSize;
 
 @end

@@ -14,4 +14,5 @@
 + (HomeInfo *) homeInfoFromJSON: (NSData *)objectNotation error:(NSError **)error;
 + (PostInfo *) postInfoFromJSON: (NSData *)objectNotation error:(NSError **)error;
 + (NSArray *) unitInfoListFromJSON: (NSData *)objectNotation error:(NSError **)error;
++ (NSArray *)postListFromJSON:(NSData *)objectNotation gdCategory:(int *)category error:(NSError **)error;
 @end

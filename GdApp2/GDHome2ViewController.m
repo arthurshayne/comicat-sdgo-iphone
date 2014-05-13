@@ -11,6 +11,7 @@
 #import "GDManagerFactory.h"
 #import "GDManager.h"
 #import "GDInfoBuilder.h"
+#import "Utility.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "AAPullToRefresh.h"
@@ -98,13 +99,13 @@ int postIdForSegue;
     NSLog(@"viewWillAppear");
     
     [super viewWillAppear:animated];
-    
-    if (!self.view.window) {
-            [self.infiniteScrollView stopAutoScroll];
-    }
+
+    [self.infiniteScrollView startAutoScroll];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+
     [self.infiniteScrollView stopAutoScroll];
 }
 
@@ -326,7 +327,7 @@ int postIdForSegue;
 //    imageView.userInteractionEnabled = YES;
 //    [imageView addGestureRecognizer:tap];
     
-    GDPostCategoryView *postCategory = [[GDPostCategoryView alloc] initWithFrame:CGRectMake(0, 106, 30, 15)];
+    GDPostCategoryView *postCategory = [[GDPostCategoryView alloc] initWithFrame:CGRectMake(0, 106, 30, 15) fontSize:10];
     postCategory.gdPostCategory = vli.gdPostCategory;
     [cell addSubview:postCategory];
     
@@ -334,7 +335,7 @@ int postIdForSegue;
     [dateLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
     [dateLabel setFont:[UIFont systemFontOfSize:11]];
     dateLabel.textColor = [UIColor grayColor];
-    dateLabel.text = [vli.created prettyDate];
+    dateLabel.text = [Utility dateStringByDay:vli.created];
     [cell addSubview:dateLabel];
     
     [cell setNeedsLayout];

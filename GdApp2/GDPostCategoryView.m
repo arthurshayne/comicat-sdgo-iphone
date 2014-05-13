@@ -15,129 +15,140 @@
 
 @property (strong, nonatomic) UILabel *categoryTextLabel;
 
+//@property (strong, nonatomic) NSDictionary *gdCategoryTexts;
+//@property (strong, nonatomic) NSDictionary *gdCategoryGradientColors;
+
 @end
 
 @implementation GDPostCategoryView
 
-- (id)initWithFrame:(CGRect)frame
+static NSDictionary *_gdCategoryTexts;
+- (NSDictionary *)gdCategoryTexts {
+    if (!_gdCategoryTexts) {
+        _gdCategoryTexts = [NSDictionary dictionaryWithObjectsAndKeys:
+                            @"公告", @1,
+                            @"任务", @2,
+                            @"机体", @4,
+                            @"经验", @8,
+                            @"国服", @16,
+                            @"韩服", @32,
+                            @"台服", @64,
+                            @"日服", @128,
+                            @"港服", @256,
+                            @"美服", @512,
+                            @"泰服", @1024,
+                            @"海服", @2048,
+                            nil];
+    }
+    return _gdCategoryTexts;
+}
+
+static NSDictionary *_gdCategoryGradientColors;
+- (NSDictionary *)gdCategoryGradientColors {
+    if (!_gdCategoryGradientColors) {
+        _gdCategoryGradientColors = [NSDictionary dictionaryWithObjectsAndKeys:
+                                     [NSArray arrayWithObjects:(id)UIColorFromRGB(0x6F96C1).CGColor, (id)UIColorFromRGB(0x2F5587).CGColor, nil], @1,
+                                     [NSArray arrayWithObjects:(id)UIColorFromRGB(0xFEFEFE).CGColor, (id)UIColorFromRGB(0xC6C6C6).CGColor, nil], @2,
+                                     [NSArray arrayWithObjects:(id)UIColorFromRGB(0xC3B150).CGColor, (id)UIColorFromRGB(0x7F6C20).CGColor, nil], @4,
+                                     [NSArray arrayWithObjects:(id)UIColorFromRGB(0x7259C3).CGColor, (id)UIColorFromRGB(0x391A8F).CGColor, nil], @8,
+                                     [NSArray arrayWithObjects:(id)UIColorFromRGB(0x72BB7F).CGColor, (id)UIColorFromRGB(0x368142).CGColor, nil], @16,
+                                     [NSArray arrayWithObjects:(id)UIColorFromRGB(0x505050).CGColor, (id)UIColorFromRGB(0x262626).CGColor, nil], @32,
+                                     [NSArray arrayWithObjects:(id)UIColorFromRGB(0xE488B3).CGColor, (id)UIColorFromRGB(0xDB6195).CGColor, nil], @64,
+                                     [NSArray arrayWithObjects:(id)UIColorFromRGB(0x63C3C0).CGColor, (id)UIColorFromRGB(0x368986).CGColor, nil], @128,
+                                     [NSArray arrayWithObjects:(id)UIColorFromRGB(0xB765A6).CGColor, (id)UIColorFromRGB(0x7E2B6C).CGColor, nil], @256,
+                                     [NSArray arrayWithObjects:(id)UIColorFromRGB(0x364A7C).CGColor, (id)UIColorFromRGB(0x172345).CGColor, nil], @512,
+                                     [NSArray arrayWithObjects:(id)UIColorFromRGB(0x806B35).CGColor, (id)UIColorFromRGB(0x443713).CGColor, nil], @1024,
+                                     [NSArray arrayWithObjects:(id)UIColorFromRGB(0x784932).CGColor, (id)UIColorFromRGB(0x422211).CGColor, nil], @2048,
+                                     nil];
+    }
+    return _gdCategoryGradientColors;
+}
+
+- (id)initWithFrame:(CGRect)frame fontSize:(CGFloat)fontSize
 {
     self = [super initWithFrame:frame];
+    
     if (self) {
-        self.categoryTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 30, 15)];
+        self.userInteractionEnabled = YES;
+        
+        self.categoryTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         
         self.categoryTextLabel.backgroundColor = [UIColor clearColor];
-//        self.categoryTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-        self.categoryTextLabel.font = [UIFont systemFontOfSize:10];
+        //        self.categoryTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+        //        self.categoryTextLabel.adjustsFontSizeToFitWidth = YES;
+        self.categoryTextLabel.font = [UIFont systemFontOfSize:fontSize];
         self.categoryTextLabel.textAlignment = NSTextAlignmentCenter;
+        self.categoryTextLabel.userInteractionEnabled = YES;
+        //        self.categoryTextLabel.multipleTouchEnabled = YES;
         
         [self addSubview:self.categoryTextLabel];
     }
     return self;
 }
 
-- (void) setGdPostCategory:(int)gdPostCategory {
+- (void)setGdPostCategory:(int)gdPostCategory {
     _gdPostCategory = gdPostCategory;
     
-    [self.layer addSublayer:[self getGdPostCategoryBackground:gdPostCategory]];
-    self.layer.cornerRadius = 3;
-    self.layer.masksToBounds = YES;
+    CAGradientLayer *layer = [self getGdPostCategoryBackground:gdPostCategory];
+    
+    // [self.layer insertSublayer:layer atIndex:0];
+    [self.layer addSublayer:layer];
     
     self.categoryTextLabel.text = [self getGdPostCategoryText:gdPostCategory];
     self.categoryTextLabel.textColor = [UIColor whiteColor];
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelTapped:)];
+    tap.numberOfTapsRequired = 1;
+    tap.cancelsTouchesInView = YES;
+    
+    [self.categoryTextLabel addGestureRecognizer:tap];
+    
     [self bringSubviewToFront:self.categoryTextLabel];
 }
 
-- (NSString *) getGdPostCategoryText:(int)gdPostCategory {
-    // TODO: Need for i18n
-    switch (gdPostCategory) {
-        case 1:
-            return @"公告";
-        case 2:
-            return @"任务";
-        case 4:
-            return @"机体";
-        case 8:
-            return @"经验";
-        case 16:
-            return @"国服";
-        case 32:
-            return @"韩服";
-        case 64:
-            return @"台服";
-        case 128:
-            return @"日服";
-        case 256:
-            return @"港服";
-        case 512:
-            return @"美服";
-        case 1024:
-            return @"泰服";
-        case 2048:
-            return @"海服";
-    }
-    return @"";
+- (void) labelTapped:(UITapGestureRecognizer *)gesture {
+    [self.delegate tappedOnCategoryViewWithCategory:self.gdPostCategory];
 }
 
+- (NSString *) getGdPostCategoryText:(int)gdPostCategory {
+    return [self.gdCategoryTexts objectForKey:[NSNumber numberWithInt:gdPostCategory]];
+}
+
+static NSCache *categoryLayerCache;
 - (CAGradientLayer *) getGdPostCategoryBackground:(int)gdPostCategory {
+    //    if (categoryLayerCache == nil) {
+    //        categoryLayerCache = [[NSCache alloc] init];
+    //        categoryLayerCache.countLimit = 200;
+    //    }
+    //
+    //    NSString *cacheKey =
+    //        [NSString stringWithFormat:@"%d:%f:%f:%d", gdPostCategory, self.frame.size.width, self.frame.size.height, self.tag];
+    //
+    //    CAGradientLayer *cached = [categoryLayerCache objectForKey:cacheKey];
+    //    if (cached != nil) {
+    //        //NSLog(@"Cached forKey:%@", cacheKey);
+    //        return cached;
+    //    }
+    //
+    //    NSLog(@"getGdPostCategoryBackground %d", gdPostCategory);
     CAGradientLayer *gradient = [CAGradientLayer layer];
-    NSArray *colors;
-    switch (gdPostCategory) {
-        case 1:
-            // 公告
-            colors = [NSArray arrayWithObjects:(id)UIColorFromRGB(0x6F96C1).CGColor, (id)UIColorFromRGB(0x2F5587).CGColor, nil];
-            break;
-        case 2:
-            // 任务
-            colors = [NSArray arrayWithObjects:(id)UIColorFromRGB(0xFEFEFE).CGColor, (id)UIColorFromRGB(0xC6C6C6).CGColor, nil];
-            break;
-        case 4:
-            // 机体
-            colors = [NSArray arrayWithObjects:(id)UIColorFromRGB(0xC3B150).CGColor, (id)UIColorFromRGB(0x7F6C20).CGColor, nil];
-            break;
-        case 8:
-            // 经验
-            colors = [NSArray arrayWithObjects:(id)UIColorFromRGB(0x7259C3).CGColor, (id)UIColorFromRGB(0x391A8F).CGColor, nil];
-            break;
-        case 16:
-            // 国服
-            colors = [NSArray arrayWithObjects:(id)UIColorFromRGB(0x72BB7F).CGColor, (id)UIColorFromRGB(0x368142).CGColor, nil];
-            break;
-        case 32:
-            // 韩服
-            colors = [NSArray arrayWithObjects:(id)UIColorFromRGB(0x505050).CGColor, (id)UIColorFromRGB(0x262626).CGColor, nil];
-            break;
-        case 64:
-            // 台服
-            colors = [NSArray arrayWithObjects:(id)UIColorFromRGB(0xE488B3).CGColor, (id)UIColorFromRGB(0xDB6195).CGColor, nil];
-            break;
-        case 128:
-            // 日服
-            colors = [NSArray arrayWithObjects:(id)UIColorFromRGB(0x63C3C0).CGColor, (id)UIColorFromRGB(0x368986).CGColor, nil];
-            break;
-        case 256:
-            // 港服
-            colors = [NSArray arrayWithObjects:(id)UIColorFromRGB(0xB765A6).CGColor, (id)UIColorFromRGB(0xB765A6).CGColor, nil];
-            break;
-        case 512:
-            // 美服
-            colors = [NSArray arrayWithObjects:(id)UIColorFromRGB(0x364A7C).CGColor, (id)UIColorFromRGB(0x172345).CGColor, nil];
-            break;
-        case 1024:
-            // 泰服
-            colors = [NSArray arrayWithObjects:(id)UIColorFromRGB(0x806B35).CGColor, (id)UIColorFromRGB(0x443713).CGColor, nil];
-            break;
-        case 2048:
-            // 海服
-            colors = [NSArray arrayWithObjects:(id)UIColorFromRGB(0x505050).CGColor, (id)UIColorFromRGB(0x262626).CGColor, nil];
-            break;
-    }
+    NSArray *colors = [self.gdCategoryGradientColors objectForKey:[NSNumber numberWithInt:gdPostCategory]];
     
     if (colors) {
         gradient.colors = colors;
-        gradient.frame = CGRectMake(0, 0, 30, 15);
+        gradient.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
         gradient.startPoint = CGPointMake(0.5, 0.0);
         gradient.endPoint = CGPointMake(0.5, 1.0);
+        
+        gradient.shouldRasterize = YES;
+        gradient.rasterizationScale = [UIScreen mainScreen].scale;
+        
+        gradient.cornerRadius = self.frame.size.width / 10;
+        gradient.masksToBounds = NO;
+        gradient.opaque = YES;
+
+        //NSLog(@"Stored: %@", cacheKey);
+        //        [categoryLayerCache setObject:gradient forKey:cacheKey];
         
         return gradient;
     } else {
@@ -145,13 +156,5 @@
     }
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end

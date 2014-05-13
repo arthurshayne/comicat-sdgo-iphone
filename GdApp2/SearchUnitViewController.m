@@ -46,7 +46,6 @@ NSString *unitIdForSegue;
             if (unitIdForSegue.length > 0) {
                 UnitViewController *uvc = (UnitViewController *)segue.destinationViewController;
                 uvc.unitId = unitIdForSegue;
-                
             }
         }
     }
@@ -54,8 +53,8 @@ NSString *unitIdForSegue;
 
 
 #pragma mark - UIViewController
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+    NSLog(@"%@", self.view.window);
     [super viewDidLoad];
     
     self.units = [[NSArray alloc] init];
@@ -64,6 +63,12 @@ NSString *unitIdForSegue;
 //    self.tableView.backgroundColor = [Utility UIColorFromRGB:0x666666];
 //    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
 
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self.searchBar becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning

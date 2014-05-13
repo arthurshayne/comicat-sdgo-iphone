@@ -12,7 +12,7 @@
 @implementation GDCommunicator
 
 static NSString *API_URL = @"http://www.sdgundam.cn/services/app.ashx";
-// static NSString *API_URL = @"http://192.168.1.4:10021/services/app.ashx";
+// static NSString *API_URL = @"http://192.168.1.5:10021/services/app.ashx";
 
 + (void)requestAPIWithAction:(NSString *)action
                        using:(NSDictionary *)parameters
@@ -63,10 +63,25 @@ static NSString *API_URL = @"http://www.sdgundam.cn/services/app.ashx";
     [self.class requestAPIWithAction:@"search-units"
                                using:[NSDictionary dictionaryWithObjectsAndKeys:keyword, @"k", @"1", @"p", nil]
                              success:^(NSData *data) {
-                                 [self.delegate receivedUnitSearchResults:data];
+                                 [self.delegate receivedUnitSearchResultsJSON:data];
                              }
                                error:^(NSError *error) {
                                    [self.delegate searchUnitsWithError:error];
+                               }];
+}
+
+- (void)fetchPostList:(int)gdCategory pageSize:(int)pageSize pageIndex:(int)pageIndex {
+    [self.class requestAPIWithAction:@"post-list"
+                               using:[NSDictionary dictionaryWithObjectsAndKeys:
+                                      [NSString stringWithFormat:@"%d", gdCategory], @"cat",
+                                      [NSString stringWithFormat:@"%d", pageSize], @"size",
+                                      [NSString stringWithFormat:@"%d", pageIndex], @"page",
+                                      nil]
+                             success:^(NSData *data) {
+                                 [self.delegate receivedPostListJSON:data];
+                             }
+                               error:^(NSError *error) {
+                                   [self.delegate fetchPostListWithError:error];
                                }];
 }
 

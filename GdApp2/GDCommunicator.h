@@ -16,4 +16,5 @@
 - (void)fetchHomeInfo;
 - (void)fetchPostInfo: (int)postId;
 - (void)searchUnitsWithKeyword: (NSString *)keyword;
+- (void)fetchPostList:(int)gdCategory pageSize:(int)pageSize pageIndex:(int)pageIndex;
 @end
