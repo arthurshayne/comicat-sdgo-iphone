@@ -181,7 +181,10 @@ NSDateFormatter *nsdf;
 - (void)loadDataOfCurrentGDCategory:(BOOL)shouldReload {
     if (shouldReload) {
         [MBProgressHUD showHUDAddedTo:self.view animated:NO];
+        
         self.postListTableView.infiniteScrollingView.enabled = YES;
+        self.postListTableView.tableFooterView = nil;
+        
         self.pageIndex = 0;
         self.posts = nil;
     }
@@ -197,10 +200,11 @@ NSDateFormatter *nsdf;
     NSLog(@"Category: %d", category);
     //NSLog(@"offset y:%f", self.postListTableView.contentOffset.y);
     //CGFloat scrollOffsetY = self.postListTableView.contentOffset.y;
+    BOOL justReloaded = (self.posts == nil);
     
-    if (posts.count == 0) {
+    if (posts.count < POST_LIST_PAGE_SIZE || posts.count == 0) {
         // its over...
-        self.postListTableView.showsInfiniteScrolling = NO;
+        self.postListTableView.infiniteScrollingView.enabled = NO;
         
         UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
         
@@ -212,47 +216,43 @@ NSDateFormatter *nsdf;
         [footerView addSubview:noMoreLabel];
         self.postListTableView.tableFooterView = footerView;
         [self.postListTableView setSeparatorStyle:(UITableViewCellSeparatorStyleNone)];
+    }
+    
+    // didn't change since last change
+    if (self.currentGdCategory == category) {
+        if (!self.posts) {
+            self.posts = posts;
+        } else {
+            [self appendPosts:posts];
+        }
         
-    } else {
-        self.postListTableView.tableFooterView = nil;
-        
-        BOOL justReloaded = (self.posts == nil);
-        
-        // didn't change since last change
-        if (self.currentGdCategory == category) {
-            if (!self.posts) {
-                self.posts = posts;
-            } else {
-                [self appendPosts:posts];
+        if (justReloaded) {
+            [self.postListTableView reloadData];
+        } else {
+            // load more
+            [self.postListTableView beginUpdates];
+            NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
+            for (int i = self.posts.count - posts.count; i < self.posts.count; i++) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                [indexPaths addObject:indexPath];
             }
             
-            if (justReloaded) {
-                [self.postListTableView reloadData];
-            } else {
-                // load more
-                [self.postListTableView beginUpdates];
-                NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
-                for (int i = self.posts.count - posts.count; i < self.posts.count; i++) {
-                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-                    [indexPaths addObject:indexPath];
-                }
-                
-                [self.postListTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-                
-                [self.postListTableView endUpdates];
-                
-                // set the offset to corrent
-                //            NSLog(@"offset 2 y:%f", self.postListTableView.contentOffset.y);
-                // self.postListTableView.contentOffset = CGPointMake(0, scrollOffsetY + 30);
-                //            NSLog(@"offset 3 y:%f", self.postListTableView.contentOffset.y);
-            }
+            [self.postListTableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
             
-            if (self.pageIndex == 0) {
-                [self performSelector:@selector(scrollTableViewToTop:) withObject:self afterDelay:0.1];
-                [MBProgressHUD hideAllHUDsForView:self.view animated:NO];
-            }
+            [self.postListTableView endUpdates];
+            
+            // set the offset to corrent
+            //            NSLog(@"offset 2 y:%f", self.postListTableView.contentOffset.y);
+            // self.postListTableView.contentOffset = CGPointMake(0, scrollOffsetY + 30);
+            //            NSLog(@"offset 3 y:%f", self.postListTableView.contentOffset.y);
+        }
+        
+        if (self.pageIndex == 0) {
+            [self performSelector:@selector(scrollTableViewToTop:) withObject:self afterDelay:0.1];
+            [MBProgressHUD hideAllHUDsForView:self.view animated:NO];
         }
     }
+    
     
     // [self.pullToRefresh stopIndicatorAnimation];
     [self.postListTableView.infiniteScrollingView stopAnimating];
