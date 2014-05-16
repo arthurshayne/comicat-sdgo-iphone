@@ -24,6 +24,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-SVPullToRefresh.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,27 +37,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>2959E618A6D54A3FBFEF8166</key>
+		<key>23C2EA8B330941E694C3B87C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4A2D72B59FD0431E81CAFD6F</key>
+		<key>242273985B434D0FAAFAC371</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7F6F9DE28B224B5B9CF82B4D</key>
+		<key>2B282A3508D94589BA8A1952</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DC3CEC8638744231862557D2</key>
+		<key>5298F6EF70BE479F9817FE2E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F112C7C8F87842678C29EC5B</key>
+		<key>E72F53EB4D80436EB8927EFF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E96BB0D9F1AA48398F4179B3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
