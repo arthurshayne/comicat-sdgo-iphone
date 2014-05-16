@@ -31,7 +31,8 @@
         prettyTimestamp = [NSString stringWithFormat:@"%d天前", (int) floor(delta/86400.0) ];
     } else {
         NSDateFormatter * formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateStyle:NSDateFormatterMediumStyle];
+        formatter.dateFormat = @"yyyy-MM-dd";
+        formatter.dateStyle = NSDateFormatterMediumStyle;
         
         prettyTimestamp = [NSString stringWithFormat:@"%@", [formatter stringFromDate:self]];
     }

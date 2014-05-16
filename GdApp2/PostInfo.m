@@ -9,5 +9,12 @@
 #import "PostInfo.h"
 
 @implementation PostInfo
-
++ (PostInfo *)postWithTitle:(NSString *)title andCategory:(NSUInteger)category {
+    PostInfo *p = [[PostInfo alloc] init];
+    
+    p.title = title;
+    p.gdPostCategory = category;
+    
+    return p;
+}
 @end

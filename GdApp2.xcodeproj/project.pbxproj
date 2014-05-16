@@ -40,7 +40,10 @@
 		058C3D1F191CDB41004B3EB5 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 058C3D1E191CDB41004B3EB5 /* Utility.m */; };
 		05A417C21915027B0040A679 /* GDPostCategoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A417C11915027B0040A679 /* GDPostCategoryView.m */; };
 		05A417C71915186D0040A679 /* NSDate+PrettyDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A417C61915186D0040A679 /* NSDate+PrettyDate.m */; };
+		05A6732E191F9D4C006287D4 /* PushNoAnimationSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A6732D191F9D4C006287D4 /* PushNoAnimationSegue.m */; };
+		05B7B3D5191E8A3A0003D354 /* GDNewsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B7B3D4191E8A3A0003D354 /* GDNewsListViewController.m */; };
 		05C3D3FF191E4203001B69ED /* UnitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C3D3FE191E4203001B69ED /* UnitViewController.m */; };
+		05E40AD819211EF2004AA495 /* GDPostListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E40AD719211EF2004AA495 /* GDPostListTableViewCell.m */; };
 		05E4D588191B31230056839B /* NSDictionary+QueryStringBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E4D587191B31230056839B /* NSDictionary+QueryStringBuilder.m */; };
 		773E1A7A51404A8B868FF807 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4857FB5C393B4558AF917BDA /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -113,8 +116,18 @@
 		05A417C11915027B0040A679 /* GDPostCategoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDPostCategoryView.m; sourceTree = "<group>"; };
 		05A417C51915186D0040A679 /* NSDate+PrettyDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+PrettyDate.h"; sourceTree = "<group>"; };
 		05A417C61915186D0040A679 /* NSDate+PrettyDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+PrettyDate.m"; sourceTree = "<group>"; };
+		05A6732C191F9D4C006287D4 /* PushNoAnimationSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushNoAnimationSegue.h; sourceTree = "<group>"; };
+		05A6732D191F9D4C006287D4 /* PushNoAnimationSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushNoAnimationSegue.m; sourceTree = "<group>"; };
+		05B7B3D3191E8A3A0003D354 /* GDNewsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDNewsListViewController.h; sourceTree = "<group>"; };
+		05B7B3D4191E8A3A0003D354 /* GDNewsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDNewsListViewController.m; sourceTree = "<group>"; };
+		05B7B3D6191F1A870003D354 /* GDPostCategoryViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GDPostCategoryViewDelegate.h; sourceTree = "<group>"; };
 		05C3D3FD191E4203001B69ED /* UnitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitViewController.h; sourceTree = "<group>"; };
 		05C3D3FE191E4203001B69ED /* UnitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitViewController.m; sourceTree = "<group>"; };
+		05C3D400191E5525001B69ED /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		05C3D401191E5526001B69ED /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		05C3D402191E5526001B69ED /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		05E40AD619211EF2004AA495 /* GDPostListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDPostListTableViewCell.h; sourceTree = "<group>"; };
+		05E40AD719211EF2004AA495 /* GDPostListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDPostListTableViewCell.m; sourceTree = "<group>"; };
 		05E4D586191B31230056839B /* NSDictionary+QueryStringBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+QueryStringBuilder.h"; sourceTree = "<group>"; };
 		05E4D587191B31230056839B /* NSDictionary+QueryStringBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+QueryStringBuilder.m"; sourceTree = "<group>"; };
 		2B967E099E454FEA98E0D6E3 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -250,6 +263,8 @@
 				0506D4C819174DA100EFAC83 /* SearchUnitViewController.m */,
 				05C3D3FD191E4203001B69ED /* UnitViewController.h */,
 				05C3D3FE191E4203001B69ED /* UnitViewController.m */,
+				05B7B3D3191E8A3A0003D354 /* GDNewsListViewController.h */,
+				05B7B3D4191E8A3A0003D354 /* GDNewsListViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -298,6 +313,9 @@
 			children = (
 				05A417C01915027B0040A679 /* GDPostCategoryView.h */,
 				05A417C11915027B0040A679 /* GDPostCategoryView.m */,
+				05B7B3D6191F1A870003D354 /* GDPostCategoryViewDelegate.h */,
+				05E40AD619211EF2004AA495 /* GDPostListTableViewCell.h */,
+				05E40AD719211EF2004AA495 /* GDPostListTableViewCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -305,6 +323,7 @@
 		05A417C31915182E0040A679 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				05A6732B191F9D2C006287D4 /* PushNoAnimationSegue */,
 				05E4D584191B30720056839B /* NSDictionary+QueryStringBuilder */,
 				05A417C4191518350040A679 /* NSDate+PrettyDate */,
 			);
@@ -318,6 +337,15 @@
 				05A417C61915186D0040A679 /* NSDate+PrettyDate.m */,
 			);
 			name = "NSDate+PrettyDate";
+			sourceTree = "<group>";
+		};
+		05A6732B191F9D2C006287D4 /* PushNoAnimationSegue */ = {
+			isa = PBXGroup;
+			children = (
+				05A6732C191F9D4C006287D4 /* PushNoAnimationSegue.h */,
+				05A6732D191F9D4C006287D4 /* PushNoAnimationSegue.m */,
+			);
+			name = PushNoAnimationSegue;
 			sourceTree = "<group>";
 		};
 		05E4D584191B30720056839B /* NSDictionary+QueryStringBuilder */ = {
@@ -394,6 +422,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 05023ACD19052791001D04F0;
 			productRefGroup = 05023AD719052791001D04F0 /* Products */;
@@ -486,7 +515,10 @@
 				058C3D1F191CDB41004B3EB5 /* Utility.m in Sources */,
 				0506D4C919174DA100EFAC83 /* SearchUnitViewController.m in Sources */,
 				05E4D588191B31230056839B /* NSDictionary+QueryStringBuilder.m in Sources */,
+				05B7B3D5191E8A3A0003D354 /* GDNewsListViewController.m in Sources */,
 				057393B0191A87D600F7415E /* UnitInfo.m in Sources */,
+				05E40AD819211EF2004AA495 /* GDPostListTableViewCell.m in Sources */,
+				05A6732E191F9D4C006287D4 /* PushNoAnimationSegue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -513,6 +545,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				05023AE319052791001D04F0 /* en */,
+				05C3D402191E5526001B69ED /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -521,6 +554,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				05023AEC19052791001D04F0 /* Base */,
+				05C3D401191E5526001B69ED /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -529,6 +563,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				05023B0219052791001D04F0 /* en */,
+				05C3D400191E5525001B69ED /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -552,6 +587,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -590,7 +626,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

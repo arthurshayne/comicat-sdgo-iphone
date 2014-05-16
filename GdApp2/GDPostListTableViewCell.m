@@ -9,13 +9,14 @@
 #import "GDPostListTableViewCell.h"
 #import "GDPostCategoryView.h"
 #import "Utility.h"
+#import "NSDate+PrettyDate.h"
 
 @interface GDPostListTableViewCell ()
 
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) GDPostCategoryView *categoryView1;
 @property (strong, nonatomic) GDPostCategoryView *categoryView2;
-
+@property (strong, nonatomic) UILabel *dateLabel;
 @end
 
 @implementation GDPostListTableViewCell
@@ -50,6 +51,10 @@ UIFont *_fontForTitleLabel;
     // TODO: see if multiple category should be shown
     self.categoryView1.gdPostCategory = post.gdPostCategory;
     self.categoryView1.tag = post.postId;
+    
+    self.dateLabel.text = [post.created prettyDate];
+    self.dateLabel.frame = CGRectMake(TITLE_LABEL_X,
+                                      TITLE_LABEL_Y + TITLE_LABEL_MARGIN + self.titleLabel.frame.size.height, 120, 18);
 }
 
 #pragma mark - View Protocol
@@ -70,6 +75,13 @@ UIFont *_fontForTitleLabel;
         self.categoryView2 = [[GDPostCategoryView alloc] initWithFrame:CGRectMake(46, 12, 30, CATEGORY_VIEW_HEIGHT) fontSize:10];
         self.categoryView2.hidden = YES;
         [self.contentView addSubview:self.categoryView2];
+        
+        self.dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 120, 30)];
+        self.dateLabel.font = [UIFont systemFontOfSize:9];
+        self.dateLabel.textColor = [Utility UIColorFromRGB:0x999999];
+        self.dateLabel.numberOfLines = 1;
+        [self.contentView addSubview:self.dateLabel];
+
     }
     return self;
 }
@@ -86,7 +98,7 @@ UIFont *_fontForTitleLabel;
 //    mockLabel.frame = CGRectMake(0, 0, sizeThatFits.width, sizeThatFits.height);
 //    
     //adjust the label the the new height.
-    return CELL_PADDING + CATEGORY_VIEW_HEIGHT + TITLE_LABEL_MARGIN + sizeThatFitsTitle.height + CELL_PADDING;
+    return CELL_PADDING + CATEGORY_VIEW_HEIGHT + TITLE_LABEL_MARGIN + sizeThatFitsTitle.height + CELL_PADDING + 18;
 }
 
 + (CGSize)sizeThatFitsTitle:(NSString *)title {

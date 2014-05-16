@@ -71,9 +71,26 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" id="wap-M3-Ekl">
                                 <rect key="frame" x="0.0" y="66" width="320" height="38"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <view hidden="YES" contentMode="scaleToFill" id="dD5-Kz-WcR">
+                                        <rect key="frame" x="0.0" y="0.0" width="10" height="2"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" red="1" green="0.28627450980000002" blue="0.27058823529999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="c5v-K7-uCC">
+                                        <rect key="frame" x="8" y="2" width="72" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="显示全部">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="showAll:" destination="94J-8p-dhQ" eventType="touchUpInside" id="Cdp-On-uW5"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                             </scrollView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="wh5-pk-7YW">
-                                <rect key="frame" x="0.0" y="112" width="320" height="406"/>
+                                <rect key="frame" x="0.0" y="113" width="320" height="406"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -91,6 +108,11 @@
                                     <outlet property="delegate" destination="94J-8p-dhQ" id="eTW-55-4EL"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" id="y6c-PG-eLD">
+                                <rect key="frame" x="0.0" y="100" width="320" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -116,8 +138,11 @@
                         </view>
                     </navigationItem>
                     <connections>
+                        <outlet property="categorySelection" destination="dD5-Kz-WcR" id="j3b-bh-RYL"/>
                         <outlet property="gdCategoryList" destination="wap-M3-Ekl" id="hnv-iK-4az"/>
                         <outlet property="postListTableView" destination="wh5-pk-7YW" id="2xf-8n-TNb"/>
+                        <outlet property="showAllButton" destination="c5v-K7-uCC" id="B3H-0K-N59"/>
+                        <segue destination="aix-2l-OyA" kind="push" identifier="ViewPost" id="sxK-G5-fs6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rdo-nG-mP8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -389,7 +414,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Cs-Pu-rqy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1072" y="192"/>
+            <point key="canvasLocation" x="672" y="-160"/>
         </scene>
         <!--Post View Controller - 新闻-->
         <scene sceneID="Xzt-Fb-f77">
@@ -404,7 +429,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MqS-7H-NBc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1072" y="901"/>
+            <point key="canvasLocation" x="672" y="549"/>
         </scene>
         <!--Navigation Controller - 首页-->
         <scene sceneID="9Ap-8l-N1e">
@@ -502,4 +527,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="sxK-G5-fs6"/>
+    </inferredMetricsTieBreakers>
 </document>
