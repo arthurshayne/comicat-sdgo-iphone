@@ -19,4 +19,5 @@
 - (void)fetchPostInfo:(int)postId;
 - (void)searchUnitsWithKeyword:(NSString *)keyword;
 - (void)fetchPostListOfCategory:(int)gdCategory pageSize:(int)pageSize pageIndex:(int)pageIndex;
+- (void)fetchVideoListOfCategory:(int)gdCategory pageSize:(int)pageSize pageIndex:(int)pageIndex;
 @end

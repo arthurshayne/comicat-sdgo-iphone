@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "GDPostCategoryViewDelegate.h"
 #import "GDManagerDelegate.h"
+#import "GDCategoryListViewDelegate.h"
 
-@interface GDNewsListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, GDPostCategoryViewDelegate, GDManagerDelegate>
+@interface GDNewsListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, GDManagerDelegate, GDCategoryListViewDelegate>
 
 @end

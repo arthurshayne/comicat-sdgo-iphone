@@ -11,9 +11,9 @@
 
 @interface GDPostListTableViewCell : UITableViewCell
 
-@property (strong, nonatomic) NSString *title;
-@property int gdCategory;
-@property (readonly) CGFloat height;
+//@property (strong, nonatomic) NSString *title;
+//@property int gdCategory;
+//@property (readonly) CGFloat height;
 
 - (void)configureForPostInfo:(PostInfo *)post;
 

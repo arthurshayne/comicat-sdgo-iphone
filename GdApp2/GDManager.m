@@ -10,10 +10,6 @@
 #import "GDCommunicatorDelegate.h"
 #import "GDInfoBuilder.h"
 
-
-// TO BE DELETED
-#import "UnitInfoShort.h"
-
 @implementation GDManager
 - (void)fetchHomeInfo {
     [self.communicator fetchHomeInfo];
@@ -29,6 +25,10 @@
 
 - (void)fetchPostListOfCategory:(int)gdCategory pageSize:(int)pageSize pageIndex:(int)pageIndex {
     [self.communicator fetchPostList:gdCategory pageSize:pageSize pageIndex:pageIndex];
+}
+
+- (void)fetchVideoListOfCategory:(int)gdCategory pageSize:(int)pageSize pageIndex:(int)pageIndex {
+    [self.communicator fetchVideoList:gdCategory pageSize:pageSize pageIndex:pageIndex];
 }
 
 #pragma mark - GDCommunicatorDelegate
@@ -79,6 +79,7 @@
     [self.delegate  searchUnitsWithError:error];
 }
 
+// post list
 - (void)receivedPostListJSON:(NSData *)objectNotation {
     NSError *error;
     int category;
@@ -87,8 +88,25 @@
     [self.delegate didReceivePostList:posts ofGdCategory:category];
 }
 
+// post list error
 - (void)fetchPostListWithError:(NSError *)error {
     [self.delegate fetchPostListWithError:error];
 }
+
+// video list
+- (void)receivedVideoListJSON:(NSData *)objectNotation {
+    NSError *error;
+    int category;
+    NSArray *videos = [GDInfoBuilder videoListFromJSON:objectNotation gdCategory:&category error:&error];
+    
+    [self.delegate didReceiveVideoList:videos ofGdCategory:category];
+
+}
+
+// video list error
+- (void)fetchVideoListWithError:(NSError *)error {
+    [self.delegate fetchVideoListWithError:error];
+}
+
 
 @end

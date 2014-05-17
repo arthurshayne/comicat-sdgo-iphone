@@ -20,4 +20,7 @@
 
 - (void)receivedPostListJSON: (NSData *)objectNotation;
 - (void)fetchPostListWithError:(NSError *)error;
+
+- (void)receivedVideoListJSON: (NSData *)objectNotation;
+- (void)fetchVideoListWithError:(NSError *)error;
 @end

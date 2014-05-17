@@ -16,15 +16,16 @@
 #import "MBProgressHUD.h"
 #import "SVPullToRefresh.h"
 
-#import "GDPostCategoryView.h"
 #import "GDPostListTableViewCell.h"
+#import "GDCategoryListView.h"
+
 #import "GDPostViewController.h"
 
 @interface GDNewsListViewController ()
 
-@property (weak, nonatomic) IBOutlet UIScrollView *gdCategoryList;
 @property (weak, nonatomic) IBOutlet UITableView *postListTableView;
-@property (weak, nonatomic) IBOutlet UIButton *showAllButton;
+
+@property (strong, nonatomic) GDCategoryListView *categoryListView;
 
 @property (strong, nonatomic) NSArray *gdCategories;
 
@@ -40,17 +41,11 @@
 @property (weak, nonatomic) AAPullToRefresh *pullToRefresh;
 // @property (weak, nonatomic) AAPullToRefresh *scrollToShowMore;
 
-@property (weak, nonatomic) IBOutlet UIView *categorySelection;
-
 @end
 
 @implementation GDNewsListViewController
 
-const CGFloat CATEGORY_ITEM_WIDTH = 55;
-const CGFloat CATEGORY_ITEM_HEIGHT = 22;
-const CGFloat CATEGORY_ITEM_MARGIN = 5;
-
-const int POST_LIST_PAGE_SIZE = 20;
+static int POST_LIST_PAGE_SIZE = 20;
 
 static NSString *CELL_IDENTIFIER = @"PostListTableCell";
 
@@ -72,6 +67,8 @@ static NSString *CELL_IDENTIFIER = @"PostListTableCell";
 NSDateFormatter *nsdf;
 
 - (void)viewDidLoad {
+    NSLog(@"viewDidLoad");
+    
     [super viewDidLoad];
     
     nsdf = [[NSDateFormatter alloc] init];
@@ -89,13 +86,22 @@ NSDateFormatter *nsdf;
     [self configurePullToRefresh];
     [self configureScrollToViewMore];
     
-    [self displayCategorySelectionIfNeeded];
+//    [self displayCategorySelectionIfNeeded];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    NSLog(@"viewDidAppear");
     [super viewDidAppear:animated];
     
     [self.postListTableView deselectRowAtIndexPath:self.postListTableView.indexPathForSelectedRow animated:NO];
+}
+
+- (void)viewDidLayoutSubviews {
+    NSLog(@"viewDidLayoutSubviews");
+    [super viewDidLayoutSubviews];
+
+    // prevent "selection" view being widen when back from segue
+//    [self displayCategorySelectionIfNeeded];
 }
 
 - (void)configurePullToRefresh {
@@ -116,57 +122,11 @@ NSDateFormatter *nsdf;
     }];
 }
 
-- (void)displayCategorySelectionIfNeeded {
-    if (self.currentGdCategory > 0) {
-        self.categorySelection.hidden = NO;
-        CGFloat showAllButtonWidth = self.showAllButton.frame.size.width;
-        NSUInteger index = [self.gdCategories indexOfObject:[NSNumber numberWithInt:self.currentGdCategory]];
-        self.categorySelection.frame =
-            CGRectMake(CATEGORY_ITEM_MARGIN + index * (CATEGORY_ITEM_WIDTH + CATEGORY_ITEM_MARGIN) +
-                       CATEGORY_ITEM_MARGIN + showAllButtonWidth,
-                       CATEGORY_ITEM_HEIGHT + 6,
-                       CATEGORY_ITEM_WIDTH,
-                       2);
-        
-    } else {
-        self.categorySelection.hidden = YES;
-    }
-}
-
 - (void)prepareCategoryList {
-    CGFloat showAllButtonWidth = self.showAllButton.frame.size.width;
-    for (int i = 0; i < self.gdCategories.count; i++) {
-        int gdCategory = [(NSNumber *)[self.gdCategories objectAtIndex:i] intValue];
-        GDPostCategoryView *gdcv =
-            [[GDPostCategoryView alloc] initWithFrame:CGRectMake(CATEGORY_ITEM_MARGIN + i * (CATEGORY_ITEM_WIDTH + CATEGORY_ITEM_MARGIN) +
-                                                                 CATEGORY_ITEM_MARGIN + showAllButtonWidth,
-                                                                 CATEGORY_ITEM_MARGIN,
-                                                                 CATEGORY_ITEM_WIDTH,
-                                                                 CATEGORY_ITEM_HEIGHT)
-                                             fontSize:13];
-        gdcv.gdPostCategory = gdCategory;
-        gdcv.delegate = self;
-        
-        [self.gdCategoryList addSubview:gdcv];
-    }
-    
-    self.gdCategoryList.contentSize =
-        CGSizeMake(self.gdCategories.count * (CATEGORY_ITEM_WIDTH + CATEGORY_ITEM_MARGIN) + CATEGORY_ITEM_MARGIN + CATEGORY_ITEM_MARGIN + showAllButtonWidth, 10);
-    self.gdCategoryList.contentOffset = CGPointMake(showAllButtonWidth + CATEGORY_ITEM_MARGIN, 0);
-}
-
-- (void)tappedOnCategoryViewWithCategory:(int)category {
-    if (self.currentGdCategory != category) {
-        // should clear the array
-        self.currentGdCategory = category;
-        
-        [self loadDataOfCurrentGDCategory:YES];
-    }
-}
-
-- (IBAction)showAll:(id)sender {
-    self.currentGdCategory = 0;
-    [self loadDataOfCurrentGDCategory:YES];
+    self.categoryListView = [[GDCategoryListView alloc] initWithFrame:CGRectMake(0, 66, 320, 35)];
+    self.categoryListView.delegate = self;
+    self.categoryListView.gdCategoryList = self.gdCategories;
+    [self.view addSubview:self.categoryListView];
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -191,7 +151,7 @@ NSDateFormatter *nsdf;
     
     [self.manager fetchPostListOfCategory:self.currentGdCategory pageSize:POST_LIST_PAGE_SIZE pageIndex:self.pageIndex];
     
-    [self displayCategorySelectionIfNeeded];
+//    [self displayCategorySelectionIfNeeded];
 }
 
 #pragma mark - GDManagerDelegate
@@ -254,7 +214,6 @@ NSDateFormatter *nsdf;
     }
     
     
-    // [self.pullToRefresh stopIndicatorAnimation];
     [self.postListTableView.infiniteScrollingView stopAnimating];
     [self.pullToRefresh stopIndicatorAnimation];
 }
@@ -318,7 +277,7 @@ NSDateFormatter *nsdf;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    NSDate *startDate = [NSDate date];
+    NSDate *startDate = [NSDate date];
     
     //if (indexPath.section == 0) {
     GDPostListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER];
@@ -326,26 +285,25 @@ NSDateFormatter *nsdf;
     PostInfo *post = [self.posts objectAtIndex:indexPath.row];
     
     [cell configureForPostInfo:post];
+    
+    double timePassed_ms = [startDate timeIntervalSinceNow] * 1000.0;
+    NSLog(@"cell: %f", timePassed_ms);
+    
     return cell;
-    //}
-    
-//    double timePassed_ms = [startDate timeIntervalSinceNow] * 1000.0;
-//    NSLog(@"cell: %f", timePassed_ms);
-    
 }
 
 #pragma mark - TableView Delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    NSDate *startDate = [NSDate date];
+    NSDate *startDate = [NSDate date];
 
     PostInfo *post = [self.posts objectAtIndex:indexPath.row];
-    return [GDPostListTableViewCell cellHeightForPostInfo:post];
     
-//    double timePassed_ms = [startDate timeIntervalSinceNow] * 1000.0;
-//    NSLog(@"height: %f", timePassed_ms);
+    double timePassed_ms = [startDate timeIntervalSinceNow] * 1000.0;
+    NSLog(@"height: %f", timePassed_ms);
+    
+    return [GDPostListTableViewCell cellHeightForPostInfo:post];
 }
-
 
 //- (PostInfo *)findPostByIndexPath:(NSIndexPath *)indexPath {
 //    NSString *dateString = [self.dateStrings objectAtIndex:indexPath.section];
@@ -359,6 +317,30 @@ NSDateFormatter *nsdf;
     self.selectedPostId = post.postId;
     
     [self performSegueWithIdentifier:@"ViewPost" sender:self];
+}
+
+#pragma mark – UICollectionViewDelegateFlowLayout
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(150, 135);
+}
+
+#pragma mark - GDCategoryListViewDelegate 
+
+- (void)tappedOnCategoryViewWithCategory:(int)category {
+    if (self.currentGdCategory != category) {
+        // should clear the array
+        self.currentGdCategory = category;
+        
+        [self loadDataOfCurrentGDCategory:YES];
+    }
+}
+
+- (void)tappedOnShowAll {
+    if (self.currentGdCategory != 0) {
+        self.currentGdCategory = 0;
+        [self loadDataOfCurrentGDCategory:YES];
+    }
 }
 
 @end

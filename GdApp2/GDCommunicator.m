@@ -48,7 +48,7 @@ static NSString *API_URL = @"http://www.sdgundam.cn/services/app.ashx";
                                }];
 }
 
-- (void) fetchPostInfo: (int)postId {
+- (void)fetchPostInfo: (int)postId {
     [self.class requestAPIWithAction:@"post"
                                using:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d", postId], @"id", @"1", @"p", nil]
                              success:^(NSData *data) {
@@ -82,6 +82,21 @@ static NSString *API_URL = @"http://www.sdgundam.cn/services/app.ashx";
                              }
                                error:^(NSError *error) {
                                    [self.delegate fetchPostListWithError:error];
+                               }];
+}
+
+- (void)fetchVideoList:(int)gdCategory pageSize:(int)pageSize pageIndex:(int)pageIndex {
+    [self.class requestAPIWithAction:@"video-list"
+                               using:[NSDictionary dictionaryWithObjectsAndKeys:
+                                      [NSString stringWithFormat:@"%d", gdCategory], @"cat",
+                                      [NSString stringWithFormat:@"%d", pageSize], @"size",
+                                      [NSString stringWithFormat:@"%d", pageIndex], @"page",
+                                      nil]
+                             success:^(NSData *data) {
+                                 [self.delegate receivedVideoListJSON:data];
+                             }
+                               error:^(NSError *error) {
+                                   [self.delegate fetchVideoListWithError:error];
                                }];
 }
 

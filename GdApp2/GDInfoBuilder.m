@@ -175,4 +175,43 @@
     
     return posts;
 }
+
++ (NSArray *)videoListFromJSON:(NSData *)objectNotation gdCategory:(int *)category error:(NSError **)error {
+    NSError *tempError = nil;
+    NSDictionary *parsed = [NSJSONSerialization JSONObjectWithData:objectNotation
+                                                           options:0
+                                                             error: &tempError];
+    if (tempError) {
+        *error = tempError;
+        return nil;
+    }
+    
+    BOOL success = [(NSNumber *)[parsed objectForKey:@"success"] boolValue];
+    if (!success) {
+        return nil;
+    }
+    
+    int categoryHere = [(NSNumber *)[parsed objectForKey:@"category"] intValue];
+    *category = categoryHere;
+    
+    NSDateFormatter *dateFormatter = [GDInfoBuilder dateFormatter];
+    
+    NSArray *unitsDictionary = [parsed objectForKey:@"posts"];
+    NSMutableArray *posts = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *d in unitsDictionary) {
+        VideoListItem *tempVli = [[VideoListItem alloc] init];
+        tempVli.title = [d objectForKey:@"title"];
+        tempVli.title2 = [d objectForKey:@"title2"];
+        tempVli.imageURL = [d objectForKey:@"imageURL"];
+        tempVli.gdPostCategory = [(NSNumber *)[d objectForKey:@"gdPostCategory"] intValue];
+        tempVli.postId = [(NSNumber *)[d objectForKey:@"postId"] intValue];
+        tempVli.created = [dateFormatter dateFromString:(NSString *)[d objectForKey:@"created"]];
+        
+        [posts addObject:tempVli];
+    }
+    
+    return posts;
+}
+
 @end

@@ -24,6 +24,7 @@
 
 #import "GDVideoViewController.h"
 #import "GDPostViewController.h"
+#import "GDVideoListCollectionViewCell.h"
 
 #import "GDPostCategoryView.h"
 
@@ -79,13 +80,13 @@ int postIdForSegue;
     self.aaptr.threshold = 60.0f;
     self.aaptr.borderWidth = 0;
     
-    [self.videoListCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"VideoListCell"];
+    [self.videoListCollectionView registerClass:[GDVideoListCollectionViewCell class] forCellWithReuseIdentifier:@"VideoListCell"];
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    // get home info
-    NSLog(@"selfDidLoad fetchHomeInfo");
-    [manager fetchHomeInfo];
+//    // get home info
+//    NSLog(@"selfDidLoad fetchHomeInfo");
+//    [manager fetchHomeInfo];
 
 }
 
@@ -181,7 +182,13 @@ int postIdForSegue;
 }
 
 - (void)fetchingHomeInfoWithError:(NSError *)error {
-    NSLog(@"Error %@; %@", error, [error localizedDescription]);
+    // NSLog(@"Error %@; %@", error, [error localizedDescription]);
+    
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"网络连接"
+                                                    message: [error localizedDescription]
+                                                   delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
 }
 
 #pragma mark - GBInfiniteScroll
@@ -291,52 +298,11 @@ int postIdForSegue;
     VideoListItem *vli = (VideoListItem*)[self.homeInfo.videoList objectAtIndex:indexPath.row];
 //    NSLog(@"should: %@, %@", vli.title, vli.title2);
     
-    UICollectionViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"VideoListCell" forIndexPath:indexPath];
+    GDVideoListCollectionViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"VideoListCell" forIndexPath:indexPath];
     [cell prepareForReuse];
     
     cell.backgroundColor = [UIColor whiteColor];
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 150, 84)];
-    [imageView setImageWithURL:[NSURL URLWithString:vli.imageURL]];
-    imageView.tag = indexPath.row;
-    
-    [cell addSubview:imageView];
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 84, 150, 21)];
-    [label setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
-    [label setFont:[UIFont systemFontOfSize:12]];
-    label.text = vli.title;
-    label.tag = 10 + indexPath.row;
-    [cell addSubview:label];
-    
-    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(0, 67, 150, 17)];
-    label2.textAlignment = NSTextAlignmentRight;
-    label2.backgroundColor = [UIColor blackColor];
-    label2.textColor = [UIColor whiteColor];
-    label2.opaque = false;
-    label2.alpha = 0.7;
-    [label2 setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
-    [label2 setFont:[UIFont systemFontOfSize:12]];
-    label2.text = vli.title2;
-    label2.tag = 30 + indexPath.row;
-    [cell addSubview:label2];
-    
-//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(videoListTapped:)];
-//    tap.numberOfTapsRequired = 1;
-//    tap.cancelsTouchesInView = YES;
-//    imageView.userInteractionEnabled = YES;
-//    [imageView addGestureRecognizer:tap];
-    
-    GDPostCategoryView *postCategory = [[GDPostCategoryView alloc] initWithFrame:CGRectMake(0, 106, 30, 15) fontSize:10];
-    postCategory.gdPostCategory = vli.gdPostCategory;
-    [cell addSubview:postCategory];
-    
-    UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(36, 105, 110, 17)];
-    [dateLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
-    [dateLabel setFont:[UIFont systemFontOfSize:11]];
-    dateLabel.textColor = [UIColor grayColor];
-    dateLabel.text = [Utility dateStringByDay:vli.created];
-    [cell addSubview:dateLabel];
+    [cell configureForVideoListItem:vli];
     
     [cell setNeedsLayout];
     
@@ -357,12 +323,11 @@ int postIdForSegue;
 //                                                    message: [NSString stringWithFormat:@"You clcked on %d!", indexPath.row]
 //                                                   delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 //    [alert show];
-    
-    
 }
-- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-    // TODO: Deselect item
-}
+
+//- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+//    // TODO: Deselect item
+//}
 
 #pragma mark – UICollectionViewDelegateFlowLayout
 
@@ -370,10 +335,10 @@ int postIdForSegue;
     return CGSizeMake(150, 135);
 }
 
-- (UIEdgeInsets)collectionView:
-(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(0, 0, 0, 0);
-}
+//- (UIEdgeInsets)collectionView:
+//(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+//    return UIEdgeInsetsMake(0, 0, 0, 0);
+//}
 
 /*
 #pragma mark - Navigation

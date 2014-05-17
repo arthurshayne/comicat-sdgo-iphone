@@ -26,13 +26,37 @@
             </objects>
             <point key="canvasLocation" x="-1292" y="524"/>
         </scene>
-        <!--View Controller-->
+        <!--Video List View Controller-->
         <scene sceneID="IU4-z6-JkN">
             <objects>
-                <viewController id="LVb-1N-ZVK" sceneMemberID="viewController">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3cv-jR-NQf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="LVb-1N-ZVK" customClass="GDVideoListViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="l1I-44-ZGU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="Ns0-dY-REn">
+                                <rect key="frame" x="0.0" y="100" width="320" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <collectionView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="infinite" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="YS2-Wg-chY">
+                                <rect key="frame" x="6" y="113" width="308" height="405"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="7Xg-Or-riM">
+                                    <size key="itemSize" width="0.0" height="0.0"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                                <connections>
+                                    <outlet property="dataSource" destination="LVb-1N-ZVK" id="2Al-o2-AuG"/>
+                                    <outlet property="delegate" destination="LVb-1N-ZVK" id="eZp-HW-Ene"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="L08-cb-9cU">
@@ -55,8 +79,11 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                     </navigationItem>
+                    <connections>
+                        <outlet property="videoListView" destination="YS2-Wg-chY" id="bqE-dL-zn3"/>
+                        <segue destination="xx8-lO-ygV" kind="push" identifier="ViewVideo" id="aDa-PF-k4K"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3cv-jR-NQf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-107" y="901"/>
         </scene>
@@ -65,37 +92,16 @@
             <objects>
                 <viewController id="94J-8p-dhQ" customClass="GDNewsListViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="w8J-kI-i0l">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" id="wap-M3-Ekl">
-                                <rect key="frame" x="0.0" y="66" width="320" height="38"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <view hidden="YES" contentMode="scaleToFill" id="dD5-Kz-WcR">
-                                        <rect key="frame" x="0.0" y="0.0" width="10" height="2"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <color key="backgroundColor" red="1" green="0.28627450980000002" blue="0.27058823529999998" alpha="1" colorSpace="calibratedRGB"/>
-                                    </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="c5v-K7-uCC">
-                                        <rect key="frame" x="8" y="2" width="72" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="显示全部">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="showAll:" destination="94J-8p-dhQ" eventType="touchUpInside" id="Cdp-On-uW5"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </scrollView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="wh5-pk-7YW">
-                                <rect key="frame" x="0.0" y="113" width="320" height="406"/>
+                                <rect key="frame" x="0.0" y="113" width="320" height="405"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="hgb-hf-kyU">
-                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hgb-hf-kyU" id="3N4-nD-3I1">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -116,7 +122,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" id="9k8-3g-Bad">
                         <nil key="title"/>
                         <view key="titleView" contentMode="scaleToFill" id="IOv-ma-gBf">
@@ -138,10 +143,7 @@
                         </view>
                     </navigationItem>
                     <connections>
-                        <outlet property="categorySelection" destination="dD5-Kz-WcR" id="j3b-bh-RYL"/>
-                        <outlet property="gdCategoryList" destination="wap-M3-Ekl" id="hnv-iK-4az"/>
                         <outlet property="postListTableView" destination="wh5-pk-7YW" id="2xf-8n-TNb"/>
-                        <outlet property="showAllButton" destination="c5v-K7-uCC" id="B3H-0K-N59"/>
                         <segue destination="aix-2l-OyA" kind="push" identifier="ViewPost" id="sxK-G5-fs6"/>
                     </connections>
                 </viewController>
@@ -163,7 +165,7 @@
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" indicatorStyle="black" id="nlA-3Z-mw5" customClass="GBInfiniteScrollView">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="133"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     </scrollView>
                                     <label hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hfW-Gs-gbF">
                                         <rect key="frame" x="0.0" y="110" width="320" height="24"/>
@@ -175,11 +177,11 @@
                                     </label>
                                     <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" hidesForSinglePage="YES" id="iyq-qd-fb0">
                                         <rect key="frame" x="115" y="107" width="90" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                         <color key="pageIndicatorTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="currentPageIndicatorTintColor" red="1" green="0.21722669410000001" blue="0.15822746009999999" alpha="1" colorSpace="calibratedRGB"/>
                                     </pageControl>
-                                    <collectionView opaque="NO" clipsSubviews="YES" contentMode="redraw" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="infinite" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Gyd-kA-TJq">
+                                    <collectionView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="infinite" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Gyd-kA-TJq">
                                         <rect key="frame" x="6" y="141" width="308" height="145"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -414,7 +416,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Cs-Pu-rqy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="672" y="-160"/>
+            <point key="canvasLocation" x="540" y="506"/>
         </scene>
         <!--Post View Controller - 新闻-->
         <scene sceneID="Xzt-Fb-f77">
@@ -429,7 +431,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MqS-7H-NBc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="672" y="549"/>
+            <point key="canvasLocation" x="742" y="-269"/>
         </scene>
         <!--Navigation Controller - 首页-->
         <scene sceneID="9Ap-8l-N1e">
@@ -528,6 +530,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="sxK-G5-fs6"/>
+        <segue reference="sIr-PI-Iu0"/>
+        <segue reference="aDa-PF-k4K"/>
     </inferredMetricsTieBreakers>
 </document>
