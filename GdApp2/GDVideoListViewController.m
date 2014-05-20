@@ -31,7 +31,7 @@
 
 @property (strong, nonatomic) GDManager *manager;
 
-@property NSUInteger currentGDCategory;
+@property uint currentGDCategory;
 @property (strong, nonatomic, readonly) NSString *currentGDCategoryAsString;
 // @property NSUInteger pageIndex;
 @property (strong, nonatomic) NSMutableDictionary *pageIndexes;
@@ -70,7 +70,7 @@ int postIdForSegue;
 }
 
 - (NSString *)currentGDCategoryAsString {
-    return [NSString stringWithFormat:@"%d", self.currentGDCategory];
+    return [NSString stringWithFormat:@"%lu", (unsigned long)self.currentGDCategory];
 }
 
 - (NSArray *)postsOfCurrentGDCategory {
@@ -117,7 +117,7 @@ int postIdForSegue;
 {
     [super viewDidLoad];
     
-    NSLog(@"viewDidLoad");
+    // NSLog(@"viewDidLoad");
     
 
     [self prepareCategoryList];
@@ -131,7 +131,8 @@ int postIdForSegue;
 
 
 - (void)didReceiveMemoryWarning {
-    
+    self.postsByGDCategory = nil;
+    self.videoListViews = nil;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -153,6 +154,7 @@ int postIdForSegue;
 
 #pragma mark - GDManagerDelegate
 - (void)didReceiveVideoList:(NSArray *)posts ofGdCategory:(int)category {
+    NSLog(@"didReceive category:%d page:%@", category, [self.pageIndexes objectForKey:self.currentGDCategoryAsString]);
     BOOL justReloaded = (self.postsOfCurrentGDCategory == nil || self.postsOfCurrentGDCategory.count == 0);
     
     if (posts.count < POST_LIST_PAGE_SIZE || posts.count == 0) {
@@ -254,6 +256,7 @@ int postIdForSegue;
 #pragma mark - GDCategoryListViewDelegate
 
 - (void)tappedOnCategoryViewWithCategory:(int)category {
+    NSLog(@"Selected category: %d", category);
     if (self.currentGDCategory != category) {
         // should clear the array
         self.currentGDCategory = category;
@@ -278,7 +281,7 @@ int postIdForSegue;
 - (void)configureVideoListViewForGDCategory:(NSUInteger)gdCategory {
     self.currentVideoListView.hidden = YES;
     
-    UICollectionView *videoListViewThis = [self.videoListViews objectForKey:@(gdCategory)];
+    UICollectionView *videoListViewThis = [self.videoListViews objectForKey:[self stringWithGDCategory:gdCategory]];
     if (videoListViewThis) {
         videoListViewThis.hidden = NO;
         self.currentVideoListView = videoListViewThis;
@@ -291,6 +294,8 @@ int postIdForSegue;
         
         [self configurePullToRefresh];
         [self configureScrollToViewMore];
+        
+        [self.videoListViews setObject:videoListViewThis forKey:[self stringWithGDCategory:gdCategory]];
         
         // load init data
         [self loadDataOfGDCategory:gdCategory shouldReload:YES];
@@ -316,8 +321,10 @@ int postIdForSegue;
 }
 
 - (void)loadDataOfGDCategory:(NSUInteger)gdCategory shouldReload:(BOOL)reload {
+    [MBProgressHUD showHUDAddedTo:self.view animated:NO];
+    NSLog(@"Loading category:%lu page:%@", (unsigned long)gdCategory, [self.pageIndexes objectForKey:self.currentGDCategoryAsString]);
     if (reload) {
-        [MBProgressHUD showHUDAddedTo:self.view animated:NO];
+        
         
         [self.pageIndexes setObject:@0 forKey:[self stringWithGDCategory:gdCategory]];
         [self.postsByGDCategory setObject:[[NSArray alloc] init] forKey:[self stringWithGDCategory:gdCategory]];
@@ -353,7 +360,13 @@ int postIdForSegue;
 #pragma mark - Misc
 
 - (NSString *)stringWithGDCategory:(NSUInteger)gdCategory {
-    return [NSString stringWithFormat:@"%d", gdCategory];
+    return [NSString stringWithFormat:@"%lu", (unsigned long)gdCategory];
 }
 
 @end
+
+
+/*TODO
+ 1. Open a thread calling data from back-end server, load data from all GD-Categories, when display to UI according to category, choose from the big list
+ 2.
+ */
