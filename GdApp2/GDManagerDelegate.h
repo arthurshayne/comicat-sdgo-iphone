@@ -21,10 +21,10 @@
 - (void)didReceiveUnitSearchResults:(NSArray *)units;    /*Array of UnitInfoShort*/
 - (void)searchUnitsWithError:(NSError *)error;
 
-- (void)didReceivePostList:(NSArray *)posts ofGdCategory:(int)category;    /*Array of PostInfo*/
+- (void)didReceivePostList:(NSArray *)posts ofGdCategory:(uint)category;    /*Array of PostInfo*/
 - (void)fetchPostListWithError:(NSError *)error;
 
-- (void)didReceiveVideoList:(NSArray *)posts ofGdCategory:(int)category;    /*Array of PostInfo*/
+- (void)didReceiveVideoList:(NSArray *)posts ofGdCategory:(uint)category;    /*Array of PostInfo*/
 - (void)fetchVideoListWithError:(NSError *)error;
 
 @end

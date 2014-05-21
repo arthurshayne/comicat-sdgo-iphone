@@ -94,7 +94,8 @@ static NSDictionary *_gdCategoryGradientColors;
     // [self.layer insertSublayer:layer atIndex:0];
     [self.layer addSublayer:layer];
     
-    self.categoryTextLabel.text = [self getGdPostCategoryText:gdPostCategory];
+    self.categoryTextLabel.text = [NSString stringWithFormat:@"%@", [self getGdPostCategoryText:gdPostCategory]];
+    // self.categoryTextLabel.text = [NSString stringWithFormat:@"%d", gdPostCategory];
     self.categoryTextLabel.textColor = [UIColor whiteColor];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelTapped:)];

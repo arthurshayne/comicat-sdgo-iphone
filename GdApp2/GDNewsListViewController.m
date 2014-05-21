@@ -24,17 +24,18 @@
 @interface GDNewsListViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *postListTableView;
-
 @property (strong, nonatomic) GDCategoryListView *categoryListView;
 
 @property (strong, nonatomic) NSArray *gdCategories;
 
 @property (strong, nonatomic) GDManager *manager;
 
-@property NSUInteger currentGdCategory;
-@property NSUInteger pageIndex;
+@property int currentGDCategory;
+@property int pageIndex;
 @property (strong, nonatomic) NSArray *posts;
 @property int selectedPostId;
+
+@property (strong, nonatomic) NSCache *cellHeightCache;
 
 // @property (strong, nonatomic) NSDictionary *postsByDate;    // NSString, NSArray
 
@@ -64,6 +65,14 @@ static NSString *CELL_IDENTIFIER = @"PostListTableCell";
     return _manager;
 }
 
+- (NSCache *)cellHeightCache {
+    if (!_cellHeightCache) {
+        _cellHeightCache = [[NSCache alloc] init];
+        [_cellHeightCache setCountLimit:200];
+    }
+    return _cellHeightCache;
+}
+
 NSDateFormatter *nsdf;
 
 - (void)viewDidLoad {
@@ -76,8 +85,8 @@ NSDateFormatter *nsdf;
     
     [self prepareCategoryList];
     
-    self.currentGdCategory = 0;
-    [self loadDataOfCurrentGDCategory:YES];
+    self.currentGDCategory = 0;
+    [self loadDataOfcurrentGDCategory:YES];
     
     [self.postListTableView registerClass:[GDPostListTableViewCell class] forCellReuseIdentifier:CELL_IDENTIFIER];
     
@@ -106,7 +115,7 @@ NSDateFormatter *nsdf;
 
 - (void)configurePullToRefresh {
     self.pullToRefresh = [self.postListTableView addPullToRefreshPosition:AAPullToRefreshPositionTop ActionHandler:^(AAPullToRefresh *v){
-        [self loadDataOfCurrentGDCategory:YES];
+        [self loadDataOfcurrentGDCategory:YES];
     }];
     // don't display at once
     [self.pullToRefresh stopIndicatorAnimation];
@@ -118,7 +127,7 @@ NSDateFormatter *nsdf;
 - (void)configureScrollToViewMore {
     [self.postListTableView addInfiniteScrollingWithActionHandler:^{
         self.pageIndex++;
-        [self loadDataOfCurrentGDCategory:NO];
+        [self loadDataOfcurrentGDCategory:NO];
     }];
 }
 
@@ -138,7 +147,7 @@ NSDateFormatter *nsdf;
     }
 }
 
-- (void)loadDataOfCurrentGDCategory:(BOOL)shouldReload {
+- (void)loadDataOfcurrentGDCategory:(BOOL)shouldReload {
     if (shouldReload) {
         [MBProgressHUD showHUDAddedTo:self.view animated:NO];
         
@@ -149,7 +158,7 @@ NSDateFormatter *nsdf;
         self.posts = nil;
     }
     
-    [self.manager fetchPostListOfCategory:self.currentGdCategory pageSize:POST_LIST_PAGE_SIZE pageIndex:self.pageIndex];
+    [self.manager fetchPostListOfCategory:self.currentGDCategory pageSize:POST_LIST_PAGE_SIZE pageIndex:self.pageIndex];
     
 //    [self displayCategorySelectionIfNeeded];
 }
@@ -179,7 +188,7 @@ NSDateFormatter *nsdf;
     }
     
     // didn't change since last change
-    if (self.currentGdCategory == category) {
+    if (self.currentGDCategory == category) {
         if (!self.posts) {
             self.posts = posts;
         } else {
@@ -192,7 +201,7 @@ NSDateFormatter *nsdf;
             // load more
             [self.postListTableView beginUpdates];
             NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
-            for (int i = self.posts.count - posts.count; i < self.posts.count; i++) {
+            for (u_long i = self.posts.count - posts.count; i < self.posts.count; i++) {
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
                 [indexPaths addObject:indexPath];
             }
@@ -295,22 +304,29 @@ NSDateFormatter *nsdf;
 #pragma mark - TableView Delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSDate *startDate = [NSDate date];
-
-    PostInfo *post = [self.posts objectAtIndex:indexPath.row];
-    
-    double timePassed_ms = [startDate timeIntervalSinceNow] * 1000.0;
-    NSLog(@"height: %f", timePassed_ms);
-    
-    return [GDPostListTableViewCell cellHeightForPostInfo:post];
-}
-
-//- (PostInfo *)findPostByIndexPath:(NSIndexPath *)indexPath {
-//    NSString *dateString = [self.dateStrings objectAtIndex:indexPath.section];
-//    NSArray *posts = [self.postsByDate objectForKey:dateString];
+//    NSDate *startDate = [NSDate date];
+//
+//    PostInfo *post = [self.posts objectAtIndex:indexPath.row];
 //    
-//    return [posts objectAtIndex:indexPath.row];
-//}
+//    NSNumber *postIdNumber = [NSNumber numberWithInt:post.postId];
+//    NSNumber *cached = [self.cellHeightCache objectForKey:postIdNumber];
+//    if (cached != nil) {
+//        // NSLog(@"cached  height: %@", cached);
+//        double timePassed_ms = [startDate timeIntervalSinceNow] * 1000.0;
+//        NSLog(@"cached height: %f", timePassed_ms);
+//
+//        return [cached doubleValue];
+//    } else {
+//        CGFloat calcHeight = [GDPostListTableViewCell cellHeightForPostInfo:post];
+//        [self.cellHeightCache setObject:[NSNumber numberWithDouble:calcHeight] forKey:postIdNumber];
+//        double timePassed_ms = [startDate timeIntervalSinceNow] * 1000.0;
+//        NSLog(@"raw height: %f", timePassed_ms);
+//
+//        return calcHeight;
+//    }
+    
+    return 90;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     PostInfo *post = [self.posts objectAtIndex:indexPath.row];
@@ -328,18 +344,18 @@ NSDateFormatter *nsdf;
 #pragma mark - GDCategoryListViewDelegate 
 
 - (void)tappedOnCategoryViewWithCategory:(int)category {
-    if (self.currentGdCategory != category) {
+    if (self.currentGDCategory != category) {
         // should clear the array
-        self.currentGdCategory = category;
+        self.currentGDCategory = category;
         
-        [self loadDataOfCurrentGDCategory:YES];
+        [self loadDataOfcurrentGDCategory:YES];
     }
 }
 
 - (void)tappedOnShowAll {
-    if (self.currentGdCategory != 0) {
-        self.currentGdCategory = 0;
-        [self loadDataOfCurrentGDCategory:YES];
+    if (self.currentGDCategory != 0) {
+        self.currentGDCategory = 0;
+        [self loadDataOfcurrentGDCategory:YES];
     }
 }
 
