@@ -41,11 +41,10 @@ UIFont *_fontForTitleLabel;
 
 - (void)configureForPostInfo:(PostInfo *)post {
     self.titleLabel.text = post.title;
-    CGSize sizeThatFits = [self.class sizeThatFitsTitle:post.title];
+    // CGSize sizeThatFits = [self.class sizeThatFitsTitle:post.title];
     
     CGRect titleLabelFrame = self.titleLabel.frame;
-    // CGRect frameThatFits = CGRectMake(titleLabelFrame.origin.x, titleLabelFrame.origin.y, TITLE_LABEL_WIDTH, heightOfTitleLabel);
-    titleLabelFrame.size = sizeThatFits;
+    titleLabelFrame.size = CGSizeMake(280, 34);
     self.titleLabel.frame = titleLabelFrame;
 
     // TODO: see if multiple category should be shown
@@ -65,7 +64,7 @@ UIFont *_fontForTitleLabel;
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(TITLE_LABEL_X, TITLE_LABEL_Y, TITLE_LABEL_WIDTH, 30)];
         self.titleLabel.font = [self.class fontForTitleLabel];
         self.titleLabel.textColor = [Utility UIColorFromRGB:0x333333];
-        self.titleLabel.numberOfLines = 0;
+        self.titleLabel.numberOfLines = 2;
         
         [self.contentView addSubview:self.titleLabel];
         
@@ -81,7 +80,6 @@ UIFont *_fontForTitleLabel;
         self.dateLabel.textColor = [Utility UIColorFromRGB:0x999999];
         self.dateLabel.numberOfLines = 1;
         [self.contentView addSubview:self.dateLabel];
-
     }
     return self;
 }

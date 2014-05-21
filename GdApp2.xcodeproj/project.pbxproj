@@ -41,6 +41,8 @@
 		057393B3191A921400F7415E /* UnitInfoShort.m in Sources */ = {isa = PBXBuildFile; fileRef = 057393B2191A921400F7415E /* UnitInfoShort.m */; };
 		05742BAB1910B70D00893A7F /* GDVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05742BAA1910B70D00893A7F /* GDVideoViewController.m */; };
 		058C3D1F191CDB41004B3EB5 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 058C3D1E191CDB41004B3EB5 /* Utility.m */; };
+		05976CCC192CE37A008A2361 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 05976CCE192CE37A008A2361 /* Localizable.strings */; };
+		05996F9F192B61AD00BD1202 /* GDVideoListVCDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 05996F9E192B61AD00BD1202 /* GDVideoListVCDataSource.m */; };
 		05A417C21915027B0040A679 /* GDPostCategoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A417C11915027B0040A679 /* GDPostCategoryView.m */; };
 		05A417C71915186D0040A679 /* NSDate+PrettyDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A417C61915186D0040A679 /* NSDate+PrettyDate.m */; };
 		05A6732E191F9D4C006287D4 /* PushNoAnimationSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A6732D191F9D4C006287D4 /* PushNoAnimationSegue.m */; };
@@ -122,6 +124,10 @@
 		05742BAA1910B70D00893A7F /* GDVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDVideoViewController.m; sourceTree = "<group>"; };
 		058C3D1D191CDB41004B3EB5 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
 		058C3D1E191CDB41004B3EB5 /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
+		05976CCD192CE37A008A2361 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		05996F9D192B61AD00BD1202 /* GDVideoListVCDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDVideoListVCDataSource.h; sourceTree = "<group>"; };
+		05996F9E192B61AD00BD1202 /* GDVideoListVCDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDVideoListVCDataSource.m; sourceTree = "<group>"; };
+		05996FA0192BAE0300BD1202 /* GDVideoListDSDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GDVideoListDSDelegate.h; sourceTree = "<group>"; };
 		05A417C01915027B0040A679 /* GDPostCategoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDPostCategoryView.h; sourceTree = "<group>"; };
 		05A417C11915027B0040A679 /* GDPostCategoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDPostCategoryView.m; sourceTree = "<group>"; };
 		05A417C51915186D0040A679 /* NSDate+PrettyDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+PrettyDate.h"; sourceTree = "<group>"; };
@@ -208,21 +214,25 @@
 		05023ADF19052791001D04F0 /* GdApp2 */ = {
 			isa = PBXGroup;
 			children = (
+				05976CCE192CE37A008A2361 /* Localizable.strings */,
 				0506D4BA19171D8C00EFAC83 /* Controller */,
-				05A417C31915182E0040A679 /* lib */,
-				05A417BF191502690040A679 /* View */,
-				0565B3BA1908A41E00CCE77E /* Manager */,
-				0565B3AC19089C4000CCE77E /* Model */,
 				0565B3AA1908999500CCE77E /* GDCommunication */,
-				05023AEB19052791001D04F0 /* Main.storyboard */,
-				05023AF119052791001D04F0 /* Images.xcassets */,
-				05023AE019052791001D04F0 /* Supporting Files */,
+				0565B3AC19089C4000CCE77E /* GDDataModel */,
 				0565B3BF1908A52A00CCE77E /* GDInfoBuilder.h */,
 				0565B3C01908A52A00CCE77E /* GDInfoBuilder.m */,
 				0506D4CD1917715100EFAC83 /* GDManagerFactory.h */,
 				0506D4CE1917715100EFAC83 /* GDManagerFactory.m */,
+				05996F9D192B61AD00BD1202 /* GDVideoListVCDataSource.h */,
+				05996F9E192B61AD00BD1202 /* GDVideoListVCDataSource.m */,
+				05023AF119052791001D04F0 /* Images.xcassets */,
+				05A417C31915182E0040A679 /* lib */,
+				05023AEB19052791001D04F0 /* Main.storyboard */,
+				0565B3BA1908A41E00CCE77E /* Manager */,
+				05023AE019052791001D04F0 /* Supporting Files */,
 				058C3D1D191CDB41004B3EB5 /* Utility.h */,
 				058C3D1E191CDB41004B3EB5 /* Utility.m */,
+				05A417BF191502690040A679 /* View */,
+				05996FA0192BAE0300BD1202 /* GDVideoListDSDelegate.h */,
 			);
 			path = GdApp2;
 			sourceTree = "<group>";
@@ -291,7 +301,7 @@
 			name = GDCommunication;
 			sourceTree = "<group>";
 		};
-		0565B3AC19089C4000CCE77E /* Model */ = {
+		0565B3AC19089C4000CCE77E /* GDDataModel */ = {
 			isa = PBXGroup;
 			children = (
 				0565B3AD19089C6700CCE77E /* HomeInfo.h */,
@@ -307,7 +317,7 @@
 				057393B1191A921400F7415E /* UnitInfoShort.h */,
 				057393B2191A921400F7415E /* UnitInfoShort.m */,
 			);
-			name = Model;
+			name = GDDataModel;
 			sourceTree = "<group>";
 		};
 		0565B3BA1908A41E00CCE77E /* Manager */ = {
@@ -458,6 +468,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				05023AF219052791001D04F0 /* Images.xcassets in Resources */,
+				05976CCC192CE37A008A2361 /* Localizable.strings in Resources */,
 				05023AE419052791001D04F0 /* InfoPlist.strings in Resources */,
 				05023AED19052791001D04F0 /* Main.storyboard in Resources */,
 			);
@@ -536,6 +547,7 @@
 				05E4D588191B31230056839B /* NSDictionary+QueryStringBuilder.m in Sources */,
 				05B7B3D5191E8A3A0003D354 /* GDNewsListViewController.m in Sources */,
 				057393B0191A87D600F7415E /* UnitInfo.m in Sources */,
+				05996F9F192B61AD00BD1202 /* GDVideoListVCDataSource.m in Sources */,
 				05E40AD819211EF2004AA495 /* GDPostListTableViewCell.m in Sources */,
 				05A6732E191F9D4C006287D4 /* PushNoAnimationSegue.m in Sources */,
 				05216A281925FB9A00807A2E /* GDVideoListViewController.m in Sources */,
@@ -586,6 +598,15 @@
 				05C3D400191E5525001B69ED /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		05976CCE192CE37A008A2361 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				05976CCD192CE37A008A2361 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

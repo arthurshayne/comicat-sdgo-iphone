@@ -97,7 +97,7 @@ int postIdForSegue;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    NSLog(@"viewWillAppear");
+    // NSLog(@"viewWillAppear");
     
     [super viewWillAppear:animated];
 
@@ -273,7 +273,7 @@ int postIdForSegue;
 }
 
 - (void) updatePageControlAccordingly {
-    int pageIndex = self.infiniteScrollView.currentPageIndex;
+    NSUInteger pageIndex = self.infiniteScrollView.currentPageIndex;
     
     CarouselInfo *ci = (CarouselInfo*)[self.homeInfo.carousel objectAtIndex:pageIndex];
     
