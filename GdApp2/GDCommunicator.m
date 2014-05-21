@@ -22,6 +22,7 @@ static NSString *API_URL = @"http://www.sdgundam.cn/services/app.ashx";
     NSString *urlAsString = API_URL;
     NSURL *url = [[NSURL alloc] initWithString:urlAsString];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    request.cachePolicy = NSURLRequestReturnCacheDataElseLoad;
     [request setHTTPMethod:@"POST"];
     NSString *postString = [NSString stringWithFormat:@"a=%@&%@", action, [parameters queryString]];
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
@@ -70,7 +71,7 @@ static NSString *API_URL = @"http://www.sdgundam.cn/services/app.ashx";
                                }];
 }
 
-- (void)fetchPostList:(int)gdCategory pageSize:(int)pageSize pageIndex:(int)pageIndex {
+- (void)fetchPostList:(uint)gdCategory pageSize:(uint)pageSize pageIndex:(uint)pageIndex {
     [self.class requestAPIWithAction:@"post-list"
                                using:[NSDictionary dictionaryWithObjectsAndKeys:
                                       [NSString stringWithFormat:@"%d", gdCategory], @"cat",
@@ -85,7 +86,7 @@ static NSString *API_URL = @"http://www.sdgundam.cn/services/app.ashx";
                                }];
 }
 
-- (void)fetchVideoList:(int)gdCategory pageSize:(int)pageSize pageIndex:(int)pageIndex {
+- (void)fetchVideoList:(uint)gdCategory pageSize:(uint)pageSize pageIndex:(uint)pageIndex {
     [self.class requestAPIWithAction:@"video-list"
                                using:[NSDictionary dictionaryWithObjectsAndKeys:
                                       [NSString stringWithFormat:@"%d", gdCategory], @"cat",

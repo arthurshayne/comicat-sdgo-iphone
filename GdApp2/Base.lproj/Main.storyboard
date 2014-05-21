@@ -29,7 +29,6 @@
         <!--Video List View Controller-->
         <scene sceneID="IU4-z6-JkN">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3cv-jR-NQf" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="LVb-1N-ZVK" customClass="GDVideoListViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="l1I-44-ZGU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -40,22 +39,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <collectionView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="infinite" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="YS2-Wg-chY">
-                                <rect key="frame" x="6" y="113" width="308" height="405"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="7Xg-Or-riM">
-                                    <size key="itemSize" width="0.0" height="0.0"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells/>
-                                <connections>
-                                    <outlet property="dataSource" destination="LVb-1N-ZVK" id="2Al-o2-AuG"/>
-                                    <outlet property="delegate" destination="LVb-1N-ZVK" id="eZp-HW-Ene"/>
-                                </connections>
-                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -80,10 +63,10 @@
                         </view>
                     </navigationItem>
                     <connections>
-                        <outlet property="videoListView" destination="YS2-Wg-chY" id="bqE-dL-zn3"/>
                         <segue destination="xx8-lO-ygV" kind="push" identifier="ViewVideo" id="aDa-PF-k4K"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3cv-jR-NQf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-107" y="901"/>
         </scene>
@@ -99,16 +82,6 @@
                                 <rect key="frame" x="0.0" y="113" width="320" height="405"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="hgb-hf-kyU">
-                                        <rect key="frame" x="0.0" y="86" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hgb-hf-kyU" id="3N4-nD-3I1">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="94J-8p-dhQ" id="9hG-cy-GbY"/>
                                     <outlet property="delegate" destination="94J-8p-dhQ" id="eTW-55-4EL"/>
@@ -155,7 +128,7 @@
         <scene sceneID="eOW-lM-YXb">
             <objects>
                 <viewController id="ROR-jx-yyO" customClass="GDHome2ViewController" sceneMemberID="viewController">
-                    <view key="view" opaque="NO" contentMode="scaleToFill" id="4lh-d3-ZzN">
+                    <view key="view" contentMode="scaleToFill" id="4lh-d3-ZzN">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -181,7 +154,7 @@
                                         <color key="pageIndicatorTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="currentPageIndicatorTintColor" red="1" green="0.21722669410000001" blue="0.15822746009999999" alpha="1" colorSpace="calibratedRGB"/>
                                     </pageControl>
-                                    <collectionView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="infinite" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Gyd-kA-TJq">
+                                    <collectionView clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="infinite" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Gyd-kA-TJq">
                                         <rect key="frame" x="6" y="141" width="308" height="145"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -248,65 +221,6 @@
             <point key="canvasLocation" x="-97" y="-468"/>
         </scene>
         <!--Search Unit View Controller-->
-        <scene sceneID="Uv0-0W-nBp">
-            <objects>
-                <tableViewController hidesBottomBarWhenPushed="YES" id="D2P-Sp-fLc" customClass="SearchUnitViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="bkc-wq-RDy">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="p2d-gS-2rf">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="p2d-gS-2rf" id="QaU-Ze-XlE">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="D2P-Sp-fLc" id="Wcj-s4-8L8"/>
-                            <outlet property="delegate" destination="D2P-Sp-fLc" id="6Vr-94-1xE"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="GgC-a6-4h9">
-                        <nil key="title"/>
-                        <view key="titleView" contentMode="scaleToFill" id="2BW-1z-G6A">
-                            <rect key="frame" x="8" y="6" width="304" height="33"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="机体名或昵称" showsSearchResultsButton="YES" showsCancelButton="YES" id="eTE-70-Dgt">
-                                    <rect key="frame" x="-8" y="-5" width="320" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    <textInputTraits key="textInputTraits" autocorrectionType="no"/>
-                                    <connections>
-                                        <outlet property="delegate" destination="D2P-Sp-fLc" id="uo1-kW-YNF"/>
-                                    </connections>
-                                </searchBar>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        </view>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="searchDisplayController" destination="JQX-95-Zy8" id="fj2-o4-68F"/>
-                        <outlet property="unitSearchBar" destination="eTE-70-Dgt" id="8GC-WI-Gnz"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sCG-SJ-nxc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="JQX-95-Zy8">
-                    <connections>
-                        <outlet property="delegate" destination="D2P-Sp-fLc" id="8Rg-8d-cE7"/>
-                        <outlet property="searchBar" destination="eTE-70-Dgt" id="qgM-gp-4Fr"/>
-                        <outlet property="searchContentsController" destination="D2P-Sp-fLc" id="kde-qf-7QB"/>
-                        <outlet property="searchResultsDataSource" destination="D2P-Sp-fLc" id="0p9-2S-i5S"/>
-                        <outlet property="searchResultsDelegate" destination="D2P-Sp-fLc" id="98A-QF-76S"/>
-                    </connections>
-                </searchDisplayController>
-            </objects>
-            <point key="canvasLocation" x="1671" y="-912"/>
-        </scene>
-        <!--Search Unit View Controller-->
         <scene sceneID="BH8-4G-wTt">
             <objects>
                 <viewController hidesBottomBarWhenPushed="YES" id="qp8-04-bdb" customClass="SearchUnitViewController" sceneMemberID="viewController">
@@ -319,10 +233,10 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="72" id="sY4-Ek-f8L" customClass="SearchUnitResultTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="unitCell" rowHeight="72" id="sY4-Ek-f8L" customClass="SearchUnitResultTableViewCell">
                                         <rect key="frame" x="0.0" y="22" width="320" height="72"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sY4-Ek-f8L" id="UzT-b4-Qxa">
+                                        <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sY4-Ek-f8L" id="UzT-b4-Qxa">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="71"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -530,7 +444,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="sIr-PI-Iu0"/>
+        <segue reference="sxK-G5-fs6"/>
         <segue reference="aDa-PF-k4K"/>
     </inferredMetricsTieBreakers>
 </document>

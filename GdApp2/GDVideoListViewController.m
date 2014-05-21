@@ -11,6 +11,7 @@
 #import "GDManager.h"
 #import "GDManagerFactory.h"
 #import "Utility.h"
+#import "GDVideoListVCDataSource.h"
 
 #import "AAPullToRefresh.h"
 #import "MBProgressHUD.h"
@@ -21,9 +22,11 @@
 
 #import "GDVideoViewController.h"
 
+
 @interface GDVideoListViewController ()
 @property (strong, nonatomic) NSMutableDictionary *videoListViews; // key: category value: UICollectionView
-@property (retain, nonatomic) UICollectionView *currentVideoListView;
+@property (retain, nonatomic, readonly) UICollectionView *currentVideoListView;
+@property (strong, nonatomic) NSMutableDictionary *dataSources;    // key: category value: GDVLVCDataSource
 
 @property (strong, nonatomic) GDCategoryListView *categoryListView;
 
@@ -33,12 +36,7 @@
 
 @property uint currentGDCategory;
 @property (strong, nonatomic, readonly) NSString *currentGDCategoryAsString;
-// @property NSUInteger pageIndex;
-@property (strong, nonatomic) NSMutableDictionary *pageIndexes;
-@property (readonly) int pageIndexOfCurrengGDCategory;
-// @property (strong, nonatomic) NSArray *posts;
-@property (strong, nonatomic) NSMutableDictionary *postsByGDCategory;
-@property (strong, nonatomic, readonly) NSArray *postsOfCurrentGDCategory;
+
 @property int selectedPostId;
 
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
@@ -48,8 +46,7 @@
 
 @implementation GDVideoListViewController
 
-static int POST_LIST_PAGE_SIZE = 20;
-static NSString *CELL_IDENTIFIER = @"VideoListTableCell%d";
+static NSString *CELL_IDENTIFIER = @"VideoListTableCell";
 
 int postIdForSegue;
 
@@ -61,24 +58,8 @@ int postIdForSegue;
     return _gdCategories;
 }
 
-- (GDManager *)manager {
-    if (!_manager) {
-        _manager = [GDManagerFactory getGDManagerWithDelegate:self];
-    }
-    
-    return _manager;
-}
-
 - (NSString *)currentGDCategoryAsString {
     return [NSString stringWithFormat:@"%lu", (unsigned long)self.currentGDCategory];
-}
-
-- (NSArray *)postsOfCurrentGDCategory {
-    return (NSArray *)[self.postsByGDCategory objectForKey:self.currentGDCategoryAsString];
-}
-
-- (int)pageIndexOfCurrengGDCategory {
-    return [((NSNumber *)[self.pageIndexes objectForKey:self.currentGDCategoryAsString]) intValue];
 }
 
 - (NSDateFormatter *)dateFormatter {
@@ -89,7 +70,6 @@ int postIdForSegue;
     return _dateFormatter;
 }
 
-
 - (NSMutableDictionary *)videoListViews {
     if (!_videoListViews) {
         _videoListViews = [[NSMutableDictionary alloc] init];
@@ -97,19 +77,41 @@ int postIdForSegue;
     return _videoListViews;
 }
 
-- (NSMutableDictionary *)postsByGDCategory {
-    if (!_postsByGDCategory) {
-        _postsByGDCategory = [[NSMutableDictionary alloc] init];
-    }
-    return _postsByGDCategory;
+- (UICollectionView *)currentVideoListView {
+    return [self.videoListViews objectForKey:self.currentGDCategoryAsString];
 }
 
-- (NSMutableDictionary *)pageIndexes {
-    if (!_pageIndexes) {
-        _pageIndexes = [[NSMutableDictionary alloc] init];
+- (NSMutableDictionary *)dataSources {
+    if (!_dataSources) {
+        _dataSources = [[NSMutableDictionary alloc] initWithCapacity:self.gdCategories.count];
+        for (NSUInteger i = 0; i < self.gdCategories.count; i++) {
+            uint gdCategory = [((NSNumber *)[self.gdCategories objectAtIndex:i]) unsignedIntegerValue];
+            GDVideoListVCDataSource *ds = [[GDVideoListVCDataSource alloc] initWithGDCategory:gdCategory];
+            ds.delegate = self;
+            [_dataSources setObject:ds forKey:[self stringWithGDCategory:gdCategory]];
+        }
+        
+        GDVideoListVCDataSource *ds = [[GDVideoListVCDataSource alloc] initWithGDCategory:0];
+        ds.delegate = self;
+        [_dataSources setObject:ds forKey:@"0"];
+        
     }
-    return _pageIndexes;
+    return _dataSources;
 }
+
+//- (NSMutableDictionary *)postsByGDCategory {
+//    if (!_postsByGDCategory) {
+//        _postsByGDCategory = [[NSMutableDictionary alloc] init];
+//    }
+//    return _postsByGDCategory;
+//}
+//
+//- (NSMutableDictionary *)pageIndexes {
+//    if (!_pageIndexes) {
+//        _pageIndexes = [[NSMutableDictionary alloc] init];
+//    }
+//    return _pageIndexes;
+//}
 
 #pragma mark - ViewController
 
@@ -119,19 +121,20 @@ int postIdForSegue;
     
     // NSLog(@"viewDidLoad");
     
-
     [self prepareCategoryList];
     
-    self.currentGDCategory = 0;
     // [self loadDataOfCurrentGDCategory:YES];
     
-    [self configureVideoListViewForGDCategory:self.currentGDCategory];
+    NSLog(@"%@", self.dataSources);
+    
+    [self configureVideoListViewForGDCategory:0];
+    self.currentGDCategory = 0;
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
-
 - (void)didReceiveMemoryWarning {
-    self.postsByGDCategory = nil;
+//    self.postsByGDCategory = nil;
     self.videoListViews = nil;
 }
 
@@ -152,94 +155,14 @@ int postIdForSegue;
     [self.view addSubview:self.categoryListView];
 }
 
-#pragma mark - GDManagerDelegate
-- (void)didReceiveVideoList:(NSArray *)posts ofGdCategory:(int)category {
-    NSLog(@"didReceive category:%d page:%@", category, [self.pageIndexes objectForKey:self.currentGDCategoryAsString]);
-    BOOL justReloaded = (self.postsOfCurrentGDCategory == nil || self.postsOfCurrentGDCategory.count == 0);
-    
-    if (posts.count < POST_LIST_PAGE_SIZE || posts.count == 0) {
-        // TODO: its over...
-        
-    }
-    
-    if (posts.count > 0) {
-        [self appendPosts:posts intoGDCategory:category];
-    }
-    
-    if (self.currentGDCategory == category) {
-        if (justReloaded) {
-            [self.currentVideoListView reloadData];
-            [self stopAllLoadingAnimations];
-        } else {
-            [self.currentVideoListView performBatchUpdates:^{
-                NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
-                for (int i = self.postsOfCurrentGDCategory.count - posts.count; i < self.postsOfCurrentGDCategory.count; i++) {
-                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-                    [indexPaths addObject:indexPath];
-                }
-                [self.currentVideoListView insertItemsAtIndexPaths:indexPaths];
-
-            } completion:^(BOOL finished) {
-                if (justReloaded) {
-                    [self.currentVideoListView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]
-                                                      atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
-                }
-               
-                [self stopAllLoadingAnimations];
-            }];
-        }
-    }
-}
-
-- (void)stopAllLoadingAnimations {
-    [MBProgressHUD hideAllHUDsForView:self.view animated:NO];
-    [self.currentVideoListView.infiniteScrollingView stopAnimating];
-    [self.pullToRefresh stopIndicatorAnimation];
-}
-
-- (void)appendPosts:(NSArray *)posts intoGDCategory:(NSInteger)category {
-    NSMutableArray *newPosts = [NSMutableArray arrayWithArray:((NSArray *)[self.postsByGDCategory objectForKey:[self stringWithGDCategory:category]])];
-    [newPosts addObjectsFromArray:posts];
-    [self.postsByGDCategory setObject:[NSArray arrayWithArray:newPosts] forKey:[self stringWithGDCategory:category]];
-}
-
-- (void)fetchVideoListWithError:(NSError *)error {
-    
-}
-
-#pragma mark - UICollectionViewDataSource
-- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
-    return ((NSArray *)[self.postsByGDCategory objectForKey:self.currentGDCategoryAsString]).count;
-}
-- (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView {
-    return 1;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    //    NSLog(@"indexPath.row: %d", indexPath.row);
-    
-    GDVideoListCollectionViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier:CELL_IDENTIFIER forIndexPath:indexPath];
-    VideoListItem *vli = (VideoListItem*)[self.postsOfCurrentGDCategory objectAtIndex:indexPath.row];
-    //    NSLog(@"should: %@, %@", vli.title, vli.title2);
-    
-    if (vli) {
-        [cell prepareForReuse];
-        
-        cell.backgroundColor = [UIColor whiteColor];
-        [cell configureForVideoListItem:vli];
-        
-        [cell setNeedsLayout];
-    }
-    return cell;
-}
 
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    VideoListItem *vli = [self.postsOfCurrentGDCategory objectAtIndex: indexPath.row];
-    postIdForSegue = vli.postId;
-    
-    [self performSegueWithIdentifier:@"ViewVideo" sender:self];
+//    VideoListItem *vli = [self.postsOfCurrentGDCategory objectAtIndex: indexPath.row];
+//    postIdForSegue = vli.postId;
+//    
+//    [self performSegueWithIdentifier:@"ViewVideo" sender:self];
 }
 
 //- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -259,10 +182,9 @@ int postIdForSegue;
     NSLog(@"Selected category: %d", category);
     if (self.currentGDCategory != category) {
         // should clear the array
-        self.currentGDCategory = category;
-        
         // [self loadDataOfCurrentGDCategory:YES];
         [self configureVideoListViewForGDCategory:category];
+        self.currentGDCategory = category;
     }
 }
 
@@ -284,21 +206,21 @@ int postIdForSegue;
     UICollectionView *videoListViewThis = [self.videoListViews objectForKey:[self stringWithGDCategory:gdCategory]];
     if (videoListViewThis) {
         videoListViewThis.hidden = NO;
-        self.currentVideoListView = videoListViewThis;
     } else {
         videoListViewThis = [self createVideoListViewForGDCategory:gdCategory];
-        self.currentVideoListView = videoListViewThis;
         
         [videoListViewThis registerClass:[GDVideoListCollectionViewCell class] forCellWithReuseIdentifier:CELL_IDENTIFIER];
+
         // self.videoListView.infiniteScrollingView.enabled = YES;
         
-        [self configurePullToRefresh];
-        [self configureScrollToViewMore];
+        [self configurePullToRefresh:gdCategory forView:videoListViewThis];
+        [self configureScrollToViewMore:gdCategory forView:videoListViewThis];
         
         [self.videoListViews setObject:videoListViewThis forKey:[self stringWithGDCategory:gdCategory]];
         
         // load init data
-        [self loadDataOfGDCategory:gdCategory shouldReload:YES];
+        GDVideoListVCDataSource *dataSource = [self.dataSources objectForKey:[self stringWithGDCategory:gdCategory]];
+        [dataSource reloadData];
     }
 }
 
@@ -313,47 +235,41 @@ int postIdForSegue;
     
     [self.view addSubview:videoListView];
     
+    GDVideoListVCDataSource *dataSource = [self.dataSources objectForKey:[self stringWithGDCategory:gdCategory]];
     
-    videoListView.dataSource = self;
+    videoListView.dataSource = dataSource;
     videoListView.delegate = self;
     
     return videoListView;
 }
 
-- (void)loadDataOfGDCategory:(NSUInteger)gdCategory shouldReload:(BOOL)reload {
-    [MBProgressHUD showHUDAddedTo:self.view animated:NO];
-    NSLog(@"Loading category:%lu page:%@", (unsigned long)gdCategory, [self.pageIndexes objectForKey:self.currentGDCategoryAsString]);
-    if (reload) {
-        
-        
-        [self.pageIndexes setObject:@0 forKey:[self stringWithGDCategory:gdCategory]];
-        [self.postsByGDCategory setObject:[[NSArray alloc] init] forKey:[self stringWithGDCategory:gdCategory]];
-    }
+- (void)configurePullToRefresh:(uint)gdCategory forView:(UICollectionView *)collectionView {
+    __weak typeof(self) weakSelf = self;
+//    self.pullToRefresh = [self.currentVideoListView addPullToRefreshPosition:AAPullToRefreshPositionTop ActionHandler:^(AAPullToRefresh *v){
+//        [weakSelf loadDataOfCurrentGDCategory:YES];
+//    }];
+//    // don't display at once
+//    [self.pullToRefresh stopIndicatorAnimation];
+//    self.pullToRefresh.imageIcon = [UIImage imageNamed:@"halo"];
+//    self.pullToRefresh.threshold = 80.0f;
+//    self.pullToRefresh.borderWidth = 3;
     
-    [self.manager fetchVideoListOfCategory:gdCategory pageSize:POST_LIST_PAGE_SIZE pageIndex:self.pageIndexOfCurrengGDCategory];
-}
-
-- (void)loadDataOfCurrentGDCategory:(BOOL)reload {
-    [self loadDataOfGDCategory:self.currentGDCategory shouldReload:reload];
-}
-
-- (void)configurePullToRefresh {
-    __weak typeof(self) weakSelf = self;
-    self.pullToRefresh = [self.currentVideoListView addPullToRefreshPosition:AAPullToRefreshPositionTop ActionHandler:^(AAPullToRefresh *v){
-        [weakSelf loadDataOfCurrentGDCategory:YES];
+    [collectionView addPullToRefreshWithActionHandler:^{
+        GDVideoListVCDataSource *ds = (GDVideoListVCDataSource *)[weakSelf.dataSources objectForKey:[weakSelf stringWithGDCategory:gdCategory]];
+        [ds reloadData];
+        
+        UICollectionView *view = [self.videoListViews objectForKey:[self stringWithGDCategory:gdCategory]];
+        view.showsInfiniteScrolling = YES;
     }];
-    // don't display at once
-    [self.pullToRefresh stopIndicatorAnimation];
-    self.pullToRefresh.imageIcon = [UIImage imageNamed:@"halo"];
-    self.pullToRefresh.threshold = 80.0f;
-    self.pullToRefresh.borderWidth = 3;
+    
+    collectionView.pullToRefreshView.arrowColor = [UIColor whiteColor];
 }
 
-- (void)configureScrollToViewMore {
+- (void)configureScrollToViewMore:(uint)gdCategory forView:(UICollectionView *)collectionView {
     __weak typeof(self) weakSelf = self;
-    [self.currentVideoListView addInfiniteScrollingWithActionHandler:^{
-        [weakSelf.pageIndexes setObject:@(weakSelf.pageIndexOfCurrengGDCategory + 1) forKey:weakSelf.currentGDCategoryAsString];
-        [weakSelf loadDataOfCurrentGDCategory:NO];
+    [collectionView addInfiniteScrollingWithActionHandler:^{
+        GDVideoListVCDataSource *ds = (GDVideoListVCDataSource *)[weakSelf.dataSources objectForKey:[weakSelf stringWithGDCategory:gdCategory]];
+        [ds loadMore];
     }];
 }
 
@@ -361,6 +277,71 @@ int postIdForSegue;
 
 - (NSString *)stringWithGDCategory:(NSUInteger)gdCategory {
     return [NSString stringWithFormat:@"%lu", (unsigned long)gdCategory];
+}
+
+- (void)stopAllLoadingAnimations {
+    [MBProgressHUD hideAllHUDsForView:self.view animated:NO];
+    [self.currentVideoListView.infiniteScrollingView stopAnimating];
+    [self.currentVideoListView.pullToRefreshView stopAnimating];
+//    [self.pullToRefresh stopIndicatorAnimation];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+}
+
+#pragma mark - GDVideoListDataSourceDelegate
+- (void)dataDidPrepared:(NSUInteger)numberOfNewItems
+        previouslyHave:(NSUInteger)numberOfOldItems
+          ofGDCategory:(uint)gdCategory
+          needToReload:(BOOL)reload {
+    
+    UICollectionView *view = [self.videoListViews objectForKey:[self stringWithGDCategory:gdCategory]];
+    
+    if (reload) {
+        [view reloadData];
+        [self stopAllLoadingAnimations];
+    } else {
+        [GDVideoListCollectionViewCell setAnimationsEnabled:NO];   // disable animation for collection view
+        [view performBatchUpdates:^{
+            NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
+            for (NSUInteger i = numberOfOldItems; i < numberOfOldItems + numberOfNewItems; i++) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                [indexPaths addObject:indexPath];
+            }
+            [view insertItemsAtIndexPaths:indexPaths];
+            
+        } completion:^(BOOL finished) {
+//            if (reload) {
+//                [view scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]
+//                                                  atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+//            }
+//            
+            [self stopAllLoadingAnimations];
+            [GDVideoListCollectionViewCell setAnimationsEnabled:YES];
+        }];
+    }
+}
+
+- (void)dataSourceWithError:(NSError *)error {
+    // TODO: Show a reload button / or some specific view
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"数据加载失败"
+                                                    message:@"请检查网络连接是否可用"
+                                                   delegate:nil
+                                          cancelButtonTitle:@"好的"
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+
+- (void)noMoreDataFromGDCategory:(unsigned int)gdCategory {
+    UICollectionView *view = [self.videoListViews objectForKey:[self stringWithGDCategory:gdCategory]];
+    // disable infinite scroll
+    view.showsInfiniteScrolling = NO;
+}
+
+- (void)willLoadDataFromGDCategory:(unsigned int)gdCategory isReloading:(BOOL)reloading {
+    if (reloading) {
+        // UICollectionView *view = [self.videoListViews objectForKey:[self stringWithGDCategory:gdCategory]];
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }
 
 @end

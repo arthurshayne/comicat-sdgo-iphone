@@ -23,11 +23,11 @@
     [self.communicator searchUnitsWithKeyword:keyword];
 }
 
-- (void)fetchPostListOfCategory:(int)gdCategory pageSize:(int)pageSize pageIndex:(int)pageIndex {
+- (void)fetchPostListOfCategory:(uint)gdCategory pageSize:(uint)pageSize pageIndex:(uint)pageIndex {
     [self.communicator fetchPostList:gdCategory pageSize:pageSize pageIndex:pageIndex];
 }
 
-- (void)fetchVideoListOfCategory:(int)gdCategory pageSize:(int)pageSize pageIndex:(int)pageIndex {
+- (void)fetchVideoListOfCategory:(uint)gdCategory pageSize:(uint)pageSize pageIndex:(uint)pageIndex {
     [self.communicator fetchVideoList:gdCategory pageSize:pageSize pageIndex:pageIndex];
 }
 
