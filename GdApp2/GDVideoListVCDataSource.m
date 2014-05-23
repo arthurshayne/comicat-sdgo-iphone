@@ -108,19 +108,19 @@ static NSString *CELL_IDENTIFIER = @"VideoListTableCell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    //    NSLog(@"indexPath.row: %d", indexPath.row);
+    // NSLog(@"indexPath.row: %d", indexPath.row);
     
     GDVideoListCollectionViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier:CELL_IDENTIFIER forIndexPath:indexPath];
+    // GDVideoListCollectionViewCell *cell = [[GDVideoListCollectionViewCell alloc] init];
+    
     VideoListItem *vli = (VideoListItem*)[self.posts objectAtIndex:indexPath.row];
     //    NSLog(@"should: %@, %@", vli.title, vli.title2);
     
     if (vli) {
-        [cell prepareForReuse];
-        
         cell.backgroundColor = [UIColor whiteColor];
-        [cell configureForVideoListItem:vli];
+        cell.videoListItem = vli;
         
-        [cell setNeedsLayout];
+        // [cell setNeedsLayout];
     }
     return cell;
 }

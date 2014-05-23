@@ -12,74 +12,147 @@
 #import "NSDate+PrettyDate.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
-@interface GDVideoListCollectionViewCell()
+@interface GDVideoListCollectionViewCell ()
 
-@property (strong, nonatomic) UILabel *titleLabel;
-@property (strong, nonatomic) UILabel *titleLabel2;
-@property (strong, nonatomic) GDPostCategoryView *categoryView1;
-@property (strong, nonatomic) GDPostCategoryView *categoryView2;
-@property (strong, nonatomic) UILabel *dateLabel;
-@property (strong, nonatomic) UIImageView *imageView;
+@property (retain, nonatomic) UIImage *titleImage;
+@property (strong, nonatomic) NSString *dateString;
 
 @end
 
 @implementation GDVideoListCollectionViewCell
 
++ (UIFont *)fontForTitle {
+    static UIFont *fontForTitle = nil;
+    if (fontForTitle == nil) {
+        fontForTitle = [UIFont systemFontOfSize:12];
+    }
+    return fontForTitle;
+}
+
++ (UIFont *)fontForTitle2 {
+    static UIFont *fontForTitle2 = nil;
+    if (fontForTitle2 == nil) {
+        fontForTitle2 = [UIFont systemFontOfSize:12];
+    }
+    return fontForTitle2;
+}
+
++ (UIFont *)fontForDate {
+    static UIFont *fontForDate = nil;
+    if (fontForDate == nil) {
+        fontForDate = [UIFont systemFontOfSize:11];
+    }
+    return fontForDate;
+}
+
+
++ (NSParagraphStyle *)truncateTailPS {
+    static NSMutableParagraphStyle *truncateTailPS = nil;
+    if (!truncateTailPS) {
+        truncateTailPS = [[NSMutableParagraphStyle alloc] init];
+        truncateTailPS.lineBreakMode = NSLineBreakByTruncatingTail;
+    }
+    return truncateTailPS;
+}
+
++ (NSParagraphStyle *)truncateTailRightPS {
+    static NSMutableParagraphStyle *truncateTailCenterPS = nil;
+    if (!truncateTailCenterPS) {
+        truncateTailCenterPS = [[NSMutableParagraphStyle alloc] init];
+        truncateTailCenterPS.lineBreakMode = NSLineBreakByTruncatingTail;
+        truncateTailCenterPS.alignment = NSTextAlignmentRight;
+    }
+    return truncateTailCenterPS;
+}
+
+//+ (CGColorRef)bgColorForTitle2 {
+//    static CGColorRef bgColorForTitle2 = nil;
+//    if (!bgColorForTitle2) {
+//        
+//    }
+//    return bgColorForTitle2;
+//}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
+    
     if (self) {
-        // Initialization code
-        self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 150, 84)];
-        [self.contentView addSubview:self.imageView];
-
-        
-        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 84, 150, 21)];
-        [self.titleLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
-        [self.titleLabel setFont:[UIFont systemFontOfSize:12]];
-
-        [self.contentView addSubview:self.titleLabel];
-        
-        self.titleLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(0, 67, 150, 17)];
-        self.titleLabel2.textAlignment = NSTextAlignmentRight;
-        self.titleLabel2.backgroundColor = [UIColor blackColor];
-        self.titleLabel2.textColor = [UIColor whiteColor];
-        self.titleLabel2.opaque = false;
-        self.titleLabel2.alpha = 0.7;
-        [self.titleLabel2 setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
-        [self.titleLabel2 setFont:[UIFont systemFontOfSize:12]];
-
-        [self.contentView addSubview:self.titleLabel2];
-
-        self.categoryView1 = [[GDPostCategoryView alloc] initWithFrame:CGRectMake(0, 106, 30, 15) fontSize:10];
-        
-        [self.contentView addSubview:self.categoryView1];
-        
-        self.dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(36, 105, 110, 17)];
-        [self.dateLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
-        [self.dateLabel setFont:[UIFont systemFontOfSize:11]];
-        self.dateLabel.textColor = [UIColor grayColor];
-        
-        [self.contentView addSubview:self.dateLabel];
+        self.clipsToBounds = YES;
     }
+    
     return self;
 }
 
-- (void)configureForVideoListItem:(VideoListItem *)vli {
-    self.titleLabel.text = vli.title;
-    self.titleLabel2.text = vli.title2;
-    [self.imageView setImageWithURL:[NSURL URLWithString:vli.imageURL]];
-    self.dateLabel.text = [Utility dateStringByDay:vli.created];
-    self.categoryView1.gdPostCategory = vli.gdPostCategory;
+- (void)setVideoListItem:(VideoListItem *)videoListItem {
+    _videoListItem = videoListItem;
+    _dateString = [Utility dateStringByDay:self.videoListItem.created];
+    [self setNeedsDisplay];
+    
+    [[SDWebImageManager sharedManager] downloadWithURL:[NSURL URLWithString:self.videoListItem.imageURL]
+                                               options:0
+                                              progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+                                                  // progression tracking code
+                                              }
+                                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
+                                                 if (image && finished) {
+                                                     self.titleImage = image;
+                                                     [self setNeedsDisplayInRect:CGRectMake(0, 0, 150, 84)];
+                                                 }
+                                             }
+     ];
 }
 
-/*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
+- (void)drawRect:(CGRect)rect {
+    if (self.videoListItem) {
+        CGContextRef ctx = UIGraphicsGetCurrentContext();
+
+        CGRect imageRect = CGRectMake(0, 0, 150, 84);
+        UIColor *bgColorForTitle2 = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0.7];
+        
+        // NSLog(@"drawing %d", self.videoListItem.postId);
+        
+        if (self.titleImage) {
+            [self.titleImage drawInRect:imageRect];
+            
+            CGContextSaveGState(ctx);
+            CGContextAddRect(ctx, CGRectMake(0, 67, 150, 17));
+            CGContextSetFillColorWithColor(ctx, [bgColorForTitle2 CGColor]);
+            CGContextFillPath(ctx);
+            CGContextRestoreGState(ctx);
+            
+            [self.videoListItem.title2 drawInRect:CGRectMake(0, 67, 150, 17)
+                                   withAttributes:@{ NSFontAttributeName:[self.class fontForTitle2],
+                                                     NSForegroundColorAttributeName:[UIColor whiteColor],
+                                                     NSParagraphStyleAttributeName:[self.class truncateTailRightPS]
+                                                     }];
+        } else {
+            UIImage *plageHolder = [UIImage imageNamed:@"placeholder-small"];
+            [plageHolder drawInRect:imageRect];
+        }
+        
+        [self.videoListItem.title drawInRect:CGRectMake(0, 84, 150, 21)
+                    withAttributes:@{ NSFontAttributeName:[self.class fontForTitle],
+                                      NSForegroundColorAttributeName:[UIColor blackColor],
+                                      NSParagraphStyleAttributeName:[self.class truncateTailPS]
+                                    }];
+        
+        
+        [self.dateString drawInRect:CGRectMake(36, 105, 110, 17)
+                     withAttributes:@{ NSFontAttributeName:[self.class fontForDate],
+                                       NSForegroundColorAttributeName:[UIColor grayColor],
+                                       NSParagraphStyleAttributeName:[self.class truncateTailPS]
+                                    }];
+    }
 }
-*/
+
+- (void)prepareForReuse {
+    [super prepareForReuse];
+//    NSLog(@"GDVideoListCollectionViewCell prepareForReuse");
+    _titleImage = nil;
+    _videoListItem = nil;
+}
 
 @end

@@ -16,6 +16,6 @@
 //@property int gdCategory;
 //@property (strong, nonatomic) NSString *imageURL;
 
-- (void)configureForVideoListItem:(VideoListItem *)vli;
+@property (retain, nonatomic) VideoListItem *videoListItem;
 
 @end

@@ -51,8 +51,6 @@ GDManager *manager;
 int postIdForSegue;
 
 - (void)viewDidLoad {
-    NSLog(@"viewDidLoad");
-    
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
@@ -69,7 +67,6 @@ int postIdForSegue;
 //    self.view.hidden = YES;
     
     self.aaptr = [self.rootScrollView addPullToRefreshPosition:AAPullToRefreshPositionTop ActionHandler:^(AAPullToRefresh *v){
-        NSLog(@"aaptr fetchHomeInfo");
         // do something...
         [manager fetchHomeInfo];
         // then must call stopIndicatorAnimation method.
@@ -154,8 +151,6 @@ int postIdForSegue;
 #pragma mark - GDManagerDelegate
 
 - (void)didReceiveHomeInfo:(HomeInfo *)homeInfo {
-    NSLog(@"didReceiveHomeInfo");
-    
     self.homeInfo = homeInfo;
     
     [self prepareCarousel];
@@ -302,9 +297,9 @@ int postIdForSegue;
     [cell prepareForReuse];
     
     cell.backgroundColor = [UIColor whiteColor];
-    [cell configureForVideoListItem:vli];
+    cell.videoListItem = vli;
     
-    [cell setNeedsLayout];
+    // [cell setNeedsLayout];
     
     return cell;
 }
