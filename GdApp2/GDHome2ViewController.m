@@ -235,7 +235,7 @@ int postIdForSegue;
     CarouselInfo *ci = (CarouselInfo*)[self.homeInfo.carousel objectAtIndex:index];
   
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:frame];
-    [imageView setImageWithURL:[NSURL URLWithString:ci.imageURL]];
+    [imageView setImageWithURL:[NSURL URLWithString:ci.imageURL] placeholderImage:[UIImage imageNamed:@"placeholder-carousel"]];
     imageView.userInteractionEnabled = YES;
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(carouselTapped:)];
