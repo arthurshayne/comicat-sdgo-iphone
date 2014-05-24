@@ -90,8 +90,6 @@ NSString *unitIdForSegue;
 #pragma mark - GDManagerDelegate
 
 - (void)didReceiveUnitSearchResults:(NSArray *)units {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    
     self.units = units;
     
     [self.tableView reloadData];
@@ -180,10 +178,8 @@ NSString *unitIdForSegue;
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     [searchDelayer invalidate], searchDelayer = nil;
     if (searchText.length > 0) {
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
         searchDelayer = [NSTimer scheduledTimerWithTimeInterval:0.600 target:self selector:@selector(doDelayedSearch:) userInfo:searchText repeats:NO];
     } else {
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         self.units = [NSArray arrayWithObjects:nil];
         [self.tableView reloadData];
     }

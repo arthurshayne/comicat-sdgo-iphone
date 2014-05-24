@@ -29,12 +29,15 @@ static NSString *API_URL = @"http://www.sdgundam.cn/services/app.ashx";
     NSString *postString = [NSString stringWithFormat:@"a=%@&%@", action, [parameters queryString]];
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
     
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
                                if (connectionError) {
+                                   [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
                                    errorHandler(connectionError);
                                } else {
+                                   [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
                                    successHandler(data);
                                }
                            }];

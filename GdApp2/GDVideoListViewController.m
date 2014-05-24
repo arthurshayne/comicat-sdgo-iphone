@@ -279,7 +279,6 @@ int postIdForSegue;
     [self.currentVideoListView.infiniteScrollingView stopAnimating];
     [self.currentVideoListView.pullToRefreshView stopAnimating];
 //    [self.pullToRefresh stopIndicatorAnimation];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
 #pragma mark - GDVideoListDataSourceDelegate
@@ -337,7 +336,6 @@ int postIdForSegue;
         // UICollectionView *view = [self.videoListViews objectForKey:[self stringWithGDCategory:gdCategory]];
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     }
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }
 
 @end
