@@ -165,7 +165,7 @@ NSDateFormatter *nsdf;
 
 #pragma mark - GDManagerDelegate
 
-- (void)didReceivePostList:(NSArray *)posts ofGdCategory:(int)category {
+- (void)didReceivePostList:(NSArray *)posts ofGdCategory:(uint)category {
     NSLog(@"Category: %d", category);
     //NSLog(@"offset y:%f", self.postListTableView.contentOffset.y);
     //CGFloat scrollOffsetY = self.postListTableView.contentOffset.y;
@@ -267,7 +267,13 @@ NSDateFormatter *nsdf;
 
 
 - (void)fetchPostListWithError:(NSError *)error {
-    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"数据加载失败"
+                                                    message:@"请检查网络连接是否可用"
+                                                   delegate:nil
+                                          cancelButtonTitle:@"好的"
+                                          otherButtonTitles:nil];
+    [alert show];
+
 }
 
 #pragma mark - TableView DataSource
@@ -288,12 +294,14 @@ NSDateFormatter *nsdf;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDate *startDate = [NSDate date];
     
+    PostInfo *post = [self.posts objectAtIndex:indexPath.row];
     //if (indexPath.section == 0) {
     GDPostListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER];
     
-    PostInfo *post = [self.posts objectAtIndex:indexPath.row];
-    
-    [cell configureForPostInfo:post];
+    if (cell) {
+        [cell prepareForReuse];
+        [cell configureForPostInfo:post];
+    }
     
     double timePassed_ms = [startDate timeIntervalSinceNow] * 1000.0;
     NSLog(@"cell: %f", timePassed_ms);
@@ -333,12 +341,6 @@ NSDateFormatter *nsdf;
     self.selectedPostId = post.postId;
     
     [self performSegueWithIdentifier:@"ViewPost" sender:self];
-}
-
-#pragma mark – UICollectionViewDelegateFlowLayout
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(150, 135);
 }
 
 #pragma mark - GDCategoryListViewDelegate 

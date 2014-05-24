@@ -13,7 +13,7 @@
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *title2; // display on image if exists
 @property (strong, nonatomic) NSString *imageURL;
-@property int gdPostCategory;
+@property uint gdPostCategory;
 //@property (strong, nonatomic) NSString *videoHost;
 //@property (strong, nonatomic) NSString *videoId;
 @property int postId;

@@ -13,10 +13,10 @@
 
 @interface GDPostListTableViewCell ()
 
-@property (strong, nonatomic) UILabel *titleLabel;
-@property (strong, nonatomic) GDPostCategoryView *categoryView1;
-@property (strong, nonatomic) GDPostCategoryView *categoryView2;
-@property (strong, nonatomic) UILabel *dateLabel;
+@property (retain, nonatomic) NSString *title;
+@property (retain, nonatomic) NSString *dateString;
+@property (nonatomic) uint gdCategory;
+@property (strong, nonatomic) NSMutableArray *gdCategories;
 @end
 
 @implementation GDPostListTableViewCell
@@ -31,55 +31,58 @@ const CGFloat TITLE_LABEL_MARGIN = 4;
 
 #pragma mark - Static Property
 
-UIFont *_fontForTitleLabel;
+
 + (UIFont *)fontForTitleLabel {
+    static UIFont *_fontForTitleLabel;
     if (!_fontForTitleLabel) {
         _fontForTitleLabel = [UIFont systemFontOfSize:14];
     }
     return _fontForTitleLabel;
 }
 
-- (void)configureForPostInfo:(PostInfo *)post {
-    self.titleLabel.text = post.title;
-    // CGSize sizeThatFits = [self.class sizeThatFitsTitle:post.title];
-    
-    CGRect titleLabelFrame = self.titleLabel.frame;
-    titleLabelFrame.size = CGSizeMake(280, 34);
-    self.titleLabel.frame = titleLabelFrame;
++ (NSParagraphStyle *)truncateTailPS {
+    static NSMutableParagraphStyle *truncateTailPS = nil;
+    if (!truncateTailPS) {
+        truncateTailPS = [[NSMutableParagraphStyle alloc] init];
+        truncateTailPS.lineBreakMode = NSLineBreakByWordWrapping;
+    }
+    return truncateTailPS;
+}
 
-    // TODO: see if multiple category should be shown
-    self.categoryView1.gdPostCategory = post.gdPostCategory;
-    self.categoryView1.tag = post.postId;
++ (UIFont *)fontForDate {
+    static UIFont *fontForDate = nil;
+    if (fontForDate == nil) {
+        fontForDate = [UIFont systemFontOfSize:11];
+    }
+    return fontForDate;
+}
+
+
+- (void)configureForPostInfo:(PostInfo *)post {
+    self.title = post.title;
+    self.dateString = [post.created prettyDate];
     
-    self.dateLabel.text = [post.created prettyDate];
-    self.dateLabel.frame = CGRectMake(TITLE_LABEL_X,
-                                      TITLE_LABEL_Y + TITLE_LABEL_MARGIN + self.titleLabel.frame.size.height, 120, 18);
+    uint gdCategory = post.gdPostCategory;
+    
+    _gdCategories = [[NSMutableArray alloc] init];
+    static uint maxGDCategory = 2048;
+    uint temp = maxGDCategory;
+    while(gdCategory > 0) {
+        if(gdCategory >= temp) {
+            [_gdCategories addObject:[NSString stringWithFormat:@"%d", temp]];
+            gdCategory -= temp;
+        }
+        temp = temp >> 1;
+    }
+    
+    [self setNeedsDisplay];
 }
 
 #pragma mark - View Protocol
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
-        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(TITLE_LABEL_X, TITLE_LABEL_Y, TITLE_LABEL_WIDTH, 30)];
-        self.titleLabel.font = [self.class fontForTitleLabel];
-        self.titleLabel.textColor = [Utility UIColorFromRGB:0x333333];
-        self.titleLabel.numberOfLines = 2;
         
-        [self.contentView addSubview:self.titleLabel];
-        
-        self.categoryView1 = [[GDPostCategoryView alloc] initWithFrame:CGRectMake(16, 12, 30, CATEGORY_VIEW_HEIGHT) fontSize:10];
-        [self.contentView addSubview:self.categoryView1];
-        
-        self.categoryView2 = [[GDPostCategoryView alloc] initWithFrame:CGRectMake(46, 12, 30, CATEGORY_VIEW_HEIGHT) fontSize:10];
-        self.categoryView2.hidden = YES;
-        [self.contentView addSubview:self.categoryView2];
-        
-        self.dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 120, 30)];
-        self.dateLabel.font = [UIFont systemFontOfSize:9];
-        self.dateLabel.textColor = [Utility UIColorFromRGB:0x999999];
-        self.dateLabel.numberOfLines = 1;
-        [self.contentView addSubview:self.dateLabel];
     }
     return self;
 }
@@ -108,11 +111,44 @@ UIFont *_fontForTitleLabel;
     return textRect.size;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+- (void)layoutSubviews
 {
-    [super setSelected:selected animated:animated];
+	CGRect b = [self bounds];
+//	b.size.height -= 1; // leave room for the separator line
+//	b.size.width += 30; // allow extra width to slide for editing
+//	b.origin.x -= (self.editing && !self.showingDeleteConfirmation) ? 0 : 30; // start 30px left unless editing
+	[contentView setFrame:b];
+    [super layoutSubviews];
+}
 
-    // Configure the view for the selected state
+- (void)drawContentView:(CGRect)r {
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(ctx, [[UIColor whiteColor] CGColor]);
+    CGContextFillRect(ctx, r);
+    
+    [self.title drawInRect:CGRectMake(TITLE_LABEL_X, TITLE_LABEL_Y, TITLE_LABEL_WIDTH, 90)
+            withAttributes:@{ NSFontAttributeName: [self.class fontForTitleLabel],
+                              NSForegroundColorAttributeName: [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1],
+                              NSParagraphStyleAttributeName:[self.class truncateTailPS]}];
+    [self.dateString drawInRect:CGRectMake(TITLE_LABEL_X,
+                                           TITLE_LABEL_Y + TITLE_LABEL_MARGIN + 34, 120, 18)
+                 withAttributes:@{ NSFontAttributeName:[self.class fontForDate],
+                                   NSForegroundColorAttributeName:[UIColor grayColor],
+                                   NSParagraphStyleAttributeName:[self.class truncateTailPS]
+                                   }];
+    
+    NSUInteger x = 16;
+    for (NSString *gdCategory in self.gdCategories) {
+        [[UIImage imageNamed:[NSString stringWithFormat:@"s-%@", gdCategory]] drawInRect:CGRectMake(x, 12, 30, CATEGORY_VIEW_HEIGHT)];
+        x += 34;
+    }
+}
+
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    
+    self.title = self.dateString = nil;
+    self.gdCategories = nil;
 }
 
 @end

@@ -23,7 +23,7 @@
 @implementation GDPostCategoryView
 
 static NSDictionary *_gdCategoryTexts;
-- (NSDictionary *)gdCategoryTexts {
++ (NSDictionary *)gdCategoryTexts {
     if (!_gdCategoryTexts) {
         _gdCategoryTexts = [NSDictionary dictionaryWithObjectsAndKeys:
                             @"公告", @1,
@@ -44,7 +44,7 @@ static NSDictionary *_gdCategoryTexts;
 }
 
 static NSDictionary *_gdCategoryGradientColors;
-- (NSDictionary *)gdCategoryGradientColors {
++ (NSDictionary *)gdCategoryGradientColors {
     if (!_gdCategoryGradientColors) {
         _gdCategoryGradientColors = [NSDictionary dictionaryWithObjectsAndKeys:
                                      [NSArray arrayWithObjects:(id)UIColorFromRGB(0x6F96C1).CGColor, (id)UIColorFromRGB(0x2F5587).CGColor, nil], @1,
@@ -70,18 +70,18 @@ static NSDictionary *_gdCategoryGradientColors;
     
     if (self) {
         self.userInteractionEnabled = YES;
-        
-        self.categoryTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
-        
-        self.categoryTextLabel.backgroundColor = [UIColor clearColor];
-        //        self.categoryTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-        //        self.categoryTextLabel.adjustsFontSizeToFitWidth = YES;
-        self.categoryTextLabel.font = [UIFont systemFontOfSize:fontSize];
-        self.categoryTextLabel.textAlignment = NSTextAlignmentCenter;
-        self.categoryTextLabel.userInteractionEnabled = YES;
-        //        self.categoryTextLabel.multipleTouchEnabled = YES;
-        
-        [self addSubview:self.categoryTextLabel];
+//        
+//        self.categoryTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+//        
+//        self.categoryTextLabel.backgroundColor = [UIColor clearColor];
+//        //        self.categoryTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+//        //        self.categoryTextLabel.adjustsFontSizeToFitWidth = YES;
+//        self.categoryTextLabel.font = [UIFont systemFontOfSize:fontSize];
+//        self.categoryTextLabel.textAlignment = NSTextAlignmentCenter;
+//        self.categoryTextLabel.userInteractionEnabled = YES;
+//        //        self.categoryTextLabel.multipleTouchEnabled = YES;
+//        
+//        [self addSubview:self.categoryTextLabel];
     }
     return self;
 }
@@ -89,72 +89,81 @@ static NSDictionary *_gdCategoryGradientColors;
 - (void)setGdPostCategory:(int)gdPostCategory {
     _gdPostCategory = gdPostCategory;
     
-    CAGradientLayer *layer = [self getGdPostCategoryBackground:gdPostCategory];
+//    CAGradientLayer *layer = [self getGdPostCategoryBackground:gdPostCategory];
+//    
+//    // [self.layer insertSublayer:layer atIndex:0];
+//    [self.layer addSublayer:layer];
+//    
+//    self.categoryTextLabel.text = [NSString stringWithFormat:@"%@", [self getGdPostCategoryText:gdPostCategory]];
+//    // self.categoryTextLabel.text = [NSString stringWithFormat:@"%d", gdPostCategory];
+//    self.categoryTextLabel.textColor = [UIColor whiteColor];
     
-    // [self.layer insertSublayer:layer atIndex:0];
-    [self.layer addSublayer:layer];
-    
-    self.categoryTextLabel.text = [NSString stringWithFormat:@"%@", [self getGdPostCategoryText:gdPostCategory]];
-    // self.categoryTextLabel.text = [NSString stringWithFormat:@"%d", gdPostCategory];
-    self.categoryTextLabel.textColor = [UIColor whiteColor];
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelTapped:)];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
     tap.numberOfTapsRequired = 1;
     tap.cancelsTouchesInView = YES;
     
-    [self.categoryTextLabel addGestureRecognizer:tap];
+    [self addGestureRecognizer:tap];
     
-    [self bringSubviewToFront:self.categoryTextLabel];
+//    [self bringSubviewToFront:self.categoryTextLabel];
 }
 
-- (void) labelTapped:(UITapGestureRecognizer *)gesture {
+- (void) tapped:(UITapGestureRecognizer *)gesture {
     [self.delegate tappedOnCategoryViewWithCategory:self.gdPostCategory];
 }
 
-- (NSString *) getGdPostCategoryText:(int)gdPostCategory {
-    return [self.gdCategoryTexts objectForKey:[NSNumber numberWithInt:gdPostCategory]];
-}
+//- (NSString *) getGdPostCategoryText:(int)gdPostCategory {
+//    return [[self.class gdCategoryTexts] objectForKey:[NSNumber numberWithInt:gdPostCategory]];
+//}
+//
+//static NSCache *categoryLayerCache;
+//- (CAGradientLayer *) getGdPostCategoryBackground:(int)gdPostCategory {
+//    //    if (categoryLayerCache == nil) {
+//    //        categoryLayerCache = [[NSCache alloc] init];
+//    //        categoryLayerCache.countLimit = 200;
+//    //    }
+//    //
+//    //    NSString *cacheKey =
+//    //        [NSString stringWithFormat:@"%d:%f:%f:%d", gdPostCategory, self.frame.size.width, self.frame.size.height, self.tag];
+//    //
+//    //    CAGradientLayer *cached = [categoryLayerCache objectForKey:cacheKey];
+//    //    if (cached != nil) {
+//    //        //NSLog(@"Cached forKey:%@", cacheKey);
+//    //        return cached;
+//    //    }
+//    //
+//    //    NSLog(@"getGdPostCategoryBackground %d", gdPostCategory);
+//    CAGradientLayer *gradient = [CAGradientLayer layer];
+//    NSArray *colors = [[self.class gdCategoryGradientColors] objectForKey:[NSNumber numberWithInt:gdPostCategory]];
+//    
+//    if (colors) {
+//        gradient.colors = colors;
+//        gradient.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+//        gradient.startPoint = CGPointMake(0.5, 0.0);
+//        gradient.endPoint = CGPointMake(0.5, 1.0);
+//        
+//        gradient.shouldRasterize = YES;
+//        gradient.rasterizationScale = [UIScreen mainScreen].scale;
+//        
+//        gradient.cornerRadius = self.frame.size.width / 10;
+//        gradient.masksToBounds = NO;
+//        gradient.opaque = YES;
+//
+//        //NSLog(@"Stored: %@", cacheKey);
+//        //        [categoryLayerCache setObject:gradient forKey:cacheKey];
+//        
+//        return gradient;
+//    } else {
+//        return nil;
+//    }
+//}
 
-static NSCache *categoryLayerCache;
-- (CAGradientLayer *) getGdPostCategoryBackground:(int)gdPostCategory {
-    //    if (categoryLayerCache == nil) {
-    //        categoryLayerCache = [[NSCache alloc] init];
-    //        categoryLayerCache.countLimit = 200;
-    //    }
-    //
-    //    NSString *cacheKey =
-    //        [NSString stringWithFormat:@"%d:%f:%f:%d", gdPostCategory, self.frame.size.width, self.frame.size.height, self.tag];
-    //
-    //    CAGradientLayer *cached = [categoryLayerCache objectForKey:cacheKey];
-    //    if (cached != nil) {
-    //        //NSLog(@"Cached forKey:%@", cacheKey);
-    //        return cached;
-    //    }
-    //
-    //    NSLog(@"getGdPostCategoryBackground %d", gdPostCategory);
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    NSArray *colors = [self.gdCategoryGradientColors objectForKey:[NSNumber numberWithInt:gdPostCategory]];
-    
-    if (colors) {
-        gradient.colors = colors;
-        gradient.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-        gradient.startPoint = CGPointMake(0.5, 0.0);
-        gradient.endPoint = CGPointMake(0.5, 1.0);
-        
-        gradient.shouldRasterize = YES;
-        gradient.rasterizationScale = [UIScreen mainScreen].scale;
-        
-        gradient.cornerRadius = self.frame.size.width / 10;
-        gradient.masksToBounds = NO;
-        gradient.opaque = YES;
+- (void)drawRect:(CGRect)rect {
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(ctx, [[UIColor whiteColor] CGColor]);
+    CGContextFillRect(ctx, rect);
 
-        //NSLog(@"Stored: %@", cacheKey);
-        //        [categoryLayerCache setObject:gradient forKey:cacheKey];
-        
-        return gradient;
-    } else {
-        return nil;
-    }
+    [[UIImage imageNamed:[NSString stringWithFormat:@"l-%d", self.gdPostCategory]] drawInRect:rect];
+    //[[UIImage imageNamed:@"l-1"] drawInRect:rect];
 }
 
 

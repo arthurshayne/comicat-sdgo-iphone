@@ -11,8 +11,9 @@
 
 @interface GDPostCategoryView : UIScrollView
 
-@property (nonatomic) int gdPostCategory;
 @property (weak, nonatomic) id<GDPostCategoryViewDelegate> delegate;
+@property (nonatomic) int gdPostCategory;
+
 - (id)initWithFrame:(CGRect)frame fontSize:(CGFloat)fontSize;
 
 @end

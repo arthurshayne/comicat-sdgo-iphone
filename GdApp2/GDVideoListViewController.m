@@ -41,7 +41,7 @@
 
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
 
-@property (weak, nonatomic) AAPullToRefresh *pullToRefresh;
+// @property (weak, nonatomic) AAPullToRefresh *pullToRefresh;
 @end
 
 @implementation GDVideoListViewController
@@ -85,7 +85,7 @@ int postIdForSegue;
     if (!_dataSources) {
         _dataSources = [[NSMutableDictionary alloc] initWithCapacity:self.gdCategories.count];
         for (NSUInteger i = 0; i < self.gdCategories.count; i++) {
-            uint gdCategory = [((NSNumber *)[self.gdCategories objectAtIndex:i]) unsignedIntegerValue];
+            uint gdCategory = [((NSNumber *)[self.gdCategories objectAtIndex:i]) unsignedIntValue];
             GDVideoListVCDataSource *ds = [[GDVideoListVCDataSource alloc] initWithGDCategory:gdCategory];
             ds.delegate = self;
             [_dataSources setObject:ds forKey:[self stringWithGDCategory:gdCategory]];
@@ -115,20 +115,12 @@ int postIdForSegue;
 
 #pragma mark - ViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // NSLog(@"viewDidLoad");
     
     [self prepareCategoryList];
     
-    // [self loadDataOfCurrentGDCategory:YES];
-    
-    NSLog(@"%@", self.dataSources);
-    
-    [self configureVideoListViewForGDCategory:0];
-    self.currentGDCategory = 0;
+    [self switchGDCategory:0];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
 }
@@ -155,14 +147,19 @@ int postIdForSegue;
     [self.view addSubview:self.categoryListView];
 }
 
+- (void)switchGDCategory:(uint)gdCategory {
+    [self configureVideoListViewForGDCategory:gdCategory];
+    self.currentGDCategory = gdCategory;
+}
 
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-//    VideoListItem *vli = [self.postsOfCurrentGDCategory objectAtIndex: indexPath.row];
-//    postIdForSegue = vli.postId;
-//    
-//    [self performSegueWithIdentifier:@"ViewVideo" sender:self];
+    GDVideoListVCDataSource *dataSource = [self.dataSources objectForKey:self.currentGDCategoryAsString];
+    VideoListItem *vli = [dataSource vliForIndexPath:indexPath];
+    postIdForSegue = vli.postId;
+    
+    [self performSegueWithIdentifier:@"ViewVideo" sender:self];
 }
 
 //- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -178,30 +175,28 @@ int postIdForSegue;
 
 #pragma mark - GDCategoryListViewDelegate
 
-- (void)tappedOnCategoryViewWithCategory:(int)category {
-    NSLog(@"Selected category: %d", category);
-    if (self.currentGDCategory != category) {
+- (void)tappedOnCategoryViewWithCategory:(int)gdCategory {
+    if (self.currentGDCategory != gdCategory) {
         // should clear the array
         // [self loadDataOfCurrentGDCategory:YES];
-        [self configureVideoListViewForGDCategory:category];
-        self.currentGDCategory = category;
+        [self switchGDCategory:gdCategory];
     }
 }
 
 - (void)tappedOnShowAll {
     if (self.currentGDCategory != 0) {
-        self.currentGDCategory = 0;
-        
-        [self configureVideoListViewForGDCategory:0];
-        // [self loadDataOfCurrentGDCategory:YES];
+        [self switchGDCategory:0];
     }
 }
 
 
 #pragma mark - Multiple UICollectionView
 
-- (void)configureVideoListViewForGDCategory:(NSUInteger)gdCategory {
-    self.currentVideoListView.hidden = YES;
+- (void)configureVideoListViewForGDCategory:(uint)gdCategory {
+    // self.currentVideoListView.hidden = YES;
+    for (NSUInteger i = 0; i < self.videoListViews.allValues.count; i++) {
+        ((UICollectionView *)[self.videoListViews.allValues objectAtIndex:i]).hidden = YES;
+    }
     
     UICollectionView *videoListViewThis = [self.videoListViews objectForKey:[self stringWithGDCategory:gdCategory]];
     if (videoListViewThis) {
@@ -299,7 +294,7 @@ int postIdForSegue;
         [view reloadData];
         [self stopAllLoadingAnimations];
     } else {
-        [GDVideoListCollectionViewCell setAnimationsEnabled:NO];   // disable animation for collection view
+        [UICollectionView setAnimationsEnabled:NO];   // disable animation for collection view
         [view performBatchUpdates:^{
             NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
             for (NSUInteger i = numberOfOldItems; i < numberOfOldItems + numberOfNewItems; i++) {
@@ -321,6 +316,7 @@ int postIdForSegue;
 }
 
 - (void)dataSourceWithError:(NSError *)error {
+    [self stopAllLoadingAnimations];
     // TODO: Show a reload button / or some specific view
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"数据加载失败"
                                                     message:@"请检查网络连接是否可用"

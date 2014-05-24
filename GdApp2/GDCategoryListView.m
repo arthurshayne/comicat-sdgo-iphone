@@ -13,6 +13,8 @@
 
 @interface GDCategoryListView ()
 
+@property (strong, nonatomic) UIScrollView *scrollView;
+
 @property (strong, nonatomic) UIButton *showAllButton;
 @property (strong, nonatomic) NSArray *categoryViews;
 @property (strong, nonatomic) UIView *categorySelection;
@@ -41,12 +43,12 @@ const CGFloat GD_CATEGORY_ITEM_MARGIN = 5;
         gdcv.gdPostCategory = gdCategory;
         gdcv.delegate = self;
         
-        [self addSubview:gdcv];
+        [self.scrollView addSubview:gdcv];
     }
     
-    self.contentSize =
+    self.scrollView.contentSize =
         CGSizeMake(self.gdCategoryList.count * (GD_CATEGORY_ITEM_WIDTH + GD_CATEGORY_ITEM_MARGIN) + GD_CATEGORY_ITEM_MARGIN + GD_CATEGORY_ITEM_MARGIN + showAllButtonWidth, 10);
-    self.contentOffset = CGPointMake(showAllButtonWidth + GD_CATEGORY_ITEM_MARGIN, 0);
+    self.scrollView.contentOffset = CGPointMake(showAllButtonWidth + GD_CATEGORY_ITEM_MARGIN, 0);
 }
 
 - (void)setCurrentGDCategory:(int)currentGDCategory {
@@ -74,6 +76,13 @@ const CGFloat GD_CATEGORY_ITEM_MARGIN = 5;
     self = [super initWithFrame:frame];
     
     if (self) {
+        self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+        self.scrollView.delegate = self;
+        self.scrollView.alwaysBounceVertical = NO;
+        self.scrollView.showsVerticalScrollIndicator = self.scrollView.showsHorizontalScrollIndicator = NO;
+        
+        [self addSubview:self.scrollView];
+        
         self.showAllButton = [[UIButton alloc] initWithFrame:CGRectMake(8, 2, 72, 30)];
         // self.showAllButton.backgroundColor = [Utility UIColorFromRGB:0x999999];
         [self.showAllButton setTitle:@"显示全部" forState:UIControlStateNormal];
@@ -83,15 +92,13 @@ const CGFloat GD_CATEGORY_ITEM_MARGIN = 5;
         
         [self.showAllButton addTarget:self action:@selector(tappedOnShowAll) forControlEvents:UIControlEventTouchUpInside];
         
-        [self addSubview:self.showAllButton];
+        [self.scrollView addSubview:self.showAllButton];
         
         self.categorySelection = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, 2)];
         self.categorySelection.backgroundColor = [Utility UIColorFromRGB:0xFF4A45];
         self.categorySelection.hidden = YES;
-        [self addSubview:self.categorySelection];
+        [self.scrollView addSubview:self.categorySelection];
         
-        self.alwaysBounceVertical = NO;
-        self.showsVerticalScrollIndicator = self.showsHorizontalScrollIndicator = NO;
     }
     return self;
 }
@@ -105,6 +112,15 @@ const CGFloat GD_CATEGORY_ITEM_MARGIN = 5;
     self.currentGDCategory = 0;
     [self.delegate tappedOnShowAll];
 }
+
+// TODO: should display the button if scroll a bit lefter, should hide the button is scrolled a bit righter
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    NSLog(@"scrollViewDidScroll");
+//}
+//
+//- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+//    NSLog(@"scrollViewDidEndScrollingAnimation");
+//}
 
 /*
 // Only override drawRect: if you perform custom drawing.

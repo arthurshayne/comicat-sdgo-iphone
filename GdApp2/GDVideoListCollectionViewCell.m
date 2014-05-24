@@ -7,12 +7,13 @@
 //
 
 #import "GDVideoListCollectionViewCell.h"
-#import "GDPostCategoryView.h"
 #import "Utility.h"
 #import "NSDate+PrettyDate.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface GDVideoListCollectionViewCell ()
+
+// TODO: Change to accept single NSStrings instead of a VLI object
 
 @property (retain, nonatomic) UIImage *titleImage;
 @property (strong, nonatomic) NSString *dateString;
@@ -79,6 +80,7 @@
     
     if (self) {
         self.clipsToBounds = YES;
+        self.userInteractionEnabled = YES;
     }
     
     return self;
@@ -140,11 +142,13 @@
                                     }];
         
         
-        [self.dateString drawInRect:CGRectMake(36, 105, 110, 17)
+        [self.dateString drawInRect:CGRectMake(36, 106, 110, 17)
                      withAttributes:@{ NSFontAttributeName:[self.class fontForDate],
                                        NSForegroundColorAttributeName:[UIColor grayColor],
                                        NSParagraphStyleAttributeName:[self.class truncateTailPS]
                                     }];
+        
+        [[UIImage imageNamed:[NSString stringWithFormat:@"s-%d", self.videoListItem.gdPostCategory]] drawInRect:CGRectMake(0, 105, 30, 15)];
     }
 }
 

@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ABTableViewCell.h"
 #import "PostInfo.h"
 
-@interface GDPostListTableViewCell : UITableViewCell
+@interface GDPostListTableViewCell : ABTableViewCell
 
 //@property (strong, nonatomic) NSString *title;
 //@property int gdCategory;

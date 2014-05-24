@@ -10,7 +10,7 @@
 #import "GDPostCategoryViewDelegate.h"
 #import "GDCategoryListViewDelegate.h"
 
-@interface GDCategoryListView : UIScrollView <GDPostCategoryViewDelegate>
+@interface GDCategoryListView : UIView <GDPostCategoryViewDelegate>
 
 @property (strong, nonatomic) NSArray *gdCategoryList;
 @property (nonatomic) int currentGDCategory;
