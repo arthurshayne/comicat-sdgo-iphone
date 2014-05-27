@@ -21,13 +21,13 @@
 
 @implementation GDPostListTableViewCell
 
-const CGFloat TITLE_LABEL_X = 14;
-const CGFloat TITLE_LABEL_Y = 32;
-const CGFloat TITLE_LABEL_WIDTH = 294;
+static CGFloat TITLE_LABEL_X = 14;
+static CGFloat TITLE_LABEL_Y = 32;
+static CGFloat TITLE_LABEL_WIDTH = 294;
 
-const CGFloat CELL_PADDING = 12;
-const CGFloat CATEGORY_VIEW_HEIGHT = 15;
-const CGFloat TITLE_LABEL_MARGIN = 4;
+static CGFloat CELL_PADDING = 12;
+static CGFloat CATEGORY_VIEW_HEIGHT = 15;
+static CGFloat TITLE_LABEL_MARGIN = 4;
 
 #pragma mark - Static Property
 

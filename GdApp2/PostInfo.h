@@ -18,6 +18,7 @@
 @property (strong, nonatomic) NSString *contentHTML;
 @property (strong, nonatomic) NSDate *created;
 @property (strong, nonatomic) NSString *createdBy;
+@property uint listStyle;
 
 + (PostInfo *)postWithTitle:(NSString *)title andCategory:(int)gdCategory;
 

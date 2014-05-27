@@ -77,6 +77,21 @@
     }
     homeInfo.videoList = videoList;
     
+    // postList
+    NSArray *postListFromDictionary = [parsed objectForKey:@"postList"];
+    NSMutableArray *postList = [[NSMutableArray alloc] init];
+    for (NSDictionary *d in postListFromDictionary) {
+        PostInfo *tempPI = [[PostInfo alloc] init];
+        tempPI.title = [d objectForKey:@"title"];
+        tempPI.gdPostCategory = [(NSNumber *)[d objectForKey:@"gdPostCategory"] intValue];
+        tempPI.postId = [(NSNumber *)[d objectForKey:@"postId"] intValue];
+        tempPI.created = [dateFormatter dateFromString:(NSString *)[d objectForKey:@"created"]];
+        tempPI.listStyle = [(NSNumber *)[d objectForKey:@"style"] unsignedIntValue];
+        
+        [postList addObject:tempPI];
+    }
+    homeInfo.postList = postList;
+    
     return homeInfo;
 }
 

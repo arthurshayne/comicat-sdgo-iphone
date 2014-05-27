@@ -25,6 +25,7 @@
 #import "GDVideoViewController.h"
 #import "GDPostViewController.h"
 #import "GDVideoListCollectionViewCell.h"
+#import "GDPostListCollectionViewCell.h"
 
 #import "GDPostCategoryView.h"
 
@@ -42,6 +43,9 @@
 @property (weak, nonatomic) AAPullToRefresh *aaptr;
 
 @property (weak, nonatomic) IBOutlet UICollectionView *videoListCollectionView;
+@property (weak, nonatomic) IBOutlet UICollectionView *postListCollectionView;
+
+@property (strong, nonatomic) NSMutableArray *postListCellBorders;
 
 @end
 
@@ -49,6 +53,8 @@
 
 GDManager *manager;
 int postIdForSegue;
+
+const CGFloat POSTLIST_CELL_HEIGHT = 65;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -78,6 +84,7 @@ int postIdForSegue;
     self.aaptr.borderWidth = 0;
     
     [self.videoListCollectionView registerClass:[GDVideoListCollectionViewCell class] forCellWithReuseIdentifier:@"VideoListCell"];
+    [self.postListCollectionView registerClass:[GDPostListCollectionViewCell class] forCellWithReuseIdentifier:@"PostListCell"];
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
@@ -123,12 +130,59 @@ int postIdForSegue;
     self.videoListCollectionView.delegate = self;
     
     CGRect frame = self.videoListCollectionView.frame;
+    CGRect frameOfPostList = self.postListCollectionView.frame;
     frame.size.height = 135 * self.homeInfo.videoList.count / 2;
+    frame.origin.y = frameOfPostList.origin.y + frameOfPostList.size.height + 6;
     [self.videoListCollectionView setFrame: frame];
     self.videoListCollectionView.contentSize = frame.size;
 }
 
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+- (void)preparePostList {
+    self.postListCollectionView.dataSource = self;
+    self.postListCollectionView.delegate = self;
+    
+    self.postListCellBorders = [NSMutableArray arrayWithCapacity:self.homeInfo.postList.count];
+    float rows = 0;
+    BOOL joiningHalf = NO;
+    for (PostInfo *p in self.homeInfo.postList) {
+        GDCVCellBorder border = GDCVCellBorderNone; // = GDCVCellBorderTop | GDCVCellBorderBottom | GDCVCellBorderLeft | GDCVCellBorderRight;
+        NSUInteger indexOfPI = [self.homeInfo.postList indexOfObject:p];
+        
+        if (indexOfPI == 0) {
+            // first
+            border |= GDCVCellBorderBottom;
+        } else if (indexOfPI == self.homeInfo.postList.count - 1) {
+            // last
+        } else {
+            border |= GDCVCellBorderBottom;
+        }
+        
+        if (p.listStyle == 1) {
+            // full
+            rows += 1;
+            joiningHalf = NO;
+        } else if (p.listStyle == 2) {
+            // half
+            rows += 0.5;
+            if (joiningHalf) {
+                border |= GDCVCellBorderLeft;
+            }
+            joiningHalf = !joiningHalf;
+        }
+        
+        [self.postListCellBorders addObject:[NSNumber numberWithUnsignedInteger:border]];
+    }
+    
+    rows = roundf(rows);
+    
+    CGRect frame = self.postListCollectionView.frame;
+    
+    frame.size.height = POSTLIST_CELL_HEIGHT * rows;
+    [self.postListCollectionView setFrame: frame];
+    self.postListCollectionView.contentSize = frame.size;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"ViewVideo"]) {
         if ([segue.destinationViewController isKindOfClass:[GDVideoViewController class]]) {
             GDVideoViewController *gdpvc = (GDVideoViewController *)segue.destinationViewController;
@@ -164,10 +218,13 @@ int postIdForSegue;
    
     [self updatePageControlAccordingly];
     
+    [self preparePostList];
     [self prepareVideoList];
     
     self.rootScrollView.contentSize = CGSizeMake(320,
-                                                 self.videoListCollectionView.bounds.size.height + self.infiniteScrollView.bounds.size.height + 60);
+                                                 self.postListCollectionView.bounds.size.height +
+                                                 self.videoListCollectionView.bounds.size.height +
+                                                 self.infiniteScrollView.bounds.size.height + 60 /* bottom padding*/);
     [self.rootScrollView layoutSubviews];
     
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -188,20 +245,17 @@ int postIdForSegue;
 
 #pragma mark - GBInfiniteScroll
 
-- (void)infiniteScrollViewDidScrollNextPage:(GBInfiniteScrollView *)infiniteScrollView
-{
+- (void)infiniteScrollViewDidScrollNextPage:(GBInfiniteScrollView *)infiniteScrollView {
 //    NSLog(@"Next page");
     [self updatePageControlAccordingly];
 }
 
-- (void)infiniteScrollViewDidScrollPreviousPage:(GBInfiniteScrollView *)infiniteScrollView
-{
+- (void)infiniteScrollViewDidScrollPreviousPage:(GBInfiniteScrollView *)infiniteScrollView {
 //    NSLog(@"Previous page");
     [self updatePageControlAccordingly];
 }
 
-- (NSInteger)numberOfPagesInInfiniteScrollView:(GBInfiniteScrollView *)infiniteScrollView
-{
+- (NSInteger)numberOfPagesInInfiniteScrollView:(GBInfiniteScrollView *)infiniteScrollView {
     if (self.homeInfo) {
         return self.homeInfo.carousel.count;
     } else {
@@ -281,38 +335,64 @@ int postIdForSegue;
 
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
-    return self.homeInfo.videoList.count;
+    if (view == self.videoListCollectionView) {
+        return self.homeInfo.videoList.count;
+    } else if (view == self.postListCollectionView) {
+        return self.homeInfo.postList.count;
+    }
+    
+    return 0;
 }
 - (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView {
     return 1;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (cv == self.videoListCollectionView) {
+        VideoListItem *vli = (VideoListItem*)[self.homeInfo.videoList objectAtIndex:indexPath.row];
+        
+        GDVideoListCollectionViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"VideoListCell" forIndexPath:indexPath];
+        [cell prepareForReuse];
+        
+        cell.backgroundColor = [UIColor whiteColor];
+        cell.videoListItem = vli;
+
+        return cell;
+    } else if (cv == self.postListCollectionView) {
+        PostInfo *pi = (PostInfo*)[self.homeInfo.postList objectAtIndex:indexPath.row];
+        
+        GDPostListCollectionViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"PostListCell" forIndexPath:indexPath];
+        [cell prepareForReuse];
+        
+        cell.border = (GDCVCellBorder)[((NSNumber *)[self.postListCellBorders objectAtIndex:indexPath.row]) unsignedIntegerValue];
+        
+        cell.backgroundColor = [UIColor whiteColor];
+        [cell configureForPostInfo:pi];
+        
+        return cell;
+    }
+    
 //    NSLog(@"indexPath.row: %d", indexPath.row);
-    
-    VideoListItem *vli = (VideoListItem*)[self.homeInfo.videoList objectAtIndex:indexPath.row];
 //    NSLog(@"should: %@, %@", vli.title, vli.title2);
-    
-    GDVideoListCollectionViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"VideoListCell" forIndexPath:indexPath];
-    [cell prepareForReuse];
-    
-    cell.backgroundColor = [UIColor whiteColor];
-    cell.videoListItem = vli;
-    
     // [cell setNeedsLayout];
     
-    return cell;
+    return nil;
 }
 
 #pragma mark - UICollectionViewDelegate
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-//    GDVideoViewController *gdpvc = [[GDVideoViewController alloc] init];
-//    gdpvc.postId = 12345;
-//
-    VideoListItem *vli = [self.homeInfo.videoList objectAtIndex: indexPath.row];
-    postIdForSegue = vli.postId;
+- (void)collectionView:(UICollectionView *)view didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (view == self.videoListCollectionView) {
+        VideoListItem *vli = [self.homeInfo.videoList objectAtIndex: indexPath.row];
+        postIdForSegue = vli.postId;
+        
+        [self performSegueWithIdentifier:@"ViewVideo" sender:self];
+    } else if (view == self.postListCollectionView) {
+        PostInfo *pi = [self.homeInfo.postList objectAtIndex: indexPath.row];
+        postIdForSegue = pi.postId;
+        
+        [self performSegueWithIdentifier:@"ViewPost" sender:self];
+    }
     
-    [self performSegueWithIdentifier:@"ViewVideo" sender:self];
     
 //    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Video List Item Clicked!"
 //                                                    message: [NSString stringWithFormat:@"You clcked on %d!", indexPath.row]
@@ -326,8 +406,21 @@ int postIdForSegue;
 
 #pragma mark – UICollectionViewDelegateFlowLayout
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(150, 135);
+- (CGSize)collectionView:(UICollectionView *)view layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (view == self.videoListCollectionView) {
+        return CGSizeMake(150, 135);
+    } else if (view == self.postListCollectionView) {
+        PostInfo *pi = [self.homeInfo.postList objectAtIndex: indexPath.row];
+        if (pi.listStyle == 1) {
+            // Full
+            return CGSizeMake(314, POSTLIST_CELL_HEIGHT);
+        } else if (pi.listStyle == 2) {
+            // Half
+            return CGSizeMake(157, POSTLIST_CELL_HEIGHT);
+        }
+    }
+    
+    return CGSizeZero;
 }
 
 //- (UIEdgeInsets)collectionView:

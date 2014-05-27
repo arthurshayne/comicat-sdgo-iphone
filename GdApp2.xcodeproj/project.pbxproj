@@ -25,6 +25,7 @@
 		0506D4C919174DA100EFAC83 /* SearchUnitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0506D4C819174DA100EFAC83 /* SearchUnitViewController.m */; };
 		0506D4CC1917694600EFAC83 /* PostInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0506D4CB1917694600EFAC83 /* PostInfo.m */; };
 		0506D4CF1917715100EFAC83 /* GDManagerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 0506D4CE1917715100EFAC83 /* GDManagerFactory.m */; };
+		0511D0BC193251CF007A9E66 /* GDPostListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511D0BB193251CF007A9E66 /* GDPostListCollectionViewCell.m */; };
 		05191567190C16AE007439EA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05191566190C16AE007439EA /* QuartzCore.framework */; };
 		051EABAF1927118C00EAF761 /* GDCategoryListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 051EABAE1927118C00EAF761 /* GDCategoryListView.m */; };
 		05216A251925DB8600807A2E /* GDVideoListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05216A241925DB8600807A2E /* GDVideoListCollectionViewCell.m */; };
@@ -92,6 +93,8 @@
 		0506D4CB1917694600EFAC83 /* PostInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostInfo.m; sourceTree = "<group>"; };
 		0506D4CD1917715100EFAC83 /* GDManagerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDManagerFactory.h; sourceTree = "<group>"; };
 		0506D4CE1917715100EFAC83 /* GDManagerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDManagerFactory.m; sourceTree = "<group>"; };
+		0511D0BA193251CF007A9E66 /* GDPostListCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDPostListCollectionViewCell.h; sourceTree = "<group>"; };
+		0511D0BB193251CF007A9E66 /* GDPostListCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDPostListCollectionViewCell.m; sourceTree = "<group>"; };
 		05191566190C16AE007439EA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		051EABAD1927118C00EAF761 /* GDCategoryListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDCategoryListView.h; sourceTree = "<group>"; };
 		051EABAE1927118C00EAF761 /* GDCategoryListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDCategoryListView.m; sourceTree = "<group>"; };
@@ -232,8 +235,6 @@
 				05023AEB19052791001D04F0 /* Main.storyboard */,
 				0565B3BA1908A41E00CCE77E /* Manager */,
 				05023AE019052791001D04F0 /* Supporting Files */,
-				058C3D1D191CDB41004B3EB5 /* Utility.h */,
-				058C3D1E191CDB41004B3EB5 /* Utility.m */,
 				05A417BF191502690040A679 /* View */,
 				05996FA0192BAE0300BD1202 /* GDVideoListDSDelegate.h */,
 			);
@@ -243,6 +244,8 @@
 		05023AE019052791001D04F0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				058C3D1D191CDB41004B3EB5 /* Utility.h */,
+				058C3D1E191CDB41004B3EB5 /* Utility.m */,
 				05023AE819052791001D04F0 /* GDAppDelegate.h */,
 				05023AE919052791001D04F0 /* GDAppDelegate.m */,
 				05023AE119052791001D04F0 /* GdApp2-Info.plist */,
@@ -342,9 +345,17 @@
 			name = ABTableViewCell;
 			sourceTree = "<group>";
 		};
+		05904A2F1930EDAB00935426 /* SVPullToRefreshViews */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = SVPullToRefreshViews;
+			sourceTree = "<group>";
+		};
 		05A417BF191502690040A679 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				05904A2F1930EDAB00935426 /* SVPullToRefreshViews */,
 				051EABAD1927118C00EAF761 /* GDCategoryListView.h */,
 				051EABAE1927118C00EAF761 /* GDCategoryListView.m */,
 				051EABB01927123700EAF761 /* GDCategoryListViewDelegate.h */,
@@ -355,6 +366,8 @@
 				05E40AD719211EF2004AA495 /* GDPostListTableViewCell.m */,
 				05216A231925DB8600807A2E /* GDVideoListCollectionViewCell.h */,
 				05216A241925DB8600807A2E /* GDVideoListCollectionViewCell.m */,
+				0511D0BA193251CF007A9E66 /* GDPostListCollectionViewCell.h */,
+				0511D0BB193251CF007A9E66 /* GDPostListCollectionViewCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -551,6 +564,7 @@
 				057393B3191A921400F7415E /* UnitInfoShort.m in Sources */,
 				05023AEA19052791001D04F0 /* GDAppDelegate.m in Sources */,
 				0565B3B519089D4F00CCE77E /* VideoListItem.m in Sources */,
+				0511D0BC193251CF007A9E66 /* GDPostListCollectionViewCell.m in Sources */,
 				0530C96B190636E900CE51FA /* GDHome2ViewController.m in Sources */,
 				0565B3B91908A01E00CCE77E /* GDCommunicator.m in Sources */,
 				05A417C71915186D0040A679 /* NSDate+PrettyDate.m in Sources */,
