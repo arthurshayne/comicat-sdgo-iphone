@@ -21,11 +21,13 @@
 #import "CarouselInfo.h"
 #import "VideoListItem.h"
 #import "HomeInfo.h"
+#import "UnitInfoShort.h"
 
 #import "GDVideoViewController.h"
 #import "GDPostViewController.h"
 #import "GDVideoListCollectionViewCell.h"
 #import "GDPostListCollectionViewCell.h"
+#import "GDUnitCollectionViewCell.h"
 
 #import "GDPostCategoryView.h"
 
@@ -44,9 +46,12 @@
 
 @property (weak, nonatomic) IBOutlet UICollectionView *videoListCollectionView;
 @property (weak, nonatomic) IBOutlet UICollectionView *postListCollectionView;
+@property (weak, nonatomic) IBOutlet UICollectionView *unitsCollectionView;
+
+
 
 @property (strong, nonatomic) NSMutableArray *postListCellBorders;
-
+@property (strong, nonatomic) NSMutableArray *unitListCellBorders;
 @end
 
 @implementation GDHome2ViewController
@@ -55,6 +60,7 @@ GDManager *manager;
 int postIdForSegue;
 
 const CGFloat POSTLIST_CELL_HEIGHT = 65;
+const CGFloat UNIT_CELL_WIDTH = 90;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -69,9 +75,6 @@ const CGFloat POSTLIST_CELL_HEIGHT = 65;
     [self.carouselLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
     [self.carouselLabel setFont:[UIFont systemFontOfSize:14]];
     
-    // TODO: animation, hide the view
-//    self.view.hidden = YES;
-    
     self.aaptr = [self.rootScrollView addPullToRefreshPosition:AAPullToRefreshPositionTop ActionHandler:^(AAPullToRefresh *v){
         // do something...
         [manager fetchHomeInfo];
@@ -85,12 +88,9 @@ const CGFloat POSTLIST_CELL_HEIGHT = 65;
     
     [self.videoListCollectionView registerClass:[GDVideoListCollectionViewCell class] forCellWithReuseIdentifier:@"VideoListCell"];
     [self.postListCollectionView registerClass:[GDPostListCollectionViewCell class] forCellWithReuseIdentifier:@"PostListCell"];
+    [self.unitsCollectionView registerClass:[GDUnitCollectionViewCell class] forCellWithReuseIdentifier:@"UnitListCell"];
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-//    // get home info
-//    NSLog(@"selfDidLoad fetchHomeInfo");
-//    [manager fetchHomeInfo];
 
 }
 
@@ -124,17 +124,26 @@ const CGFloat POSTLIST_CELL_HEIGHT = 65;
     self.infiniteScrollView.pageIndex = 0;
 }
 
-
-- (void) prepareVideoList {
-    self.videoListCollectionView.dataSource = self;
-    self.videoListCollectionView.delegate = self;
+- (void)prepareUnitList {
+    self.unitsCollectionView.dataSource = self;
+    self.unitsCollectionView.delegate = self;
     
-    CGRect frame = self.videoListCollectionView.frame;
-    CGRect frameOfPostList = self.postListCollectionView.frame;
-    frame.size.height = 135 * self.homeInfo.videoList.count / 2;
-    frame.origin.y = frameOfPostList.origin.y + frameOfPostList.size.height + 6;
-    [self.videoListCollectionView setFrame: frame];
-    self.videoListCollectionView.contentSize = frame.size;
+    self.unitListCellBorders = [NSMutableArray arrayWithCapacity:self.homeInfo.units.count];
+    for (UnitInfoShort *u in self.homeInfo.units) {
+        GDCVCellBorder border = GDCVCellBorderNone;
+        
+        if (u == self.homeInfo.units.firstObject) {
+            border = GDCVCellBorderRight;
+        } else if (u == self.homeInfo.units.lastObject) {
+            border = GDCVCellBorderLeft;
+        } else {
+            border = GDCVCellBorderLeft | GDCVCellBorderRight;
+        }
+        
+        [self.unitListCellBorders addObject:[NSNumber numberWithUnsignedInteger:border]];
+    }
+    
+    self.unitsCollectionView.contentSize = CGSizeMake(UNIT_CELL_WIDTH * self.homeInfo.units.count, UNIT_CELL_WIDTH);
 }
 
 - (void)preparePostList {
@@ -146,16 +155,6 @@ const CGFloat POSTLIST_CELL_HEIGHT = 65;
     BOOL joiningHalf = NO;
     for (PostInfo *p in self.homeInfo.postList) {
         GDCVCellBorder border = GDCVCellBorderNone; // = GDCVCellBorderTop | GDCVCellBorderBottom | GDCVCellBorderLeft | GDCVCellBorderRight;
-        NSUInteger indexOfPI = [self.homeInfo.postList indexOfObject:p];
-        
-        if (indexOfPI == 0) {
-            // first
-            border |= GDCVCellBorderBottom;
-        } else if (indexOfPI == self.homeInfo.postList.count - 1) {
-            // last
-        } else {
-            border |= GDCVCellBorderBottom;
-        }
         
         if (p.listStyle == 1) {
             // full
@@ -170,16 +169,41 @@ const CGFloat POSTLIST_CELL_HEIGHT = 65;
             joiningHalf = !joiningHalf;
         }
         
+        NSUInteger indexOfPI = [self.homeInfo.postList indexOfObject:p];
+        
+        if (p == self.homeInfo.postList.lastObject ||
+            (indexOfPI == self.homeInfo.postList.count - 2 &&
+             p.listStyle == 2 &&
+             ((PostInfo *)(self.homeInfo.postList.lastObject)).listStyle != 1)) {
+            // last, or last 2 but half
+        } else {
+            border |= GDCVCellBorderBottom;
+        }
+        
         [self.postListCellBorders addObject:[NSNumber numberWithUnsignedInteger:border]];
     }
     
     rows = roundf(rows);
     
     CGRect frame = self.postListCollectionView.frame;
+    CGRect frameOfUnits = self.unitsCollectionView.frame;
     
     frame.size.height = POSTLIST_CELL_HEIGHT * rows;
+    frame.origin.y = frameOfUnits.origin.y + frameOfUnits.size.height + 6;
     [self.postListCollectionView setFrame: frame];
     self.postListCollectionView.contentSize = frame.size;
+}
+
+- (void) prepareVideoList {
+    self.videoListCollectionView.dataSource = self;
+    self.videoListCollectionView.delegate = self;
+    
+    CGRect frame = self.videoListCollectionView.frame;
+    CGRect frameOfPostList = self.postListCollectionView.frame;
+    frame.size.height = 135 * self.homeInfo.videoList.count / 2;
+    frame.origin.y = frameOfPostList.origin.y + frameOfPostList.size.height + 6;
+    [self.videoListCollectionView setFrame: frame];
+    self.videoListCollectionView.contentSize = frame.size;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -218,12 +242,14 @@ const CGFloat POSTLIST_CELL_HEIGHT = 65;
    
     [self updatePageControlAccordingly];
     
+    [self prepareUnitList];
     [self preparePostList];
     [self prepareVideoList];
     
     self.rootScrollView.contentSize = CGSizeMake(320,
                                                  self.postListCollectionView.bounds.size.height +
                                                  self.videoListCollectionView.bounds.size.height +
+                                                 self.unitsCollectionView.bounds.size.height +
                                                  self.infiniteScrollView.bounds.size.height + 60 /* bottom padding*/);
     [self.rootScrollView layoutSubviews];
     
@@ -234,13 +260,15 @@ const CGFloat POSTLIST_CELL_HEIGHT = 65;
 }
 
 - (void)fetchingHomeInfoWithError:(NSError *)error {
-    // NSLog(@"Error %@; %@", error, [error localizedDescription]);
-    
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"网络连接"
                                                     message: [error localizedDescription]
                                                    delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
+}
+
+- (void)stopAllLoadingAnimations {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    [self.aaptr stopIndicatorAnimation];
 }
 
 #pragma mark - GBInfiniteScroll
@@ -339,6 +367,8 @@ const CGFloat POSTLIST_CELL_HEIGHT = 65;
         return self.homeInfo.videoList.count;
     } else if (view == self.postListCollectionView) {
         return self.homeInfo.postList.count;
+    } else if (view == self.unitsCollectionView) {
+        return self.homeInfo.units.count;
     }
     
     return 0;
@@ -368,6 +398,19 @@ const CGFloat POSTLIST_CELL_HEIGHT = 65;
         
         cell.backgroundColor = [UIColor whiteColor];
         [cell configureForPostInfo:pi];
+        
+        return cell;
+    } else if (cv == self.unitsCollectionView) {
+        UnitInfoShort *uis = (UnitInfoShort*)[self.homeInfo.units objectAtIndex:indexPath.row];
+        
+        GDUnitCollectionViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"UnitListCell" forIndexPath:indexPath];
+        [cell prepareForReuse];
+        
+        cell.border = (GDCVCellBorder)[((NSNumber *)[self.unitListCellBorders objectAtIndex:indexPath.row]) unsignedIntegerValue];
+        
+        cell.backgroundColor = [UIColor whiteColor];
+        
+        cell.unitId = uis.unitId;
         
         return cell;
     }
@@ -418,6 +461,8 @@ const CGFloat POSTLIST_CELL_HEIGHT = 65;
             // Half
             return CGSizeMake(157, POSTLIST_CELL_HEIGHT);
         }
+    } else if (view == self.unitsCollectionView) {
+        return CGSizeMake(UNIT_CELL_WIDTH, UNIT_CELL_WIDTH);
     }
     
     return CGSizeZero;

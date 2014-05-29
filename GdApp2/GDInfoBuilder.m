@@ -92,6 +92,17 @@
     }
     homeInfo.postList = postList;
     
+    // units
+    NSArray *unitsFromDictionary = [parsed objectForKey:@"units"];
+    NSMutableArray *units = [[NSMutableArray alloc] init];
+    for (NSDictionary *u in unitsFromDictionary) {
+        UnitInfoShort *tempUIS = [[UnitInfoShort alloc] init];
+        tempUIS.unitId = [u objectForKey:@"unitId"];
+        
+        [units addObject:tempUIS];
+    }
+    homeInfo.units = units;
+    
     return homeInfo;
 }
 
