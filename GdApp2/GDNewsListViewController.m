@@ -12,9 +12,9 @@
 #import "GDManagerFactory.h"
 #import "Utility.h"
 
-#import "AAPullToRefresh.h"
 #import "MBProgressHUD.h"
 #import "SVPullToRefresh.h"
+#import "UIScrollView+GDPullToRefresh.h"
 
 #import "GDPostListTableViewCell.h"
 #import "GDCategoryListView.h"
@@ -38,9 +38,6 @@
 @property (strong, nonatomic) NSCache *cellHeightCache;
 
 // @property (strong, nonatomic) NSDictionary *postsByDate;    // NSString, NSArray
-
-@property (weak, nonatomic) AAPullToRefresh *pullToRefresh;
-// @property (weak, nonatomic) AAPullToRefresh *scrollToShowMore;
 
 @end
 
@@ -114,14 +111,9 @@ NSDateFormatter *nsdf;
 }
 
 - (void)configurePullToRefresh {
-    self.pullToRefresh = [self.postListTableView addPullToRefreshPosition:AAPullToRefreshPositionTop ActionHandler:^(AAPullToRefresh *v){
+    [self.postListTableView addGDPullToRefreshWithActionHandler:^{
         [self loadDataOfcurrentGDCategory:YES];
     }];
-    // don't display at once
-    [self.pullToRefresh stopIndicatorAnimation];
-    self.pullToRefresh.imageIcon = [UIImage imageNamed:@"halo"];
-    self.pullToRefresh.threshold = 60.0f;
-    self.pullToRefresh.borderWidth = 3;
 }
 
 - (void)configureScrollToViewMore {
@@ -218,15 +210,19 @@ NSDateFormatter *nsdf;
         
         if (self.pageIndex == 0) {
             [self performSelector:@selector(scrollTableViewToTop:) withObject:self afterDelay:0.1];
-            [MBProgressHUD hideAllHUDsForView:self.view animated:NO];
+            
+            [self stopAllLoadingAnimations];
         }
     }
     
-    
-    [self.postListTableView.infiniteScrollingView stopAnimating];
-    [self.pullToRefresh stopIndicatorAnimation];
+    [self stopAllLoadingAnimations];
 }
 
+- (void) stopAllLoadingAnimations {
+    [MBProgressHUD hideAllHUDsForView:self.view animated:NO];
+    [self.postListTableView.infiniteScrollingView stopAnimating];
+    [self.postListTableView.pullToRefreshView stopAnimating];
+}
 
 - (void)scrollTableViewToTop:(id)nothing {
     [MBProgressHUD hideAllHUDsForView:self.view animated:NO];
@@ -267,6 +263,8 @@ NSDateFormatter *nsdf;
 
 
 - (void)fetchPostListWithError:(NSError *)error {
+    [self stopAllLoadingAnimations];
+    
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"数据加载失败"
                                                     message:@"请检查网络连接是否可用"
                                                    delegate:nil

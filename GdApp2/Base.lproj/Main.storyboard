@@ -154,8 +154,8 @@
                                         <color key="pageIndicatorTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="currentPageIndicatorTintColor" red="1" green="0.21722669410000001" blue="0.15822746009999999" alpha="1" colorSpace="calibratedRGB"/>
                                     </pageControl>
-                                    <collectionView clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="infinite" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Gyd-kA-TJq">
-                                        <rect key="frame" x="6" y="297" width="308" height="145"/>
+                                    <collectionView clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="infinite" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Gyd-kA-TJq" userLabel="Video">
+                                        <rect key="frame" x="6" y="355" width="308" height="43"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="UgQ-Yt-wrE">
@@ -166,8 +166,8 @@
                                         </collectionViewFlowLayout>
                                         <cells/>
                                     </collectionView>
-                                    <collectionView clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="infinite" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="tlN-Y6-8CJ">
-                                        <rect key="frame" x="3" y="142" width="314" height="119"/>
+                                    <collectionView clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="infinite" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="tlN-Y6-8CJ" userLabel="Posts">
+                                        <rect key="frame" x="3" y="262" width="314" height="48"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="ZPM-IO-Gc9">
@@ -178,6 +178,36 @@
                                         </collectionViewFlowLayout>
                                         <cells/>
                                     </collectionView>
+                                    <collectionView clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="infinite" directionalLockEnabled="YES" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="LAx-LI-VQr" userLabel="Units">
+                                        <rect key="frame" x="0.0" y="157" width="320" height="90"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="DLL-Hr-G5p">
+                                            <size key="itemSize" width="0.0" height="0.0"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells/>
+                                    </collectionView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   最新机体" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Gog-tm-Vk7">
+                                        <rect key="frame" x="0.0" y="136" width="320" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.91605839416058399" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" id="yfU-Mn-xM4" userLabel="UnitListSeparatorTop">
+                                        <rect key="frame" x="0.0" y="156" width="320" height="1"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" id="hbs-0C-tDH" userLabel="UnitListSeparatorBottom">
+                                        <rect key="frame" x="0.0" y="246" width="320" height="1"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
                                 </subviews>
                             </scrollView>
                         </subviews>
@@ -194,9 +224,9 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="5xK-Gc-3Z8">
-                                    <rect key="frame" x="193" y="7" width="111" height="22"/>
+                                    <rect key="frame" x="162" y="8" width="142" height="22"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <state key="normal" title="Search Unit" image="search-button">
                                         <color key="titleColor" red="1" green="0.29411764705882354" blue="0.27058823529411763" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
@@ -216,9 +246,11 @@
                         <outlet property="postListCollectionView" destination="tlN-Y6-8CJ" id="uC5-Sq-wkB"/>
                         <outlet property="rootScrollView" destination="7Jf-ag-sZT" id="aOD-4v-Dtg"/>
                         <outlet property="searchDisplayController" destination="q11-ea-nPX" id="RIa-By-xx0"/>
+                        <outlet property="unitsCollectionView" destination="LAx-LI-VQr" id="CuD-e5-khP"/>
                         <outlet property="videoListCollectionView" destination="Gyd-kA-TJq" id="Dal-yt-8L8"/>
                         <segue destination="xx8-lO-ygV" kind="push" identifier="ViewVideo" id="hco-Bl-9vV"/>
                         <segue destination="aix-2l-OyA" kind="push" identifier="ViewPost" id="sIr-PI-Iu0"/>
+                        <segue destination="GhT-BD-GR7" kind="push" identifier="ViewUnit" id="UQm-b0-nZb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FfW-gg-mjv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -300,7 +332,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XjV-QL-Ugu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="530" y="-1147"/>
+            <point key="canvasLocation" x="462" y="-1145"/>
         </scene>
         <!--View Controller - 机体-->
         <scene sceneID="dzc-Ik-Ezp">
@@ -315,7 +347,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y2h-2I-Y8Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1072" y="-1147"/>
+            <point key="canvasLocation" x="914" y="-856"/>
         </scene>
         <!--Video View Controller - 视频-->
         <scene sceneID="FHX-fo-FcE">
@@ -358,7 +390,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MqS-7H-NBc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="742" y="-269"/>
+            <point key="canvasLocation" x="763" y="-172"/>
         </scene>
         <!--Navigation Controller - 首页-->
         <scene sceneID="9Ap-8l-N1e">
@@ -457,7 +489,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="aDa-PF-k4K"/>
-        <segue reference="sxK-G5-fs6"/>
+        <segue reference="UQm-b0-nZb"/>
+        <segue reference="hco-Bl-9vV"/>
+        <segue reference="sIr-PI-Iu0"/>
     </inferredMetricsTieBreakers>
 </document>

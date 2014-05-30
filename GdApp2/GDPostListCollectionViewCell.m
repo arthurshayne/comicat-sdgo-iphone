@@ -38,7 +38,7 @@ static CGFloat CATEGORY_VIEW_HEIGHT = 15;
 + (UIFont *)fontForTitleLabel {
     static UIFont *_fontForTitleLabel;
     if (!_fontForTitleLabel) {
-        _fontForTitleLabel = [UIFont systemFontOfSize:24];
+        _fontForTitleLabel = [UIFont boldSystemFontOfSize:24];
     }
     return _fontForTitleLabel;
 }

@@ -2,13 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "halo+60(1)-1.png"
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "halo+60(1).png"
+      "filename" : "haro-grayscale-2x.png"
     }
   ],
   "info" : {

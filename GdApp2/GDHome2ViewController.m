@@ -14,21 +14,24 @@
 #import "Utility.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
-#import "AAPullToRefresh.h"
 #import "MBProgressHUD.h"
 #import "NSDate+PrettyDate.h"
+ #import "UIScrollView+GDPullToRefresh.h"
+ #import "SVPullToRefresh.h"
 
 #import "CarouselInfo.h"
 #import "VideoListItem.h"
 #import "HomeInfo.h"
 #import "UnitInfoShort.h"
 
+
 #import "GDVideoViewController.h"
 #import "GDPostViewController.h"
+#import "UnitViewController.h"
+
 #import "GDVideoListCollectionViewCell.h"
 #import "GDPostListCollectionViewCell.h"
 #import "GDUnitCollectionViewCell.h"
-
 #import "GDPostCategoryView.h"
 
 @interface GDHome2ViewController ()
@@ -42,13 +45,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *carouselLabel;
 @property (weak, nonatomic) IBOutlet UIPageControl *carouselPageControl;
 
-@property (weak, nonatomic) AAPullToRefresh *aaptr;
-
 @property (weak, nonatomic) IBOutlet UICollectionView *videoListCollectionView;
 @property (weak, nonatomic) IBOutlet UICollectionView *postListCollectionView;
 @property (weak, nonatomic) IBOutlet UICollectionView *unitsCollectionView;
-
-
 
 @property (strong, nonatomic) NSMutableArray *postListCellBorders;
 @property (strong, nonatomic) NSMutableArray *unitListCellBorders;
@@ -58,13 +57,13 @@
 
 GDManager *manager;
 int postIdForSegue;
+NSString *unitIdForSegue;
 
 const CGFloat POSTLIST_CELL_HEIGHT = 65;
 const CGFloat UNIT_CELL_WIDTH = 90;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     manager = [GDManagerFactory getGDManagerWithDelegate:self];
     
@@ -75,22 +74,16 @@ const CGFloat UNIT_CELL_WIDTH = 90;
     [self.carouselLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
     [self.carouselLabel setFont:[UIFont systemFontOfSize:14]];
     
-    self.aaptr = [self.rootScrollView addPullToRefreshPosition:AAPullToRefreshPositionTop ActionHandler:^(AAPullToRefresh *v){
-        // do something...
-        [manager fetchHomeInfo];
-        // then must call stopIndicatorAnimation method.
-    }];
-    // don't display at once
-    [self.aaptr stopIndicatorAnimation];
-    self.aaptr.imageIcon = [UIImage imageNamed:@"halo"];
-    self.aaptr.threshold = 60.0f;
-    self.aaptr.borderWidth = 0;
-    
     [self.videoListCollectionView registerClass:[GDVideoListCollectionViewCell class] forCellWithReuseIdentifier:@"VideoListCell"];
     [self.postListCollectionView registerClass:[GDPostListCollectionViewCell class] forCellWithReuseIdentifier:@"PostListCell"];
     [self.unitsCollectionView registerClass:[GDUnitCollectionViewCell class] forCellWithReuseIdentifier:@"UnitListCell"];
     
+    [self configurePullToRefresh];
+    // self.rootScrollView.showsPullToRefresh = NO;
+    [manager fetchHomeInfo];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    self.automaticallyAdjustsScrollViewInsets = NO;
 
 }
 
@@ -101,8 +94,6 @@ const CGFloat UNIT_CELL_WIDTH = 90;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    // NSLog(@"viewWillAppear");
-    
     [super viewWillAppear:animated];
 
     [self.infiniteScrollView startAutoScroll];
@@ -194,7 +185,7 @@ const CGFloat UNIT_CELL_WIDTH = 90;
     self.postListCollectionView.contentSize = frame.size;
 }
 
-- (void) prepareVideoList {
+- (void)prepareVideoList {
     self.videoListCollectionView.dataSource = self;
     self.videoListCollectionView.delegate = self;
     
@@ -213,10 +204,15 @@ const CGFloat UNIT_CELL_WIDTH = 90;
             gdpvc.postId = postIdForSegue;
             gdpvc.hidesBottomBarWhenPushed = YES;
         }
-    } else if([segue.identifier isEqualToString:@"ViewPost"])  {
+    } else if([segue.identifier isEqualToString:@"ViewPost"]) {
         if ([segue.destinationViewController isKindOfClass:[GDPostViewController class]]) {
             GDVideoViewController *gdvvc = (GDVideoViewController *)segue.destinationViewController;
             gdvvc.postId = postIdForSegue;
+        }
+    } else if([segue.identifier isEqualToString:@"ViewUnit"]) {
+        if ([segue.destinationViewController isKindOfClass:[UnitViewController class]]) {
+            UnitViewController *uvc = (UnitViewController *)segue.destinationViewController;
+            uvc.unitId = unitIdForSegue;
         }
     }
 }
@@ -225,6 +221,11 @@ const CGFloat UNIT_CELL_WIDTH = 90;
     
 }
 
+- (void)configurePullToRefresh {
+    [self.rootScrollView addGDPullToRefreshWithActionHandler:^{
+        [manager fetchHomeInfo];
+    }];
+}
 
 #pragma mark - GDManagerDelegate
 
@@ -237,8 +238,6 @@ const CGFloat UNIT_CELL_WIDTH = 90;
     
     self.carouselPageControl.numberOfPages = homeInfo.carousel.count;
     [self.view bringSubviewToFront:self.carouselPageControl];
-    
-//    self.view.hidden = NO;
    
     [self updatePageControlAccordingly];
     
@@ -251,15 +250,15 @@ const CGFloat UNIT_CELL_WIDTH = 90;
                                                  self.videoListCollectionView.bounds.size.height +
                                                  self.unitsCollectionView.bounds.size.height +
                                                  self.infiniteScrollView.bounds.size.height + 60 /* bottom padding*/);
+    
     [self.rootScrollView layoutSubviews];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-    });
-    [self.aaptr performSelector:@selector(stopIndicatorAnimation) withObject:nil afterDelay:0];
+    [self stopAllLoadingAnimations];
 }
 
 - (void)fetchingHomeInfoWithError:(NSError *)error {
+    [self stopAllLoadingAnimations];
+    
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"网络连接"
                                                     message: [error localizedDescription]
                                                    delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -268,7 +267,7 @@ const CGFloat UNIT_CELL_WIDTH = 90;
 
 - (void)stopAllLoadingAnimations {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
-    [self.aaptr stopIndicatorAnimation];
+    [self.rootScrollView.pullToRefreshView stopAnimating];
 }
 
 #pragma mark - GBInfiniteScroll
@@ -434,13 +433,12 @@ const CGFloat UNIT_CELL_WIDTH = 90;
         postIdForSegue = pi.postId;
         
         [self performSegueWithIdentifier:@"ViewPost" sender:self];
+    } else  if (view == self.unitsCollectionView) {
+        UnitInfoShort *uis = [self.homeInfo.units objectAtIndex: indexPath.row];
+        unitIdForSegue = uis.unitId;
+        
+        [self performSegueWithIdentifier:@"ViewUnit" sender:self];
     }
-    
-    
-//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Video List Item Clicked!"
-//                                                    message: [NSString stringWithFormat:@"You clcked on %d!", indexPath.row]
-//                                                   delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-//    [alert show];
 }
 
 //- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {

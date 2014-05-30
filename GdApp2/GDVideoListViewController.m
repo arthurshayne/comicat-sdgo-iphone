@@ -16,9 +16,12 @@
 #import "AAPullToRefresh.h"
 #import "MBProgressHUD.h"
 #import "SVPullToRefresh.h"
+#import "UIScrollView+GDPullToRefresh.h"
 
 #import "GDCategoryListView.h"
 #import "GDVideoListCollectionViewCell.h"
+#import "SVPTRView.h"
+#import "SVPTRLoadingView.h"
 
 #import "GDVideoViewController.h"
 
@@ -240,24 +243,14 @@ int postIdForSegue;
 
 - (void)configurePullToRefresh:(uint)gdCategory forView:(UICollectionView *)collectionView {
     __weak typeof(self) weakSelf = self;
-//    self.pullToRefresh = [self.currentVideoListView addPullToRefreshPosition:AAPullToRefreshPositionTop ActionHandler:^(AAPullToRefresh *v){
-//        [weakSelf loadDataOfCurrentGDCategory:YES];
-//    }];
-//    // don't display at once
-//    [self.pullToRefresh stopIndicatorAnimation];
-//    self.pullToRefresh.imageIcon = [UIImage imageNamed:@"halo"];
-//    self.pullToRefresh.threshold = 80.0f;
-//    self.pullToRefresh.borderWidth = 3;
-    
-    [collectionView addPullToRefreshWithActionHandler:^{
+
+    [collectionView addGDPullToRefreshWithActionHandler:^{
         GDVideoListVCDataSource *ds = (GDVideoListVCDataSource *)[weakSelf.dataSources objectForKey:[weakSelf stringWithGDCategory:gdCategory]];
         [ds reloadData];
-        
+
         UICollectionView *view = [self.videoListViews objectForKey:[self stringWithGDCategory:gdCategory]];
         view.showsInfiniteScrolling = YES;
     }];
-    
-    collectionView.pullToRefreshView.arrowColor = [UIColor whiteColor];
 }
 
 - (void)configureScrollToViewMore:(uint)gdCategory forView:(UICollectionView *)collectionView {
