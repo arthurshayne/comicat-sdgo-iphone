@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "HomeInfo.h"
 #import "PostInfo.h"
+#import "UnitInfo.h"
 
 @protocol GDManagerDelegate <NSObject>
 @optional
@@ -26,5 +27,8 @@
 
 - (void)didReceiveVideoList:(NSArray *)posts ofGdCategory:(uint)category;    /*Array of PostInfo*/
 - (void)fetchVideoListWithError:(NSError *)error;
+
+- (void)didReceiveUnitInfo:(UnitInfo *)unitInfo;
+- (void)fetchUnitInfoWithError:(NSError *)error;
 
 @end

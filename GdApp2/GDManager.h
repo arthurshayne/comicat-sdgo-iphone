@@ -20,4 +20,5 @@
 - (void)searchUnitsWithKeyword:(NSString *)keyword;
 - (void)fetchPostListOfCategory:(uint)gdCategory pageSize:(uint)pageSize pageIndex:(uint)pageIndex;
 - (void)fetchVideoListOfCategory:(uint)gdCategory pageSize:(uint)pageSize pageIndex:(uint)pageIndex;
+- (void)fetchUnitInfo:(NSString *)unitId;
 @end

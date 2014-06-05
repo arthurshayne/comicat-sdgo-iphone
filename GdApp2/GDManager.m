@@ -31,6 +31,10 @@
     [self.communicator fetchVideoList:gdCategory pageSize:pageSize pageIndex:pageIndex];
 }
 
+- (void)fetchUnitInfo:(NSString *)unitId {
+    [self.communicator fetchUnitInfo:unitId];
+}
+
 #pragma mark - GDCommunicatorDelegate
 // home
 - (void)receivedHomeInfoJSON:(NSData *)objectNotation {
@@ -108,5 +112,21 @@
     [self.delegate fetchVideoListWithError:error];
 }
 
+// unit info
+- (void)receivedUnitInfoJSON:(NSData *)objectNotation {
+    NSError *error;
+    UnitInfo *unitInfo = [GDInfoBuilder unitInfoFromJSON:objectNotation error:&error];
+    
+    if (error) {
+        [self.delegate fetchUnitInfoWithError:error];
+    } else {
+        [self.delegate didReceiveUnitInfo:unitInfo];
+    }
+}
+
+// post info error
+- (void) fetchUnitInfoFailedWithError:(NSError *)error {
+    [self.delegate fetchUnitInfoWithError:error];
+}
 
 @end

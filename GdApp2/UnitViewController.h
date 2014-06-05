@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GDManagerDelegate.h"
 
-@interface UnitViewController : UIViewController
+@interface UnitViewController : UIViewController <GDManagerDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) NSString *unitId;
 

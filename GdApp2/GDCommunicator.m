@@ -106,4 +106,15 @@ static NSString *API_URL = @"http://www.sdgundam.cn/services/app.ashx";
                                }];
 }
 
+- (void)fetchUnitInfo: (NSString *)unitId {
+    [self.class requestAPIWithAction:@"unit-info"
+                               using:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%@", unitId], @"id", @"1", @"p", nil]
+                             success:^(NSData *data) {
+                                 [self.delegate receivedUnitInfoJSON:data];
+                             }
+                               error:^(NSError *error) {
+                                   [self.delegate fetchUnitInfoFailedWithError:error];
+                               }];
+}
+
 @end

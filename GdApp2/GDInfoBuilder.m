@@ -12,6 +12,7 @@
 #import "VideoListItem.h"
 #import "PostInfo.h"
 #import "UnitInfoShort.h"
+#import "UnitInfo.h"
 
 @interface GDInfoBuilder()
 +(NSDateFormatter *) dateFormatter;
@@ -238,6 +239,37 @@
     }
     
     return posts;
+}
+
++ (UnitInfo *)unitInfoFromJSON:(NSData *)objectNotation error:(NSError **)error {
+    NSError *tempError = nil;
+    NSDictionary *parsed = [NSJSONSerialization JSONObjectWithData:objectNotation
+                                                           options:0
+                                                             error: &tempError];
+    
+    if (tempError) {
+        *error = tempError;
+        return nil;
+    }
+
+    UnitInfo *unit = [[UnitInfo alloc] init];
+
+    for(NSString *key in parsed.allKeys) {
+        unichar firstChar = [key characterAtIndex:0];
+        NSString *firstLetter = [NSString stringWithCharacters:&firstChar length:1];
+        // NSString *keyForSelector = [NSString stringWithFormat:@"set%@%@", [firstLetter uppercaseString], [key substringFromIndex:1]];
+        NSString *keyForSelector = [NSString stringWithFormat:@"%@", key];
+        
+        id val = [parsed objectForKey:key];
+        if ([unit respondsToSelector:NSSelectorFromString(keyForSelector)]) {
+            [unit setValue:val forKey:key];
+        } else {
+            NSLog(@"Missing: %@", key);
+        }
+        
+    }
+
+    return unit;
 }
 
 @end

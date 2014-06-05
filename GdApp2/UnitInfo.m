@@ -10,4 +10,11 @@
 
 @implementation UnitInfo
 
+- (float)sum3D {
+    return self.attackG + self.defenseG + self.mobilityG;
+}
+
+- (float)sum4D {
+    return self.sum3D + self.controlG;
+}
 @end
