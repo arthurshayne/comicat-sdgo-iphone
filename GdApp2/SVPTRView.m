@@ -60,7 +60,7 @@
 
 - (void)drawRect:(CGRect)rect {
     CGRect textFrame = CGRectMake(62, 10, 120, 21);
-    CGRect imageFrame = CGRectMake(0, 0, 39.5, 30);
+    CGRect imageFrame = CGRectMake(0, 0, 40, 30);
     
     if (self.state == SVPullToRefreshStateStopped) {
         [[UIImage imageNamed:@"haro-grayscale"] drawInRect:imageFrame];
@@ -70,7 +70,7 @@
                            NSForegroundColorAttributeName:[UIColor grayColor]
                            }];
     } else if (self.state == SVPullToRefreshStateTriggered) {
-        [[UIImage imageNamed:@"haro-red"] drawInRect:imageFrame];
+        [[UIImage imageNamed:@"haro-colored"] drawInRect:imageFrame];
         
         [@"放开刷新..." drawInRect:textFrame
                 withAttributes:@{ NSFontAttributeName:[self.class fontForText],

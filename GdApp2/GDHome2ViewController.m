@@ -16,8 +16,8 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "MBProgressHUD.h"
 #import "NSDate+PrettyDate.h"
- #import "UIScrollView+GDPullToRefresh.h"
- #import "SVPullToRefresh.h"
+#import "UIScrollView+GDPullToRefresh.h"
+#import "SVPullToRefresh.h"
 
 #import "CarouselInfo.h"
 #import "VideoListItem.h"
@@ -249,7 +249,7 @@ const CGFloat UNIT_CELL_WIDTH = 90;
                                                  self.postListCollectionView.bounds.size.height +
                                                  self.videoListCollectionView.bounds.size.height +
                                                  self.unitsCollectionView.bounds.size.height +
-                                                 self.infiniteScrollView.bounds.size.height + 60 /* bottom padding*/);
+                                                 self.infiniteScrollView.bounds.size.height + 80 /* bottom padding*/);
     
     [self.rootScrollView layoutSubviews];
     

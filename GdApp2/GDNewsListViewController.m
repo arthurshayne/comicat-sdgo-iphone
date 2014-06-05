@@ -87,7 +87,6 @@ NSDateFormatter *nsdf;
     
     [self.postListTableView registerClass:[GDPostListTableViewCell class] forCellReuseIdentifier:CELL_IDENTIFIER];
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self configurePullToRefresh];
     [self configureScrollToViewMore];
@@ -218,7 +217,7 @@ NSDateFormatter *nsdf;
     [self stopAllLoadingAnimations];
 }
 
-- (void) stopAllLoadingAnimations {
+- (void)stopAllLoadingAnimations {
     [MBProgressHUD hideAllHUDsForView:self.view animated:NO];
     [self.postListTableView.infiniteScrollingView stopAnimating];
     [self.postListTableView.pullToRefreshView stopAnimating];

@@ -61,29 +61,5 @@
         [self.activityIndicatorView stopAnimating];
     }
 }
-//
-//- (void)didMoveToWindow:(UIWindow *)newWindow {
-//    if ([newWindow isKeyWindow]) {
-//        [self.activityIndicatorView startAnimating];
-//    } else {
-//        [self.activityIndicatorView stopAnimating];
-//    }
-//}
 
 @end
-
-
-/*
- [self.activityIndicatorView stopAnimating];
- [self rotateArrow:0 hide:NO];
- break;
- 
- case SVPullToRefreshStateTriggered:
- [self rotateArrow:(float)M_PI hide:NO];
- break;
- 
- case SVPullToRefreshStateLoading:
- [self.activityIndicatorView startAnimating];
- [self rotateArrow:0 hide:YES];
- 
- */

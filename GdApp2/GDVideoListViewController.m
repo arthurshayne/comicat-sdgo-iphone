@@ -124,8 +124,6 @@ int postIdForSegue;
     [self prepareCategoryList];
     
     [self switchGDCategory:0];
-    
-    self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -227,9 +225,10 @@ int postIdForSegue;
     flow.minimumLineSpacing = 0;
     flow.minimumInteritemSpacing = 0;
     
-    UICollectionView *videoListView = [[UICollectionView alloc] initWithFrame:CGRectMake(6, 114, 308, 405) collectionViewLayout:flow];
+    UICollectionView *videoListView = [[UICollectionView alloc] initWithFrame:CGRectMake(6, 114, 308, 454) collectionViewLayout:flow];
     videoListView.backgroundColor = [UIColor clearColor];
     videoListView.opaque = YES;
+    videoListView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
     
     [self.view addSubview:videoListView];
     
@@ -271,7 +270,6 @@ int postIdForSegue;
     [MBProgressHUD hideAllHUDsForView:self.view animated:NO];
     [self.currentVideoListView.infiniteScrollingView stopAnimating];
     [self.currentVideoListView.pullToRefreshView stopAnimating];
-//    [self.pullToRefresh stopIndicatorAnimation];
 }
 
 #pragma mark - GDVideoListDataSourceDelegate
