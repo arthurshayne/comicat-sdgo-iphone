@@ -51,6 +51,7 @@
 		05A417C21915027B0040A679 /* GDPostCategoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A417C11915027B0040A679 /* GDPostCategoryView.m */; };
 		05A417C71915186D0040A679 /* NSDate+PrettyDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A417C61915186D0040A679 /* NSDate+PrettyDate.m */; };
 		05A6732E191F9D4C006287D4 /* PushNoAnimationSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A6732D191F9D4C006287D4 /* PushNoAnimationSegue.m */; };
+		05AAB17D194349F6003FF5DC /* UnitStoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05AAB17C194349F6003FF5DC /* UnitStoryCell.m */; };
 		05B7B3D5191E8A3A0003D354 /* GDNewsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B7B3D4191E8A3A0003D354 /* GDNewsListViewController.m */; };
 		05C30942193F5A9F00D00A90 /* UnitSkillCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C30941193F5A9F00D00A90 /* UnitSkillCell.m */; };
 		05C30945193F5AAF00D00A90 /* UnitWeaponCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C30944193F5AAF00D00A90 /* UnitWeaponCell.m */; };
@@ -157,6 +158,8 @@
 		05A417C61915186D0040A679 /* NSDate+PrettyDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+PrettyDate.m"; sourceTree = "<group>"; };
 		05A6732C191F9D4C006287D4 /* PushNoAnimationSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushNoAnimationSegue.h; sourceTree = "<group>"; };
 		05A6732D191F9D4C006287D4 /* PushNoAnimationSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushNoAnimationSegue.m; sourceTree = "<group>"; };
+		05AAB17B194349F6003FF5DC /* UnitStoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitStoryCell.h; sourceTree = "<group>"; };
+		05AAB17C194349F6003FF5DC /* UnitStoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitStoryCell.m; sourceTree = "<group>"; };
 		05B7B3D3191E8A3A0003D354 /* GDNewsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDNewsListViewController.h; sourceTree = "<group>"; };
 		05B7B3D4191E8A3A0003D354 /* GDNewsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDNewsListViewController.m; sourceTree = "<group>"; };
 		05B7B3D6191F1A870003D354 /* GDPostCategoryViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GDPostCategoryViewDelegate.h; sourceTree = "<group>"; };
@@ -447,6 +450,8 @@
 				05C3094A193F5B4400D00A90 /* UnitGetwayCell.m */,
 				056D0BE819400F1A0004F259 /* UnitBasicDataView.h */,
 				056D0BE919400F1A0004F259 /* UnitBasicDataView.m */,
+				05AAB17B194349F6003FF5DC /* UnitStoryCell.h */,
+				05AAB17C194349F6003FF5DC /* UnitStoryCell.m */,
 			);
 			name = Unit;
 			sourceTree = "<group>";
@@ -618,6 +623,7 @@
 				05FFBE15193849760051AFF4 /* SVPTRLoadingView.m in Sources */,
 				05216A251925DB8600807A2E /* GDVideoListCollectionViewCell.m in Sources */,
 				05FFBE1919385C430051AFF4 /* UIScrollView+GDPullToRefresh.m in Sources */,
+				05AAB17D194349F6003FF5DC /* UnitStoryCell.m in Sources */,
 				0565B3C11908A52A00CCE77E /* GDInfoBuilder.m in Sources */,
 				05C3D3FF191E4203001B69ED /* UnitViewController.m in Sources */,
 				0582A87D192F9249007B90C9 /* ABTableViewCell.m in Sources */,

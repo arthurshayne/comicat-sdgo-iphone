@@ -13,7 +13,6 @@
     CGPoint point;
     CGFloat stringWidth;
     BOOL running;
-    BOOL ranOnce;
 }
 
 @property (nonatomic, copy) NSString * text;

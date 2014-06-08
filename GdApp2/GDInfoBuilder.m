@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 COMICAT. All rights reserved.
 //
 
+#import "objc/runtime.h"
+
 #import "GDInfoBuilder.h"
 #import "HomeInfo.h"
 #import "CarouselInfo.h"
@@ -255,18 +257,26 @@
     UnitInfo *unit = [[UnitInfo alloc] init];
 
     for(NSString *key in parsed.allKeys) {
-        unichar firstChar = [key characterAtIndex:0];
-        NSString *firstLetter = [NSString stringWithCharacters:&firstChar length:1];
+//        unichar firstChar = [key characterAtIndex:0];
+//        NSString *firstLetter = [NSString stringWithCharacters:&firstChar length:1];
         // NSString *keyForSelector = [NSString stringWithFormat:@"set%@%@", [firstLetter uppercaseString], [key substringFromIndex:1]];
         NSString *keyForSelector = [NSString stringWithFormat:@"%@", key];
         
-        id val = [parsed objectForKey:key];
-        if ([unit respondsToSelector:NSSelectorFromString(keyForSelector)]) {
-            [unit setValue:val forKey:key];
-        } else {
-            NSLog(@"Missing: %@", key);
+        objc_property_t property = class_getProperty([UnitInfo class], [keyForSelector UTF8String]);
+        if (property != NULL) {
+            const char *propertyAttributes = property_getAttributes(property);
+            // check if readonly property
+            if (![[[NSString stringWithUTF8String:propertyAttributes] componentsSeparatedByString:@","] containsObject:@"R"]) {
+                id val = [parsed objectForKey:key];
+                if ([unit respondsToSelector:NSSelectorFromString(keyForSelector) ]) {
+                    [unit setValue:val forKey:key];
+                } else {
+                    // NSLog(@"Missing: %@", key);
+                }
+            } else {
+                NSLog(@"Readonly: %@", key);
+            }
         }
-        
     }
 
     return unit;

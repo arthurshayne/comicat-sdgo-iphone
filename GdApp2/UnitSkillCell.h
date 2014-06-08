@@ -7,12 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ABTableViewCell.h"
 
-@interface UnitSkillCell : UITableViewCell
+@interface UnitSkillCell : ABTableViewCell {
+    NSAttributedString *skillText;
+}
 
-@property uint skillId;
+@property (nonatomic) uint skillId;
 @property (strong, nonatomic) NSString *skillName;
 @property (strong, nonatomic) NSString *skillDesc;
 @property (strong, nonatomic) NSString *skillEx;
+
+- (void)updateSkillText;
++ (CGFloat)calculateCellHeightForSkillName:(NSString *)skillName skillDesc:(NSString *)skillDesc skillEx:(NSString *)skillEx;
 
 @end

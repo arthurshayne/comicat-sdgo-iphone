@@ -112,7 +112,7 @@ const float UNIT_MAX_ABILITY_VALUE = 205;
     if (!_sum3DLabel) {
         _sum3DLabel = [[UILabel alloc] initWithFrame:CGRectMake(255, 118, 42, 21)];
         _sum3DLabel.textColor = [UIColor redColor];
-        _sum3DLabel.font = [UIFont italicSystemFontOfSize:14];
+        _sum3DLabel.font = [UIFont systemFontOfSize:14];
         [self addSubview:_sum3DLabel];
     }
     return _sum3DLabel;
@@ -121,8 +121,8 @@ const float UNIT_MAX_ABILITY_VALUE = 205;
 - (UILabel *)sum4DLabel {
     if (!_sum4DLabel) {
         _sum4DLabel = [[UILabel alloc] initWithFrame:CGRectMake(255, 140, 42, 21)];
-        _sum4DLabel.textColor = [UIColor redColor];
-        _sum4DLabel.font = [UIFont italicSystemFontOfSize:14];
+        _sum4DLabel.textColor = [UIColor blackColor];
+        _sum4DLabel.font = [UIFont systemFontOfSize:14];
         [self addSubview:_sum4DLabel];
     }
     return _sum4DLabel;
@@ -188,7 +188,7 @@ const float UNIT_MAX_ABILITY_VALUE = 205;
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = [UIColor whiteColor];
         // put it into view
         self.unitImageView.hidden = NO;
     }
@@ -219,7 +219,8 @@ const float UNIT_MAX_ABILITY_VALUE = 205;
     
     NSString *sum3DCaption = @"能力(3D)总和";
     [sum3DCaption drawAtPoint:CGPointMake(138, 118)
-                 withAttributes:@{ NSFontAttributeName:[self.class fontForCaptions] }];
+                 withAttributes:@{ NSFontAttributeName:[self.class fontForCaptions],
+                                   NSForegroundColorAttributeName:[UIColor redColor]}];
     
     NSString *sum4DCaption = @"4D总和";
     [sum4DCaption drawAtPoint:CGPointMake(138, 140)

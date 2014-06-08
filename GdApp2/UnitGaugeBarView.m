@@ -66,7 +66,8 @@
         frame.size.width = 20;
         
         _labelOnGauge = [[UILabel alloc] initWithFrame:frame];
-        UIFont *font = [UIFont fontWithName:@"Helvetica Neue Bold Italic" size:11];
+        // @"Helvetica Neue Bold Italic"
+        UIFont *font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:11];
         _labelOnGauge.font = font;
         _labelOnGauge.textAlignment = NSTextAlignmentRight;
         _labelOnGauge.textColor = [UIColor whiteColor];

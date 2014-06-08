@@ -56,14 +56,12 @@ const float SCROLL_TEXT_GAP = 37;
     if (!scroller && _speed > 0 && _text != nil) {
         scroller = [NSTimer scheduledTimerWithTimeInterval:_speed target:self selector:@selector(moveText:) userInfo:nil repeats:YES];
         running = YES;
-        ranOnce = NO;
     }
 }
 
 - (void) moveText:(NSTimer *)timer {
     if (running) {
         point.x = point.x - 0.5f;
-        ranOnce = YES;
         [self setNeedsDisplay];
     }
 }
@@ -73,19 +71,20 @@ const float SCROLL_TEXT_GAP = 37;
         point.x = SCROLL_TEXT_GAP;
     }
     
-    if (point.x == 0 && ranOnce) {
+    if (point.x == 0) {
         running = NO;
         double delayInSeconds = 2.0;
         dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
         dispatch_after(delayTime, dispatch_get_main_queue(), ^(void){
             running = YES;
-            ranOnce = NO;
         });
     }
     
     [_text drawAtPoint:point withAttributes:[self.class textAttributes]];
     
-    if (point.x < dirtyRect.size.width - stringWidth) {
+    if (stringWidth >= self.frame.size.width &&
+        point.x < dirtyRect.size.width - stringWidth) {
+        
         CGPoint otherPoint = point;
         otherPoint.x += (stringWidth + SCROLL_TEXT_GAP);
         [_text drawAtPoint:otherPoint withAttributes:[self.class textAttributes]];

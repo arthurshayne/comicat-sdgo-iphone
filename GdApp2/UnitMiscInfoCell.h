@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ABTableViewCell.h"
+#import "UnitInfo.h"
 
-@interface UnitMiscInfoCell : UITableViewCell
+@interface UnitMiscInfoCell : ABTableViewCell {
+    NSAttributedString *captionText;
+    NSAttributedString *contentText;
+}
+
+@property (strong, nonatomic) UnitInfo *unit;
+
++ (CGFloat)calculateHeightForUnit:(UnitInfo *)unit;
 
 @end

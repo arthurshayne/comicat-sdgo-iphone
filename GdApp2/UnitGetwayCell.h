@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ABTableViewCell.h"
+#import "UnitInfo.h"
 
-@interface UnitGetwayCell : UITableViewCell
+@interface UnitGetwayCell : ABTableViewCell {
+    NSAttributedString *getwayText;
+}
+
+@property (strong, nonatomic) UnitInfo *unit;
+
++ (CGFloat)calculateHeightForUnit:(UnitInfo *)unit;
+
 
 @end

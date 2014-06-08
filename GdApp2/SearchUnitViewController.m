@@ -159,6 +159,8 @@ NSString *unitIdForSegue;
 }
 
 - (void) tableView: (UITableView *) tableView didSelectRowAtIndexPath: (NSIndexPath *) indexPath {
+    UnitInfoShort *u = [self.units objectAtIndex:indexPath.row];
+    unitIdForSegue = u.unitId;
     [self performSegueWithIdentifier:@"ViewUnit" sender:self];
 }
 

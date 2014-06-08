@@ -22,6 +22,7 @@
 @property (strong, nonatomic) NSString *regdate;
 @property (strong, nonatomic) NSString *driver;
 @property (strong, nonatomic) NSString *feature;
+@property (strong, nonatomic) NSString *howToGet;
 
 // 4p
 @property BOOL sniping;
@@ -35,8 +36,8 @@
 @property float mobilityG;
 @property float controlG;
 
-@property float sum3D;
-@property float sum4D;
+@property (readonly) float sum3D;
+@property (readonly) float sum4D;
 
 // weapons
 @property uint weapon1;
@@ -84,6 +85,8 @@
 @property (strong, nonatomic) NSString *weaponEx6Line1;
 @property (strong, nonatomic) NSString *weaponEx6Line2;
 
+@property (readonly) uint numberOfWeapons;
+
 // skills
 @property uint skill1;
 @property uint skill2;
@@ -107,9 +110,9 @@
 @property (strong, nonatomic) NSString *shopBuy;
 @property (strong, nonatomic) NSString *shopBuyPrice;
 @property (strong, nonatomic) NSString *shopRissCash;
-@property (strong, nonatomic) NSString *shopRissCashPrice;
+// @property (strong, nonatomic) NSString *shopRissCashPrice;
 @property (strong, nonatomic) NSString *shopRissPoint;
-@property (strong, nonatomic) NSString *shopRissPointPrice;
+// @property (strong, nonatomic) NSString *shopRissPointPrice;
 @property (strong, nonatomic) NSString *shopMixBuy;
 @property (strong, nonatomic) NSString *etc;
 @property (strong, nonatomic) NSString *capsule1;
