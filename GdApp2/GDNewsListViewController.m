@@ -82,14 +82,15 @@ NSDateFormatter *nsdf;
     
     [self prepareCategoryList];
     
-    self.currentGDCategory = 0;
-    [self loadDataOfcurrentGDCategory:YES];
-    
     [self.postListTableView registerClass:[GDPostListTableViewCell class] forCellReuseIdentifier:CELL_IDENTIFIER];
     
     
     [self configurePullToRefresh];
     [self configureScrollToViewMore];
+    
+    self.currentGDCategory = 0;
+    [self loadDataOfcurrentGDCategory:YES];
+
     
 //    [self displayCategorySelectionIfNeeded];
 }
@@ -180,15 +181,13 @@ NSDateFormatter *nsdf;
     
     // didn't change since last change
     if (self.currentGDCategory == category) {
-        if (!self.posts) {
-            self.posts = posts;
-        } else {
-            [self appendPosts:posts];
-        }
-        
         if (justReloaded) {
             [self.postListTableView reloadData];
+            self.posts = posts;
+            [self.postListTableView reloadData];
         } else {
+            [self appendPosts:posts];
+        
             // load more
             [self.postListTableView beginUpdates];
             NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
@@ -207,11 +206,11 @@ NSDateFormatter *nsdf;
             //            NSLog(@"offset 3 y:%f", self.postListTableView.contentOffset.y);
         }
         
-        if (self.pageIndex == 0) {
-            [self performSelector:@selector(scrollTableViewToTop:) withObject:self afterDelay:0.1];
-            
-            [self stopAllLoadingAnimations];
-        }
+//        if (self.pageIndex == 0) {
+//            [self performSelector:@selector(scrollTableViewToTop:) withObject:self afterDelay:0];
+//            
+//            [self stopAllLoadingAnimations];
+//        }
     }
     
     [self stopAllLoadingAnimations];
@@ -224,12 +223,12 @@ NSDateFormatter *nsdf;
 }
 
 - (void)scrollTableViewToTop:(id)nothing {
-    [MBProgressHUD hideAllHUDsForView:self.view animated:NO];
+    // [MBProgressHUD hideAllHUDsForView:self.view animated:NO];
 //    self.postListTableView.hidden = NO;
-    //[self.postListTableView scrollRectToVisible:CGRectMake(1, 1, 1, 1) animated:NO];
-    [self.postListTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
-                                  atScrollPosition:UITableViewScrollPositionNone
-                                          animated:NO];
+    [self.postListTableView scrollRectToVisible:CGRectMake(1, 60, 1, 1) animated:YES];
+//    [self.postListTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
+//                                  atScrollPosition:UITableViewScrollPositionNone
+//                                          animated:NO];
 }
 
 - (void)appendPosts:(NSArray *)posts {

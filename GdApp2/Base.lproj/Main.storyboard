@@ -73,13 +73,13 @@
         <!--News List View Controller-->
         <scene sceneID="iU6-tG-sQU">
             <objects>
-                <viewController id="94J-8p-dhQ" customClass="GDNewsListViewController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="94J-8p-dhQ" customClass="GDNewsListViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="w8J-kI-i0l">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="wh5-pk-7YW">
-                                <rect key="frame" x="0.0" y="113" width="320" height="455"/>
+                                <rect key="frame" x="0.0" y="100" width="320" height="459"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <inset key="contentInset" minX="0.0" minY="0.0" maxX="0.0" maxY="49"/>
@@ -352,7 +352,7 @@
         <!--Unit View Controller - 机体-->
         <scene sceneID="dzc-Ik-Ezp">
             <objects>
-                <viewController id="GhT-BD-GR7" customClass="UnitViewController" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="GhT-BD-GR7" customClass="UnitViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="epK-CJ-wO1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -520,8 +520,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="hco-Bl-9vV"/>
-        <segue reference="sIr-PI-Iu0"/>
+        <segue reference="sxK-G5-fs6"/>
         <segue reference="hkX-HH-oi8"/>
+        <segue reference="aDa-PF-k4K"/>
     </inferredMetricsTieBreakers>
 </document>
