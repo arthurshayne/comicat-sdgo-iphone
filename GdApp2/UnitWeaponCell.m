@@ -107,6 +107,13 @@ const NSString *WEAPON_PE_NONE = @"无";
                                                   NSForegroundColorAttributeName:[UIColor blackColor],
                                                   NSParagraphStyleAttributeName:[[self class] wrapPS]}];
     [weaponText appendAttributedString:weaponNameAttrStr];
+    
+    NSAttributedString *weaponRangeAttrStr =
+    [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@", weaponRange]
+                                    attributes:@{ NSFontAttributeName:[UIFont systemFontOfSize:13],
+                                                  NSForegroundColorAttributeName:[UIColor redColor],
+                                                  NSParagraphStyleAttributeName:[[self class] wrapPS]}];
+    [weaponText appendAttributedString:weaponRangeAttrStr];
 
     if (weaponExLine1) {
         NSAttributedString *weaponLine1AttrStr =
