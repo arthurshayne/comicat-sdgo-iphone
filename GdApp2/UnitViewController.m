@@ -21,6 +21,9 @@
 #import "UnitMiscInfoCell.h"
 #import "UnitGetwayCell.h"
 #import "UnitStoryCell.h"
+#import "GDVideoListCollectionViewCell.h"
+
+#import "GDVideoViewController.h"
 
 @interface UnitViewController ()
 
@@ -29,6 +32,8 @@
 
 @property (strong, nonatomic) UnitBasicDataView *unitBasicDataView;
 @property (strong, nonatomic) UISegmentedControl *segmentedControl;
+@property (strong, nonatomic) UICollectionView *videoListView;
+@property (strong, nonatomic) UILabel *noVideoLabel;
 
 @property (strong, nonatomic) GDManager *manager;
 
@@ -39,6 +44,8 @@
 @end
 
 @implementation UnitViewController
+
+const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
 
 - (UnitBasicDataView *)unitBasicDataView {
     if (!_unitBasicDataView) {
@@ -59,6 +66,40 @@
     return _segmentedControl;
 }
 
+- (UICollectionView *)videoListView {
+    if (!_videoListView) {
+        UICollectionViewFlowLayout *flow = [[UICollectionViewFlowLayout alloc] init];
+        flow.minimumLineSpacing = 0;
+        flow.minimumInteritemSpacing = 0;
+
+        _videoListView = [[UICollectionView alloc] initWithFrame:CGRectMake(6, 8, 308, 454) collectionViewLayout:flow];
+        _videoListView.backgroundColor = [UIColor clearColor];
+        _videoListView.opaque = YES;
+        _videoListView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
+        
+        [_videoListView registerClass:[GDVideoListCollectionViewCell class] forCellWithReuseIdentifier:CELL_IDENTIFIER];
+        
+        _videoListView.dataSource = self;
+        _videoListView.delegate = self;
+        
+        _videoListView.bounces = NO;
+        _videoListView.scrollEnabled = NO;
+    }
+    
+    return _videoListView;
+}
+
+- (UILabel *)noVideoLabel {
+    if (!_noVideoLabel) {
+        _noVideoLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 40)];
+        _noVideoLabel.textAlignment = NSTextAlignmentCenter;
+        _noVideoLabel.text = @"咋没有视频呢...快去网站上投个稿吧!";
+        _noVideoLabel.font = [UIFont systemFontOfSize:16];
+        _noVideoLabel.textColor = [UIColor grayColor];
+    }
+    return _noVideoLabel;
+}
+
 - (GDManager *) manager {
     if (!_manager) {
         _manager = [GDManagerFactory getGDManagerWithDelegate:self];
@@ -76,9 +117,13 @@
     [self.rootTableView registerClass:[UnitMiscInfoCell class] forCellReuseIdentifier:@"Misc"];
     [self.rootTableView registerClass:[UnitStoryCell class] forCellReuseIdentifier:@"Story"];
     [self.rootTableView registerClass:[UnitGetwayCell class] forCellReuseIdentifier:@"Getway"];
+    [self.rootTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"VideoList"];
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [self.manager fetchUnitInfo:self.unitId];
+    
+    // eliminate extra separators
+    self.rootTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -95,6 +140,16 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"ViewVideo"]) {
+        if ([segue.destinationViewController isKindOfClass:[GDVideoViewController class]]) {
+            GDVideoViewController *gdpvc = (GDVideoViewController *)segue.destinationViewController;
+            gdpvc.postId = postIdForSegue;
+            gdpvc.hidesBottomBarWhenPushed = YES;
+        }
+    }
 }
 
 #pragma mark - GDManagerDelegate
@@ -114,6 +169,14 @@
     self.unitBasicDataView.sum3DValue = unitInfo.sum3D;
     self.unitBasicDataView.sum4DValue = unitInfo.sum4D;
     self.unitBasicDataView.rank = unitInfo.rank;
+    
+    if (self.unitInfo.videoList.count > 0) {
+        CGRect videoListFrame = self.videoListView.frame;
+        videoListFrame.size.height = 135 * (int)((self.unitInfo.videoList.count + 1) / 2);
+        self.videoListView.frame = videoListFrame;
+        
+        [self.videoListView reloadData];
+    }
     
     [self.rootTableView reloadData];
     
@@ -146,7 +209,7 @@
 #pragma mark - TableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return section == 0 ? 0 : 30 /* for segmented control*/;
+    return section == 0 ? 0 : 36 /* for segmented control*/;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -164,6 +227,12 @@
             case 2:
                 // misc1, story, getway
                 return [self heightForMiscAtIndex:indexPath.row];
+            case 3:
+                if (self.unitInfo.videoList.count > 0) {
+                    return self.videoListView.frame.size.height;
+                } else {
+                    return 60;
+                }
         }
     }
     
@@ -244,7 +313,7 @@
                     return 3;
                 case 3:
                     // video;
-                    return 0;
+                    return 1;
             }
         }
     } else {
@@ -275,6 +344,16 @@
             case 2:
                 // other
                 return [self tableView:tableView cellForMiscAtIndex:indexPath.row];
+            case 3: {
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VideoList"];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                if (self.unitInfo.videoList.count > 0) {
+                    [cell.contentView addSubview:self.videoListView];
+                } else {
+                    [cell.contentView addSubview:self.noVideoLabel];
+                }
+                return cell;
+            }
             default:
                 return [tableView dequeueReusableCellWithIdentifier:@"Basic"];
         }
@@ -358,6 +437,40 @@
         return viewForHeader;
     }
     return nil;
+}
+
+#pragma mark - UICollectionViewDataSource
+- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
+    return self.unitInfo.videoList.count;
+}
+- (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView {
+    return 1;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    GDVideoListCollectionViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier:CELL_IDENTIFIER forIndexPath:indexPath];
+    
+    VideoListItem *vli = (VideoListItem*)[self.unitInfo.videoList objectAtIndex:indexPath.row];
+    
+    if (vli) {
+        cell.backgroundColor = [UIColor whiteColor];
+        cell.videoListItem = vli;
+    }
+    return cell;
+}
+
+#pragma mark - UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    VideoListItem *vli = (VideoListItem*)[self.unitInfo.videoList objectAtIndex:indexPath.row];
+    postIdForSegue = vli.postId;
+    
+    [self performSegueWithIdentifier:@"ViewVideo" sender:self];
+}
+
+#pragma mark – UICollectionViewDelegateFlowLayout
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(150, 135);
 }
 
 @end

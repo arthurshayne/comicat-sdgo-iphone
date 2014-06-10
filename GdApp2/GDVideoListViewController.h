@@ -12,7 +12,6 @@
 #import "GDCategoryListViewDelegate.h"
 #import "GDVideoListDSDelegate.h"
 
-@interface GDVideoListViewController : UIViewController <UICollectionViewDelegate,
-    GDCategoryListViewDelegate, GDVideoListDSDelegate>
+@interface GDVideoListViewController : UIViewController <UICollectionViewDelegate, GDCategoryListViewDelegate, GDVideoListDSDelegate>
 
 @end

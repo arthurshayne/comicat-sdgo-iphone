@@ -253,10 +253,12 @@
         *error = tempError;
         return nil;
     }
-
+    
+    
+    NSDictionary *unitInfoFromJSON = [parsed objectForKey:@"unit"];
     UnitInfo *unit = [[UnitInfo alloc] init];
 
-    for(NSString *key in parsed.allKeys) {
+    for(NSString *key in unitInfoFromJSON.allKeys) {
 //        unichar firstChar = [key characterAtIndex:0];
 //        NSString *firstLetter = [NSString stringWithCharacters:&firstChar length:1];
         // NSString *keyForSelector = [NSString stringWithFormat:@"set%@%@", [firstLetter uppercaseString], [key substringFromIndex:1]];
@@ -267,17 +269,36 @@
             const char *propertyAttributes = property_getAttributes(property);
             // check if readonly property
             if (![[[NSString stringWithUTF8String:propertyAttributes] componentsSeparatedByString:@","] containsObject:@"R"]) {
-                id val = [parsed objectForKey:key];
+                id val = [unitInfoFromJSON objectForKey:key];
                 if ([unit respondsToSelector:NSSelectorFromString(keyForSelector) ]) {
                     [unit setValue:val forKey:key];
                 } else {
                     // NSLog(@"Missing: %@", key);
                 }
             } else {
-                NSLog(@"Readonly: %@", key);
+                // NSLog(@"Readonly: %@", key);
             }
         }
     }
+    
+    NSDateFormatter *dateFormatter = [GDInfoBuilder dateFormatter];
+    
+    NSArray *videoListFromJSON = [parsed objectForKey:@"videoList"];
+    NSMutableArray *posts = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *d in videoListFromJSON) {
+        VideoListItem *tempVli = [[VideoListItem alloc] init];
+        tempVli.title = [d objectForKey:@"title"];
+        tempVli.title2 = [d objectForKey:@"title2"];
+        tempVli.imageURL = [d objectForKey:@"imageURL"];
+        tempVli.gdPostCategory = [(NSNumber *)[d objectForKey:@"gdPostCategory"] intValue];
+        tempVli.postId = [(NSNumber *)[d objectForKey:@"postId"] intValue];
+        tempVli.created = [dateFormatter dateFromString:(NSString *)[d objectForKey:@"created"]];
+        
+        [posts addObject:tempVli];
+    }
+
+    unit.videoList = posts;
 
     return unit;
 }

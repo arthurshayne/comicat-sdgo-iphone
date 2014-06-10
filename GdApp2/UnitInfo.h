@@ -129,4 +129,5 @@
 @property (strong, nonatomic) NSString *lab1;
 @property (strong, nonatomic) NSString *lab2;
 
+@property (strong, nonatomic) NSArray *videoList;  // array of VideoListItem
 @end

@@ -294,11 +294,6 @@ int postIdForSegue;
             [view insertItemsAtIndexPaths:indexPaths];
             
         } completion:^(BOOL finished) {
-//            if (reload) {
-//                [view scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]
-//                                                  atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
-//            }
-//            
             [self stopAllLoadingAnimations];
             [GDVideoListCollectionViewCell setAnimationsEnabled:YES];
         }];

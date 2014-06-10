@@ -45,6 +45,7 @@
 		05742BAB1910B70D00893A7F /* GDVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05742BAA1910B70D00893A7F /* GDVideoViewController.m */; };
 		0582A87D192F9249007B90C9 /* ABTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0582A87C192F9249007B90C9 /* ABTableViewCell.m */; };
 		058C3D1F191CDB41004B3EB5 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 058C3D1E191CDB41004B3EB5 /* Utility.m */; };
+		059090C91946A42F0079C364 /* UnitVideoListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 059090C81946A42F0079C364 /* UnitVideoListView.m */; };
 		059547CE193CE0930039E578 /* VideoListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 059547CD193CE0930039E578 /* VideoListItem.m */; };
 		05976CCC192CE37A008A2361 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 05976CCE192CE37A008A2361 /* Localizable.strings */; };
 		05996F9F192B61AD00BD1202 /* GDVideoListVCDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 05996F9E192B61AD00BD1202 /* GDVideoListVCDataSource.m */; };
@@ -147,6 +148,8 @@
 		0582A87C192F9249007B90C9 /* ABTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABTableViewCell.m; sourceTree = "<group>"; };
 		058C3D1D191CDB41004B3EB5 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
 		058C3D1E191CDB41004B3EB5 /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
+		059090C71946A42F0079C364 /* UnitVideoListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitVideoListView.h; sourceTree = "<group>"; };
+		059090C81946A42F0079C364 /* UnitVideoListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitVideoListView.m; sourceTree = "<group>"; };
 		059547CD193CE0930039E578 /* VideoListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoListItem.m; sourceTree = "<group>"; };
 		05976CCD192CE37A008A2361 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		05996F9D192B61AD00BD1202 /* GDVideoListVCDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDVideoListVCDataSource.h; sourceTree = "<group>"; };
@@ -321,14 +324,14 @@
 				0506D4C219173A8A00EFAC83 /* GDPostViewController.m */,
 				0506D4BB19171DC100EFAC83 /* GDTabBarController.h */,
 				0506D4BC19171DC100EFAC83 /* GDTabBarController.m */,
+				05216A261925FB9A00807A2E /* GDVideoListViewController.h */,
+				05216A271925FB9A00807A2E /* GDVideoListViewController.m */,
 				05742BA91910B70D00893A7F /* GDVideoViewController.h */,
 				05742BAA1910B70D00893A7F /* GDVideoViewController.m */,
 				0506D4C719174DA100EFAC83 /* SearchUnitViewController.h */,
 				0506D4C819174DA100EFAC83 /* SearchUnitViewController.m */,
 				05C3D3FD191E4203001B69ED /* UnitViewController.h */,
 				05C3D3FE191E4203001B69ED /* UnitViewController.m */,
-				05216A261925FB9A00807A2E /* GDVideoListViewController.h */,
-				05216A271925FB9A00807A2E /* GDVideoListViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -452,6 +455,8 @@
 				056D0BE919400F1A0004F259 /* UnitBasicDataView.m */,
 				05AAB17B194349F6003FF5DC /* UnitStoryCell.h */,
 				05AAB17C194349F6003FF5DC /* UnitStoryCell.m */,
+				059090C71946A42F0079C364 /* UnitVideoListView.h */,
+				059090C81946A42F0079C364 /* UnitVideoListView.m */,
 			);
 			name = Unit;
 			sourceTree = "<group>";
@@ -620,6 +625,7 @@
 				0506D4CF1917715100EFAC83 /* GDManagerFactory.m in Sources */,
 				0565B3B219089CA400CCE77E /* CarouselInfo.m in Sources */,
 				0565B3AF19089C6700CCE77E /* HomeInfo.m in Sources */,
+				059090C91946A42F0079C364 /* UnitVideoListView.m in Sources */,
 				05FFBE15193849760051AFF4 /* SVPTRLoadingView.m in Sources */,
 				05216A251925DB8600807A2E /* GDVideoListCollectionViewCell.m in Sources */,
 				05FFBE1919385C430051AFF4 /* UIScrollView+GDPullToRefresh.m in Sources */,

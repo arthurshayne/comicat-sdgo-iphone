@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "GDManagerDelegate.h"
 
-@interface UnitViewController : UIViewController <GDManagerDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface UnitViewController : UIViewController <GDManagerDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout> {
+    int postIdForSegue;
+}
 
 @property (strong, nonatomic) NSString *unitId;
 

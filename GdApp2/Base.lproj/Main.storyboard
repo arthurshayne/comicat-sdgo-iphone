@@ -374,6 +374,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="rootTableView" destination="D3i-ye-0fI" id="zco-nn-jsX"/>
+                        <segue destination="xx8-lO-ygV" kind="push" identifier="ViewVideo" id="ETQ-58-Fa7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y2h-2I-Y8Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -406,7 +407,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Cs-Pu-rqy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="540" y="506"/>
+            <point key="canvasLocation" x="1047" y="463"/>
         </scene>
         <!--Post View Controller - 新闻-->
         <scene sceneID="Xzt-Fb-f77">
@@ -522,6 +523,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="sxK-G5-fs6"/>
         <segue reference="hkX-HH-oi8"/>
-        <segue reference="aDa-PF-k4K"/>
+        <segue reference="ETQ-58-Fa7"/>
     </inferredMetricsTieBreakers>
 </document>
