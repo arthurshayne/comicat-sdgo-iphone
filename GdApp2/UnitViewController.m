@@ -37,10 +37,6 @@
 
 @property (strong, nonatomic) GDManager *manager;
 
-//@property (nonatomic) BOOL viewDidAppear;
-//@property (nonatomic) BOOL didReceiveUnitInfo;
-//@property (nonatomic) BOOL animationPlayed;
-
 @end
 
 @implementation UnitViewController
