@@ -249,7 +249,7 @@ const CGFloat UNIT_CELL_WIDTH = 90;
                                                  self.postListCollectionView.bounds.size.height +
                                                  self.videoListCollectionView.bounds.size.height +
                                                  self.unitsCollectionView.bounds.size.height +
-                                                 self.infiniteScrollView.bounds.size.height + 80 /* bottom padding*/);
+                                                 self.infiniteScrollView.bounds.size.height + 90 /* bottom padding*/);
     
     [self.rootScrollView layoutSubviews];
     
