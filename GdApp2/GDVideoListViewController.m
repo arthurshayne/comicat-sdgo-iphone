@@ -49,7 +49,7 @@
 
 @implementation GDVideoListViewController
 
-static NSString *CELL_IDENTIFIER = @"VideoListTableCell";
+static const NSString *CELL_IDENTIFIER = @"VideoListTableCell";
 
 int postIdForSegue;
 
@@ -205,7 +205,7 @@ int postIdForSegue;
     } else {
         videoListViewThis = [self createVideoListViewForGDCategory:gdCategory];
         
-        [videoListViewThis registerClass:[GDVideoListCollectionViewCell class] forCellWithReuseIdentifier:CELL_IDENTIFIER];
+        [videoListViewThis registerClass:[GDVideoListCollectionViewCell class] forCellWithReuseIdentifier:[CELL_IDENTIFIER copy]];
 
         // self.videoListView.infiniteScrollingView.enabled = YES;
         

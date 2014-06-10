@@ -41,7 +41,7 @@
 
 @implementation UnitViewController
 
-const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
+static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
 
 - (UnitBasicDataView *)unitBasicDataView {
     if (!_unitBasicDataView) {
@@ -64,6 +64,8 @@ const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
 
 - (UICollectionView *)videoListView {
     if (!_videoListView) {
+        NSString *cellIdentifier = [CELL_IDENTIFIER copy];
+        
         UICollectionViewFlowLayout *flow = [[UICollectionViewFlowLayout alloc] init];
         flow.minimumLineSpacing = 0;
         flow.minimumInteritemSpacing = 0;
@@ -73,7 +75,7 @@ const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
         _videoListView.opaque = YES;
         _videoListView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
         
-        [_videoListView registerClass:[GDVideoListCollectionViewCell class] forCellWithReuseIdentifier:CELL_IDENTIFIER];
+        [_videoListView registerClass:[GDVideoListCollectionViewCell class] forCellWithReuseIdentifier:cellIdentifier];
         
         _videoListView.dataSource = self;
         _videoListView.delegate = self;
@@ -444,7 +446,9 @@ const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    GDVideoListCollectionViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier:CELL_IDENTIFIER forIndexPath:indexPath];
+    NSString *cellIdentifier = [CELL_IDENTIFIER copy];
+    
+    GDVideoListCollectionViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     
     VideoListItem *vli = (VideoListItem*)[self.unitInfo.videoList objectAtIndex:indexPath.row];
     

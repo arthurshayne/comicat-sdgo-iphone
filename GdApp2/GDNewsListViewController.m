@@ -45,7 +45,7 @@
 
 static int POST_LIST_PAGE_SIZE = 20;
 
-static NSString *CELL_IDENTIFIER = @"PostListTableCell";
+static const NSString *CELL_IDENTIFIER = @"PostListTableCell";
 
 - (NSArray *)gdCategories {
     if (!_gdCategories ) {
@@ -82,7 +82,7 @@ NSDateFormatter *nsdf;
     
     [self prepareCategoryList];
     
-    [self.postListTableView registerClass:[GDPostListTableViewCell class] forCellReuseIdentifier:CELL_IDENTIFIER];
+    [self.postListTableView registerClass:[GDPostListTableViewCell class] forCellReuseIdentifier:[CELL_IDENTIFIER copy]];
     
     
     [self configurePullToRefresh];
@@ -292,7 +292,7 @@ NSDateFormatter *nsdf;
     
     PostInfo *post = [self.posts objectAtIndex:indexPath.row];
     //if (indexPath.section == 0) {
-    GDPostListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER];
+    GDPostListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[CELL_IDENTIFIER copy]];
     
     if (cell) {
         [cell prepareForReuse];
