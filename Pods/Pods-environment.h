@@ -6,12 +6,6 @@
 // project.
 
 
-// AAPullToRefresh
-#define COCOAPODS_POD_AVAILABLE_AAPullToRefresh
-#define COCOAPODS_VERSION_MAJOR_AAPullToRefresh 1
-#define COCOAPODS_VERSION_MINOR_AAPullToRefresh 0
-#define COCOAPODS_VERSION_PATCH_AAPullToRefresh 2
-
 // GBInfiniteScrollView
 #define COCOAPODS_POD_AVAILABLE_GBInfiniteScrollView
 #define COCOAPODS_VERSION_MAJOR_GBInfiniteScrollView 1

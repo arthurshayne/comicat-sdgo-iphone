@@ -13,7 +13,6 @@
 #import "Utility.h"
 #import "GDVideoListVCDataSource.h"
 
-#import "AAPullToRefresh.h"
 #import "MBProgressHUD.h"
 #import "SVPullToRefresh.h"
 #import "UIScrollView+GDPullToRefresh.h"
