@@ -26,4 +26,7 @@
 
 - (void)receivedUnitInfoJSON:(NSData *)objectNotation;
 - (void)fetchUnitInfoFailedWithError:(NSError *)error;
+
+- (void)receivedUnitCountByOriginJSON:(NSData *)objectNotation;
+- (void)fetchUnitCountByOriginFailedWithError:(NSError *)error;
 @end

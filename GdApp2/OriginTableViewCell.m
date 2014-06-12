@@ -9,6 +9,7 @@
 #import "OriginTableViewCell.h"
 #import "ABTableViewCell.h"
 #import "GundamOrigin.h"
+#import "Utility.h"
 
 @implementation OriginTableViewCell
 
@@ -16,9 +17,24 @@
     _originIndex = originIndex;
     
     originTitle = [[[GundamOrigin originTitles] objectForKey:_originIndex] copy];
+    originShortTitle = [[[GundamOrigin originShortTitles] objectForKey:_originIndex] copy];
     originImage = [UIImage imageNamed:[NSString stringWithFormat:@"origin-%@", self.originIndex]];
     
     [self setNeedsDisplay];
+}
+
+- (void)setUnitCount:(uint)unitCount {
+    _unitCount = unitCount;
+    
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] init];
+    [attrStr appendAttributedString:[[NSAttributedString alloc] initWithString:@"机体数: \n"
+                                                                    attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],
+                                                                                 NSFontAttributeName:[UIFont boldSystemFontOfSize:11]}]];
+    [attrStr appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d", self.unitCount]
+                                                                    attributes:@{NSForegroundColorAttributeName:[Utility UIColorFromRGB:0x82AF1C],
+                                                                                 NSFontAttributeName:[UIFont italicSystemFontOfSize:24]}]];
+    
+    unitCountAttrStr = (NSAttributedString *)attrStr;
 }
 
 - (void)layoutSubviews {
@@ -37,7 +53,7 @@
     CGContextSetFillColorWithColor(ctx, [[UIColor blackColor] CGColor]);
     CGContextFillRect(ctx, rect);
     
-    if (originImage && originTitle) {
+    if (originImage && originTitle && originShortTitle) {
         
         CGFloat imageWidth = 214;
         CGFloat imageHeight = 86;
@@ -56,7 +72,19 @@
                        withAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],
                                         NSFontAttributeName:[UIFont boldSystemFontOfSize:12]}];
         
-        // NSString *numberOfUnits = [NSString stringWithFormat:@"%d台机体", [GundamOrigin]]
+        if (unitCountAttrStr) {
+//            NSString *numberOfUnits = [NSString stringWithFormat:@"%d台机体", self.unitCount];
+//            [numberOfUnits drawAtPoint:CGPointMake(imageOriginX + imageWidth + 10, padding + imageHeight - 17)
+//                        withAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],
+//                                         NSFontAttributeName:[UIFont boldSystemFontOfSize:11]}];
+            
+            [unitCountAttrStr drawAtPoint:CGPointMake(imageOriginX + imageWidth + 10, 19)];
+        }
+        
+//        [originShortTitle drawAtPoint:CGPointMake(imageOriginX + imageWidth + 7, padding + imageHeight - 17)
+//                       withAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],
+//                                        NSFontAttributeName:[UIFont fontWithName:@"Chalkduster" size:11]}];
+
     }
 }
 @end

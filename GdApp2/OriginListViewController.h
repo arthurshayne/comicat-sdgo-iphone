@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GDManagerDelegate.h"
 
-@interface OriginListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface OriginListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, GDManagerDelegate>
 
 @end

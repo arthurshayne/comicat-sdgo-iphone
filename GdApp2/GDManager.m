@@ -35,6 +35,10 @@
     [self.communicator fetchUnitInfo:unitId];
 }
 
+- (void)fetchUnitCountByOrigin {
+    [self.communicator fetchUnitCountByOrigin];
+}
+
 #pragma mark - GDCommunicatorDelegate
 // home
 - (void)receivedHomeInfoJSON:(NSData *)objectNotation {
@@ -127,6 +131,24 @@
 // post info error
 - (void) fetchUnitInfoFailedWithError:(NSError *)error {
     [self.delegate fetchUnitInfoWithError:error];
+}
+
+// unit count by origin
+- (void)receivedUnitCountByOriginJSON:(NSData *)objectNotation {
+    NSError *error;
+    NSDictionary *unitCountByOrigin = [GDInfoBuilder unitCountByOriginFromJSON:objectNotation error:&error];
+    
+    if (error) {
+        [self.delegate fetchUnitCountByOriginWithError:error];
+    } else {
+        [self.delegate didReceiveUnitCountByOrigin:unitCountByOrigin];
+    }
+
+}
+
+// unit count by origin error
+- (void)fetchUnitCountByOriginFailedWithError:(NSError *)error {
+    [self.delegate fetchUnitCountByOriginWithError:error];
 }
 
 @end

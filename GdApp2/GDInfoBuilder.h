@@ -18,4 +18,5 @@
 + (NSArray *)postListFromJSON:(NSData *)objectNotation gdCategory:(int *)category error:(NSError **)error;
 + (NSArray *)videoListFromJSON:(NSData *)objectNotation gdCategory:(int *)category error:(NSError **)error;
 + (UnitInfo *)unitInfoFromJSON:(NSData *)objectNotation error:(NSError **)error;
++ (NSDictionary *)unitCountByOriginFromJSON:(NSData *)objectNotation error:(NSError **)error;
 @end

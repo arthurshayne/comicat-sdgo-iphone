@@ -11,9 +11,11 @@
 
 @interface OriginTableViewCell : ABTableViewCell {
     NSString *originTitle;
+    NSString *originShortTitle;
     UIImage *originImage;
+    NSAttributedString *unitCountAttrStr;
 }
 
 @property (nonatomic, strong) NSString *originIndex;
-
+@property (nonatomic) uint unitCount;
 @end
