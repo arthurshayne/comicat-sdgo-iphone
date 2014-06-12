@@ -9,7 +9,6 @@
 #import "UnitSkillCell.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
-#import "Utility.h"
 
 @interface UnitSkillCell()
 
@@ -63,7 +62,7 @@ const CGFloat SKILL_CELL_PADDING = 8;
     NSAttributedString *skillNameAttrStr =
         [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@", skillName]
                                         attributes:@{ NSFontAttributeName:[UIFont systemFontOfSize:13],
-                                                      NSForegroundColorAttributeName:[Utility UIColorFromRGB:0x005BB6],
+                                                      NSForegroundColorAttributeName:[GdAppUtility UIColorFromRGB:0x005BB6],
                                                       NSParagraphStyleAttributeName: [self.class wrapPS] }];
     NSAttributedString *skillDescAttrStr =
         [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@", skillDesc]
@@ -74,7 +73,7 @@ const CGFloat SKILL_CELL_PADDING = 8;
     NSAttributedString *skillExAttrStr =
         [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@", skillEx]
                                         attributes:@{ NSFontAttributeName:[UIFont systemFontOfSize:12],
-                                                      NSForegroundColorAttributeName:[Utility UIColorFromRGB:0x98121D] }];
+                                                      NSForegroundColorAttributeName:[GdAppUtility UIColorFromRGB:0x98121D] }];
     
     [skillText appendAttributedString:skillNameAttrStr];
     [skillText appendAttributedString:skillDescAttrStr];
@@ -91,8 +90,7 @@ const CGFloat SKILL_CELL_PADDING = 8;
     return rect.size.height + SKILL_CELL_PADDING * 2;
 }
 
-- (void)layoutSubviews
-{
+- (void)layoutSubviews {
 	CGRect b = [self bounds];
 	[contentView setFrame:b];
     [super layoutSubviews];

@@ -10,7 +10,6 @@
 
 #import "GDManager.h"
 #import "GDManagerFactory.h"
-#import "Utility.h"
 
 #import "MBProgressHUD.h"
 #import "SVPullToRefresh.h"
@@ -171,7 +170,7 @@ NSDateFormatter *nsdf;
         
         UILabel *noMoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 12, 320, 24)];
         noMoreLabel.text = @"没有更多了...";
-        noMoreLabel.textColor = [Utility UIColorFromRGB:0x666666];
+        noMoreLabel.textColor = [GdAppUtility UIColorFromRGB:0x666666];
         noMoreLabel.textAlignment = NSTextAlignmentCenter;
         
         [footerView addSubview:noMoreLabel];

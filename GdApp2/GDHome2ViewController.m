@@ -11,7 +11,6 @@
 #import "GDManagerFactory.h"
 #import "GDManager.h"
 #import "GDInfoBuilder.h"
-#import "Utility.h"
 
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "MBProgressHUD.h"

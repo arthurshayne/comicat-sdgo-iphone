@@ -11,7 +11,6 @@
 
 #import "GDManager.h"
 #import "GDManagerFactory.h"
-#import "Utility.h"
 
 #import "UnitInfoShort.h"
 
@@ -96,7 +95,10 @@ NSString *unitIdForSegue;
 }
 
 - (void)searchUnitsWithError:(NSError *)error {
-    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"网络连接"
+                                                    message: [error localizedDescription]
+                                                   delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
 }
 
 #pragma mark - TableViewDelegates
@@ -141,7 +143,7 @@ NSString *unitIdForSegue;
     UILabel *rankLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 49, 100, 21)];
     rankLabel.text = [NSString stringWithFormat:@"%@ Rank", u.rank];
     rankLabel.font = [UIFont fontWithName:@"Verdana-Bold" size:14];
-    rankLabel.textColor = [Utility UIColorFromRGB:0x475c8b];
+    rankLabel.textColor = [GdAppUtility UIColorFromRGB:0x475c8b];
     
     [cell.contentView addSubview:rankLabel];
 //    cell.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_unit_list"]];
@@ -159,6 +161,8 @@ NSString *unitIdForSegue;
 }
 
 - (void) tableView: (UITableView *) tableView didSelectRowAtIndexPath: (NSIndexPath *) indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     UnitInfoShort *u = [self.units objectAtIndex:indexPath.row];
     unitIdForSegue = u.unitId;
     [self performSegueWithIdentifier:@"ViewUnit" sender:self];

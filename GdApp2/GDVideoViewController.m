@@ -7,9 +7,18 @@
 //
 
 #import "GDVideoViewController.h"
+
 #import "GDAppDelegate.h"
 
+#import "MBProgressHUD.h"
+
+#import "GDManagerFactory.h"
+#import "GDManager.h"
+
 @interface GDVideoViewController ()
+
+@property (strong, nonatomic) GDManager *manager;
+
 @property (weak, nonatomic) IBOutlet UIWebView *videoPlayer;
 
 @end
@@ -19,6 +28,20 @@
 //- (void) setPostId:(int)postId {
 //    self.test.text = [NSString stringWithFormat:@"%d", postId];
 //}
+
+- (GDManager *)manager {
+    if (!_manager) {
+        _manager = [GDManagerFactory getGDManagerWithDelegate:self];
+    }
+    return _manager;
+}
+
+- (void)setPostId:(int)postId {
+    _postId = postId;
+    
+    [self configureAndLoadVideoPlayer];
+    [self.manager fetchPostInfo:postId];
+}
 
 - (void)viewDidLoad
 {
@@ -34,16 +57,6 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self configureAndLoadVideoPlayer];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void) configureAndLoadVideoPlayer {
@@ -78,6 +91,43 @@
         [mocked dismissViewControllerAnimated:YES completion:nil];
     }];
 
+}
+
+- (void)showLoading {
+    [MBProgressHUD showHUDAddedTo:self.view animated:NO];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+}
+
+- (void)hideLoading {
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+}
+
+
+#pragma mark - UIWebViewDelegate
+
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    [self showLoading];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [self hideLoading];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    [self hideLoading];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"网络连接"
+                                                    message: [error localizedDescription]
+                                                   delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+}
+
+#pragma mark - GDManagerDelegate
+
+- (void)didReceivePostInfo:(PostInfo *)returnedPostInfo {
+    postInfo = returnedPostInfo;
+    
+    
 }
 
 /*

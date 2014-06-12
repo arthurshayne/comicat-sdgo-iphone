@@ -7,7 +7,6 @@
 //
 
 #import "UnitGetwayCell.h"
-#import "Utility.h"
 
 @implementation UnitGetwayCell
 
@@ -55,10 +54,10 @@ const CGFloat CELL_PADDING_LEFT = 23;
 
 + (NSAttributedString *)assembleContentText:(UnitInfo *)unit {
     NSDictionary *attributeForCaption = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12],
-                                          NSForegroundColorAttributeName:[Utility UIColorFromRGB:0x354B63],
+                                          NSForegroundColorAttributeName:[GdAppUtility UIColorFromRGB:0x354B63],
                                           NSParagraphStyleAttributeName:[[self class] psNarrow]};
     NSDictionary *attributeForText = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:12],
-                                       NSForegroundColorAttributeName:[Utility UIColorFromRGB:0x5A7797],
+                                       NSForegroundColorAttributeName:[GdAppUtility UIColorFromRGB:0x5A7797],
                                        NSParagraphStyleAttributeName:[[self class] psNarrow] };
                                        
     NSMutableAttributedString *result = [[NSMutableAttributedString alloc] init];

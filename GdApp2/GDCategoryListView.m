@@ -7,8 +7,6 @@
 //
 
 #import "GDCategoryListView.h"
-#import "Utility.h"
-
 #import "GDPostCategoryView.h"
 
 @interface GDCategoryListView ()
@@ -87,15 +85,15 @@ const CGFloat GD_CATEGORY_ITEM_MARGIN = 5;
         // self.showAllButton.backgroundColor = [Utility UIColorFromRGB:0x999999];
         [self.showAllButton setTitle:@"显示全部" forState:UIControlStateNormal];
         [self.showAllButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
-        [self.showAllButton setTintColor:[Utility UIColorFromRGB:0xFF4A45]];
-        [self.showAllButton setTitleColor:[Utility UIColorFromRGB:0xFF4A45] forState:UIControlStateNormal];
+        [self.showAllButton setTintColor:[GdAppUtility UIColorFromRGB:0xFF4A45]];
+        [self.showAllButton setTitleColor:[GdAppUtility UIColorFromRGB:0xFF4A45] forState:UIControlStateNormal];
         
         [self.showAllButton addTarget:self action:@selector(tappedOnShowAll) forControlEvents:UIControlEventTouchUpInside];
         
         [self.scrollView addSubview:self.showAllButton];
         
         self.categorySelection = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, 2)];
-        self.categorySelection.backgroundColor = [Utility UIColorFromRGB:0xFF4A45];
+        self.categorySelection.backgroundColor = [GdAppUtility UIColorFromRGB:0xFF4A45];
         self.categorySelection.hidden = YES;
         [self.scrollView addSubview:self.categorySelection];
         

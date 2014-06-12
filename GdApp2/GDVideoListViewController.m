@@ -10,7 +10,6 @@
 
 #import "GDManager.h"
 #import "GDManagerFactory.h"
-#import "Utility.h"
 #import "GDVideoListVCDataSource.h"
 
 #import "MBProgressHUD.h"

@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GDManager.h"
+#import "PostInfo.h"
 
-@interface GDVideoViewController : UIViewController
+@interface GDVideoViewController : UIViewController <GDManagerDelegate> {
+    PostInfo *postInfo;
+}
 @property (nonatomic) int postId;
 @end

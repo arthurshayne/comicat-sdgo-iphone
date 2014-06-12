@@ -18,6 +18,13 @@
 @property (strong, nonatomic) NSString *contentHTML;
 @property (strong, nonatomic) NSDate *created;
 @property (strong, nonatomic) NSString *createdBy;
+
+@property (strong, nonatomic) NSString *userName;
+@property (nonatomic) uint authorId;
+@property (strong, nonatomic) NSString *briefText;
+
+@property (nonatomic) uint clicks;
+
 @property uint listStyle;
 
 + (PostInfo *)postWithTitle:(NSString *)title andCategory:(int)gdCategory;

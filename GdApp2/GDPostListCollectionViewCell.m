@@ -8,7 +8,6 @@
 
 #import "GDPostListCollectionViewCell.h"
 #import "GDPostCategoryView.h"
-#import "Utility.h"
 #import "NSDate+PrettyDate.h"
 
 @interface GDPostListCollectionViewCell ()

@@ -9,7 +9,6 @@
 #import "OriginTableViewCell.h"
 #import "ABTableViewCell.h"
 #import "GundamOrigin.h"
-#import "Utility.h"
 
 @implementation OriginTableViewCell
 
@@ -31,7 +30,7 @@
                                                                     attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],
                                                                                  NSFontAttributeName:[UIFont boldSystemFontOfSize:11]}]];
     [attrStr appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d", self.unitCount]
-                                                                    attributes:@{NSForegroundColorAttributeName:[Utility UIColorFromRGB:0x82AF1C],
+                                                                    attributes:@{NSForegroundColorAttributeName:[GdAppUtility UIColorFromRGB:0x82AF1C],
                                                                                  NSFontAttributeName:[UIFont italicSystemFontOfSize:24]}]];
     
     unitCountAttrStr = (NSAttributedString *)attrStr;
