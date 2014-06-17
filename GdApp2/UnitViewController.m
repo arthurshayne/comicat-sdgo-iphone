@@ -100,7 +100,7 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
 
 - (GDManager *) manager {
     if (!_manager) {
-        _manager = [GDManagerFactory getGDManagerWithDelegate:self];
+        _manager = [GDManagerFactory gdManagerWithDelegate:self];
     }
     
     return _manager;

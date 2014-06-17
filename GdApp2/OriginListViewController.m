@@ -11,6 +11,7 @@
 #import "OriginTableViewCell.h"
 #import "GDManager.h"
 #import "GDManagerFactory.h"
+#import "UnitsByOriginViewController.h"
 
 @interface OriginListViewController ()
 
@@ -30,7 +31,7 @@ static const CGFloat CELL_HEIGHT = 98;
 
 - (GDManager *) manager {
     if (!_manager) {
-        _manager = [GDManagerFactory getGDManagerWithDelegate:self];
+        _manager = [GDManagerFactory gdManagerWithDelegate:self];
     }
     
     return _manager;
@@ -48,21 +49,33 @@ static const CGFloat CELL_HEIGHT = 98;
     
     [self.originListView registerClass:[OriginTableViewCell class] forCellReuseIdentifier:[CELL_IDENTIFIER copy]];
     
+    // self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_honeycomb"]];
+    
     // bounce background color
     CGRect viewFrame = self.view.frame;
     UIView *topview = [[UIView alloc] initWithFrame:CGRectMake(0, -viewFrame.size.height, viewFrame.size.width, viewFrame.size.height)];
-    topview.backgroundColor = [UIColor blackColor];
+    topview.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_honeycomb"]];
     [self.originListView addSubview:topview];
     
     UIView *bottomview = [[UIView alloc] initWithFrame:CGRectMake(0, [GundamOrigin origins].count * CELL_HEIGHT, viewFrame.size.width, viewFrame.size.height)];
-    bottomview.backgroundColor = [UIColor blackColor];
+    bottomview.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_honeycomb"]];
     [self.originListView addSubview:bottomview];
     
-    [self setNeedsStatusBarAppearanceUpdate];
+//    [self setNeedsStatusBarAppearanceUpdate];
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
+//- (UIStatusBarStyle)preferredStatusBarStyle {
+//    return UIStatusBarStyleLightContent;
+//}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"ViewUnitsByOrigin"]) {
+        if ([segue.destinationViewController isKindOfClass:[UnitsByOriginViewController class]]) {
+            UnitsByOriginViewController *ubovc = (UnitsByOriginViewController *)segue.destinationViewController;
+            ubovc.origin = originIndexForSegue;
+            ubovc.hidesBottomBarWhenPushed = YES;
+        }
+    }
 }
 
 #pragma mark - UITableViewDelegate
@@ -72,6 +85,9 @@ static const CGFloat CELL_HEIGHT = 98;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    originIndexForSegue = [[GundamOrigin origins] objectAtIndex:indexPath.row];
+    [self performSegueWithIdentifier:@"ViewUnitsByOrigin" sender:self];
 }
 
 #pragma mark - UITableViewDataSource

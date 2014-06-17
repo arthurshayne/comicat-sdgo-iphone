@@ -62,7 +62,7 @@ const CGFloat SKILL_CELL_PADDING = 8;
     NSAttributedString *skillNameAttrStr =
         [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@", skillName]
                                         attributes:@{ NSFontAttributeName:[UIFont systemFontOfSize:13],
-                                                      NSForegroundColorAttributeName:[GdAppUtility UIColorFromRGB:0x005BB6],
+                                                      NSForegroundColorAttributeName:[GDAppUtility UIColorFromRGB:0x005BB6],
                                                       NSParagraphStyleAttributeName: [self.class wrapPS] }];
     NSAttributedString *skillDescAttrStr =
         [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@", skillDesc]
@@ -73,7 +73,7 @@ const CGFloat SKILL_CELL_PADDING = 8;
     NSAttributedString *skillExAttrStr =
         [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@", skillEx]
                                         attributes:@{ NSFontAttributeName:[UIFont systemFontOfSize:12],
-                                                      NSForegroundColorAttributeName:[GdAppUtility UIColorFromRGB:0x98121D] }];
+                                                      NSForegroundColorAttributeName:[GDAppUtility UIColorFromRGB:0x98121D] }];
     
     [skillText appendAttributedString:skillNameAttrStr];
     [skillText appendAttributedString:skillDescAttrStr];

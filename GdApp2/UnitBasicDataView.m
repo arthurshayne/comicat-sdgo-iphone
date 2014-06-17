@@ -89,7 +89,7 @@ const float UNIT_MAX_ABILITY_VALUE = 205;
     if (!_rankLabel) {
         _rankLabel = [[UILabel alloc] initWithFrame:CGRectMake(223, 0, 42, 21)];
         _rankLabel.font = [UIFont fontWithName:@"AmericanTypewriter-Bold" size:15];
-        _rankLabel.textColor = [GdAppUtility UIColorFromRGB:0x3F6FAD];
+        _rankLabel.textColor = [GDAppUtility UIColorFromRGB:0x3F6FAD];
         _rankLabel.textAlignment = NSTextAlignmentRight;
         [self addSubview:_rankLabel];
     }
@@ -227,7 +227,7 @@ const float UNIT_MAX_ABILITY_VALUE = 205;
     NSString *rankCaption = @"rank";
     [rankCaption drawAtPoint:CGPointMake(270, 2.2)
                withAttributes:@{ NSFontAttributeName:[UIFont fontWithName:@"Verdana-Bold" size:12],
-                                 NSForegroundColorAttributeName:[GdAppUtility UIColorFromRGB:0x3F6FAD] }];
+                                 NSForegroundColorAttributeName:[GDAppUtility UIColorFromRGB:0x3F6FAD] }];
 }
 
 

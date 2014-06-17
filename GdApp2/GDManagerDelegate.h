@@ -34,4 +34,7 @@
 - (void)didReceiveUnitCountByOrigin:(NSDictionary *)unitCountByOrigin;
 - (void)fetchUnitCountByOriginWithError:(NSError *)error;
 
+- (void)didReceiveUnitsOfOrigin:(NSArray *)units; /* Array of UnitInfoShort */
+- (void)fetchUnitsByOriginWithError:(NSError *)error;
+
 @end

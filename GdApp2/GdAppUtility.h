@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface GdAppUtility : NSObject
+@interface GDAppUtility : NSObject
 + (UIColor *)UIColorFromRGB:(int)rgbHex;
 + (NSString *)dateStringByDay:(NSDate *)date;
 + (UIColor *)appTintColor;
++ (void)alertError:(NSError *)error alertTitle:(NSString *)title;
 @end

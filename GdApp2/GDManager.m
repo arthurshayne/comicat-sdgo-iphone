@@ -39,6 +39,10 @@
     [self.communicator fetchUnitCountByOrigin];
 }
 
+- (void)fetchUnitsByOrigin:(NSString *)origin; {
+    [self.communicator fetchUnitsByOrigin:origin];
+}
+
 #pragma mark - GDCommunicatorDelegate
 // home
 - (void)receivedHomeInfoJSON:(NSData *)objectNotation {
@@ -108,7 +112,6 @@
     NSArray *videos = [GDInfoBuilder videoListFromJSON:objectNotation gdCategory:&category error:&error];
     
     [self.delegate didReceiveVideoList:videos ofGdCategory:category];
-
 }
 
 // video list error
@@ -143,12 +146,28 @@
     } else {
         [self.delegate didReceiveUnitCountByOrigin:unitCountByOrigin];
     }
-
 }
 
 // unit count by origin error
 - (void)fetchUnitCountByOriginFailedWithError:(NSError *)error {
     [self.delegate fetchUnitCountByOriginWithError:error];
+}
+
+// units by origin
+- (void)receivedUnitsOfOriginJSON:(NSData *)objectNotation {
+    NSError *error;
+    NSArray *units = [GDInfoBuilder unitInfoListFromJSON:objectNotation error:&error];
+    
+    if (error) {
+        [self.delegate fetchUnitsByOriginWithError:error];
+    } else {
+        [self.delegate didReceiveUnitsOfOrigin:units];
+    }
+}
+
+// units by origin error
+- (void)fetchUnitsByOriginFailedWithError:(NSError *)error {
+    [self.delegate fetchUnitsByOriginWithError:error];
 }
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "GDVideoListCollectionViewCell.h"
-#import "GdAppUtility.h"
+#import "GDAppUtility.h"
 #import "NSDate+PrettyDate.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
@@ -87,7 +87,7 @@
 
 - (void)setVideoListItem:(VideoListItem *)videoListItem {
     _videoListItem = videoListItem;
-    _dateString = [GdAppUtility dateStringByDay:self.videoListItem.created];
+    _dateString = [GDAppUtility dateStringByDay:self.videoListItem.created];
     [self setNeedsDisplay];
     
     [[SDWebImageManager sharedManager] downloadWithURL:[NSURL URLWithString:self.videoListItem.imageURL]

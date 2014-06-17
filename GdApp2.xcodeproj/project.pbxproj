@@ -32,6 +32,7 @@
 		05216A251925DB8600807A2E /* GDVideoListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05216A241925DB8600807A2E /* GDVideoListCollectionViewCell.m */; };
 		05216A281925FB9A00807A2E /* GDVideoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05216A271925FB9A00807A2E /* GDVideoListViewController.m */; };
 		0530C96B190636E900CE51FA /* GDHome2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0530C96A190636E900CE51FA /* GDHome2ViewController.m */; };
+		0536FC9C194DEBE90044BE38 /* GDAppUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 0536FC9B194DEBE90044BE38 /* GDAppUtility.m */; };
 		0565B3AF19089C6700CCE77E /* HomeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0565B3AE19089C6700CCE77E /* HomeInfo.m */; };
 		0565B3B219089CA400CCE77E /* CarouselInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0565B3B119089CA400CCE77E /* CarouselInfo.m */; };
 		0565B3B91908A01E00CCE77E /* GDCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0565B3B81908A01E00CCE77E /* GDCommunicator.m */; };
@@ -47,9 +48,7 @@
 		058314241949507000023742 /* OriginListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 058314231949507000023742 /* OriginListViewController.m */; };
 		058314281949549700023742 /* GundamOrigin.m in Sources */ = {isa = PBXBuildFile; fileRef = 058314271949549700023742 /* GundamOrigin.m */; };
 		0583142B1949598E00023742 /* OriginTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0583142A1949598E00023742 /* OriginTableViewCell.m */; };
-		058C3D1F191CDB41004B3EB5 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 058C3D1E191CDB41004B3EB5 /* Utility.m */; };
 		059090C91946A42F0079C364 /* UnitVideoListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 059090C81946A42F0079C364 /* UnitVideoListView.m */; };
-		0592406F19482F58007563ED /* UnitTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0592406E19482F58007563ED /* UnitTableViewCell.m */; };
 		059547CE193CE0930039E578 /* VideoListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 059547CD193CE0930039E578 /* VideoListItem.m */; };
 		05976CCC192CE37A008A2361 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 05976CCE192CE37A008A2361 /* Localizable.strings */; };
 		05996F9F192B61AD00BD1202 /* GDVideoListVCDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 05996F9E192B61AD00BD1202 /* GDVideoListVCDataSource.m */; };
@@ -63,6 +62,8 @@
 		05C30948193F5B0800D00A90 /* UnitMiscInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C30947193F5B0800D00A90 /* UnitMiscInfoCell.m */; };
 		05C3094B193F5B4400D00A90 /* UnitGetwayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C3094A193F5B4400D00A90 /* UnitGetwayCell.m */; };
 		05C3D3FF191E4203001B69ED /* UnitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C3D3FE191E4203001B69ED /* UnitViewController.m */; };
+		05C7D4BF194E88A9009C0DCA /* UnitsByOriginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C7D4BE194E88A9009C0DCA /* UnitsByOriginViewController.m */; };
+		05C7D4C2194E9ED8009C0DCA /* GDUnitCollectionViewCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C7D4C1194E9ED8009C0DCA /* GDUnitCollectionViewCell2.m */; };
 		05E0DA46193644F200436B98 /* GDUnitCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E0DA45193644F200436B98 /* GDUnitCollectionViewCell.m */; };
 		05E40AD819211EF2004AA495 /* GDPostListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E40AD719211EF2004AA495 /* GDPostListTableViewCell.m */; };
 		05E4D588191B31230056839B /* NSDictionary+QueryStringBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E4D587191B31230056839B /* NSDictionary+QueryStringBuilder.m */; };
@@ -124,6 +125,8 @@
 		05216A271925FB9A00807A2E /* GDVideoListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDVideoListViewController.m; sourceTree = "<group>"; };
 		0530C969190636E900CE51FA /* GDHome2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDHome2ViewController.h; sourceTree = "<group>"; };
 		0530C96A190636E900CE51FA /* GDHome2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDHome2ViewController.m; sourceTree = "<group>"; };
+		0536FC9A194DEBC90044BE38 /* GDAppUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDAppUtility.h; sourceTree = "<group>"; };
+		0536FC9B194DEBE90044BE38 /* GDAppUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDAppUtility.m; sourceTree = "<group>"; };
 		0565B3AB19089C2000CCE77E /* GDManagerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GDManagerDelegate.h; sourceTree = "<group>"; };
 		0565B3AD19089C6700CCE77E /* HomeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeInfo.h; sourceTree = "<group>"; };
 		0565B3AE19089C6700CCE77E /* HomeInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeInfo.m; sourceTree = "<group>"; };
@@ -156,12 +159,8 @@
 		058314271949549700023742 /* GundamOrigin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GundamOrigin.m; sourceTree = "<group>"; };
 		058314291949598E00023742 /* OriginTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OriginTableViewCell.h; sourceTree = "<group>"; };
 		0583142A1949598E00023742 /* OriginTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OriginTableViewCell.m; sourceTree = "<group>"; };
-		058C3D1D191CDB41004B3EB5 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
-		058C3D1E191CDB41004B3EB5 /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
 		059090C71946A42F0079C364 /* UnitVideoListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitVideoListView.h; sourceTree = "<group>"; };
 		059090C81946A42F0079C364 /* UnitVideoListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitVideoListView.m; sourceTree = "<group>"; };
-		0592406D19482F58007563ED /* UnitTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitTableViewCell.h; sourceTree = "<group>"; };
-		0592406E19482F58007563ED /* UnitTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitTableViewCell.m; sourceTree = "<group>"; };
 		059547CD193CE0930039E578 /* VideoListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoListItem.m; sourceTree = "<group>"; };
 		05976CCD192CE37A008A2361 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		05996F9D192B61AD00BD1202 /* GDVideoListVCDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDVideoListVCDataSource.h; sourceTree = "<group>"; };
@@ -191,6 +190,10 @@
 		05C3D400191E5525001B69ED /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		05C3D401191E5526001B69ED /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		05C3D402191E5526001B69ED /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		05C7D4BD194E88A9009C0DCA /* UnitsByOriginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitsByOriginViewController.h; sourceTree = "<group>"; };
+		05C7D4BE194E88A9009C0DCA /* UnitsByOriginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitsByOriginViewController.m; sourceTree = "<group>"; };
+		05C7D4C0194E9ED8009C0DCA /* GDUnitCollectionViewCell2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDUnitCollectionViewCell2.h; sourceTree = "<group>"; };
+		05C7D4C1194E9ED8009C0DCA /* GDUnitCollectionViewCell2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDUnitCollectionViewCell2.m; sourceTree = "<group>"; };
 		05E0DA44193644F200436B98 /* GDUnitCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDUnitCollectionViewCell.h; sourceTree = "<group>"; };
 		05E0DA45193644F200436B98 /* GDUnitCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDUnitCollectionViewCell.m; sourceTree = "<group>"; };
 		05E40AD619211EF2004AA495 /* GDPostListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDPostListTableViewCell.h; sourceTree = "<group>"; };
@@ -296,8 +299,8 @@
 		05023AE019052791001D04F0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				058C3D1D191CDB41004B3EB5 /* Utility.h */,
-				058C3D1E191CDB41004B3EB5 /* Utility.m */,
+				0536FC9B194DEBE90044BE38 /* GDAppUtility.m */,
+				0536FC9A194DEBC90044BE38 /* GDAppUtility.h */,
 				05023AE819052791001D04F0 /* GDAppDelegate.h */,
 				05023AE919052791001D04F0 /* GDAppDelegate.m */,
 				05023AE119052791001D04F0 /* GdApp2-Info.plist */,
@@ -347,6 +350,8 @@
 				0506D4C819174DA100EFAC83 /* SearchUnitViewController.m */,
 				05C3D3FD191E4203001B69ED /* UnitViewController.h */,
 				05C3D3FE191E4203001B69ED /* UnitViewController.m */,
+				05C7D4BD194E88A9009C0DCA /* UnitsByOriginViewController.h */,
+				05C7D4BE194E88A9009C0DCA /* UnitsByOriginViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -411,28 +416,28 @@
 		05A417BF191502690040A679 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				05C3094E193F7CB100D00A90 /* Unit */,
-				05FFBE12193849600051AFF4 /* SVPTRViews */,
 				051EABAD1927118C00EAF761 /* GDCategoryListView.h */,
 				051EABAE1927118C00EAF761 /* GDCategoryListView.m */,
 				051EABB01927123700EAF761 /* GDCategoryListViewDelegate.h */,
 				05A417C01915027B0040A679 /* GDPostCategoryView.h */,
 				05A417C11915027B0040A679 /* GDPostCategoryView.m */,
 				05B7B3D6191F1A870003D354 /* GDPostCategoryViewDelegate.h */,
-				05E40AD619211EF2004AA495 /* GDPostListTableViewCell.h */,
-				05E40AD719211EF2004AA495 /* GDPostListTableViewCell.m */,
-				05216A231925DB8600807A2E /* GDVideoListCollectionViewCell.h */,
-				05216A241925DB8600807A2E /* GDVideoListCollectionViewCell.m */,
 				0511D0BA193251CF007A9E66 /* GDPostListCollectionViewCell.h */,
 				0511D0BB193251CF007A9E66 /* GDPostListCollectionViewCell.m */,
+				05E40AD619211EF2004AA495 /* GDPostListTableViewCell.h */,
+				05E40AD719211EF2004AA495 /* GDPostListTableViewCell.m */,
 				05E0DA44193644F200436B98 /* GDUnitCollectionViewCell.h */,
 				05E0DA45193644F200436B98 /* GDUnitCollectionViewCell.m */,
-				056D0BEB19404B040004F259 /* ScrollingTextView.h */,
-				056D0BEC19404B040004F259 /* ScrollingTextView.m */,
-				0592406D19482F58007563ED /* UnitTableViewCell.h */,
-				0592406E19482F58007563ED /* UnitTableViewCell.m */,
+				05C7D4C0194E9ED8009C0DCA /* GDUnitCollectionViewCell2.h */,
+				05C7D4C1194E9ED8009C0DCA /* GDUnitCollectionViewCell2.m */,
+				05216A231925DB8600807A2E /* GDVideoListCollectionViewCell.h */,
+				05216A241925DB8600807A2E /* GDVideoListCollectionViewCell.m */,
 				058314291949598E00023742 /* OriginTableViewCell.h */,
 				0583142A1949598E00023742 /* OriginTableViewCell.m */,
+				056D0BEB19404B040004F259 /* ScrollingTextView.h */,
+				056D0BEC19404B040004F259 /* ScrollingTextView.m */,
+				05FFBE12193849600051AFF4 /* SVPTRViews */,
+				05C3094E193F7CB100D00A90 /* Unit */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -649,12 +654,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05C7D4C2194E9ED8009C0DCA /* GDUnitCollectionViewCell2.m in Sources */,
 				059547CE193CE0930039E578 /* VideoListItem.m in Sources */,
 				0506D4CF1917715100EFAC83 /* GDManagerFactory.m in Sources */,
 				0565B3B219089CA400CCE77E /* CarouselInfo.m in Sources */,
 				0565B3AF19089C6700CCE77E /* HomeInfo.m in Sources */,
 				059090C91946A42F0079C364 /* UnitVideoListView.m in Sources */,
-				0592406F19482F58007563ED /* UnitTableViewCell.m in Sources */,
 				05FFBE15193849760051AFF4 /* SVPTRLoadingView.m in Sources */,
 				05216A251925DB8600807A2E /* GDVideoListCollectionViewCell.m in Sources */,
 				05FFBE1919385C430051AFF4 /* UIScrollView+GDPullToRefresh.m in Sources */,
@@ -673,7 +678,9 @@
 				057393B3191A921400F7415E /* UnitInfoShort.m in Sources */,
 				05023AEA19052791001D04F0 /* GDAppDelegate.m in Sources */,
 				05C30948193F5B0800D00A90 /* UnitMiscInfoCell.m in Sources */,
+				05C7D4BF194E88A9009C0DCA /* UnitsByOriginViewController.m in Sources */,
 				0511D0BC193251CF007A9E66 /* GDPostListCollectionViewCell.m in Sources */,
+				0536FC9C194DEBE90044BE38 /* GDAppUtility.m in Sources */,
 				058314281949549700023742 /* GundamOrigin.m in Sources */,
 				0530C96B190636E900CE51FA /* GDHome2ViewController.m in Sources */,
 				05C30945193F5AAF00D00A90 /* UnitWeaponCell.m in Sources */,
@@ -682,7 +689,6 @@
 				05A417C71915186D0040A679 /* NSDate+PrettyDate.m in Sources */,
 				05742BAB1910B70D00893A7F /* GDVideoViewController.m in Sources */,
 				0506D4C319173A8A00EFAC83 /* GDPostViewController.m in Sources */,
-				058C3D1F191CDB41004B3EB5 /* Utility.m in Sources */,
 				058314241949507000023742 /* OriginListViewController.m in Sources */,
 				05C30942193F5A9F00D00A90 /* UnitSkillCell.m in Sources */,
 				0506D4C919174DA100EFAC83 /* SearchUnitViewController.m in Sources */,

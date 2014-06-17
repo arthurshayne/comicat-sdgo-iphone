@@ -64,7 +64,7 @@ const CGFloat UNIT_CELL_WIDTH = 90;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    manager = [GDManagerFactory getGDManagerWithDelegate:self];
+    manager = [GDManagerFactory gdManagerWithDelegate:self];
     
     self.carouselLabel.textColor = [UIColor whiteColor];
     self.carouselLabel.backgroundColor = [UIColor blackColor];

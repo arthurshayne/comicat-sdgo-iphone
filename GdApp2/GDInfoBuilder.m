@@ -156,9 +156,9 @@
         return nil;
     }
     
-    NSArray *unitsDictionary = [parsed objectForKey:@"units"];
+    NSArray *unitsArray = [parsed objectForKey:@"units"];
     NSMutableArray *units = [[NSMutableArray alloc] init];
-    for (NSDictionary *d in unitsDictionary) {
+    for (NSDictionary *d in unitsArray) {
         UnitInfoShort *uis = [[UnitInfoShort alloc] init];
         uis.unitId = [d objectForKey:@"unitId"];
         uis.modelName = [d objectForKey:@"modelName"];
@@ -324,5 +324,6 @@
     }
     return result;
 }
+
 
 @end

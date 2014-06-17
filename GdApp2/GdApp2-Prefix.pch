@@ -15,4 +15,4 @@
     #import <Foundation/Foundation.h>
 #endif
 
-#import "GdAppUtility.h"
+#import "GDAppUtility.h"

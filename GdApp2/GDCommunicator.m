@@ -119,12 +119,23 @@ static NSString *API_URL = @"http://www.sdgundam.cn/services/app.ashx";
 
 - (void)fetchUnitCountByOrigin {
     [self.class requestAPIWithAction:@"unit-count-by-origin"
-                               using:[NSDictionary dictionaryWithObjectsAndKeys:@"a", @"1", @"b", @"2", @"c", @"3", nil]
+                               using:[NSDictionary dictionaryWithObjectsAndKeys:@"y", @"1", @"b", @"2", @"c", @"3", nil]
                              success:^(NSData *data) {
                                  [self.delegate receivedUnitCountByOriginJSON:data];
                              }
                                error:^(NSError *error) {
                                    [self.delegate fetchUnitCountByOriginFailedWithError:error];
+                               }];
+}
+
+- (void)fetchUnitsByOrigin:(NSString *)origin {
+    [self.class requestAPIWithAction:@"units-by-origin"
+                               using:[NSDictionary dictionaryWithObjectsAndKeys:origin, @"origin", @"1", @"p", nil]
+                             success:^(NSData *data) {
+                                 [self.delegate receivedUnitsOfOriginJSON:data];
+                             }
+                               error:^(NSError *error) {
+                                   [self.delegate fetchUnitsByOriginFailedWithError:error];
                                }];
 }
 

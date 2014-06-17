@@ -27,10 +27,10 @@
     
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] init];
     [attrStr appendAttributedString:[[NSAttributedString alloc] initWithString:@"机体数: \n"
-                                                                    attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],
+                                                                    attributes:@{NSForegroundColorAttributeName:[UIColor darkGrayColor],
                                                                                  NSFontAttributeName:[UIFont boldSystemFontOfSize:11]}]];
     [attrStr appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d", self.unitCount]
-                                                                    attributes:@{NSForegroundColorAttributeName:[GdAppUtility UIColorFromRGB:0x82AF1C],
+                                                                    attributes:@{NSForegroundColorAttributeName:[GDAppUtility UIColorFromRGB:0x82AF1C],
                                                                                  NSFontAttributeName:[UIFont italicSystemFontOfSize:24]}]];
     
     unitCountAttrStr = (NSAttributedString *)attrStr;
@@ -49,7 +49,7 @@
 
 - (void)drawContentView:(CGRect)rect {
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(ctx, [[UIColor blackColor] CGColor]);
+    CGContextSetFillColorWithColor(ctx, [[UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_honeycomb"]] CGColor]);
     CGContextFillRect(ctx, rect);
     
     if (originImage && originTitle && originShortTitle) {

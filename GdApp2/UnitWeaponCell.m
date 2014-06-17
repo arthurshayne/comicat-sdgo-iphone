@@ -80,7 +80,7 @@ const NSString *WEAPON_PE_NONE = @"无";
     NSAttributedString *weaponCaptionAttrStr =
         [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@", weaponCaption]
                                         attributes:@{ NSFontAttributeName:[UIFont boldSystemFontOfSize:13],
-                                                      NSForegroundColorAttributeName:[GdAppUtility UIColorFromRGB:0x005BB6],
+                                                      NSForegroundColorAttributeName:[GDAppUtility UIColorFromRGB:0x005BB6],
                                                       NSParagraphStyleAttributeName:[[self class] wrapPS] }];
     [weaponText appendAttributedString:weaponCaptionAttrStr];
     
@@ -88,7 +88,7 @@ const NSString *WEAPON_PE_NONE = @"无";
         NSAttributedString *weaponPropertyAttrStr =
             [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@", weaponProperty]
                                             attributes:@{ NSFontAttributeName:[UIFont systemFontOfSize:13],
-                                                          NSForegroundColorAttributeName:[GdAppUtility UIColorFromRGB:0x40C45E]}];
+                                                          NSForegroundColorAttributeName:[GDAppUtility UIColorFromRGB:0x40C45E]}];
         [weaponText appendAttributedString:weaponPropertyAttrStr];
     }
     
@@ -96,7 +96,7 @@ const NSString *WEAPON_PE_NONE = @"无";
         NSAttributedString *weaponEffectAttrStr =
             [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@", weaponEffect]
                                             attributes:@{ NSFontAttributeName:[UIFont systemFontOfSize:13],
-                                                          NSForegroundColorAttributeName:[GdAppUtility UIColorFromRGB:0xFFAB54]}];
+                                                          NSForegroundColorAttributeName:[GDAppUtility UIColorFromRGB:0xFFAB54]}];
         [weaponText appendAttributedString:weaponEffectAttrStr];
     }
     
@@ -118,7 +118,7 @@ const NSString *WEAPON_PE_NONE = @"无";
         NSAttributedString *weaponLine1AttrStr =
         [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@", weaponExLine1]
                                         attributes:@{ NSFontAttributeName:[UIFont systemFontOfSize:12],
-                                                      NSForegroundColorAttributeName:[GdAppUtility UIColorFromRGB:0x02A49C],
+                                                      NSForegroundColorAttributeName:[GDAppUtility UIColorFromRGB:0x02A49C],
                                                       NSParagraphStyleAttributeName:[[self class] wrapPS]}];
         [weaponText appendAttributedString:weaponLine1AttrStr];
     }
@@ -126,7 +126,7 @@ const NSString *WEAPON_PE_NONE = @"无";
     NSAttributedString *weaponLine2AttrStr =
     [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@", weaponExLine2]
                                     attributes:@{ NSFontAttributeName:[UIFont systemFontOfSize:12],
-                                                  NSForegroundColorAttributeName:[GdAppUtility UIColorFromRGB:0x02A49C],
+                                                  NSForegroundColorAttributeName:[GDAppUtility UIColorFromRGB:0x02A49C],
                                                   NSParagraphStyleAttributeName:[[self class] wrapPS]}];
     [weaponText appendAttributedString:weaponLine2AttrStr];
     

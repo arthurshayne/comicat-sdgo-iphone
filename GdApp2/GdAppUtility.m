@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 COMICAT. All rights reserved.
 //
 
-#import "GdAppUtility.h"
+#import "GDAppUtility.h"
 
-@implementation GdAppUtility
+@implementation GDAppUtility
 
 + (UIColor *)UIColorFromRGB:(int)rgbHexValue {
     return [UIColor colorWithRed:((float)((rgbHexValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbHexValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbHexValue & 0xFF))/255.0 alpha:1.0];
@@ -42,6 +42,10 @@
         appTintColor = [UIColor colorWithRed:1 green:0.29 blue:0.27 alpha:1];
     }
     return appTintColor;
+}
+
++ (void)alertError:(NSError *)error alertTitle:(NSString *)title {
+    
 }
 
 @end

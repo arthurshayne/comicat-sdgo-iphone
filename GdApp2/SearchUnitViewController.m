@@ -33,7 +33,7 @@ NSString *unitIdForSegue;
 
 - (GDManager *) manager {
     if (!_manager) {
-        _manager = [GDManagerFactory getGDManagerWithDelegate:self];
+        _manager = [GDManagerFactory gdManagerWithDelegate:self];
     }
     
     return _manager;
@@ -143,7 +143,7 @@ NSString *unitIdForSegue;
     UILabel *rankLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 49, 100, 21)];
     rankLabel.text = [NSString stringWithFormat:@"%@ Rank", u.rank];
     rankLabel.font = [UIFont fontWithName:@"Verdana-Bold" size:14];
-    rankLabel.textColor = [GdAppUtility UIColorFromRGB:0x475c8b];
+    rankLabel.textColor = [GDAppUtility UIColorFromRGB:0x475c8b];
     
     [cell.contentView addSubview:rankLabel];
 //    cell.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_unit_list"]];

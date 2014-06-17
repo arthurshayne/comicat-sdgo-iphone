@@ -55,7 +55,7 @@ static const NSString *CELL_IDENTIFIER = @"PostListTableCell";
 
 - (GDManager *) manager {
     if (!_manager) {
-        _manager = [GDManagerFactory getGDManagerWithDelegate:self];
+        _manager = [GDManagerFactory gdManagerWithDelegate:self];
     }
     
     return _manager;
@@ -170,7 +170,7 @@ NSDateFormatter *nsdf;
         
         UILabel *noMoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 12, 320, 24)];
         noMoreLabel.text = @"没有更多了...";
-        noMoreLabel.textColor = [GdAppUtility UIColorFromRGB:0x666666];
+        noMoreLabel.textColor = [GDAppUtility UIColorFromRGB:0x666666];
         noMoreLabel.textAlignment = NSTextAlignmentCenter;
         
         [footerView addSubview:noMoreLabel];

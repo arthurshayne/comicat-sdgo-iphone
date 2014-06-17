@@ -18,7 +18,7 @@
 
 @implementation GDUnitCollectionViewCell
 
-const CGFloat UNIT_IMAGE_WIDTH = 77.5;
+static const CGFloat UNIT_IMAGE_WIDTH = 77.5;
 
 - (id)initWithFrame:(CGRect)frame
 {

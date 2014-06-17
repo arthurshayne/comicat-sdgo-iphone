@@ -9,7 +9,7 @@
 #import "GDManagerFactory.h"
 
 @implementation GDManagerFactory
-+ (GDManager *)getGDManagerWithDelegate:(id<GDManagerDelegate>)delegate {
++ (GDManager *)gdManagerWithDelegate:(id<GDManagerDelegate>)delegate {
     GDManager *manager = [[GDManager alloc] init];
     manager.communicator = [[GDCommunicator alloc] init];
     manager.communicator.delegate = manager;

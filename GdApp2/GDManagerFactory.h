@@ -11,5 +11,5 @@
 #import "GDManager.h"
 
 @interface GDManagerFactory : NSObject
-+ (GDManager *)getGDManagerWithDelegate:(id<GDManagerDelegate>)delegate;
++ (GDManager *)gdManagerWithDelegate:(id<GDManagerDelegate>)delegate;
 @end
