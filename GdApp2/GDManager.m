@@ -11,8 +11,25 @@
 #import "GDInfoBuilder.h"
 
 @implementation GDManager
-- (void)fetchHomeInfo {
-    [self.communicator fetchHomeInfo];
+
+#pragma mark - Private methods for FileCaching
+
+static const NSString *HOME_CACHE_FILE = @"home.cache";
+static const uint HOME_CACHE_LIFETIME = 43200; // seconds, 12 hours
+
+- (void)fetchHomeInfo:(BOOL)force {
+    if (force) {
+        [self.communicator fetchHomeInfo];
+    } else {
+        NSURL *cachedFile = [GDAppUtility pathForDocumentsFile:@"home.cache"];
+        HomeInfo *cachedHomeInfo = [HomeInfo objectWithContentsOfFile:cachedFile.path];
+        if (cachedHomeInfo && fabs([cachedHomeInfo.generated timeIntervalSinceNow]) < HOME_CACHE_LIFETIME) {
+            [self.delegate didReceiveHomeInfo:cachedHomeInfo];
+        } else {
+            // not cached, call the API
+            [self.communicator fetchHomeInfo];
+        }
+    }
 }
 
 - (void)fetchPostInfo: (int)postId {
@@ -52,6 +69,9 @@
     if (error) {
         [self.delegate fetchingHomeInfoWithError:error];
     } else {
+        NSURL *cachedFile = [GDAppUtility pathForDocumentsFile:@"home.cache"];
+        [homeInfo writeToFile:cachedFile.path atomically:YES];
+        
         [self.delegate didReceiveHomeInfo:homeInfo];
     }
 }

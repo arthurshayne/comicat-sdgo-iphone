@@ -29,6 +29,18 @@
        [NSString stringWithFormat:@"http://www.sdgundam.cn/pages/app/post-view.aspx?id=%d&page=0", self.postId]]]];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [MobClick beginLogPageView:@"新闻详细"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [MobClick endLogPageView:@"新闻详细"];
+}
+
 - (void)showLoading {
     // [MBProgressHUD showHUDAddedTo:self.view animated:NO];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];

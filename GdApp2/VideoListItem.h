@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AutoCoding.h"
 
 @interface VideoListItem : NSObject
 @property int id;

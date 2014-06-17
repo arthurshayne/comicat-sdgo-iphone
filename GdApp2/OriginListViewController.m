@@ -64,6 +64,18 @@ static const CGFloat CELL_HEIGHT = 98;
 //    [self setNeedsStatusBarAppearanceUpdate];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [MobClick beginLogPageView:@"作品列表"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [MobClick endLogPageView:@"作品列表"];
+}
+
 //- (UIStatusBarStyle)preferredStatusBarStyle {
 //    return UIStatusBarStyleLightContent;
 //}

@@ -59,6 +59,18 @@
     [self configureAndLoadVideoPlayer];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [MobClick beginLogPageView:@"视频观看"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [MobClick endLogPageView:@"视频观看"];
+}
+
 - (void) configureAndLoadVideoPlayer {
     NSURL *url = [[NSURL alloc] initWithString:
                   [NSString stringWithFormat:@"http://www.sdgundam.cn/pages/app/post-view-video.aspx?id=%d", self.postId]];

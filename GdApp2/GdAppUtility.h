@@ -13,4 +13,6 @@
 + (NSString *)dateStringByDay:(NSDate *)date;
 + (UIColor *)appTintColor;
 + (void)alertError:(NSError *)error alertTitle:(NSString *)title;
+
++ (NSURL *)pathForDocumentsFile:(NSString *)fileName;
 @end

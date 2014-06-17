@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AutoCoding.h"
 
 @interface CarouselInfo : NSObject
 @property (strong, nonatomic) NSString *title;

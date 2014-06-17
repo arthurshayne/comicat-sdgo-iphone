@@ -13,6 +13,14 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [MobClick startWithAppkey:@"539fcbe156240bfc02007abc"
+                 reportPolicy:SEND_INTERVAL
+                    channelId:@"Web"];
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    [MobClick setAppVersion:version];
+    
+    [MobClick setLogEnabled:YES];
+    
     return YES;
 }
 							

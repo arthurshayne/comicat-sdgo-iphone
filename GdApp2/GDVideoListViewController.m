@@ -124,6 +124,18 @@ int postIdForSegue;
     [self switchGDCategory:0];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [MobClick beginLogPageView:@"视频列表"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [MobClick endLogPageView:@"视频列表"];
+}
+
 - (void)didReceiveMemoryWarning {
 //    self.postsByGDCategory = nil;
     self.videoListViews = nil;

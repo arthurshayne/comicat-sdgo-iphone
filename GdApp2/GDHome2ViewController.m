@@ -79,8 +79,8 @@ const CGFloat UNIT_CELL_WIDTH = 90;
     
     [self configurePullToRefresh];
     // self.rootScrollView.showsPullToRefresh = NO;
-    [manager fetchHomeInfo];
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [manager fetchHomeInfo:NO];
+    [MBProgressHUD showHUDAddedTo:self.view animated:NO];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
 
@@ -95,12 +95,14 @@ const CGFloat UNIT_CELL_WIDTH = 90;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
+    [MobClick beginLogPageView:@"首页"];
     [self.infiniteScrollView startAutoScroll];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 
+    [MobClick endLogPageView:@"首页"];
     [self.infiniteScrollView stopAutoScroll];
 }
 
@@ -222,7 +224,13 @@ const CGFloat UNIT_CELL_WIDTH = 90;
 
 - (void)configurePullToRefresh {
     [self.rootScrollView addGDPullToRefreshWithActionHandler:^{
-        [manager fetchHomeInfo];
+        BOOL shouldForce = lastPullToRefresh && fabs([lastPullToRefresh timeIntervalSinceNow]) < 10;
+        [manager fetchHomeInfo:shouldForce];
+        if (shouldForce) {
+            lastPullToRefresh = nil;
+        } else {
+            lastPullToRefresh = [NSDate date];
+        }
     }];
 }
 
@@ -265,8 +273,10 @@ const CGFloat UNIT_CELL_WIDTH = 90;
 }
 
 - (void)stopAllLoadingAnimations {
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-    [self.rootScrollView.pullToRefreshView stopAnimating];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [MBProgressHUD hideHUDForView:self.view animated:NO];
+        [self.rootScrollView.pullToRefreshView stopAnimating];
+    });
 }
 
 #pragma mark - GBInfiniteScroll

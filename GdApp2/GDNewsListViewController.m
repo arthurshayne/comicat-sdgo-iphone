@@ -94,6 +94,18 @@ NSDateFormatter *nsdf;
 //    [self displayCategorySelectionIfNeeded];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [MobClick beginLogPageView:@"新闻列表"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [MobClick endLogPageView:@"新闻列表"];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     NSLog(@"viewDidAppear");
     [super viewDidAppear:animated];

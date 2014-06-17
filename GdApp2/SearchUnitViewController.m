@@ -67,7 +67,14 @@ NSString *unitIdForSegue;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    [MobClick beginLogPageView:@"搜索机体"];
     [self.searchBar becomeFirstResponder];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [MobClick endLogPageView:@"搜索机体"];
 }
 
 - (void)didReceiveMemoryWarning

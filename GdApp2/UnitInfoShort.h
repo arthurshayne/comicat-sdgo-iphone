@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AutoCoding.h"
 
 @interface UnitInfoShort : NSObject
 @property (strong, nonatomic) NSString *unitId;

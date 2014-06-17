@@ -37,6 +37,18 @@ static const NSString *CELL_IDENTIFIER = @"UnitCell";
     self.unitsView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_honeycomb"]];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [MobClick beginLogPageView:@"机体按作品"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [MobClick endLogPageView:@"机体按作品"];
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if([segue.identifier isEqualToString:@"ViewUnit"]) {
         if ([segue.destinationViewController isKindOfClass:[UnitViewController class]]) {

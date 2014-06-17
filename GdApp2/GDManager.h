@@ -15,7 +15,7 @@
 @property (strong, nonatomic) GDCommunicator *communicator;
 @property (weak, nonatomic) id<GDManagerDelegate> delegate;
 
-- (void)fetchHomeInfo;
+- (void)fetchHomeInfo:(BOOL)force;
 - (void)fetchPostInfo:(int)postId;
 - (void)searchUnitsWithKeyword:(NSString *)keyword;
 - (void)fetchPostListOfCategory:(uint)gdCategory pageSize:(uint)pageSize pageIndex:(uint)pageIndex;

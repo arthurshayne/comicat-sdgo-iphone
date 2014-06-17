@@ -48,4 +48,12 @@
     
 }
 
++ (NSURL *)pathForDocumentsFile:(NSString *)fileName {
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSArray *directories = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
+    NSURL *documentPath = [directories objectAtIndex:0];
+    
+    return [documentPath URLByAppendingPathComponent:fileName];
+}
+
 @end

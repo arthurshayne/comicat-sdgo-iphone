@@ -49,6 +49,9 @@
 		058314281949549700023742 /* GundamOrigin.m in Sources */ = {isa = PBXBuildFile; fileRef = 058314271949549700023742 /* GundamOrigin.m */; };
 		0583142B1949598E00023742 /* OriginTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0583142A1949598E00023742 /* OriginTableViewCell.m */; };
 		059090C91946A42F0079C364 /* UnitVideoListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 059090C81946A42F0079C364 /* UnitVideoListView.m */; };
+		0592AFF819500549000301FD /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0592AFF619500549000301FD /* libMobClickLibrary.a */; };
+		0592AFFB1950059C000301FD /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0592AFFA1950059C000301FD /* libz.dylib */; };
+		0592B0041950282C000301FD /* AutoCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 0592B0031950282C000301FD /* AutoCoding.m */; };
 		059547CE193CE0930039E578 /* VideoListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 059547CD193CE0930039E578 /* VideoListItem.m */; };
 		05976CCC192CE37A008A2361 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 05976CCE192CE37A008A2361 /* Localizable.strings */; };
 		05996F9F192B61AD00BD1202 /* GDVideoListVCDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 05996F9E192B61AD00BD1202 /* GDVideoListVCDataSource.m */; };
@@ -161,6 +164,11 @@
 		0583142A1949598E00023742 /* OriginTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OriginTableViewCell.m; sourceTree = "<group>"; };
 		059090C71946A42F0079C364 /* UnitVideoListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitVideoListView.h; sourceTree = "<group>"; };
 		059090C81946A42F0079C364 /* UnitVideoListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitVideoListView.m; sourceTree = "<group>"; };
+		0592AFF619500549000301FD /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
+		0592AFF719500549000301FD /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
+		0592AFFA1950059C000301FD /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		0592B0021950282C000301FD /* AutoCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoCoding.h; sourceTree = "<group>"; };
+		0592B0031950282C000301FD /* AutoCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoCoding.m; sourceTree = "<group>"; };
 		059547CD193CE0930039E578 /* VideoListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoListItem.m; sourceTree = "<group>"; };
 		05976CCD192CE37A008A2361 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		05996F9D192B61AD00BD1202 /* GDVideoListVCDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDVideoListVCDataSource.h; sourceTree = "<group>"; };
@@ -215,11 +223,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0592AFFB1950059C000301FD /* libz.dylib in Frameworks */,
 				05191567190C16AE007439EA /* QuartzCore.framework in Frameworks */,
 				0565B3C8190904D000CCE77E /* ImageIO.framework in Frameworks */,
 				05023ADC19052791001D04F0 /* CoreGraphics.framework in Frameworks */,
 				05023ADE19052791001D04F0 /* UIKit.framework in Frameworks */,
 				05023ADA19052791001D04F0 /* Foundation.framework in Frameworks */,
+				0592AFF819500549000301FD /* libMobClickLibrary.a in Frameworks */,
 				773E1A7A51404A8B868FF807 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -260,6 +270,7 @@
 		05023AD819052791001D04F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0592AFFA1950059C000301FD /* libz.dylib */,
 				05191566190C16AE007439EA /* QuartzCore.framework */,
 				0565B3C7190904D000CCE77E /* ImageIO.framework */,
 				05023AD919052791001D04F0 /* Foundation.framework */,
@@ -299,14 +310,14 @@
 		05023AE019052791001D04F0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				0536FC9B194DEBE90044BE38 /* GDAppUtility.m */,
-				0536FC9A194DEBC90044BE38 /* GDAppUtility.h */,
+				05023AE119052791001D04F0 /* GdApp2-Info.plist */,
+				05023AE719052791001D04F0 /* GdApp2-Prefix.pch */,
 				05023AE819052791001D04F0 /* GDAppDelegate.h */,
 				05023AE919052791001D04F0 /* GDAppDelegate.m */,
-				05023AE119052791001D04F0 /* GdApp2-Info.plist */,
+				0536FC9A194DEBC90044BE38 /* GDAppUtility.h */,
+				0536FC9B194DEBE90044BE38 /* GDAppUtility.m */,
 				05023AE219052791001D04F0 /* InfoPlist.strings */,
 				05023AE519052791001D04F0 /* main.m */,
-				05023AE719052791001D04F0 /* GdApp2-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -413,6 +424,15 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		0592B001195027F2000301FD /* AutoCoding */ = {
+			isa = PBXGroup;
+			children = (
+				0592B0021950282C000301FD /* AutoCoding.h */,
+				0592B0031950282C000301FD /* AutoCoding.m */,
+			);
+			name = AutoCoding;
+			sourceTree = "<group>";
+		};
 		05A417BF191502690040A679 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -445,6 +465,9 @@
 		05A417C31915182E0040A679 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				0592B001195027F2000301FD /* AutoCoding */,
+				0592AFF619500549000301FD /* libMobClickLibrary.a */,
+				0592AFF719500549000301FD /* MobClick.h */,
 				0582A87A192F923A007B90C9 /* ABTableViewCell */,
 				05A6732B191F9D2C006287D4 /* PushNoAnimationSegue */,
 				05E4D584191B30720056839B /* NSDictionary+QueryStringBuilder */,
@@ -694,6 +717,7 @@
 				0506D4C919174DA100EFAC83 /* SearchUnitViewController.m in Sources */,
 				05E4D588191B31230056839B /* NSDictionary+QueryStringBuilder.m in Sources */,
 				05B7B3D5191E8A3A0003D354 /* GDNewsListViewController.m in Sources */,
+				0592B0041950282C000301FD /* AutoCoding.m in Sources */,
 				056D0BED19404B040004F259 /* ScrollingTextView.m in Sources */,
 				057393B0191A87D600F7415E /* UnitInfo.m in Sources */,
 				05996F9F192B61AD00BD1202 /* GDVideoListVCDataSource.m in Sources */,
@@ -853,6 +877,10 @@
 				INFOPLIST_FILE = "GdApp2/GdApp2-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/GdApp2",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "GdApp2/GdApp2-Bridging-Header.h";
@@ -878,6 +906,10 @@
 				INFOPLIST_FILE = "GdApp2/GdApp2-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/GdApp2",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "38FF2319-E162-484F-95EE-5DBF196C6093";
 				SWIFT_OBJC_BRIDGING_HEADER = "GdApp2/GdApp2-Bridging-Header.h";
