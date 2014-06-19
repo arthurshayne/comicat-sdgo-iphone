@@ -45,7 +45,12 @@
 }
 
 + (void)alertError:(NSError *)error alertTitle:(NSString *)title {
-    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:[error localizedDescription]
+                                                   delegate:nil
+                                          cancelButtonTitle:@"好的"
+                                          otherButtonTitles:nil];
+    [alert show];
 }
 
 + (NSURL *)pathForDocumentsFile:(NSString *)fileName {

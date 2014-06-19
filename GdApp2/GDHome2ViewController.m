@@ -23,7 +23,6 @@
 #import "HomeInfo.h"
 #import "UnitInfoShort.h"
 
-
 #import "GDVideoViewController.h"
 #import "GDPostViewController.h"
 #import "UnitViewController.h"
@@ -36,6 +35,7 @@
 @interface GDHome2ViewController ()
 
 //@property (strong, nonatomic) NSArray *images;  // of UIImage
+@property (strong, nonatomic) GDManager *manager;
 @property (strong, nonatomic) HomeInfo *homeInfo;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *rootScrollView;
@@ -54,17 +54,19 @@
 
 @implementation GDHome2ViewController
 
-GDManager *manager;
-int postIdForSegue;
-NSString *unitIdForSegue;
+- (GDManager *) manager {
+    if (!_manager) {
+        _manager = [GDManagerFactory gdManagerWithDelegate:self];
+    }
+    
+    return _manager;
+}
 
 const CGFloat POSTLIST_CELL_HEIGHT = 65;
 const CGFloat UNIT_CELL_WIDTH = 90;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    manager = [GDManagerFactory gdManagerWithDelegate:self];
     
     self.carouselLabel.textColor = [UIColor whiteColor];
     self.carouselLabel.backgroundColor = [UIColor blackColor];
@@ -79,7 +81,7 @@ const CGFloat UNIT_CELL_WIDTH = 90;
     
     [self configurePullToRefresh];
     // self.rootScrollView.showsPullToRefresh = NO;
-    [manager fetchHomeInfo:NO];
+    [self.manager fetchHomeInfo:NO];
     [MBProgressHUD showHUDAddedTo:self.view animated:NO];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -225,7 +227,7 @@ const CGFloat UNIT_CELL_WIDTH = 90;
 - (void)configurePullToRefresh {
     [self.rootScrollView addGDPullToRefreshWithActionHandler:^{
         BOOL shouldForce = lastPullToRefresh && fabs([lastPullToRefresh timeIntervalSinceNow]) < 10;
-        [manager fetchHomeInfo:shouldForce];
+        [self.manager fetchHomeInfo:shouldForce];
         if (shouldForce) {
             lastPullToRefresh = nil;
         } else {
@@ -266,10 +268,7 @@ const CGFloat UNIT_CELL_WIDTH = 90;
 - (void)fetchingHomeInfoWithError:(NSError *)error {
     [self stopAllLoadingAnimations];
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"网络连接"
-                                                    message: [error localizedDescription]
-                                                   delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
+    [GDAppUtility alertError:error alertTitle:@"数据加载失败"];
 }
 
 - (void)stopAllLoadingAnimations {

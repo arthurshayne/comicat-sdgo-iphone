@@ -13,6 +13,8 @@
 @interface GDHome2ViewController : UIViewController <GBInfiniteScrollViewDataSource, GBInfiniteScrollViewDelegate,
 GDManagerDelegate, UICollectionViewDataSource, UICollectionViewDelegate> {
     NSDate *lastPullToRefresh;
+    int postIdForSegue;
+    NSString *unitIdForSegue;
 }
 
 @end

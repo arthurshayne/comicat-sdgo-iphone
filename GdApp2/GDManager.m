@@ -15,20 +15,32 @@
 #pragma mark - Private methods for FileCaching
 
 static const NSString *HOME_CACHE_FILE = @"home.cache";
-static const uint HOME_CACHE_LIFETIME = 43200; // seconds, 12 hours
+static const uint HOME_CACHE_LIFETIME = 3600; // seconds, 1 hour
+
+static const NSString *UNIT_INFO_CACHE_FILE = @"unit-%@.cache";
+static const uint UNIT_INFO_LIFETIME = 43200;   // seconds, 0.5 day
+
+static const NSString *UNITS_BY_ORIGIN_CACHE_FILE = @"units-by-origin-%@.cache";
+static const NSString *UNIT_COUNT_BY_ORIGIN_CACHE_FILE = @"unit-count-by-origin.cache";
 
 - (void)fetchHomeInfo:(BOOL)force {
     if (force) {
         [self.communicator fetchHomeInfo];
     } else {
-        NSURL *cachedFile = [GDAppUtility pathForDocumentsFile:@"home.cache"];
+        NSURL *cachedFile = [GDAppUtility pathForDocumentsFile:[HOME_CACHE_FILE copy]];
         HomeInfo *cachedHomeInfo = [HomeInfo objectWithContentsOfFile:cachedFile.path];
-        if (cachedHomeInfo && fabs([cachedHomeInfo.generated timeIntervalSinceNow]) < HOME_CACHE_LIFETIME) {
+        if (cachedHomeInfo) {
             [self.delegate didReceiveHomeInfo:cachedHomeInfo];
+            
+            if (fabs([cachedHomeInfo.generated timeIntervalSinceNow]) > HOME_CACHE_LIFETIME) {
+                // data expired, call API
+                [self.communicator fetchHomeInfo];
+            }
         } else {
-            // not cached, call the API
             [self.communicator fetchHomeInfo];
         }
+        
+        
     }
 }
 
@@ -69,7 +81,7 @@ static const uint HOME_CACHE_LIFETIME = 43200; // seconds, 12 hours
     if (error) {
         [self.delegate fetchingHomeInfoWithError:error];
     } else {
-        NSURL *cachedFile = [GDAppUtility pathForDocumentsFile:@"home.cache"];
+        NSURL *cachedFile = [GDAppUtility pathForDocumentsFile:[HOME_CACHE_FILE copy]];
         [homeInfo writeToFile:cachedFile.path atomically:YES];
         
         [self.delegate didReceiveHomeInfo:homeInfo];
