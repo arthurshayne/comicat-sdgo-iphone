@@ -43,11 +43,11 @@
     
     HomeInfo *homeInfo = [[HomeInfo alloc] init];
     
-    homeInfo.success = [(NSNumber *)[parsed objectForKey:@"success"] boolValue];
+    // homeInfo.success = [(NSNumber *)[parsed objectForKey:@"success"] boolValue];
     
-    NSDateFormatter *dateFormatter = [GDInfoBuilder dateFormatter];
-     
-    homeInfo.generated = [dateFormatter dateFromString:(NSString *)[parsed objectForKey:@"generated"]];
+    NSDateFormatter *dateFormatter = [[[self class] dateFormatter] copy];
+    
+    homeInfo.generated = [[[self class] dateFormatter] dateFromString:(NSString *)[parsed objectForKey:@"generated"]];
     
     // carousel
     NSArray *carouselFromDictionary = [parsed objectForKey:@"carousel"];
@@ -119,7 +119,7 @@
         return nil;
     }
     
-    NSDateFormatter *dateFormatter = [GDInfoBuilder dateFormatter];
+    NSDateFormatter *dateFormatter = [[[self class] dateFormatter] copy];
 
     PostInfo *post = [[PostInfo alloc] init];
     
@@ -140,7 +140,7 @@
     return post;
 }
 
-+ (NSArray *)unitInfoListFromJSON:(NSData *)objectNotation error:(NSError **)error {
++ (UnitList *)unitListFromJSON:(NSData *)objectNotation error:(NSError **)error {
     // returns Array of UnitInfoShort
     NSError *tempError = nil;
     NSDictionary *parsed = [NSJSONSerialization JSONObjectWithData:objectNotation
@@ -151,10 +151,12 @@
         return nil;
     }
 
-    BOOL success = [(NSNumber *)[parsed objectForKey:@"success"] boolValue];
-    if (!success) {
-        return nil;
-    }
+    UnitList *list = [[UnitList alloc] init];
+    
+    list.generated = [[[self class] dateFormatter] dateFromString:(NSString *)[parsed objectForKey:@"generated"]];
+    
+    list.origin = [parsed objectForKey:@"origin"];
+    list.searchKeyword = [parsed objectForKey:@"keyword"];
     
     NSArray *unitsArray = [parsed objectForKey:@"units"];
     NSMutableArray *units = [[NSMutableArray alloc] init];
@@ -170,7 +172,9 @@
         
         [units addObject:uis];
     }
-    return units;
+    list.units = units;
+    
+    return list;
 }
 
 + (NSArray *)postListFromJSON:(NSData *)objectNotation gdCategory:(int *)category error:(NSError **)error {
@@ -183,15 +187,10 @@
         return nil;
     }
     
-    BOOL success = [(NSNumber *)[parsed objectForKey:@"success"] boolValue];
-    if (!success) {
-        return nil;
-    }
+    NSDateFormatter *dateFormatter = [[self class] dateFormatter];
     
     int categoryHere = [(NSNumber *)[parsed objectForKey:@"category"] intValue];
     *category = categoryHere;
-    
-    NSDateFormatter *dateFormatter = [GDInfoBuilder dateFormatter];
     
     NSArray *unitsDictionary = [parsed objectForKey:@"posts"];
     NSMutableArray *posts = [[NSMutableArray alloc] init];
@@ -219,15 +218,10 @@
         return nil;
     }
     
-    BOOL success = [(NSNumber *)[parsed objectForKey:@"success"] boolValue];
-    if (!success) {
-        return nil;
-    }
+    NSDateFormatter *dateFormatter = [[self class] dateFormatter];
     
     int categoryHere = [(NSNumber *)[parsed objectForKey:@"category"] intValue];
     *category = categoryHere;
-    
-    NSDateFormatter *dateFormatter = [GDInfoBuilder dateFormatter];
     
     NSArray *unitsDictionary = [parsed objectForKey:@"posts"];
     NSMutableArray *posts = [[NSMutableArray alloc] init];
@@ -285,7 +279,7 @@
         }
     }
     
-    NSDateFormatter *dateFormatter = [GDInfoBuilder dateFormatter];
+    NSDateFormatter *dateFormatter = [[self class] dateFormatter];
     
     NSArray *videoListFromJSON = [parsed objectForKey:@"videoList"];
     NSMutableArray *posts = [[NSMutableArray alloc] init];

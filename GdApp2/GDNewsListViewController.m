@@ -42,9 +42,18 @@
 
 @implementation GDNewsListViewController
 
-static int POST_LIST_PAGE_SIZE = 20;
+static const int POST_LIST_PAGE_SIZE = 20;
 
 static const NSString *CELL_IDENTIFIER = @"PostListTableCell";
+
++ (NSDateFormatter *)dateFormatter {
+    static NSDateFormatter *dateFormatter;
+    if (!dateFormatter) {
+        dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"yyyy-MM-dd";
+    }
+    return dateFormatter;
+}
 
 - (NSArray *)gdCategories {
     if (!_gdCategories ) {
@@ -69,15 +78,10 @@ static const NSString *CELL_IDENTIFIER = @"PostListTableCell";
     return _cellHeightCache;
 }
 
-NSDateFormatter *nsdf;
-
 - (void)viewDidLoad {
     NSLog(@"viewDidLoad");
     
     [super viewDidLoad];
-    
-    nsdf = [[NSDateFormatter alloc] init];
-    nsdf.dateFormat = @"yyyy-MM-dd";
     
     [self prepareCategoryList];
     
@@ -248,39 +252,10 @@ NSDateFormatter *nsdf;
     self.posts = [NSArray arrayWithArray:newPosts];
 }
 
-//- (void)mergePosts:(NSArray *)posts sections:(NSArray **)section indexPaths:(NSArray **)indexPaths {
-//    NSMutableDictionary *postsByDateMutable = [NSMutableDictionary dictionaryWithDictionary:self.postsByDate];
-//    for (PostInfo *p in posts) {
-//        NSString *dateString = [nsdf stringFromDate:p.created];
-//        NSArray *existingPosts = [postsByDateMutable objectForKey:dateString];
-//        NSMutableArray *withNewPosts;
-//        if (existingPosts == nil || existingPosts.count == 0) {
-//            withNewPosts = [[NSMutableArray alloc] init];
-//        } else {
-//            withNewPosts = [NSMutableArray arrayWithArray:existingPosts];
-//        }
-//        
-//        [postsByDateMutable setObject:[withNewPosts arrayByAddingObject:p] forKey:dateString];
-//    }
-//    
-//    self.dateStrings = [postsByDateMutable.allKeys sortedArrayUsingComparator:^(id a, id b) {
-//        return -[a compare:b options:NSNumericSearch];
-//    }];
-//    
-//    self.postsByDate = [NSDictionary dictionaryWithDictionary:postsByDateMutable];
-//}
-
-
 - (void)fetchPostListWithError:(NSError *)error {
     [self stopAllLoadingAnimations];
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"数据加载失败"
-                                                    message:@"请检查网络连接是否可用"
-                                                   delegate:nil
-                                          cancelButtonTitle:@"好的"
-                                          otherButtonTitles:nil];
-    [alert show];
-
+    [GDAppUtility alertError:error alertTitle:@"数据加载失败"];
 }
 
 #pragma mark - TableView DataSource

@@ -312,13 +312,8 @@ int postIdForSegue;
 
 - (void)dataSourceWithError:(NSError *)error {
     [self stopAllLoadingAnimations];
-    // TODO: Show a reload button / or some specific view
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"数据加载失败"
-                                                    message:@"请检查网络连接是否可用"
-                                                   delegate:nil
-                                          cancelButtonTitle:@"好的"
-                                          otherButtonTitles:nil];
-    [alert show];
+    
+    [GDAppUtility alertError:error alertTitle:@"数据加载失败"];
 }
 
 - (void)noMoreDataFromGDCategory:(unsigned int)gdCategory {
