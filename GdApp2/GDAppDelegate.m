@@ -10,9 +10,8 @@
 
 @implementation GDAppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    // Override point for customization after application launch.
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // configure UMeng
     [MobClick startWithAppkey:@"539fcbe156240bfc02007abc"
                  reportPolicy:SEND_INTERVAL
                     channelId:@"Web"];
@@ -20,6 +19,13 @@
     [MobClick setAppVersion:version];
     
     [MobClick setLogEnabled:YES];
+    
+    // configure UserDefaults
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (![defaults objectForKey:APP_FIRST_USAGE_KEY]) {
+        [defaults setObject:[NSDate date] forKey:APP_FIRST_USAGE_KEY];
+        [defaults synchronize];
+    }
     
     return YES;
 }
