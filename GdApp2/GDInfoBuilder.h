@@ -10,11 +10,12 @@
 #import "HomeInfo.h"
 #import "PostInfo.h"
 #import "UnitInfo.h"
+#import "UnitList.h"
 
 @interface GDInfoBuilder : NSObject
 + (HomeInfo *) homeInfoFromJSON: (NSData *)objectNotation error:(NSError **)error;
 + (PostInfo *) postInfoFromJSON: (NSData *)objectNotation error:(NSError **)error;
-+ (NSArray *) unitInfoListFromJSON: (NSData *)objectNotation error:(NSError **)error;
++ (UnitList *) unitListFromJSON: (NSData *)objectNotation error:(NSError **)error;
 + (NSArray *)postListFromJSON:(NSData *)objectNotation gdCategory:(int *)category error:(NSError **)error;
 + (NSArray *)videoListFromJSON:(NSData *)objectNotation gdCategory:(int *)category error:(NSError **)error;
 + (UnitInfo *)unitInfoFromJSON:(NSData *)objectNotation error:(NSError **)error;

@@ -9,6 +9,8 @@
 #import "UnitViewController.h"
 
 #import "MBProgressHUD.h"
+#import "UIScrollView+GDPullToRefresh.h"
+#import "SVPullToRefresh.h"
 
 #import "GDManager.h"
 #import "GDManagerFactory.h"
@@ -117,8 +119,10 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
     [self.rootTableView registerClass:[UnitGetwayCell class] forCellReuseIdentifier:@"Getway"];
     [self.rootTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"VideoList"];
     
+    [self configurePullToRefresh];
+    
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [self.manager fetchUnitInfo:self.unitId];
+    [self.manager fetchUnitInfo:self.unitId force:NO];
     
     // eliminate extra separators
     self.rootTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -152,6 +156,26 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
     // Dispose of any resources that can be recreated.
 }
 
+- (void)configurePullToRefresh {
+    [self.rootTableView addGDPullToRefreshWithActionHandler:^{
+        BOOL shouldForce = lastPullToRefresh && fabs([lastPullToRefresh timeIntervalSinceNow]) < 10;
+        [self.manager fetchUnitInfo:self.unitId force:shouldForce];
+        if (shouldForce) {
+            lastPullToRefresh = nil;
+        } else {
+            lastPullToRefresh = [NSDate date];
+        }
+
+    }];
+}
+
+- (void)stopAllLoadingAnimations {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [MBProgressHUD hideHUDForView:self.view animated:NO];
+        [self.rootTableView.pullToRefreshView stopAnimating];
+    });
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"ViewVideo"]) {
         if ([segue.destinationViewController isKindOfClass:[GDVideoViewController class]]) {
@@ -165,7 +189,7 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
 #pragma mark - GDManagerDelegate
 
 - (void)didReceiveUnitInfo:(UnitInfo *)unitInfo {
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    [self stopAllLoadingAnimations];
     
     self.unitInfo = unitInfo;
     
@@ -190,22 +214,13 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
     
     [self.rootTableView reloadData];
     
-//    if (self.viewDidAppear && !self.animationPlayed) {
-//        NSLog(@"play animation didReceiveUnitInfo");
-//        [self.unitBasicDataView playAnimations];
-//        self.animationPlayed = YES;
-//    }
-    
     [self.unitBasicDataView playAnimations];
 }
 
 - (void)fetchUnitInfoWithError:(NSError *)error {
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    [self stopAllLoadingAnimations];
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"网络连接"
-                                                    message: [error localizedDescription]
-                                                   delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
+    [GDAppUtility alertError:error alertTitle:@"数据加载失败"];
 }
 
 - (void)segmentSwitched:(UISegmentedControl *)segment {

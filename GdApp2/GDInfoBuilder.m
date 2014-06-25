@@ -301,23 +301,4 @@
     return unit;
 }
 
-+ (NSDictionary *)unitCountByOriginFromJSON:(NSData *)objectNotation error:(NSError **)error {
-    NSError *tempError = nil;
-    NSDictionary *parsed = [NSJSONSerialization JSONObjectWithData:objectNotation
-                                                           options:0
-                                                             error: &tempError];
-    
-    if (tempError) {
-        *error = tempError;
-        return nil;
-    }
-
-    NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
-    for(NSString *key in parsed.allKeys) {
-        [result setObject:(NSNumber *)[parsed objectForKey:key] forKey:key];
-    }
-    return result;
-}
-
-
 @end

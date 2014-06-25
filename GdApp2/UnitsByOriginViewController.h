@@ -12,8 +12,10 @@
 @interface UnitsByOriginViewController : UIViewController <GDManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout> {
     NSArray *units;
     NSString *unitIdForSegue;
+    NSDate *lastPullToRefresh;
 }
 
 @property (strong, nonatomic) NSString *origin;
+@property (strong, nonatomic) NSString *originShortTitle;
 
 @end

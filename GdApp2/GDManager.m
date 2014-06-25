@@ -9,16 +9,27 @@
 #import "GDManager.h"
 #import "GDCommunicatorDelegate.h"
 #import "GDInfoBuilder.h"
+#import "OriginInfo.h"
+
+@interface GDManager ()
+
+// @property (strong, nonatomic) NSDate *
+
+@end
 
 @implementation GDManager
 
 #pragma mark - Private methods for FileCaching
 
 static const NSString *HOME_CACHE_FILE = @"home.cache";
-static const uint HOME_CACHE_LIFETIME = 3600; // seconds, 1 hour
+static const uint HOME_CACHE_LIFETIME = 300; // seconds, 5 min
 
 static const NSString *UNIT_INFO_CACHE_FILE = @"unit-%@.cache";
 static const uint UNIT_INFO_LIFETIME = 43200;   // seconds, 0.5 day
+
+static const uint UNIT_INFO_CHECK_UPDATE_INTERVAL = 600;   // seconds, 10 min
+
+static const NSString *ORIGINS_FILE = @"origins.data";
 
 static const NSString *UNITS_BY_ORIGIN_CACHE_FILE = @"units-by-origin-%@.cache";
 static const NSString *UNIT_COUNT_BY_ORIGIN_CACHE_FILE = @"unit-count-by-origin.cache";
@@ -39,8 +50,6 @@ static const NSString *UNIT_COUNT_BY_ORIGIN_CACHE_FILE = @"unit-count-by-origin.
         } else {
             [self.communicator fetchHomeInfo];
         }
-        
-        
     }
 }
 
@@ -60,17 +69,60 @@ static const NSString *UNIT_COUNT_BY_ORIGIN_CACHE_FILE = @"unit-count-by-origin.
     [self.communicator fetchVideoList:gdCategory pageSize:pageSize pageIndex:pageIndex];
 }
 
-- (void)fetchUnitInfo:(NSString *)unitId {
-    [self.communicator fetchUnitInfo:unitId];
+- (void)fetchUnitInfo:(NSString *)unitId force:(BOOL)force {
+    if (force) {
+        [self.communicator fetchUnitInfo:unitId];
+    } else {
+        NSURL *cachedFile = [GDAppUtility pathForDocumentsFile:[NSString stringWithFormat:[UNIT_INFO_CACHE_FILE copy], unitId]];
+        UnitInfo *cachedUnitInfo= [UnitInfo objectWithContentsOfFile:cachedFile.path];
+        if (cachedUnitInfo) {
+            [self.delegate didReceiveUnitInfo:cachedUnitInfo];
+            
+            if (fabs([cachedUnitInfo.generated timeIntervalSinceNow]) > UNIT_INFO_LIFETIME) {
+                // data expired, call API
+                [self.communicator fetchUnitInfo:unitId];
+            }
+        } else {
+            [self.communicator fetchUnitInfo:unitId];
+        }
+    }
 }
 
-- (void)fetchUnitCountByOrigin {
-    [self.communicator fetchUnitCountByOrigin];
+- (void)fetchUnitsByOrigin:(NSString *)origin force:(BOOL)force {
+    if (force) {
+        [self.communicator fetchUnitsByOrigin:origin];
+    } else {
+        NSURL *cachedFile = [GDAppUtility pathForDocumentsFile:[NSString stringWithFormat:[UNITS_BY_ORIGIN_CACHE_FILE copy], origin]];
+        UnitList *list = [UnitList objectWithContentsOfFile:cachedFile.path];
+        if (list) {
+            [self.delegate didReceiveUnitList:list ofOrigin:origin];
+            
+            if (fabs([list.generated timeIntervalSinceNow]) > UNIT_INFO_LIFETIME) {
+                [self.communicator fetchUnitsByOrigin:origin];
+            }
+        } else {
+            [self.communicator fetchUnitsByOrigin:origin];
+        }
+    }
 }
 
-- (void)fetchUnitsByOrigin:(NSString *)origin; {
-    [self.communicator fetchUnitsByOrigin:origin];
+- (NSArray *)getUnitOrigins {
+    // read the file
+    NSURL *originsURL = [GDAppUtility pathForDocumentsFile:[ORIGINS_FILE copy]];
+    NSArray *allOrigins = [NSArray objectWithContentsOfFile:originsURL.path];
+
+    if (!allOrigins) {
+        // no file, use built in
+        allOrigins = [OriginInfo builtInOrigins];
+    }
+    
+    return allOrigins;
 }
+
+- (void)checkForOriginUpdate {
+    
+}
+
 
 #pragma mark - GDCommunicatorDelegate
 // home
@@ -106,16 +158,16 @@ static const NSString *UNIT_COUNT_BY_ORIGIN_CACHE_FILE = @"unit-count-by-origin.
 }
 
 // post info error
-- (void) fetchPostInfoFailedWithError:(NSError *)error {
+- (void)fetchPostInfoFailedWithError:(NSError *)error {
     [self.delegate fetchingPostInfoWithError:error];
 }
 
 // search unit
 - (void)receivedUnitSearchResultsJSON:(NSData *)objectNotation {
     NSError *error;
-    NSArray *units = [GDInfoBuilder unitInfoListFromJSON:objectNotation error:&error];
+    UnitList *list = [GDInfoBuilder unitListFromJSON:objectNotation error:&error];
     
-    [self.delegate didReceiveUnitSearchResults:units];
+    [self.delegate didReceiveUnitSearchResults:list.units];
 }
 
 // search unit error
@@ -159,6 +211,9 @@ static const NSString *UNIT_COUNT_BY_ORIGIN_CACHE_FILE = @"unit-count-by-origin.
     if (error) {
         [self.delegate fetchUnitInfoWithError:error];
     } else {
+        NSURL *cachedFile = [GDAppUtility pathForDocumentsFile:[NSString stringWithFormat:[UNIT_INFO_CACHE_FILE copy], unitInfo.unitId]];
+        [unitInfo writeToFile:cachedFile.path atomically:YES];
+        
         [self.delegate didReceiveUnitInfo:unitInfo];
     }
 }
@@ -168,38 +223,34 @@ static const NSString *UNIT_COUNT_BY_ORIGIN_CACHE_FILE = @"unit-count-by-origin.
     [self.delegate fetchUnitInfoWithError:error];
 }
 
-// unit count by origin
-- (void)receivedUnitCountByOriginJSON:(NSData *)objectNotation {
-    NSError *error;
-    NSDictionary *unitCountByOrigin = [GDInfoBuilder unitCountByOriginFromJSON:objectNotation error:&error];
-    
-    if (error) {
-        [self.delegate fetchUnitCountByOriginWithError:error];
-    } else {
-        [self.delegate didReceiveUnitCountByOrigin:unitCountByOrigin];
-    }
-}
-
-// unit count by origin error
-- (void)fetchUnitCountByOriginFailedWithError:(NSError *)error {
-    [self.delegate fetchUnitCountByOriginWithError:error];
-}
-
 // units by origin
 - (void)receivedUnitsOfOriginJSON:(NSData *)objectNotation {
     NSError *error;
-    NSArray *units = [GDInfoBuilder unitInfoListFromJSON:objectNotation error:&error];
+    UnitList *list = [GDInfoBuilder unitListFromJSON:objectNotation error:&error];
     
     if (error) {
         [self.delegate fetchUnitsByOriginWithError:error];
     } else {
-        [self.delegate didReceiveUnitsOfOrigin:units];
+        NSURL *cachedFile = [GDAppUtility pathForDocumentsFile:[NSString stringWithFormat:[UNITS_BY_ORIGIN_CACHE_FILE copy], list.origin]];
+        [list writeToFile:cachedFile.path atomically:YES];
+
+        [self.delegate didReceiveUnitList:list ofOrigin:list.origin];
     }
 }
 
 // units by origin error
 - (void)fetchUnitsByOriginFailedWithError:(NSError *)error {
     [self.delegate fetchUnitsByOriginWithError:error];
+}
+
+// has new origin
+- (void)receivedHasNewOriginJSON:(NSData *)objectNotation {
+    // TODO: if updated, update local caching file, and mark "Unit" tab a badge
+}
+
+// has new origin error
+- (void)invokeHasNewOriginFailedWithError:(NSError *)error {
+    
 }
 
 @end

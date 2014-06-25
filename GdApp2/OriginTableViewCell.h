@@ -9,13 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "ABTableViewCell.h"
 
-@interface OriginTableViewCell : ABTableViewCell {
-    NSString *originTitle;
-    NSString *originShortTitle;
+@interface OriginTableViewCell : UITableViewCell {
     UIImage *originImage;
     NSAttributedString *unitCountAttrStr;
+    
+    UIView *contentView;
 }
 
 @property (nonatomic, strong) NSString *originIndex;
+@property (nonatomic, strong) NSString *originTitle;
 @property (nonatomic) uint unitCount;
+
+- (void)drawContentView:(CGRect)rect;
 @end

@@ -7,18 +7,21 @@
 //
 
 #import "OriginListViewController.h"
-#import "GundamOrigin.h"
 #import "OriginTableViewCell.h"
+
 #import "GDManager.h"
 #import "GDManagerFactory.h"
+
 #import "UnitsByOriginViewController.h"
+
+#import "OriginInfo.h"
 
 @interface OriginListViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *originListView;
 
-@property (strong, nonatomic) NSDictionary *origins;
-@property (strong, nonatomic) NSDictionary *unitCountByOrigin;
+@property (strong, nonatomic) NSArray *origins;
+// @property (strong, nonatomic) NSDictionary *unitCountByOrigin;
 
 @property (strong, nonatomic) GDManager *manager;
 
@@ -37,31 +40,29 @@ static const CGFloat CELL_HEIGHT = 98;
     return _manager;
 }
 
-- (void)setUnitCountByOrigin:(NSDictionary *)unitCountByOrigin {
-    _unitCountByOrigin = unitCountByOrigin;
-    [self.originListView reloadData];
+- (NSArray *)origins {
+    if (!_origins) {
+        _origins = [[self.manager getUnitOrigins] copy];
+    }
+    return _origins;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.manager fetchUnitCountByOrigin];
-    
     [self.originListView registerClass:[OriginTableViewCell class] forCellReuseIdentifier:[CELL_IDENTIFIER copy]];
     
-    // self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_honeycomb"]];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_honeycomb"]];
     
     // bounce background color
-    CGRect viewFrame = self.view.frame;
-    UIView *topview = [[UIView alloc] initWithFrame:CGRectMake(0, -viewFrame.size.height, viewFrame.size.width, viewFrame.size.height)];
-    topview.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_honeycomb"]];
-    [self.originListView addSubview:topview];
-    
-    UIView *bottomview = [[UIView alloc] initWithFrame:CGRectMake(0, [GundamOrigin origins].count * CELL_HEIGHT, viewFrame.size.width, viewFrame.size.height)];
-    bottomview.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_honeycomb"]];
-    [self.originListView addSubview:bottomview];
-    
-//    [self setNeedsStatusBarAppearanceUpdate];
+//    CGRect viewFrame = self.view.frame;
+//    UIView *topview = [[UIView alloc] initWithFrame:CGRectMake(0, -viewFrame.size.height, viewFrame.size.width, viewFrame.size.height)];
+//    topview.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_honeycomb"]];
+//    [self.originListView addSubview:topview];
+//    
+//    UIView *bottomview = [[UIView alloc] initWithFrame:CGRectMake(0, self.origins.count * CELL_HEIGHT, viewFrame.size.width, viewFrame.size.height)];
+//    bottomview.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_honeycomb"]];
+//    [self.originListView addSubview:bottomview];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -75,10 +76,6 @@ static const CGFloat CELL_HEIGHT = 98;
     
     [MobClick endLogPageView:@"作品列表"];
 }
-
-//- (UIStatusBarStyle)preferredStatusBarStyle {
-//    return UIStatusBarStyleLightContent;
-//}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"ViewUnitsByOrigin"]) {
@@ -98,21 +95,22 @@ static const CGFloat CELL_HEIGHT = 98;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    originIndexForSegue = [[GundamOrigin origins] objectAtIndex:indexPath.row];
+    originIndexForSegue = ((OriginInfo *)[self.origins objectAtIndex:indexPath.row]).originIndex;
     [self performSegueWithIdentifier:@"ViewUnitsByOrigin" sender:self];
 }
 
 #pragma mark - UITableViewDataSource
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     OriginTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[CELL_IDENTIFIER copy]];
+    
     if (cell) {
         [cell prepareForReuse];
         
-        NSString *originIndex = [[GundamOrigin origins] objectAtIndex:indexPath.row];
-        cell.originIndex = originIndex;
-        if (self.unitCountByOrigin) {
-            cell.unitCount = [[self.unitCountByOrigin objectForKey:originIndex] unsignedIntValue];
-        }
+        OriginInfo *origin = (OriginInfo *)[self.origins objectAtIndex:indexPath.row];
+        cell.originIndex = origin.originIndex;
+        cell.originTitle = origin.title;
+        cell.unitCount = origin.numberOfUnits;
+
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
@@ -120,20 +118,11 @@ static const CGFloat CELL_HEIGHT = 98;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [GundamOrigin origins].count;
+    return self.origins.count;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
-}
-
-#pragma mark - GDManagerDelegate
-- (void)didReceiveUnitCountByOrigin:(NSDictionary *)unitCountByOrigin {
-    self.unitCountByOrigin = unitCountByOrigin;
-}
-
-- (void)fetchUnitCountByOriginWithError:(NSError *)error {
-    
 }
 
 @end

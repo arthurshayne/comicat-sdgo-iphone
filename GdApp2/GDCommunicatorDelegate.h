@@ -27,9 +27,12 @@
 - (void)receivedUnitInfoJSON:(NSData *)objectNotation;
 - (void)fetchUnitInfoFailedWithError:(NSError *)error;
 
-- (void)receivedUnitCountByOriginJSON:(NSData *)objectNotation;
-- (void)fetchUnitCountByOriginFailedWithError:(NSError *)error;
+//- (void)receivedUnitCountByOriginJSON:(NSData *)objectNotation;
+//- (void)fetchUnitCountByOriginFailedWithError:(NSError *)error;
 
 - (void)receivedUnitsOfOriginJSON:(NSData *)objectNotation;
 - (void)fetchUnitsByOriginFailedWithError:(NSError *)error;
+
+- (void)receivedHasNewOriginJSON:(NSData *)objectNotation;
+- (void)invokeHasNewOriginFailedWithError:(NSError *)error;
 @end

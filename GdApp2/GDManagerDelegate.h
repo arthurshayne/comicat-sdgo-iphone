@@ -10,6 +10,7 @@
 #import "HomeInfo.h"
 #import "PostInfo.h"
 #import "UnitInfo.h"
+#import "UnitList.h"
 
 @protocol GDManagerDelegate <NSObject>
 @optional
@@ -19,13 +20,13 @@
 - (void)didReceivePostInfo:(PostInfo *)postInfo;
 - (void)fetchingPostInfoWithError:(NSError *)error;
 
-- (void)didReceiveUnitSearchResults:(NSArray *)units;    /*Array of UnitInfoShort*/
+- (void)didReceiveUnitSearchResults:(NSArray *)units;
 - (void)searchUnitsWithError:(NSError *)error;
 
-- (void)didReceivePostList:(NSArray *)posts ofGdCategory:(uint)category;    /*Array of PostInfo*/
+- (void)didReceivePostList:(NSArray *)posts ofGdCategory:(uint)category;
 - (void)fetchPostListWithError:(NSError *)error;
 
-- (void)didReceiveVideoList:(NSArray *)posts ofGdCategory:(uint)category;    /*Array of PostInfo*/
+- (void)didReceiveVideoList:(NSArray *)posts ofGdCategory:(uint)category;
 - (void)fetchVideoListWithError:(NSError *)error;
 
 - (void)didReceiveUnitInfo:(UnitInfo *)unitInfo;
@@ -34,7 +35,7 @@
 - (void)didReceiveUnitCountByOrigin:(NSDictionary *)unitCountByOrigin;
 - (void)fetchUnitCountByOriginWithError:(NSError *)error;
 
-- (void)didReceiveUnitsOfOrigin:(NSArray *)units; /* Array of UnitInfoShort */
+- (void)didReceiveUnitList:(UnitList *)list ofOrigin:(NSString *)origin;
 - (void)fetchUnitsByOriginWithError:(NSError *)error;
 
 @end

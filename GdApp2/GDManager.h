@@ -20,7 +20,12 @@
 - (void)searchUnitsWithKeyword:(NSString *)keyword;
 - (void)fetchPostListOfCategory:(uint)gdCategory pageSize:(uint)pageSize pageIndex:(uint)pageIndex;
 - (void)fetchVideoListOfCategory:(uint)gdCategory pageSize:(uint)pageSize pageIndex:(uint)pageIndex;
-- (void)fetchUnitInfo:(NSString *)unitId;
-- (void)fetchUnitCountByOrigin;
-- (void)fetchUnitsByOrigin:(NSString *)origin;
+- (void)fetchUnitInfo:(NSString *)unitId force:(BOOL)force;
+- (void)fetchUnitsByOrigin:(NSString *)origin force:(BOOL)force;
+
+- (NSArray *)getUnitOrigins;
+
+// check if new origin appears
+- (void)checkForOriginUpdate;
+
 @end

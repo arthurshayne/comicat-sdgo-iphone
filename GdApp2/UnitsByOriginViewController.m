@@ -7,13 +7,17 @@
 //
 
 #import "UnitsByOriginViewController.h"
-#import "GundamOrigin.h"
+
+#import "MBProgressHUD.h"
+#import "UIScrollView+GDPullToRefresh.h"
+#import "SVPullToRefresh.h"
 
 #import "GDManagerFactory.h"
 #import "GDManager.h"
 
 #import "UnitInfoShort.h"
 #import "UnitViewController.h"
+#import "OriginInfo.h"
 
 #import "GDUnitCollectionViewCell2.h"
 
@@ -34,7 +38,9 @@ static const NSString *CELL_IDENTIFIER = @"UnitCell";
 - (void)viewDidLoad {
     [self.unitsView registerClass:[GDUnitCollectionViewCell2 class] forCellWithReuseIdentifier:[CELL_IDENTIFIER copy]];
     
-    self.unitsView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_honeycomb"]];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_honeycomb"]];
+    
+    [self configurePullToRefresh];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -60,11 +66,15 @@ static const NSString *CELL_IDENTIFIER = @"UnitCell";
 
 - (void)setOrigin:(NSString *)origin {
     _origin = origin;
-    self.originTitle = [[GundamOrigin originTitles] objectForKey:origin];
-    self.navigationItem.title = [[GundamOrigin originShortTitles] objectForKey:origin];
     
-    [self.manager fetchUnitsByOrigin:_origin];
+    [MBProgressHUD showHUDAddedTo:self.view animated:NO];
+    
+    [self.manager fetchUnitsByOrigin:origin force:NO];
+}
 
+- (void)setOriginShortTitle:(NSString *)originShortTitle {
+    _originShortTitle =  originShortTitle;
+    self.navigationItem.title = originShortTitle;
 }
 
 - (GDManager *)manager {
@@ -74,14 +84,36 @@ static const NSString *CELL_IDENTIFIER = @"UnitCell";
     return _manager;
 }
 
-- (void)didReceiveUnitsOfOrigin:(NSArray *)unitsOfOrigin {
-    units = unitsOfOrigin;
+- (void)didReceiveUnitList:(UnitList *)list ofOrigin:(NSString *)origin {
+    [self stopAllLoadingAnimations];
+    units = list.units;
     
     [self.unitsView reloadData];
 }
 
 - (void)fetchUnitsByOriginWithError:(NSError *)error {
-    [GDAppUtility alertError:error alertTitle:@"网络不给力啊"];
+    [self stopAllLoadingAnimations];
+    [GDAppUtility alertError:error alertTitle:@"数据加载失败"];
+}
+
+- (void)configurePullToRefresh {
+    [self.unitsView addGDPullToRefreshWithActionHandler:^{
+        BOOL shouldForce = lastPullToRefresh && fabs([lastPullToRefresh timeIntervalSinceNow]) < 10;
+        [self.manager fetchUnitsByOrigin:self.origin force:shouldForce];
+        if (shouldForce) {
+            lastPullToRefresh = nil;
+        } else {
+            lastPullToRefresh = [NSDate date];
+        }
+        
+    }];
+}
+
+- (void)stopAllLoadingAnimations {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.unitsView.pullToRefreshView stopAnimating];
+        [MBProgressHUD hideHUDForView:self.view animated:NO];
+    });
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -95,8 +127,6 @@ static const NSString *CELL_IDENTIFIER = @"UnitCell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UnitInfo *unit = (UnitInfo *)[units objectAtIndex:indexPath.row];
-    
-    
     
     GDUnitCollectionViewCell2 *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[CELL_IDENTIFIER copy] forIndexPath:indexPath];
     
