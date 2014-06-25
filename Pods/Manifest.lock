@@ -1,5 +1,12 @@
 PODS:
-  - GBInfiniteScrollView (1.1)
+  - FXPageControl (1.3.2)
+  - GBInfiniteScrollView (1.6):
+    - GBInfiniteScrollView/Core
+    - GBInfiniteScrollView/PageControl
+  - GBInfiniteScrollView/Core (1.6)
+  - GBInfiniteScrollView/PageControl (1.6):
+    - FXPageControl (~> 1.3.2)
+    - GBInfiniteScrollView/Core
   - MBProgressHUD (0.8)
   - SDWebImage (3.6):
     - SDWebImage/Core
@@ -13,9 +20,10 @@ DEPENDENCIES:
   - SVPullToRefresh (~> 0.4.1)
 
 SPEC CHECKSUMS:
-  GBInfiniteScrollView: fca33aa7d9cf47465663eb9200a455706f5218f9
-  MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
-  SDWebImage: 7eb273e54ca8a2e506ad9bd5e80c35b2a4d7c95e
-  SVPullToRefresh: 61a0e4bd12bd6f8e3465909810b0fbeb1a28d5f2
+  FXPageControl: f0e43e4773e266cfafef6cf251de2d2560c656a9
+  GBInfiniteScrollView: 474547947818edddb7f733c9f4f4a9164f9564e7
+  MBProgressHUD: c356980b0cd097f19acec959b49dca5eb8ec31be
+  SDWebImage: c6989652c1cdf27cbdf3f56957e2030f825af5bc
+  SVPullToRefresh: d5161ebc833a38b465364412e5e307ca80bbb190
 
 COCOAPODS: 0.32.1

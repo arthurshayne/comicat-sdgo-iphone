@@ -1,7 +1,7 @@
 GBInfiniteScrollView
 ========================
 
-`GBInfiniteScrollView` class provides an endlessly scroll view organized in pages. It is a subclass of `UIScrollView`, which allows users to scroll infinitely in the horizontal direction. `GBInfiniteScrollView` also provides automatic scrolling feature.
+`GBInfiniteScrollView` class provides an endlessly scroll view organized in pages. It is a subclass of `UIScrollView`, which allows users to scroll infinitely in horizontal and vertical direction. `GBInfiniteScrollView` also provides automatic scrolling feature.
 
 A `GBInfiniteScrollView` object must have an object that acts as a data source and an object that acts as a delegate. The data source must adopt the `GBInfiniteScrollViewDataSource` protocol and the delegate must adopt the `GBInfiniteScrollViewDelegate` protocol. The data source provides the views that `GBInfiniteScrollView` needs to display. The delegate allows the adopting delegate to respond to scrolling operations.
 
@@ -16,7 +16,7 @@ It is based on Apple StreetScroller iOS sample code.
 
 ## Requirements
 
-`GBInfiniteScrollView` works on iOS 7 SDK or later and is compatible with ARC projects.
+`GBInfiniteScrollView` works on iOS 6.1 SDK or later and is compatible with ARC projects.
 
 ## Adding GBInfiniteScrollView to your project
 
@@ -24,9 +24,15 @@ It is based on Apple StreetScroller iOS sample code.
 
 [CocoaPods](http://cocoapods.org) is the recommended way to add GBInfiniteScrollView to your project.
 
-1. Add a pod entry for `GBInfiniteScrollView` to your Podfile `pod 'GBInfiniteScrollView', '~> 1.0'`
+1. Add a pod entry for `GBInfiniteScrollView` to your Podfile `pod 'GBInfiniteScrollView', '~> 1.5'`
 2. Install the pod(s) by running `pod install`.
-3. Include GBInfiniteScrollView wherever you need it with #import <GBInfiniteScrollView/GBInfiniteScrollView.h>
+3. Include GBInfiniteScrollView wherever you need it with `#import <GBInfiniteScrollView/GBInfiniteScrollView.h>`.
+
+For the page control subclass.
+
+1. Add a pod entry for `GBInfiniteScrollView/PageControl` to your Podfile `pod 'GBInfiniteScrollView/PageControl'`
+2. Install the pod(s) by running `pod install`.
+3. Include GBInfiniteScrollViewWithPageControl wherever you need it with `#import <GBInfiniteScrollView/GBInfiniteScrollViewWithPageControl.h>`.
 
 ### Source files
 
@@ -115,7 +121,9 @@ Finally, implement the `GBInfiniteScrollViewDataSource` and `GBInfiniteScrollVie
 }
 ```
 
-##License (MIT)
+## License
+
+The MIT License (MIT)
 
 Copyright (c) 2013 Gerardo Blanco
 

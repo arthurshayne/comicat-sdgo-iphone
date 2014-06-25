@@ -6,11 +6,29 @@
 // project.
 
 
+// FXPageControl
+#define COCOAPODS_POD_AVAILABLE_FXPageControl
+#define COCOAPODS_VERSION_MAJOR_FXPageControl 1
+#define COCOAPODS_VERSION_MINOR_FXPageControl 3
+#define COCOAPODS_VERSION_PATCH_FXPageControl 2
+
 // GBInfiniteScrollView
 #define COCOAPODS_POD_AVAILABLE_GBInfiniteScrollView
 #define COCOAPODS_VERSION_MAJOR_GBInfiniteScrollView 1
-#define COCOAPODS_VERSION_MINOR_GBInfiniteScrollView 1
+#define COCOAPODS_VERSION_MINOR_GBInfiniteScrollView 6
 #define COCOAPODS_VERSION_PATCH_GBInfiniteScrollView 0
+
+// GBInfiniteScrollView/Core
+#define COCOAPODS_POD_AVAILABLE_GBInfiniteScrollView_Core
+#define COCOAPODS_VERSION_MAJOR_GBInfiniteScrollView_Core 1
+#define COCOAPODS_VERSION_MINOR_GBInfiniteScrollView_Core 6
+#define COCOAPODS_VERSION_PATCH_GBInfiniteScrollView_Core 0
+
+// GBInfiniteScrollView/PageControl
+#define COCOAPODS_POD_AVAILABLE_GBInfiniteScrollView_PageControl
+#define COCOAPODS_VERSION_MAJOR_GBInfiniteScrollView_PageControl 1
+#define COCOAPODS_VERSION_MINOR_GBInfiniteScrollView_PageControl 6
+#define COCOAPODS_VERSION_PATCH_GBInfiniteScrollView_PageControl 0
 
 // MBProgressHUD
 #define COCOAPODS_POD_AVAILABLE_MBProgressHUD

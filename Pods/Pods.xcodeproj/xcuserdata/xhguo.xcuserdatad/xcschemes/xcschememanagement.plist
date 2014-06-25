@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Pods-FXPageControl.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-GBInfiniteScrollView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,27 +37,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>122A32C858AB49DD8DDF78A3</key>
+		<key>2211F932492249C88912F989</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>32667AC3A59D447CA98484B1</key>
+		<key>60D241A59ECE4444A5B2643C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7E712E8C24C6492F9CD11613</key>
+		<key>617F65835DC0421CA3E8B57F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>940014B10E8341B699842F8C</key>
+		<key>6323D206E1084234B82A44F5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>94CC3D5CA79A4C58AB72A7C8</key>
+		<key>A5BCA8BB72F84C0AB4457EAE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E8D5D42D09054D0E88EC8511</key>
 		<dict>
 			<key>primary</key>
 			<true/>

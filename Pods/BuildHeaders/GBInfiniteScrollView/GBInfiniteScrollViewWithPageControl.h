@@ -1,0 +1,1 @@
+../../GBInfiniteScrollView/GBInfiniteScrollView/GBInfiniteScrollView/Optional/PageControlSubClass/GBInfiniteScrollViewWithPageControl.h
