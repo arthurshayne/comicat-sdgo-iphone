@@ -48,6 +48,7 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *postListCollectionView;
 @property (weak, nonatomic) IBOutlet UICollectionView *unitsCollectionView;
 
+@property (weak, nonatomic) IBOutlet UIButton *searchUnitButton;
 @property (strong, nonatomic) NSMutableArray *postListCellBorders;
 @property (strong, nonatomic) NSMutableArray *unitListCellBorders;
 @end
@@ -68,28 +69,20 @@ const CGFloat UNIT_CELL_WIDTH = 90;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.carouselLabel.textColor = [UIColor whiteColor];
-    self.carouselLabel.backgroundColor = [UIColor blackColor];
-    self.carouselLabel.opaque = false;
-    self.carouselLabel.alpha = 0.7;
-    [self.carouselLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
-    [self.carouselLabel setFont:[UIFont systemFontOfSize:14]];
+    [self configureUIControls];
     
     [self.videoListCollectionView registerClass:[GDVideoListCollectionViewCell class] forCellWithReuseIdentifier:@"VideoListCell"];
     [self.postListCollectionView registerClass:[GDPostListCollectionViewCell class] forCellWithReuseIdentifier:@"PostListCell"];
     [self.unitsCollectionView registerClass:[GDUnitCollectionViewCell class] forCellWithReuseIdentifier:@"UnitListCell"];
     
     [self configurePullToRefresh];
-    // self.rootScrollView.showsPullToRefresh = NO;
     [self.manager fetchHomeInfo:NO];
     [MBProgressHUD showHUDAddedTo:self.view animated:NO];
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
-
+    
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -106,6 +99,20 @@ const CGFloat UNIT_CELL_WIDTH = 90;
 
     [MobClick endLogPageView:@"首页"];
     [self.infiniteScrollView stopAutoScroll];
+}
+
+- (void)configureUIControls {
+    self.carouselLabel.textColor = [UIColor whiteColor];
+    self.carouselLabel.backgroundColor = [UIColor blackColor];
+    self.carouselLabel.opaque = false;
+    self.carouselLabel.alpha = 0.7;
+    [self.carouselLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
+    [self.carouselLabel setFont:[UIFont systemFontOfSize:14]];
+    
+
+    [self.searchUnitButton setTitleColor:[GDAppUtility appTintColor] forState:UIControlStateNormal];
+    [self.searchUnitButton setTitleColor:[GDAppUtility appTintColorHighlighted] forState:UIControlStateHighlighted];
+    [self.searchUnitButton setImage:[UIImage imageNamed:@"search-button-hl"] forState:UIControlStateHighlighted];
 }
 
 - (void)prepareCarousel {

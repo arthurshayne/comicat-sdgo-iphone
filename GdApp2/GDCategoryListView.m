@@ -67,7 +67,6 @@ const CGFloat GD_CATEGORY_ITEM_MARGIN = 5;
     } else {
         self.categorySelection.hidden = YES;
     }
-
 }
 
 - (id)initWithFrame:(CGRect)frame {
@@ -85,8 +84,8 @@ const CGFloat GD_CATEGORY_ITEM_MARGIN = 5;
         // self.showAllButton.backgroundColor = [Utility UIColorFromRGB:0x999999];
         [self.showAllButton setTitle:@"显示全部" forState:UIControlStateNormal];
         [self.showAllButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
-        [self.showAllButton setTintColor:[GDAppUtility UIColorFromRGB:0xFF4A45]];
-        [self.showAllButton setTitleColor:[GDAppUtility UIColorFromRGB:0xFF4A45] forState:UIControlStateNormal];
+        [self.showAllButton setTitleColor:[GDAppUtility appTintColorHighlighted] forState:UIControlStateHighlighted];
+        [self.showAllButton setTitleColor:[GDAppUtility appTintColor] forState:UIControlStateNormal];
         
         [self.showAllButton addTarget:self action:@selector(tappedOnShowAll) forControlEvents:UIControlEventTouchUpInside];
         

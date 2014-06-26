@@ -12,6 +12,7 @@
 + (UIColor *)UIColorFromRGB:(int)rgbHex;
 + (NSString *)dateStringByDay:(NSDate *)date;
 + (UIColor *)appTintColor;
++ (UIColor *)appTintColorHighlighted;
 + (void)alertError:(NSError *)error alertTitle:(NSString *)title;
 
 + (NSURL *)pathForDocumentsFile:(NSString *)fileName;

@@ -44,6 +44,14 @@
     return appTintColor;
 }
 
++ (UIColor *)appTintColorHighlighted {
+    static UIColor *appTintColorHighlighted;
+    if (!appTintColorHighlighted) {
+        appTintColorHighlighted = [UIColor colorWithRed:252/255.0 green:219/255.0 blue:218/255.0 alpha:1];
+    }
+    return appTintColorHighlighted;
+}
+
 + (void)alertError:(NSError *)error alertTitle:(NSString *)title {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
                                                     message:[error localizedDescription]
