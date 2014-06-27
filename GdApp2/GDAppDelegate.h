@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GDManagerDelegate.h"
 
 @interface GDAppDelegate : UIResponder <UIApplicationDelegate>
 

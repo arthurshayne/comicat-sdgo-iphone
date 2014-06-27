@@ -14,6 +14,7 @@
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSString *shortTitle;
 @property (nonatomic) uint numberOfUnits;
+@property (nonatomic) uint displayOrder;
 
 + (OriginInfo *)originWithOriginIndex:(NSString *)originIndex title:(NSString *)title shortTitle:(NSString *)shortTitle numberOfUnits:(uint)numberOfUnits;
 

@@ -8,7 +8,23 @@
 
 #import "GDAppDelegate.h"
 
+#import "GDManager.h"
+#import "GDManagerFactory.h"
+
+@interface GDAppDelegate ()
+
+@property (strong, nonatomic) GDManager *manager;
+
+@end
+
 @implementation GDAppDelegate
+
+- (GDManager *)manager {
+    if (!_manager) {
+        _manager = [GDManagerFactory gdManagerWithDelegate:nil];
+    }
+    return _manager;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // configure UMeng
@@ -27,6 +43,14 @@
         [defaults synchronize];
     }
     
+    // check for unit origin update
+    [self.manager checkForOriginUpdate:NO];
+    
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        
+//    });
+
     return YES;
 }
 							
@@ -45,6 +69,8 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    
+    NSLog(@"applicationWillEnterForeground");
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

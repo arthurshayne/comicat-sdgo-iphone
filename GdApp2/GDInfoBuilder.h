@@ -11,6 +11,7 @@
 #import "PostInfo.h"
 #import "UnitInfo.h"
 #import "UnitList.h"
+#import "GDHasNewOriginResult.h"
 
 @interface GDInfoBuilder : NSObject
 + (HomeInfo *) homeInfoFromJSON: (NSData *)objectNotation error:(NSError **)error;
@@ -19,5 +20,5 @@
 + (NSArray *)postListFromJSON:(NSData *)objectNotation gdCategory:(int *)category error:(NSError **)error;
 + (NSArray *)videoListFromJSON:(NSData *)objectNotation gdCategory:(int *)category error:(NSError **)error;
 + (UnitInfo *)unitInfoFromJSON:(NSData *)objectNotation error:(NSError **)error;
-+ (NSDictionary *)unitCountByOriginFromJSON:(NSData *)objectNotation error:(NSError **)error;
++ (GDHasNewOriginResult *)hasNewOriginResultFromJSON:(NSData *)objectNotation error:(NSError **)error;
 @end

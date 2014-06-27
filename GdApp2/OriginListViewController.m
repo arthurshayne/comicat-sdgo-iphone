@@ -81,7 +81,8 @@ static const CGFloat CELL_HEIGHT = 98;
     if ([segue.identifier isEqualToString:@"ViewUnitsByOrigin"]) {
         if ([segue.destinationViewController isKindOfClass:[UnitsByOriginViewController class]]) {
             UnitsByOriginViewController *ubovc = (UnitsByOriginViewController *)segue.destinationViewController;
-            ubovc.origin = originIndexForSegue;
+            ubovc.origin = segueingOrigin.originIndex;
+            ubovc.originShortTitle = segueingOrigin.shortTitle;
             ubovc.hidesBottomBarWhenPushed = YES;
         }
     }
@@ -95,7 +96,9 @@ static const CGFloat CELL_HEIGHT = 98;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    originIndexForSegue = ((OriginInfo *)[self.origins objectAtIndex:indexPath.row]).originIndex;
+    OriginInfo *origin = (OriginInfo *)[self.origins objectAtIndex:indexPath.row];
+    segueingOrigin = origin;
+    
     [self performSegueWithIdentifier:@"ViewUnitsByOrigin" sender:self];
 }
 

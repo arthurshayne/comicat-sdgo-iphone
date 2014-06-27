@@ -19,6 +19,6 @@
 - (void)fetchPostList:(uint)gdCategory pageSize:(uint)pageSize pageIndex:(uint)pageIndex;
 - (void)fetchVideoList:(uint)gdCategory pageSize:(uint)pageSize pageIndex:(uint)pageIndex;
 - (void)fetchUnitInfo: (NSString *)unitId;
-- (void)fetchUnitCountByOrigin;
 - (void)fetchUnitsByOrigin:(NSString *)origin;
+- (void)hasNewOrigin:(uint)originCount;
 @end

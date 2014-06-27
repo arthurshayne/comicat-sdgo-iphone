@@ -49,4 +49,17 @@
             [OriginInfo originWithOriginIndex:@"22" title:@"高达创战者" shortTitle:@"BF" numberOfUnits:8], nil];
 }
 
+- (BOOL)isEqual:(id)object {
+    if ([object isKindOfClass:[self class]]) {
+        return false;
+    }
+    
+    OriginInfo *comparingObject = (OriginInfo *)object;
+    return [self.originIndex isEqual:comparingObject.originIndex] &&
+        [self.title isEqual:comparingObject.title] &&
+        [self.shortTitle isEqual:comparingObject.shortTitle] &&
+        self.numberOfUnits == comparingObject.numberOfUnits;
+    
+}
+
 @end

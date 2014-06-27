@@ -10,6 +10,7 @@
 #import "GDCommunicatorDelegate.h"
 #import "GDInfoBuilder.h"
 #import "OriginInfo.h"
+#import "GDHasNewOriginResult.h"
 
 @interface GDManager ()
 
@@ -27,9 +28,9 @@ static const uint HOME_CACHE_LIFETIME = 300; // seconds, 5 min
 static const NSString *UNIT_INFO_CACHE_FILE = @"unit-%@.cache";
 static const uint UNIT_INFO_LIFETIME = 43200;   // seconds, 0.5 day
 
-static const uint UNIT_INFO_CHECK_UPDATE_INTERVAL = 600;   // seconds, 10 min
+// static const uint UNIT_INFO_CHECK_UPDATE_INTERVAL = 600;   // seconds, 10 min
 
-static const NSString *ORIGINS_FILE = @"origins.data";
+static const NSString *ORIGINS_FILE = @"origins.cache";
 
 static const NSString *UNITS_BY_ORIGIN_CACHE_FILE = @"units-by-origin-%@.cache";
 static const NSString *UNIT_COUNT_BY_ORIGIN_CACHE_FILE = @"unit-count-by-origin.cache";
@@ -109,9 +110,12 @@ static const NSString *UNIT_COUNT_BY_ORIGIN_CACHE_FILE = @"unit-count-by-origin.
 - (NSArray *)getUnitOrigins {
     // read the file
     NSURL *originsURL = [GDAppUtility pathForDocumentsFile:[ORIGINS_FILE copy]];
-    NSArray *allOrigins = [NSArray objectWithContentsOfFile:originsURL.path];
-
-    if (!allOrigins) {
+    GDHasNewOriginResult *checkResult = [GDHasNewOriginResult objectWithContentsOfFile:originsURL.path];
+    
+    NSArray *allOrigins;
+    if (checkResult) {
+        allOrigins = checkResult.origins;
+    } else {
         // no file, use built in
         allOrigins = [OriginInfo builtInOrigins];
     }
@@ -119,7 +123,12 @@ static const NSString *UNIT_COUNT_BY_ORIGIN_CACHE_FILE = @"unit-count-by-origin.
     return allOrigins;
 }
 
-- (void)checkForOriginUpdate {
+- (void)checkForOriginUpdate:(BOOL)force {
+    if (force) {
+        [self.communicator hasNewOrigin:0];
+    } else {
+        [self.communicator hasNewOrigin:(uint)(self.getUnitOrigins.count)];
+    }
     
 }
 
@@ -235,6 +244,17 @@ static const NSString *UNIT_COUNT_BY_ORIGIN_CACHE_FILE = @"unit-count-by-origin.
         [list writeToFile:cachedFile.path atomically:YES];
 
         [self.delegate didReceiveUnitList:list ofOrigin:list.origin];
+        
+        // check if origin info is correct
+        uint numberOfUnits = (uint)list.units.count;
+        // find origin
+        for (OriginInfo *origin in [self getUnitOrigins]) {
+            if ([origin.originIndex isEqualToString:list.origin] &&
+                origin.numberOfUnits != numberOfUnits) {
+                [self checkForOriginUpdate:YES];
+                break;
+            }
+        }
     }
 }
 
@@ -246,11 +266,23 @@ static const NSString *UNIT_COUNT_BY_ORIGIN_CACHE_FILE = @"unit-count-by-origin.
 // has new origin
 - (void)receivedHasNewOriginJSON:(NSData *)objectNotation {
     // TODO: if updated, update local caching file, and mark "Unit" tab a badge
+    NSError *error;
+    GDHasNewOriginResult *result = [GDInfoBuilder hasNewOriginResultFromJSON:objectNotation error:&error];
+    
+    if (error) {
+        // do nothing
+    } else {
+        // has update
+        if (result.result && result.origins) {
+            NSURL *originsURL = [GDAppUtility pathForDocumentsFile:[ORIGINS_FILE copy]];
+            [result writeToFile:originsURL.path atomically:YES];
+        }
+    }
 }
 
 // has new origin error
 - (void)invokeHasNewOriginFailedWithError:(NSError *)error {
-    
+    // do nothing
 }
 
 @end

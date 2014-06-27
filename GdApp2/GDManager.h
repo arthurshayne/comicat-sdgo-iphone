@@ -26,6 +26,6 @@
 - (NSArray *)getUnitOrigins;
 
 // check if new origin appears
-- (void)checkForOriginUpdate;
+- (void)checkForOriginUpdate:(BOOL)force;
 
 @end

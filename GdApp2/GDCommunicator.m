@@ -117,17 +117,6 @@ static NSString *API_URL = @"http://www.sdgundam.cn/services/app.ashx";
                                }];
 }
 
-//- (void)fetchUnitCountByOrigin {
-//    [self.class requestAPIWithAction:@"unit-count-by-origin"
-//                               using:[NSDictionary dictionaryWithObjectsAndKeys:@"y", @"1", @"b", @"2", @"c", @"3", nil]
-//                             success:^(NSData *data) {
-//                                 [self.delegate receivedUnitCountByOriginJSON:data];
-//                             }
-//                               error:^(NSError *error) {
-//                                   [self.delegate fetchUnitCountByOriginFailedWithError:error];
-//                               }];
-//}
-
 - (void)fetchUnitsByOrigin:(NSString *)origin {
     [self.class requestAPIWithAction:@"units-by-origin"
                                using:[NSDictionary dictionaryWithObjectsAndKeys:origin, @"origin", @"1", @"p", nil]
@@ -143,10 +132,10 @@ static NSString *API_URL = @"http://www.sdgundam.cn/services/app.ashx";
     [self.class requestAPIWithAction:@"has-new-origin"
                                using:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d", originCount], @"origin-count", @"1", @"p", nil]
                              success:^(NSData *data) {
-                                 [self.delegate receivedUnitsOfOriginJSON:data];
+                                 [self.delegate receivedHasNewOriginJSON:data];
                              }
                                error:^(NSError *error) {
-                                   [self.delegate fetchUnitsByOriginFailedWithError:error];
+                                   [self.delegate invokeHasNewOriginFailedWithError:error];
                                }];
 
 }

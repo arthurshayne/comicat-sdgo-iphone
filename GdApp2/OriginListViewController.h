@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "GDManagerDelegate.h"
+#import "OriginInfo.h"
 
 @interface OriginListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, GDManagerDelegate> {
-    NSString *originIndexForSegue;
+    OriginInfo *segueingOrigin;
 }
 
 @end

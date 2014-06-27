@@ -15,6 +15,8 @@
 #import "PostInfo.h"
 #import "UnitInfoShort.h"
 #import "UnitInfo.h"
+#import "GDHasNewOriginResult.h"
+#import "OriginInfo.h"
 
 @interface GDInfoBuilder()
 +(NSDateFormatter *) dateFormatter;
@@ -299,6 +301,42 @@
     unit.videoList = posts;
 
     return unit;
+}
+
++ (GDHasNewOriginResult *)hasNewOriginResultFromJSON:(NSData *)objectNotation error:(NSError **)error {
+    NSError *tempError = nil;
+    NSDictionary *parsed = [NSJSONSerialization JSONObjectWithData:objectNotation
+                                                           options:0
+                                                             error: &tempError];
+    
+    if (tempError) {
+        *error = tempError;
+        return nil;
+    }
+    
+    GDHasNewOriginResult *result = [[GDHasNewOriginResult alloc] init];
+    
+    result.result = [(NSNumber *)[parsed objectForKey:@"result"] boolValue];
+    
+    NSArray *originsFromJSON = (NSArray *)[parsed objectForKey:@"origins"];
+    
+    if (originsFromJSON) {
+        NSMutableArray *origins = [[NSMutableArray alloc] init];
+        for (NSDictionary *d in originsFromJSON) {
+            OriginInfo *oi = [[OriginInfo alloc] init];
+            oi.originIndex = [d objectForKey:@"origin"];
+            oi.title = [d objectForKey:@"title"];
+            oi.shortTitle = [d objectForKey:@"shortTitle"];
+            oi.numberOfUnits = [(NSNumber *)[d objectForKey:@"units"] unsignedIntValue];
+            oi.displayOrder = [(NSNumber *)[d objectForKey:@"displayOrder"] unsignedIntValue];
+            
+            [origins addObject:oi];
+        }
+        
+        result.origins = origins;
+    }
+    
+    return result;
 }
 
 @end
