@@ -40,10 +40,8 @@
 }
 
 - (void) setTabBarTextColor:(UITabBarItem *)tabBarItem {
-    UIColor *tintColor = [UIColor colorWithRed:1 green:0.29 blue:0.27 alpha:1];
-    
     [tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor grayColor], NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
-    [tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:tintColor, NSForegroundColorAttributeName,nil] forState:UIControlStateHighlighted];
+    [tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[GDAppUtility appTintColor], NSForegroundColorAttributeName,nil] forState:UIControlStateHighlighted];
 }
 
 
