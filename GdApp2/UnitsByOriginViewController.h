@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "GDManagerDelegate.h"
 
-@interface UnitsByOriginViewController : UIViewController <GDManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout> {
+@interface UnitsByOriginViewController : UIViewController <GDManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate> {
     NSArray *units;
     NSString *unitIdForSegue;
     NSDate *lastPullToRefresh;

@@ -11,6 +11,7 @@
 #import "MBProgressHUD.h"
 #import "UIScrollView+GDPullToRefresh.h"
 #import "SVPullToRefresh.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 #import "GDManagerFactory.h"
 #import "GDManager.h"
@@ -131,8 +132,11 @@ static const NSString *CELL_IDENTIFIER = @"UnitCell";
     GDUnitCollectionViewCell2 *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[CELL_IDENTIFIER copy] forIndexPath:indexPath];
     
     [cell prepareForReuse];
+
+    if (!collectionView.isDecelerating) {
+        cell.unitId = unit.unitId;
+    }
     
-    cell.unitId = unit.unitId;
     cell.modelName = unit.modelName;
     
     return cell;
@@ -150,6 +154,18 @@ static const NSString *CELL_IDENTIFIER = @"UnitCell";
 
 - (CGSize)collectionView:(UICollectionView *)view layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return CGSizeMake(100, 135);
+}
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    NSArray *visibleIndexPaths = [self.unitsView indexPathsForVisibleItems];
+    [visibleIndexPaths enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSIndexPath *indexPath = (NSIndexPath *)obj;
+        UnitInfo *unit = (UnitInfo *)[units objectAtIndex:indexPath.row];
+        
+        GDUnitCollectionViewCell2 *cell = (GDUnitCollectionViewCell2 *)[self.unitsView cellForItemAtIndexPath:indexPath];
+        cell.unitId = unit.unitId;
+    }];
 }
 
 @end

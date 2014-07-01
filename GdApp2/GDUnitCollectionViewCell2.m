@@ -9,12 +9,6 @@
 #import "GDUnitCollectionViewCell2.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
-@interface GDUnitCollectionViewCell2()
-
-@property (strong, nonatomic) UIImage *unitImage;
-
-@end
-
 @implementation GDUnitCollectionViewCell2
 
 static const CGFloat UNIT_IMAGE_WIDTH = 79;
@@ -22,19 +16,37 @@ static const CGFloat UNIT_IMAGE_PADDING = 4;
 static const CGFloat TEXT_PADDING = 3;
 
 - (void)setUnitId:(NSString *)unitId {
-    NSURL *unitImageURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://cdn.sdgundam.cn/data-source/acc/unit-3g/%@.png", unitId]];
-    [[SDWebImageManager sharedManager] downloadWithURL:unitImageURL
-                                               options:0
-                                              progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-                                                  // progression tracking code
-                                              }
-                                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
-                                                 if (image && finished) {
-                                                     self.unitImage = image;
-                                                     [self setNeedsDisplay];
+    _unitId = unitId;
+    NSLog(@"setting: %@", unitId);
+    NSString *unitImageURLString = [NSString stringWithFormat:@"http://cdn.sdgundam.cn/data-source/acc/unit-3g/%@.png", unitId];
+    UIImage *image = [[SDWebImageManager sharedManager].imageCache imageFromDiskCacheForKey:unitImageURLString];
+    if (image) {
+        self.unitImage = image;
+        // [self setNeedsDisplay];
+    } else {
+        self.unitImage = nil;
+        [[SDWebImageManager sharedManager] downloadWithURL:[NSURL URLWithString:unitImageURLString]
+                                                   options:0
+                                                  progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+                                                      // progression tracking code
+                                                  }
+                                                 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
+                                                     if (image && finished) {
+                                                         NSLog(@"local: %@ self: %@", unitId, self.unitId);
+                                                         if ([unitId isEqualToString:self.unitId]) {
+                                                            self.unitImage = image;
+                                                         } else {
+                                                             self.unitImage = nil;
+                                                         }
+                                                     }
                                                  }
-                                             }
-     ];
+         ];
+    }
+}
+
+- (void)setUnitImage:(UIImage *)unitImage {
+    _unitImage = unitImage;
+    [self setNeedsDisplay];
 }
 
 - (id)initWithFrame:(CGRect)frame {
@@ -43,7 +55,6 @@ static const CGFloat TEXT_PADDING = 3;
         self.opaque = NO;
     }
     return self;
-    
 }
 
 - (void)prepareForReuse {
