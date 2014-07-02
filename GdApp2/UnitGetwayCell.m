@@ -147,7 +147,7 @@ const CGFloat CELL_PADDING_LEFT = 23;
     for (int i = 0; i < 5; i++) {
         NSString *mission = [unit valueForKey:[NSString stringWithFormat:@"mission%d", i + 1]];
         showMissions |= (mission.length > 0);
-        [missions insertObject:missions atIndex:i];
+        [missions insertObject:mission atIndex:i];
     }
     if (showMissions) {
         [result appendAttributedString:
