@@ -11,7 +11,6 @@
 #import "MBProgressHUD.h"
 #import "UIScrollView+GDPullToRefresh.h"
 #import "SVPullToRefresh.h"
-#import <SDWebImage/UIImageView+WebCache.h>
 
 #import "GDManagerFactory.h"
 #import "GDManager.h"
@@ -133,10 +132,8 @@ static const NSString *CELL_IDENTIFIER = @"UnitCell";
     
     [cell prepareForReuse];
 
-    if (!collectionView.isDecelerating) {
-        cell.unitId = unit.unitId;
-    }
-    
+    cell.showRemoteImage = !collectionView.isDecelerating;
+    cell.unitId = unit.unitId;
     cell.modelName = unit.modelName;
     
     return cell;
@@ -164,6 +161,7 @@ static const NSString *CELL_IDENTIFIER = @"UnitCell";
         UnitInfo *unit = (UnitInfo *)[units objectAtIndex:indexPath.row];
         
         GDUnitCollectionViewCell2 *cell = (GDUnitCollectionViewCell2 *)[self.unitsView cellForItemAtIndexPath:indexPath];
+        cell.showRemoteImage = YES;
         cell.unitId = unit.unitId;
     }];
 }

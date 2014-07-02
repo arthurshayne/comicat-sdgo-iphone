@@ -11,8 +11,9 @@
 @interface GDUnitCollectionViewCell2 : UICollectionViewCell
 
 @property (strong, nonatomic) NSString *unitId;
-@property (strong, nonatomic) UIImage *unitImage;
 @property (strong, nonatomic) NSString *modelName;
 @property (strong, nonatomic) NSString *rank;
+
+@property (nonatomic) BOOL showRemoteImage;
 
 @end
