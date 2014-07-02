@@ -10,10 +10,16 @@
 
 @interface GDAppUtility : NSObject
 + (UIColor *)UIColorFromRGB:(int)rgbHex;
+
 + (NSString *)dateStringByDay:(NSDate *)date;
+
 + (UIColor *)appTintColor;
 + (UIColor *)appTintColorHighlighted;
+
 + (void)alertError:(NSError *)error alertTitle:(NSString *)title;
 
 + (NSURL *)pathForDocumentsFile:(NSString *)fileName;
+
++ (NSURL *)URLForUnitImageOfUnitId:(NSString *)unitId;
++ (UIImage *)unitImageFromSDImageCache:(NSString *)unitId;
 @end

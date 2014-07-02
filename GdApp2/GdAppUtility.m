@@ -7,6 +7,7 @@
 //
 
 #import "GDAppUtility.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @implementation GDAppUtility
 
@@ -68,5 +69,16 @@
     
     return [documentPath URLByAppendingPathComponent:fileName];
 }
+
++ (NSURL *)URLForUnitImageOfUnitId:(NSString *)unitId {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"http://cdn.sdgundam.cn/data-source/acc/unit-3g/%@.png", unitId]];
+}
+
++ (UIImage *)unitImageFromSDImageCache:(NSString *)unitId {
+    NSURL *unitImageURL = [[self class] URLForUnitImageOfUnitId:unitId];
+    UIImage *image = [[SDWebImageManager sharedManager].imageCache imageFromDiskCacheForKey:unitImageURL.absoluteString];
+    return image;
+}
+
 
 @end

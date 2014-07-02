@@ -30,23 +30,40 @@ static const CGFloat UNIT_IMAGE_WIDTH = 77.5;
 }
 
 - (void)setUnitId:(NSString *)unitId {
-    NSURL *unitImageURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://cdn.sdgundam.cn/data-source/acc/unit-3g/%@.png", unitId]];
-    [[SDWebImageManager sharedManager] downloadWithURL:unitImageURL
-                                               options:0
-                                              progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-                                                  // progression tracking code
-                                              }
-                                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
-                                                 if (image && finished) {
-                                                     self.unitImage = image;
-                                                     [self setNeedsDisplay];
-                                                 }
-                                             }
-     ];
+    _unitId = unitId;
+    
+    if (![self displayCachedImageForUnitId:unitId]) {
+        [[SDWebImageManager sharedManager] downloadWithURL:[GDAppUtility URLForUnitImageOfUnitId:unitId]
+                                                                        options:0
+                                                                       progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+                                                                           // progression tracking code
+                                                                       }
+                                                                      completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
+                                                                          if (image && finished) {
+                                                                              self.unitImage = image;
+                                                                              [self setNeedsDisplay];
+                                                                          }
+                                                                      }
+                                                            ];
+    }
+}
+
+- (BOOL)displayCachedImageForUnitId:(NSString *)unitId {
+    UIImage *image = [GDAppUtility unitImageFromSDImageCache:unitId];
+    if (image) {
+        self.unitImage = image;
+        [self setNeedsDisplay];
+        return YES;
+    }
+    return NO;
 }
 
 - (void)prepareForReuse {
-    self.unitImage = nil;
+    [super prepareForReuse];
+    
+    _unitImage = nil;
+    
+    [self setNeedsDisplay];
 }
 
 - (void)drawRect:(CGRect)rect {
