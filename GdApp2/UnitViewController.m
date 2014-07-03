@@ -24,6 +24,7 @@
 #import "UnitGetwayCell.h"
 #import "UnitStoryCell.h"
 #import "GDVideoListCollectionViewCell.h"
+#import "NetworkErrorView.h"
 
 #import "GDVideoViewController.h"
 
@@ -189,6 +190,8 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
 #pragma mark - GDManagerDelegate
 
 - (void)didReceiveUnitInfo:(UnitInfo *)unitInfo {
+    [NetworkErrorView hideNEVForView:self.view];
+    
     [self stopAllLoadingAnimations];
     
     self.unitInfo = unitInfo;
@@ -220,7 +223,16 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
 - (void)fetchUnitInfoWithError:(NSError *)error {
     [self stopAllLoadingAnimations];
     
-    [GDAppUtility alertError:error alertTitle:@"数据加载失败"];
+    if (!self.unitInfo && [GDAppUtility isViewDisplayed:self.view]) {
+        [GDAppUtility alertError:error alertTitle:@"数据加载失败"];
+    }
+    
+    if (!self.unitInfo) {
+        [NetworkErrorView showNEVAddTo:self.view reloadCallback:^{
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            [self.manager fetchUnitInfo:self.unitId force:NO];
+        }];
+    }
 }
 
 - (void)segmentSwitched:(UISegmentedControl *)segment {

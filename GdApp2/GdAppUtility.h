@@ -22,4 +22,6 @@
 
 + (NSURL *)URLForUnitImageOfUnitId:(NSString *)unitId;
 + (UIImage *)unitImageFromSDImageCache:(NSString *)unitId;
+
++ (bool)isViewDisplayed:(UIView*)view;
 @end

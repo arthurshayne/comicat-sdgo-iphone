@@ -31,6 +31,7 @@
 #import "GDPostListCollectionViewCell.h"
 #import "GDUnitCollectionViewCell.h"
 #import "GDPostCategoryView.h"
+#import "NetworkErrorView.h"
 
 @interface GDHome2ViewController ()
 
@@ -76,10 +77,9 @@ const CGFloat UNIT_CELL_WIDTH = 90;
     [self.unitsCollectionView registerClass:[GDUnitCollectionViewCell class] forCellWithReuseIdentifier:@"UnitListCell"];
     
     [self configurePullToRefresh];
+    
     [self.manager fetchHomeInfo:NO];
     [MBProgressHUD showHUDAddedTo:self.view animated:NO];
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -246,6 +246,8 @@ const CGFloat UNIT_CELL_WIDTH = 90;
 #pragma mark - GDManagerDelegate
 
 - (void)didReceiveHomeInfo:(HomeInfo *)homeInfo {
+    [NetworkErrorView hideNEVForView:self.view];
+    
     self.homeInfo = homeInfo;
     
     [self prepareCarousel];
@@ -275,7 +277,19 @@ const CGFloat UNIT_CELL_WIDTH = 90;
 - (void)fetchingHomeInfoWithError:(NSError *)error {
     [self stopAllLoadingAnimations];
     
-    [GDAppUtility alertError:error alertTitle:@"数据加载失败"];
+    if ([GDAppUtility isViewDisplayed:self.view]) {
+        [GDAppUtility alertError:error alertTitle:@"数据加载失败"];
+    }
+    
+    if (!self.homeInfo) {
+        // NSLog(@"NO homeinfo");
+        // display network error view
+        __weak typeof(self) weakSelf = self;
+        [NetworkErrorView showNEVAddTo:self.view reloadCallback:^{
+            [weakSelf.manager fetchHomeInfo:NO];
+            [MBProgressHUD showHUDAddedTo:weakSelf.view animated:NO];
+        }];
+    }
 }
 
 - (void)stopAllLoadingAnimations {

@@ -20,6 +20,7 @@
 #import "OriginInfo.h"
 
 #import "GDUnitCollectionViewCell2.h"
+#import "NetworkErrorView.h"
 
 @interface UnitsByOriginViewController()
 
@@ -85,6 +86,8 @@ static const NSString *CELL_IDENTIFIER = @"UnitCell";
 }
 
 - (void)didReceiveUnitList:(UnitList *)list ofOrigin:(NSString *)origin {
+    [NetworkErrorView hideNEVForView:self.view];
+    
     [self stopAllLoadingAnimations];
     units = list.units;
     
@@ -93,7 +96,17 @@ static const NSString *CELL_IDENTIFIER = @"UnitCell";
 
 - (void)fetchUnitsByOriginWithError:(NSError *)error {
     [self stopAllLoadingAnimations];
-    [GDAppUtility alertError:error alertTitle:@"数据加载失败"];
+    
+    if (!units && [GDAppUtility isViewDisplayed:self.view]) {
+        [GDAppUtility alertError:error alertTitle:@"数据加载失败"];
+    }
+    
+    if (!units) {
+        [NetworkErrorView showNEVAddTo:self.view reloadCallback:^{
+            [self.manager fetchUnitsByOrigin:self.origin force:NO];
+            [MBProgressHUD showHUDAddedTo:self.view animated:NO];
+        }];
+    }
 }
 
 - (void)configurePullToRefresh {

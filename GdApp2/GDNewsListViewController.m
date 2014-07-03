@@ -17,6 +17,7 @@
 
 #import "GDPostListTableViewCell.h"
 #import "GDCategoryListView.h"
+#import "NetworkErrorView.h"
 
 #import "GDPostViewController.h"
 
@@ -174,6 +175,9 @@ static const NSString *CELL_IDENTIFIER = @"PostListTableCell";
 
 - (void)didReceivePostList:(NSArray *)posts ofGdCategory:(uint)category {
     NSLog(@"Category: %d", category);
+    
+    [NetworkErrorView hideNEVForView:self.view];
+    
     //NSLog(@"offset y:%f", self.postListTableView.contentOffset.y);
     //CGFloat scrollOffsetY = self.postListTableView.contentOffset.y;
     BOOL justReloaded = (self.posts == nil);
@@ -255,7 +259,16 @@ static const NSString *CELL_IDENTIFIER = @"PostListTableCell";
 - (void)fetchPostListWithError:(NSError *)error {
     [self stopAllLoadingAnimations];
     
-    [GDAppUtility alertError:error alertTitle:@"数据加载失败"];
+    if ([GDAppUtility isViewDisplayed:self.view]) {
+        [GDAppUtility alertError:error alertTitle:@"数据加载失败"];
+    }
+    
+    if (!self.posts) {
+        [NetworkErrorView showNEVAddTo:self.view reloadCallback:^{
+            [self loadDataOfcurrentGDCategory:NO];
+            [MBProgressHUD showHUDAddedTo:self.view animated:NO];
+        }];
+    }
 }
 
 #pragma mark - TableView DataSource

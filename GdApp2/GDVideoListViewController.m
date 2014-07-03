@@ -20,6 +20,7 @@
 #import "GDVideoListCollectionViewCell.h"
 #import "SVPTRView.h"
 #import "SVPTRLoadingView.h"
+#import "NetworkErrorView.h"
 
 #import "GDVideoViewController.h"
 
@@ -119,9 +120,9 @@ int postIdForSegue;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self prepareCategoryList];
-    
     [self switchGDCategory:0];
+    
+    [self prepareCategoryList];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -288,6 +289,8 @@ int postIdForSegue;
           ofGDCategory:(uint)gdCategory
           needToReload:(BOOL)reload {
     
+    [NetworkErrorView hideNEVForView:self.view];
+    
     UICollectionView *view = [self.videoListViews objectForKey:[self stringWithGDCategory:gdCategory]];
     
     if (reload) {
@@ -313,7 +316,16 @@ int postIdForSegue;
 - (void)dataSourceWithError:(NSError *)error {
     [self stopAllLoadingAnimations];
     
-    [GDAppUtility alertError:error alertTitle:@"数据加载失败"];
+    if ([GDAppUtility isViewDisplayed:self.view]) {
+        [GDAppUtility alertError:error alertTitle:@"数据加载失败"];
+    }
+    
+    [NetworkErrorView showNEVAddTo:self.view reloadCallback:^{
+        GDVideoListVCDataSource *ds = (GDVideoListVCDataSource *)[self.dataSources objectForKey:[self stringWithGDCategory:self.currentGDCategory]];
+        [ds reloadData];
+        
+        [MBProgressHUD showHUDAddedTo:self.view animated:NO];
+    }];
 }
 
 - (void)noMoreDataFromGDCategory:(unsigned int)gdCategory {

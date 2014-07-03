@@ -80,5 +80,13 @@
     return image;
 }
 
++ (bool)isViewDisplayed:(UIView*)view {
+    if (view.window) {
+        CGRect viewFrame = [view.window convertRect:view.frame fromView:view.superview];
+        CGRect screenFrame = view.window.bounds;
+        return CGRectIntersectsRect(viewFrame, screenFrame);
+    }
+    return false;
+}
 
 @end
