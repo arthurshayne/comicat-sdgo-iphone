@@ -81,6 +81,10 @@ static CGFloat CATEGORY_VIEW_HEIGHT = 15;
     return self;
 }
 
+- (void)setHighlighted:(BOOL)highlighted {
+    [super setHighlighted:highlighted];
+    [self setNeedsDisplay];
+}
 
 - (void)configureForPostInfo:(PostInfo *)post {
 //    self.title = post.title;
@@ -101,12 +105,12 @@ static CGFloat CATEGORY_VIEW_HEIGHT = 15;
     
     self.labelForTitle.text = post.title;
     
-    
     [self setNeedsDisplay];
-    
 }
 
 - (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
+    
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     
 //    CGContextMoveToPoint(ctx, 10, 10);
@@ -115,6 +119,13 @@ static CGFloat CATEGORY_VIEW_HEIGHT = 15;
 //    CGContextSetStrokeColorWithColor(ctx, [UIColor blackColor].CGColor);
 //    CGContextStrokePath(ctx);
     
+    if (self.isHighlighted) {
+        CGContextSetFillColorWithColor(ctx, [[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:0.9] CGColor]);
+        CGContextFillRect(ctx, rect);
+    } else {
+        CGContextSetFillColorWithColor(ctx, [[UIColor whiteColor] CGColor]);
+        CGContextFillRect(ctx, rect);
+    }
     
     UIColor *borderColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0.2];
     CGContextSetStrokeColorWithColor(ctx, borderColor.CGColor);

@@ -86,6 +86,11 @@ static CGFloat TITLE_LABEL_MARGIN = 4;
     return self;
 }
 
+- (void)setHighlighted:(BOOL)highlighted {
+    [super setHighlighted:highlighted];
+    [self setNeedsDisplay];
+}
+
 + (CGFloat)cellHeightForPostInfo:(PostInfo *)post {
     CGSize sizeThatFitsTitle = [GDPostListTableViewCell sizeThatFitsTitle:post.title];
     
@@ -122,8 +127,14 @@ static CGFloat TITLE_LABEL_MARGIN = 4;
 
 - (void)drawContentView:(CGRect)r {
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(ctx, [[UIColor whiteColor] CGColor]);
-    CGContextFillRect(ctx, r);
+    
+    if (self.isHighlighted) {
+        CGContextSetFillColorWithColor(ctx, [[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:0.9] CGColor]);
+        CGContextFillRect(ctx, r);
+    } else {
+        CGContextSetFillColorWithColor(ctx, [[UIColor whiteColor] CGColor]);
+        CGContextFillRect(ctx, r);
+    }
     
     [self.title drawInRect:CGRectMake(TITLE_LABEL_X, TITLE_LABEL_Y, TITLE_LABEL_WIDTH, 90)
             withAttributes:@{ NSFontAttributeName: [self.class fontForTitleLabel],
