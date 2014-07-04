@@ -15,11 +15,16 @@
 #import "GDManagerFactory.h"
 #import "GDManager.h"
 
+#import <AVFoundation/AVFoundation.h>
+#import <MediaPlayer/MediaPlayer.h>
+
+
 @interface GDVideoViewController ()
 
 @property (strong, nonatomic) GDManager *manager;
 
 @property (weak, nonatomic) IBOutlet UIWebView *videoPlayer;
+@property (strong, nonatomic) UIButton *backButton;
 
 @end
 
@@ -36,6 +41,22 @@
     return _manager;
 }
 
+- (UIButton *)backButton {
+    if (!_backButton) {
+        _backButton = [[UIButton alloc] initWithFrame:CGRectMake(14, 14, 25, 25)];
+        [_backButton setBackgroundImage:[UIImage imageNamed:@"back-button"] forState:UIControlStateNormal];
+        [_backButton setBackgroundImage:[UIImage imageNamed:@"back-button-hl"] forState:UIControlStateHighlighted];
+        [_backButton addTarget:self action:@selector(performGoBack:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:_backButton];
+    }
+    return _backButton;
+}
+
+- (void)performGoBack:(id)sender {
+    [[self navigationController] setNavigationBarHidden:NO animated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)setPostId:(int)postId {
     _postId = postId;
     
@@ -48,15 +69,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.navigationController.navigationBarHidden = NO;
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerStarted:) name:@"UIMoviePlayerControllerDidEnterFullscreenNotification" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerFinished:) name:@"UIMoviePlayerControllerDidExitFullscreenNotification" object:nil];
 
-    // prevents unneeded offset above the webview
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    [[self navigationController] setNavigationBarHidden:YES animated:YES];
+    [self setNeedsStatusBarAppearanceUpdate];
     
     [self configureAndLoadVideoPlayer];
+    
+    // add to view
+    [_backButton setBackgroundImage:[UIImage imageNamed:@"back-button"] forState:UIControlStateNormal];
+    [self.backButton setBackgroundImage:[UIImage imageNamed:@"back-button-hl"] forState:UIControlStateHighlighted];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -138,8 +161,14 @@
 
 - (void)didReceivePostInfo:(PostInfo *)returnedPostInfo {
     postInfo = returnedPostInfo;
-    
-    
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
 }
 
 /*

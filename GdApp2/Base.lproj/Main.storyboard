@@ -369,16 +369,16 @@
             </objects>
             <point key="canvasLocation" x="1304" y="-524"/>
         </scene>
-        <!--Video View Controller - 视频-->
+        <!--Video View Controller-->
         <scene sceneID="FHX-fo-FcE">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="xx8-lO-ygV" customClass="GDVideoViewController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="xx8-lO-ygV" customClass="GDVideoViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WpV-Mo-D9T">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" id="96L-M4-T4L">
-                                <rect key="frame" x="0.0" y="72" width="320" height="200"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <dataDetectorType key="dataDetectorTypes"/>
@@ -386,7 +386,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="视频" id="ZPh-PX-5Ij">
+                    <navigationItem key="navigationItem" id="ZPh-PX-5Ij">
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="WWP-nM-kAZ"/>
                     </navigationItem>
                     <connections>
@@ -395,7 +395,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Cs-Pu-rqy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1304" y="355"/>
+            <point key="canvasLocation" x="1309" y="356"/>
         </scene>
         <!--Post View Controller - 新闻-->
         <scene sceneID="Xzt-Fb-f77">
@@ -504,7 +504,7 @@
                                 <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <inset key="contentInset" minX="10" minY="44" maxX="10" maxY="0.0"/>
+                                <inset key="contentInset" minX="10" minY="48" maxX="10" maxY="0.0"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Ecj-AF-AoK">
                                     <size key="itemSize" width="100" height="135"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
