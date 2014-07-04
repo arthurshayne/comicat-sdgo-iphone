@@ -56,13 +56,13 @@
         _reloadButton.layer.cornerRadius = 3;
         _reloadButton.layer.borderWidth = 1;
         _reloadButton.layer.borderColor = [UIColor grayColor].CGColor;
-        [_reloadButton addTarget:self action:@selector(reloadData:) forControlEvents:UIControlEventTouchDown];
+        [_reloadButton addTarget:self action:@selector(performReload:) forControlEvents:UIControlEventTouchDown];
         [self addSubview:_reloadButton];
     }
     return _reloadButton;
 }
 
-- (void)reloadData:(UIButton *)sender {
+- (void)performReload:(UIButton *)sender {
     if (self.reloadCallback) {
         self.reloadCallback();
     }
@@ -76,6 +76,8 @@
         [self wifiLogoImageView];
         [self messageLabel];
         [self reloadButton];
+        
+        [self addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(performReload:)]];
     }
     return self;
 }
