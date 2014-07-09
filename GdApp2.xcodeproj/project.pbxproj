@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05011CDF196AE8CD007F5CD5 /* UIViewController+NavigationMax3.m in Sources */ = {isa = PBXBuildFile; fileRef = 05011CDE196AE8CD007F5CD5 /* UIViewController+NavigationMax3.m */; };
 		05023ADA19052791001D04F0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05023AD919052791001D04F0 /* Foundation.framework */; };
 		05023ADC19052791001D04F0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05023ADB19052791001D04F0 /* CoreGraphics.framework */; };
 		05023ADE19052791001D04F0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05023ADD19052791001D04F0 /* UIKit.framework */; };
@@ -67,6 +68,7 @@
 		05C3D3FF191E4203001B69ED /* UnitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C3D3FE191E4203001B69ED /* UnitViewController.m */; };
 		05C7D4BF194E88A9009C0DCA /* UnitsByOriginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C7D4BE194E88A9009C0DCA /* UnitsByOriginViewController.m */; };
 		05C7D4C2194E9ED8009C0DCA /* GDUnitCollectionViewCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C7D4C1194E9ED8009C0DCA /* GDUnitCollectionViewCell2.m */; };
+		05CFFF56196417BD00C67F57 /* NetworkErrorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CFFF55196417BD00C67F57 /* NetworkErrorView.m */; };
 		05E0DA46193644F200436B98 /* GDUnitCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E0DA45193644F200436B98 /* GDUnitCollectionViewCell.m */; };
 		05E40AD819211EF2004AA495 /* GDPostListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E40AD719211EF2004AA495 /* GDPostListTableViewCell.m */; };
 		05E4D588191B31230056839B /* NSDictionary+QueryStringBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E4D587191B31230056839B /* NSDictionary+QueryStringBuilder.m */; };
@@ -90,6 +92,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		05011CDD196AE8CD007F5CD5 /* UIViewController+NavigationMax3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+NavigationMax3.h"; sourceTree = "<group>"; };
+		05011CDE196AE8CD007F5CD5 /* UIViewController+NavigationMax3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+NavigationMax3.m"; sourceTree = "<group>"; };
 		05023AD619052791001D04F0 /* GdApp2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GdApp2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		05023AD919052791001D04F0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		05023ADB19052791001D04F0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -205,6 +209,10 @@
 		05C7D4BE194E88A9009C0DCA /* UnitsByOriginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitsByOriginViewController.m; sourceTree = "<group>"; };
 		05C7D4C0194E9ED8009C0DCA /* GDUnitCollectionViewCell2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDUnitCollectionViewCell2.h; sourceTree = "<group>"; };
 		05C7D4C1194E9ED8009C0DCA /* GDUnitCollectionViewCell2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDUnitCollectionViewCell2.m; sourceTree = "<group>"; };
+		05CFFF54196417BD00C67F57 /* NetworkErrorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkErrorView.h; sourceTree = "<group>"; };
+		05CFFF55196417BD00C67F57 /* NetworkErrorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkErrorView.m; sourceTree = "<group>"; };
+		05D9603819652E0900DD5AE3 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		05D9603A1965351F00DD5AE3 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		05E0DA44193644F200436B98 /* GDUnitCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDUnitCollectionViewCell.h; sourceTree = "<group>"; };
 		05E0DA45193644F200436B98 /* GDUnitCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDUnitCollectionViewCell.m; sourceTree = "<group>"; };
 		05E40AD619211EF2004AA495 /* GDPostListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDPostListTableViewCell.h; sourceTree = "<group>"; };
@@ -256,6 +264,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		05011CDA196ADAB4007F5CD5 /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				05011CDB196ADABD007F5CD5 /* UIViewController+NavigationMax3 */,
+			);
+			name = extensions;
+			sourceTree = "<group>";
+		};
+		05011CDB196ADABD007F5CD5 /* UIViewController+NavigationMax3 */ = {
+			isa = PBXGroup;
+			children = (
+				05011CDD196AE8CD007F5CD5 /* UIViewController+NavigationMax3.h */,
+				05011CDE196AE8CD007F5CD5 /* UIViewController+NavigationMax3.m */,
+			);
+			name = "UIViewController+NavigationMax3";
+			sourceTree = "<group>";
+		};
 		05023ACD19052791001D04F0 = {
 			isa = PBXGroup;
 			children = (
@@ -279,6 +304,8 @@
 		05023AD819052791001D04F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				05D9603A1965351F00DD5AE3 /* AVFoundation.framework */,
+				05D9603819652E0900DD5AE3 /* MediaPlayer.framework */,
 				0592AFFA1950059C000301FD /* libz.dylib */,
 				05191566190C16AE007439EA /* QuartzCore.framework */,
 				0565B3C7190904D000CCE77E /* ImageIO.framework */,
@@ -305,6 +332,7 @@
 				05996F9D192B61AD00BD1202 /* GDVideoListVCDataSource.h */,
 				05996F9E192B61AD00BD1202 /* GDVideoListVCDataSource.m */,
 				05023AF119052791001D04F0 /* Images.xcassets */,
+				05011CDA196ADAB4007F5CD5 /* extensions */,
 				05A417C31915182E0040A679 /* lib */,
 				05976CCE192CE37A008A2361 /* Localizable.strings */,
 				05023AEB19052791001D04F0 /* Main.storyboard */,
@@ -468,6 +496,8 @@
 				05C7D4C1194E9ED8009C0DCA /* GDUnitCollectionViewCell2.m */,
 				05216A231925DB8600807A2E /* GDVideoListCollectionViewCell.h */,
 				05216A241925DB8600807A2E /* GDVideoListCollectionViewCell.m */,
+				05CFFF54196417BD00C67F57 /* NetworkErrorView.h */,
+				05CFFF55196417BD00C67F57 /* NetworkErrorView.m */,
 				058314291949598E00023742 /* OriginTableViewCell.h */,
 				0583142A1949598E00023742 /* OriginTableViewCell.m */,
 				056D0BEB19404B040004F259 /* ScrollingTextView.h */,
@@ -706,6 +736,7 @@
 				05C3D3FF191E4203001B69ED /* UnitViewController.m in Sources */,
 				0582A87D192F9249007B90C9 /* ABTableViewCell.m in Sources */,
 				05E0DA46193644F200436B98 /* GDUnitCollectionViewCell.m in Sources */,
+				05CFFF56196417BD00C67F57 /* NetworkErrorView.m in Sources */,
 				0506D4BD19171DC100EFAC83 /* GDTabBarController.m in Sources */,
 				053177AC19598F58005D96B4 /* CarouselInfo.m in Sources */,
 				051EABAF1927118C00EAF761 /* GDCategoryListView.m in Sources */,
@@ -740,6 +771,7 @@
 				057393B0191A87D600F7415E /* UnitInfo.m in Sources */,
 				05996F9F192B61AD00BD1202 /* GDVideoListVCDataSource.m in Sources */,
 				05E40AD819211EF2004AA495 /* GDPostListTableViewCell.m in Sources */,
+				05011CDF196AE8CD007F5CD5 /* UIViewController+NavigationMax3.m in Sources */,
 				05C3094B193F5B4400D00A90 /* UnitGetwayCell.m in Sources */,
 				05A6732E191F9D4C006287D4 /* PushNoAnimationSegue.m in Sources */,
 				056D0BEA19400F1A0004F259 /* UnitBasicDataView.m in Sources */,

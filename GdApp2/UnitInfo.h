@@ -11,6 +11,8 @@
 
 @interface UnitInfo : NSObject
 
+@property (strong, nonatomic) NSDate *generated;
+
 // basic
 @property (strong, nonatomic) NSString *unitId;
 @property (strong, nonatomic) NSString *modelName;

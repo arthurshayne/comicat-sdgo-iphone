@@ -102,10 +102,7 @@ NSString *unitIdForSegue;
 }
 
 - (void)searchUnitsWithError:(NSError *)error {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"网络连接"
-                                                    message: [error localizedDescription]
-                                                   delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
+    [GDAppUtility alertError:error alertTitle:@"数据加载失败"];
 }
 
 #pragma mark - TableViewDelegates

@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "GDManagerDelegate.h"
 
-@interface SearchUnitViewController : UIViewController <UISearchBarDelegate, /*UISearchDisplayDelegate,*/ GDManagerDelegate>
+@interface SearchUnitViewController : UIViewController <UISearchBarDelegate, /*UISearchDisplayDelegate,*/ GDManagerDelegate> {
+    NSDate *lastPullToRefresh;
+}
 
 @end

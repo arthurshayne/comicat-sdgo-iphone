@@ -12,6 +12,8 @@
 #import "UIScrollView+GDPullToRefresh.h"
 #import "SVPullToRefresh.h"
 
+#import "UIViewController+NavigationMax3.h"
+
 #import "GDManager.h"
 #import "GDManagerFactory.h"
 
@@ -127,6 +129,8 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
     
     // eliminate extra separators
     self.rootTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    [self configureNavigationMax3];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -182,6 +186,7 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
         if ([segue.destinationViewController isKindOfClass:[GDVideoViewController class]]) {
             GDVideoViewController *gdpvc = (GDVideoViewController *)segue.destinationViewController;
             gdpvc.postId = postIdForSegue;
+            gdpvc.fromUnitId = self.unitId;
             gdpvc.hidesBottomBarWhenPushed = YES;
         }
     }
