@@ -11,7 +11,7 @@
 // #import "DTAttributedTextView.h"
 // #import "DTLazyImageView.h"
 
-@interface GDPostViewController : UIViewController <GDManagerDelegate /*, DTAttributedTextContentViewDelegate, DTLazyImageViewDelegate*/>
+@interface GDPostViewController : UIViewController <GDManagerDelegate, UIWebViewDelegate /*, DTAttributedTextContentViewDelegate, DTLazyImageViewDelegate*/>
 
 @property (nonatomic) int postId;
 

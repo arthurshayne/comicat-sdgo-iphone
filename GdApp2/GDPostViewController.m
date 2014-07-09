@@ -8,9 +8,12 @@
 
 #import "GDPostViewController.h"
 #import "GDManagerFactory.h"
+
 #import "MBProgressHUD.h"
 #import "NSDate+PrettyDate.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+
+#import "UnitViewController.h"
 
 @interface GDPostViewController ()
 
@@ -71,44 +74,46 @@
         shouldStartLoadWithRequest:(NSURLRequest *)request
         navigationType:(UIWebViewNavigationType)navigationType {
 
-    NSString *url = [[request URL] absoluteString];
-    static NSString *urlPrefix = @"myApp://";
-    if([url hasPrefix:urlPrefix]) {
-        
-        NSString *paramsString = [url substringFromIndex:[urlPrefix length]];
-        NSArray *paramsArray = [paramsString componentsSeparatedByString:@"&"];
-        int paramsAmount = [paramsArray count];
-        NSString *section;
-        NSString *page;
-        
-        for (int i = 0; i < paramsAmount; i++) {
-            NSArray *keyValuePair = [[paramsArray objectAtIndex:i] componentsSeparatedByString:@"="];
-            NSString *key = [keyValuePair objectAtIndex:0];
-            NSString *value = nil;
-            if ([keyValuePair count] > 1) {
-                value = [keyValuePair objectAtIndex:1];
+    NSLog(@"%@ %@ %@ %@ %@", request.URL.scheme, request.URL.host, request.URL.path, request.URL.query, request.URL.fragment);
+    static NSString *gdAppScheme = @"gdapp2";
+    if ([request.URL.scheme isEqualToString:gdAppScheme]) {
+        NSString *action = request.URL.host;
+        NSString *objectId = [request.URL.path stringByReplacingOccurrencesOfString:@"/" withString:@""];
+        if (objectId) {
+            if ([action isEqualToString:@"unit"]) {
+                [self presentUnitView:objectId];
+                return NO;
+            } else if ([action isEqualToString:@"post"]) {
+                [self presentVideoViewController:[objectId intValue]];
+                return NO;
             }
-            
-            //Assign these values.
-            if([key isEqualToString:@"section"]){
-                section = value;
-            } else if([key isEqualToString:@"page"]){
-                page = value;
-            }
-            
-            if ((key && [key length] > 0) && (value && [value length] > 0)) {
-                if ([key isEqualToString:@"page"]) {
-                    // Use the page...
-                }
-            }
-            NSString *destinationURL = [NSString stringWithFormat:@"page%@_%@.html", section, page];
-            NSLog(@"%@", destinationURL);
-            return NO;
         }
-    } else {
         return YES;
     }
+    else if ([request.URL.absoluteString isEqualToString:@"about:blank"]) {
+        return YES;
+    }
+    else if ([request.URL.scheme isEqualToString:@"file"]) {
+        return YES;
+    }
+    
     return YES;
+}
+
+- (void)presentUnitView:(NSString *)unitId {
+    UnitViewController *uvc = [self.storyboard instantiateViewControllerWithIdentifier:@"UnitViewController"];
+    uvc.unitId = unitId;
+    
+    [self.navigationController pushViewController:uvc animated:YES];
+}
+
+- (void)presentVideoViewController:(int)postId {
+//    GDVideoViewController *gdvvc = [self.storyboard instantiateViewControllerWithIdentifier:@"VideoViewController"];
+//    gdvvc.postId = postId;
+//    
+//    [self.navigationController pushViewController:gdvvc animated:YES];
+    // [self presentViewController:gdvvc animated:YES completion:nil];
+    
 }
 
 @end

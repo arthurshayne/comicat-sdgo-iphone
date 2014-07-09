@@ -24,7 +24,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7NB-8d-mvG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1292" y="524"/>
+            <point key="canvasLocation" x="-1900" y="-92"/>
         </scene>
         <!--Video List View Controller-->
         <scene sceneID="IU4-z6-JkN">
@@ -68,7 +68,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3cv-jR-NQf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-107" y="901"/>
+            <point key="canvasLocation" x="109" y="477"/>
         </scene>
         <!--News List View Controller-->
         <scene sceneID="iU6-tG-sQU">
@@ -123,7 +123,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rdo-nG-mP8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-103" y="221"/>
+            <point key="canvasLocation" x="101" y="-407"/>
         </scene>
         <!--Home2 View Controller-->
         <scene sceneID="eOW-lM-YXb">
@@ -265,7 +265,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="-97" y="-468"/>
+            <point key="canvasLocation" x="101" y="-1346"/>
         </scene>
         <!--Search Unit View Controller-->
         <scene sceneID="BH8-4G-wTt">
@@ -334,12 +334,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XjV-QL-Ugu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="534" y="-1041"/>
+            <point key="canvasLocation" x="1386" y="-1237"/>
         </scene>
         <!--Unit View Controller - 机体-->
         <scene sceneID="dzc-Ik-Ezp">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="GhT-BD-GR7" customClass="UnitViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UnitViewController" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="GhT-BD-GR7" customClass="UnitViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="epK-CJ-wO1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -363,39 +363,42 @@
                     <connections>
                         <outlet property="rootTableView" destination="D3i-ye-0fI" id="zco-nn-jsX"/>
                         <segue destination="xx8-lO-ygV" kind="push" identifier="ViewVideo" id="ETQ-58-Fa7"/>
+                        <segue destination="xx8-lO-ygV" kind="modal" identifier="view-video-from-unit" id="rUO-bJ-kzn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y2h-2I-Y8Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1304" y="-524"/>
+            <point key="canvasLocation" x="1764" y="-352"/>
         </scene>
-        <!--Video View Controller-->
+        <!--Video View Controller - 视频-->
         <scene sceneID="FHX-fo-FcE">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="xx8-lO-ygV" customClass="GDVideoViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VideoViewController" id="xx8-lO-ygV" customClass="GDVideoViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WpV-Mo-D9T">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" id="96L-M4-T4L">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <dataDetectorType key="dataDetectorTypes"/>
+                                <connections>
+                                    <outlet property="delegate" destination="xx8-lO-ygV" id="KI8-VV-vGa"/>
+                                </connections>
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="ZPh-PX-5Ij">
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="WWP-nM-kAZ"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="视频" id="ZPh-PX-5Ij"/>
                     <connections>
                         <outlet property="videoPlayer" destination="96L-M4-T4L" id="W8H-4X-UYq"/>
+                        <segue destination="GhT-BD-GR7" kind="modal" identifier="view-unit-from-video" id="YEE-Kr-IgB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Cs-Pu-rqy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1309" y="356"/>
+            <point key="canvasLocation" x="1764" y="961"/>
         </scene>
         <!--Post View Controller - 新闻-->
         <scene sceneID="Xzt-Fb-f77">
@@ -410,6 +413,9 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <dataDetectorType key="dataDetectorTypes"/>
+                                <connections>
+                                    <outlet property="delegate" destination="aix-2l-OyA" id="Dc1-fZ-ML7"/>
+                                </connections>
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -421,7 +427,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MqS-7H-NBc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1822" y="1177"/>
+            <point key="canvasLocation" x="818" y="-343"/>
         </scene>
         <!--Navigation Controller - 首页-->
         <scene sceneID="9Ap-8l-N1e">
@@ -440,7 +446,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tug-Mv-nZM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-623" y="-468"/>
+            <point key="canvasLocation" x="-681" y="-1108"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="vyK-Qh-xqA">
@@ -490,7 +496,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QOe-cW-LN6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-107" y="1604"/>
+            <point key="canvasLocation" x="93" y="1324"/>
         </scene>
         <!--Units By Origin View Controller-->
         <scene sceneID="BNC-oi-tE5">
@@ -528,7 +534,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cR7-Lg-3VM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="419" y="1604"/>
+            <point key="canvasLocation" x="854" y="1232"/>
         </scene>
         <!--Navigation Controller - 新闻-->
         <scene sceneID="CZe-Iv-YFu">
@@ -547,7 +553,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EOw-3r-wmd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-629" y="221"/>
+            <point key="canvasLocation" x="-653" y="-311"/>
         </scene>
         <!--Navigation Controller - 视频-->
         <scene sceneID="BE2-49-zBQ">
@@ -566,7 +572,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="edb-nt-zQi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-633" y="901"/>
+            <point key="canvasLocation" x="-639" y="421"/>
         </scene>
         <!--Navigation Controller - 机体-->
         <scene sceneID="gKc-3d-GJs">
@@ -585,7 +591,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uO8-en-6nB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-633" y="1604"/>
+            <point key="canvasLocation" x="-715" y="1240"/>
         </scene>
     </scenes>
     <resources>
@@ -604,7 +610,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="sIr-PI-Iu0"/>
-        <segue reference="hco-Bl-9vV"/>
-        <segue reference="UQm-b0-nZb"/>
+        <segue reference="rUO-bJ-kzn"/>
+        <segue reference="YEE-Kr-IgB"/>
     </inferredMetricsTieBreakers>
 </document>

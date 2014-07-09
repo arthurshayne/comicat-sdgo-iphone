@@ -18,6 +18,10 @@
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
 
+#import "UIViewController+NavigationMax3.h"
+
+#import "UnitViewController.h"
+
 
 @interface GDVideoViewController ()
 
@@ -30,10 +34,6 @@
 
 @implementation GDVideoViewController
 
-//- (void) setPostId:(int)postId {
-//    self.test.text = [NSString stringWithFormat:@"%d", postId];
-//}
-
 - (GDManager *)manager {
     if (!_manager) {
         _manager = [GDManagerFactory gdManagerWithDelegate:self];
@@ -41,45 +41,21 @@
     return _manager;
 }
 
-- (UIButton *)backButton {
-    if (!_backButton) {
-        _backButton = [[UIButton alloc] initWithFrame:CGRectMake(14, 14, 25, 25)];
-        [_backButton setBackgroundImage:[UIImage imageNamed:@"back-button"] forState:UIControlStateNormal];
-        [_backButton setBackgroundImage:[UIImage imageNamed:@"back-button-hl"] forState:UIControlStateHighlighted];
-        [_backButton addTarget:self action:@selector(performGoBack:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:_backButton];
-    }
-    return _backButton;
-}
-
-- (void)performGoBack:(id)sender {
-    [[self navigationController] setNavigationBarHidden:NO animated:YES];
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 - (void)setPostId:(int)postId {
     _postId = postId;
     
-    [self configureAndLoadVideoPlayer];
-    [self.manager fetchPostInfo:postId];
+//    [self.manager fetchPostInfo:postId];
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerStarted:) name:@"UIMoviePlayerControllerDidEnterFullscreenNotification" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerFinished:) name:@"UIMoviePlayerControllerDidExitFullscreenNotification" object:nil];
 
-    [[self navigationController] setNavigationBarHidden:YES animated:YES];
-    [self setNeedsStatusBarAppearanceUpdate];
-    
     [self configureAndLoadVideoPlayer];
-    
-    // add to view
-    [_backButton setBackgroundImage:[UIImage imageNamed:@"back-button"] forState:UIControlStateNormal];
-    [self.backButton setBackgroundImage:[UIImage imageNamed:@"back-button-hl"] forState:UIControlStateHighlighted];
+    [self configureNavigationMax3];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -95,18 +71,22 @@
 }
 
 - (void) configureAndLoadVideoPlayer {
-    NSURL *url = [[NSURL alloc] initWithString:
-                  [NSString stringWithFormat:@"http://www.sdgundam.cn/pages/app/post-view-video.aspx?id=%d", self.postId]];
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
-    [self.videoPlayer loadRequest:request];
+    NSString *loadingHtmlContent = @"<html><head><title></title></head><body><center>加载中...</center></body></html>";
+    [self.videoPlayer loadHTMLString:loadingHtmlContent baseURL:nil];
     
-    self.videoPlayer.scrollView.scrollEnabled = NO;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSURL *url = [[NSURL alloc] initWithString:
+                      [NSString stringWithFormat:@"http://www.sdgundam.cn/pages/app/post-view-video.aspx?id=%d", self.postId]];
+        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
+        [self.videoPlayer loadRequest:request];
+    });
+
+    // self.videoPlayer.scrollView.scrollEnabled = NO;
 }
 
 
 -(void)playerStarted:(NSNotification *)notification{
     // Entered fullscreen code goes here.
-    
     GDAppDelegate *appDelegate = (GDAppDelegate *)[[UIApplication sharedApplication] delegate];
     appDelegate.fullScreenVideoIsPlaying = YES;
 }
@@ -138,23 +118,77 @@
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
-
 #pragma mark - UIWebViewDelegate
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    [self showLoading];
+    // [self showLoading];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    [self hideLoading];
+    // [self hideLoading];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [self hideLoading];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"网络连接"
-                                                    message: [error localizedDescription]
-                                                   delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
+    
+    if (error.code == -999) {
+        // do nothing
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"网络连接"
+                                                        message: [error localizedDescription]
+                                                       delegate: nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
+- (BOOL)webView:(UIWebView *)webView
+    shouldStartLoadWithRequest:(NSURLRequest *)request
+                navigationType:(UIWebViewNavigationType)navigationType {
+    
+    NSLog(@"%@ %@ %@ %@ %@", request.URL.scheme, request.URL.host, request.URL.path, request.URL.query, request.URL.fragment);
+    static NSString *gdAppScheme = @"gdapp2";
+    if ([request.URL.scheme isEqualToString:gdAppScheme]) {
+        NSString *action = request.URL.host;
+        NSString *objectId = [request.URL.path stringByReplacingOccurrencesOfString:@"/" withString:@""];
+        if (objectId) {
+            if ([action isEqualToString:@"unit"]) {
+                if ([objectId isEqualToString:self.fromUnitId]) {
+                    [self.navigationController popViewControllerAnimated:YES];
+                } else {
+                    [self presentUnitView:objectId];
+                }
+                return NO;
+            } else if ([action isEqualToString:@"post"]) {
+                [self presentVideoViewController:[objectId intValue]];
+                return NO;
+            }
+        }
+        return YES;
+    }
+    else if ([request.URL.absoluteString isEqualToString:@"about:blank"]) {
+        return YES;
+    }
+    else if ([request.URL.scheme isEqualToString:@"file"]) {
+        return YES;
+    }
+    
+    return YES;
+}
+
+- (void)presentUnitView:(NSString *)unitId {
+    UnitViewController *uvc = [self.storyboard instantiateViewControllerWithIdentifier:@"UnitViewController"];
+    uvc.unitId = unitId;
+    
+    [self.navigationController pushViewController:uvc animated:YES];
+}
+
+- (void)presentVideoViewController:(int)postId {
+    GDVideoViewController *gdvvc = [self.storyboard instantiateViewControllerWithIdentifier:@"VideoViewController"];
+    gdvvc.postId = postId;
+    
+    [self.navigationController pushViewController:gdvvc animated:YES];
+    // [self presentViewController:gdvvc animated:YES completion:nil];
+    
 }
 
 #pragma mark - GDManagerDelegate
@@ -163,13 +197,13 @@
     postInfo = returnedPostInfo;
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
-}
-
-- (BOOL)prefersStatusBarHidden {
-    return YES;
-}
+//- (UIStatusBarStyle)preferredStatusBarStyle {
+//    return UIStatusBarStyleLightContent;
+//}
+//
+//- (BOOL)prefersStatusBarHidden {
+//    return YES;
+//}
 
 /*
 #pragma mark - Navigation

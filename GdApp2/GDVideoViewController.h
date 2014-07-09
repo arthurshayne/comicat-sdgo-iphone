@@ -10,8 +10,10 @@
 #import "GDManager.h"
 #import "PostInfo.h"
 
-@interface GDVideoViewController : UIViewController <GDManagerDelegate> {
+@interface GDVideoViewController : UIViewController <GDManagerDelegate, UIWebViewDelegate> {
     PostInfo *postInfo;
 }
 @property (nonatomic) int postId;
+
+@property (strong, nonatomic) NSString *fromUnitId;
 @end
