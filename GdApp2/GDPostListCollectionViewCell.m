@@ -59,22 +59,26 @@ static CGFloat CATEGORY_VIEW_HEIGHT = 15;
     return fontForDate;
 }
 
+- (UILabel *)labelForTitle {
+    if (!_labelForTitle) {
+        _labelForTitle = [[UILabel alloc] initWithFrame:CGRectMake(TITLE_LABEL_MARGIN_H,
+                                                                       TITLE_LABEL_MARGIN_V,
+                                                                       self.frame.size.width - 2 * TITLE_LABEL_MARGIN_H,
+                                                                       TITLE_LABEL_HEIGHT)];
+        _labelForTitle.font = [self.class fontForTitleLabel];
+        _labelForTitle.adjustsFontSizeToFitWidth = YES;
+        _labelForTitle.numberOfLines = 2;
+        _labelForTitle.opaque = YES;
+        
+        [self addSubview:_labelForTitle];
+    }
+    return _labelForTitle;
+}
+
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.labelForTitle = [[UILabel alloc] initWithFrame:CGRectMake(TITLE_LABEL_MARGIN_H,
-                                                                       TITLE_LABEL_MARGIN_V,
-                                                                       frame.size.width - 2 * TITLE_LABEL_MARGIN_H,
-                                                                       TITLE_LABEL_HEIGHT)];
-        self.labelForTitle.font = [self.class fontForTitleLabel];
-        self.labelForTitle.adjustsFontSizeToFitWidth = YES;
-        self.labelForTitle.numberOfLines = 2;
-        self.labelForTitle.opaque = YES;
-        //self.labelForTitle.backgroundColor = [Utility UIColorFromRGB:0xff0000];
-        
-        [self addSubview:self.labelForTitle];
-        
         self.clipsToBounds = YES;
         self.userInteractionEnabled = YES;
     }
@@ -108,16 +112,16 @@ static CGFloat CATEGORY_VIEW_HEIGHT = 15;
     [self setNeedsDisplay];
 }
 
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    [_labelForTitle removeFromSuperview];
+    _labelForTitle = nil;
+}
+
 - (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
     
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-    
-//    CGContextMoveToPoint(ctx, 10, 10);
-//    CGContextAddLineToPoint(ctx, 20, 20);
-//    
-//    CGContextSetStrokeColorWithColor(ctx, [UIColor blackColor].CGColor);
-//    CGContextStrokePath(ctx);
     
     if (self.isHighlighted) {
         CGContextSetFillColorWithColor(ctx, [[UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:0.9] CGColor]);

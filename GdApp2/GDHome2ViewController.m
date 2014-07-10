@@ -145,6 +145,8 @@ const CGFloat UNIT_CELL_WIDTH = 90;
     }
     
     self.unitsCollectionView.contentSize = CGSizeMake(UNIT_CELL_WIDTH * self.homeInfo.units.count, UNIT_CELL_WIDTH);
+    
+    [self.unitsCollectionView reloadData];
 }
 
 - (void)preparePostList {
@@ -193,6 +195,8 @@ const CGFloat UNIT_CELL_WIDTH = 90;
     frame.origin.y = frameOfUnits.origin.y + frameOfUnits.size.height + 6;
     [self.postListCollectionView setFrame: frame];
     self.postListCollectionView.contentSize = frame.size;
+    
+    [self.postListCollectionView reloadData];
 }
 
 - (void)prepareVideoList {
@@ -205,6 +209,8 @@ const CGFloat UNIT_CELL_WIDTH = 90;
     frame.origin.y = frameOfPostList.origin.y + frameOfPostList.size.height + 6;
     [self.videoListCollectionView setFrame: frame];
     self.videoListCollectionView.contentSize = frame.size;
+    
+    [self.videoListCollectionView reloadData];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
