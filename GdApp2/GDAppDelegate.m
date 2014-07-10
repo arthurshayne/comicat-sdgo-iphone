@@ -51,6 +51,9 @@
 //        
 //    });
 
+    // display launch image longer
+    [NSThread sleepForTimeInterval:1.8];
+    
     return YES;
 }
 							
