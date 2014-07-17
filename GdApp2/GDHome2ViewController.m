@@ -234,7 +234,7 @@ const CGFloat UNIT_CELL_WIDTH = 90;
 }
 
 - (IBAction)prepareForSearchUnit:(id)sender {
-    
+    [self performSegueWithIdentifier:@"search-unit" sender:self];
 }
 
 - (void)configurePullToRefresh {

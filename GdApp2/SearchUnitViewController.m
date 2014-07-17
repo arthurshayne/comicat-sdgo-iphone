@@ -56,12 +56,7 @@ NSString *unitIdForSegue;
     NSLog(@"%@", self.view.window);
     [super viewDidLoad];
     
-    self.units = [[NSArray alloc] init];
-    
-//    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_unit_list"]];
-//    self.tableView.backgroundColor = [Utility UIColorFromRGB:0x666666];
-//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLineEtched;
-
+    self.units = [NSArray arrayWithObjects:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -73,6 +68,8 @@ NSString *unitIdForSegue;
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    
+    self.tableView.delegate = nil;
     
     [MobClick endLogPageView:@"搜索机体"];
 }
@@ -88,7 +85,7 @@ NSString *unitIdForSegue;
     if (keyword.length > 0) {
         [self.manager searchUnitsWithKeyword:keyword];
     } else {
-        self.units = [[NSArray alloc] init];
+        self.units = [NSArray arrayWithObjects:nil];
         [self.tableView reloadData];
     }
 }
@@ -135,13 +132,6 @@ NSString *unitIdForSegue;
     // image
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(8, 4, 79, 79)];
     [imageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://cdn.sdgundam.cn/data-source/acc/unit-3g/%@.png", u.unitId]]];
-//    imageView.backgroundColor = [Utility UIColorFromRGB:0x2b3a5d];
-//    imageView.layer.borderColor = [[Utility UIColorFromRGB:0x475c8b] CGColor];
-//    imageView.layer.borderWidth = 1.0;
-    
-//    [viewImage.layer setBorderColor:borderColor.CGColor];
-//    [viewImage.layer setBorderWidth:3.0];
-//    imageView.userInteractionEnabled = YES;
     [cell.contentView addSubview:imageView];
     
     UILabel *rankLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 49, 100, 21)];
@@ -150,8 +140,6 @@ NSString *unitIdForSegue;
     rankLabel.textColor = [GDAppUtility UIColorFromRGB:0x475c8b];
     
     [cell.contentView addSubview:rankLabel];
-//    cell.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_unit_list"]];
-//    cell.backgroundColor = [UIColor clearColor];
 
     return cell;
 }
@@ -161,7 +149,9 @@ NSString *unitIdForSegue;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [self.searchBar resignFirstResponder];
+    NSLog(@"%@",[NSThread callStackSymbols]);
+        [self.searchBar resignFirstResponder];
+    
 }
 
 - (void) tableView: (UITableView *) tableView didSelectRowAtIndexPath: (NSIndexPath *) indexPath {
@@ -201,16 +191,5 @@ NSString *unitIdForSegue;
     [self searchUnitsWithKeyword:searchDelayer.userInfo];
     searchDelayer = nil;
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
