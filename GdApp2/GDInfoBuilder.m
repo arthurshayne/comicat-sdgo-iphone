@@ -243,6 +243,30 @@
     return posts;
 }
 
++ (UnitMixMaterial *)extractKeyUMM:(NSDictionary *)dict {
+    if (!dict) {
+        return nil;
+    }
+    UnitMixMaterial *umm = [[UnitMixMaterial alloc] init];
+    
+    umm.unitId = [dict objectForKey:@"unitId"];
+    umm.modelName = [dict objectForKey:@"modelName"];
+    umm.level = [dict objectForKey:@"level"];
+    
+    return umm;
+}
+
++ (NSArray *)extractOtherUMMs:(NSArray *)array {
+    if (!array || array.count == 0) {
+        return [NSArray arrayWithObjects: nil];
+    }
+    NSMutableArray *otherUMMs = [[NSMutableArray alloc] init];
+    for (NSDictionary *d in array) {
+        [otherUMMs addObject:[[self class] extractKeyUMM:d]];
+    }
+    return otherUMMs;
+}
+
 + (UnitInfo *)unitInfoFromJSON:(NSData *)objectNotation error:(NSError **)error {
     NSError *tempError = nil;
     NSDictionary *parsed = [NSJSONSerialization JSONObjectWithData:objectNotation
@@ -297,9 +321,22 @@
         
         [posts addObject:tempVli];
     }
-
     unit.videoList = posts;
-
+    
+    // mixing
+//    NSDictionary *mixing = [parsed objectForKey:@"mixing"];
+//    
+//    NSDictionary *mixingG = [mixing objectForKey:@"_G"];
+//    unit.mixingKeyUnit = [[self class] extractKeyUMM:[mixingG objectForKey:@"keyUnit"]];
+//    unit.mixingMaterialUnits = [[self class] extractOtherUMMs:[mixingG objectForKey:@"materialUnits"]];
+//    
+//    NSDictionary *mixingCN = [mixing objectForKey:@"CN"];
+//    unit.mixingKeyUnitCN = [[self class] extractKeyUMM:[mixingCN objectForKey:@"keyUnit"]];
+//    unit.mixingMaterialUnitsCN = [[self class] extractOtherUMMs:[mixingCN objectForKey:@"materialUnits"]];
+//    
+//    unit.canMixAsKey = [[self class] extractOtherUMMs:[mixing objectForKey:@"canMixAsKey"]];
+//    unit.canMixAsMaterial = [[self class] extractOtherUMMs:[mixing objectForKey:@"canMixAsMaterial"]];
+//    
     return unit;
 }
 

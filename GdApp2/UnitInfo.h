@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "AutoCoding.h"
+#import "UnitMixMaterial.h"
 
 @interface UnitInfo : NSObject
 
@@ -133,4 +134,14 @@
 @property (strong, nonatomic) NSString *lab2;
 
 @property (strong, nonatomic) NSArray *videoList;  // array of VideoListItem
+
+@property (strong, nonatomic) UnitMixMaterial *mixingKeyUnit;
+@property (strong, nonatomic) NSArray *mixingMaterialUnits; // array of UnitMixMaterial
+
+@property (strong, nonatomic) UnitMixMaterial *mixingKeyUnitCN;
+@property (strong, nonatomic) NSArray *mixingMaterialUnitsCN; // array of UnitMixMaterial
+
+@property (strong, nonatomic) NSArray *canMixAsKey; // array of UnitMixMaterial
+@property (strong, nonatomic) NSArray *canMixAsMaterial; // array of UnitMixMaterial
+
 @end

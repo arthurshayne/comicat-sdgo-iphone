@@ -72,6 +72,7 @@
 		05E0DA46193644F200436B98 /* GDUnitCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E0DA45193644F200436B98 /* GDUnitCollectionViewCell.m */; };
 		05E40AD819211EF2004AA495 /* GDPostListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E40AD719211EF2004AA495 /* GDPostListTableViewCell.m */; };
 		05E4D588191B31230056839B /* NSDictionary+QueryStringBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E4D587191B31230056839B /* NSDictionary+QueryStringBuilder.m */; };
+		05ED358C1978043B000AD587 /* UnitMixMaterial.m in Sources */ = {isa = PBXBuildFile; fileRef = 05ED358B1978043B000AD587 /* UnitMixMaterial.m */; };
 		05EDB8E519512AFA003AEF0F /* GDUserDefaultsKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 05EDB8E419512AFA003AEF0F /* GDUserDefaultsKeys.m */; };
 		05EDB8E819517E4F003AEF0F /* OriginInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 05EDB8E719517E4F003AEF0F /* OriginInfo.m */; };
 		05F9551E195C77BA00A41FE4 /* GDHasNewOriginResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 05F9551D195C77BA00A41FE4 /* GDHasNewOriginResult.m */; };
@@ -219,6 +220,8 @@
 		05E40AD719211EF2004AA495 /* GDPostListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDPostListTableViewCell.m; sourceTree = "<group>"; };
 		05E4D586191B31230056839B /* NSDictionary+QueryStringBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+QueryStringBuilder.h"; sourceTree = "<group>"; };
 		05E4D587191B31230056839B /* NSDictionary+QueryStringBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+QueryStringBuilder.m"; sourceTree = "<group>"; };
+		05ED358A1978043B000AD587 /* UnitMixMaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitMixMaterial.h; sourceTree = "<group>"; };
+		05ED358B1978043B000AD587 /* UnitMixMaterial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitMixMaterial.m; sourceTree = "<group>"; };
 		05EDB8E319512AFA003AEF0F /* GDUserDefaultsKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDUserDefaultsKeys.h; sourceTree = "<group>"; };
 		05EDB8E419512AFA003AEF0F /* GDUserDefaultsKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDUserDefaultsKeys.m; sourceTree = "<group>"; };
 		05EDB8E619517E4F003AEF0F /* OriginInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OriginInfo.h; sourceTree = "<group>"; };
@@ -436,6 +439,8 @@
 				059547CD193CE0930039E578 /* VideoListItem.m */,
 				05F9551C195C77BA00A41FE4 /* GDHasNewOriginResult.h */,
 				05F9551D195C77BA00A41FE4 /* GDHasNewOriginResult.m */,
+				05ED358A1978043B000AD587 /* UnitMixMaterial.h */,
+				05ED358B1978043B000AD587 /* UnitMixMaterial.m */,
 			);
 			name = GDDataModel;
 			sourceTree = "<group>";
@@ -477,6 +482,13 @@
 			name = AutoCoding;
 			sourceTree = "<group>";
 		};
+		05953D6D1978AE2600BAA465 /* UMengUpdate */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = UMengUpdate;
+			sourceTree = "<group>";
+		};
 		05A417BF191502690040A679 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -511,6 +523,7 @@
 		05A417C31915182E0040A679 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				05953D6D1978AE2600BAA465 /* UMengUpdate */,
 				058C514A19507018000BF675 /* UMeng */,
 				0592B001195027F2000301FD /* AutoCoding */,
 				0582A87A192F923A007B90C9 /* ABTableViewCell */,
@@ -771,6 +784,7 @@
 				057393B0191A87D600F7415E /* UnitInfo.m in Sources */,
 				05996F9F192B61AD00BD1202 /* GDVideoListVCDataSource.m in Sources */,
 				05E40AD819211EF2004AA495 /* GDPostListTableViewCell.m in Sources */,
+				05ED358C1978043B000AD587 /* UnitMixMaterial.m in Sources */,
 				05011CDF196AE8CD007F5CD5 /* UIViewController+NavigationMax3.m in Sources */,
 				05C3094B193F5B4400D00A90 /* UnitGetwayCell.m in Sources */,
 				05A6732E191F9D4C006287D4 /* PushNoAnimationSegue.m in Sources */,
@@ -918,6 +932,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GdApp2",
@@ -932,7 +947,7 @@
 					"$(PROJECT_DIR)/GdApp2",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "40BA3AA9-E273-440E-BC19-F315316355EC";
 				SWIFT_OBJC_BRIDGING_HEADER = "GdApp2/GdApp2-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
@@ -946,7 +961,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Xinghua Guo (9D2HSD35FH)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GdApp2",
@@ -961,7 +976,7 @@
 					"$(PROJECT_DIR)/GdApp2",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "38FF2319-E162-484F-95EE-5DBF196C6093";
+				PROVISIONING_PROFILE = "EF4A3839-9917-4EB6-9046-3C9F64A3E5AA";
 				SWIFT_OBJC_BRIDGING_HEADER = "GdApp2/GdApp2-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};

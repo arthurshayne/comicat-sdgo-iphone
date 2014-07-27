@@ -357,9 +357,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="机体" id="x98-4Y-yRO">
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="4bM-f6-em9"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="机体" id="x98-4Y-yRO"/>
                     <connections>
                         <outlet property="rootTableView" destination="D3i-ye-0fI" id="zco-nn-jsX"/>
                         <segue destination="xx8-lO-ygV" kind="push" identifier="ViewVideo" id="ETQ-58-Fa7"/>
@@ -609,8 +607,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="UQm-b0-nZb"/>
-        <segue reference="hco-Bl-9vV"/>
         <segue reference="sIr-PI-Iu0"/>
+        <segue reference="hkX-HH-oi8"/>
+        <segue reference="rUO-bJ-kzn"/>
     </inferredMetricsTieBreakers>
 </document>

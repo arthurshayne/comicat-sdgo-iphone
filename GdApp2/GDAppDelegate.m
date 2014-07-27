@@ -34,6 +34,8 @@
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     [MobClick setAppVersion:version];
     
+    [MobClick checkUpdate:@"侦测到前方高能反应" cancelButtonTitle:@"-_-无视" otherButtonTitles:@"去看看"];
+    
     [MobClick setLogEnabled:YES];
     
     // configure UserDefaults
