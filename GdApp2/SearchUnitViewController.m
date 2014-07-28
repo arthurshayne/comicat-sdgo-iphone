@@ -64,6 +64,10 @@ NSString *unitIdForSegue;
     
     [MobClick beginLogPageView:@"搜索机体"];
     [self.searchBar becomeFirstResponder];
+    
+    if (!self.tableView.delegate) {
+        self.tableView.delegate = self;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
