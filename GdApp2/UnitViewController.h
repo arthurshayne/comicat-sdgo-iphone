@@ -12,6 +12,9 @@
 @interface UnitViewController : UIViewController <GDManagerDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout> {
     int postIdForSegue;
     NSDate *lastPullToRefresh;
+    
+    BOOL isUmpvPreviouslyOpened;
+    BOOL isUmpvCNPreviouslyOpened;
 }
 
 @property (strong, nonatomic) NSString *unitId;

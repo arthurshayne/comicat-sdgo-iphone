@@ -324,19 +324,22 @@
     unit.videoList = posts;
     
     // mixing
-//    NSDictionary *mixing = [parsed objectForKey:@"mixing"];
-//    
-//    NSDictionary *mixingG = [mixing objectForKey:@"_G"];
-//    unit.mixingKeyUnit = [[self class] extractKeyUMM:[mixingG objectForKey:@"keyUnit"]];
-//    unit.mixingMaterialUnits = [[self class] extractOtherUMMs:[mixingG objectForKey:@"materialUnits"]];
-//    
-//    NSDictionary *mixingCN = [mixing objectForKey:@"CN"];
-//    unit.mixingKeyUnitCN = [[self class] extractKeyUMM:[mixingCN objectForKey:@"keyUnit"]];
-//    unit.mixingMaterialUnitsCN = [[self class] extractOtherUMMs:[mixingCN objectForKey:@"materialUnits"]];
-//    
-//    unit.canMixAsKey = [[self class] extractOtherUMMs:[mixing objectForKey:@"canMixAsKey"]];
-//    unit.canMixAsMaterial = [[self class] extractOtherUMMs:[mixing objectForKey:@"canMixAsMaterial"]];
-//    
+    NSDictionary *mixing = [parsed objectForKey:@"mixing"];
+    
+    if ([mixing objectForKey:@"_G"] != [NSNull null]) {
+        NSDictionary *mixingG = [mixing objectForKey:@"_G"];
+        unit.mixingKeyUnit = [[self class] extractKeyUMM:[mixingG objectForKey:@"keyUnit"]];
+        unit.mixingMaterialUnits = [[self class] extractOtherUMMs:[mixingG objectForKey:@"materialUnits"]];
+    }
+    
+    if ([mixing objectForKey:@"CN"] != [NSNull null]) {
+        NSDictionary *mixingCN = [mixing objectForKey:@"CN"];
+        unit.mixingKeyUnitCN = [[self class] extractKeyUMM:[mixingCN objectForKey:@"keyUnit"]];
+        unit.mixingMaterialUnitsCN = [[self class] extractOtherUMMs:[mixingCN objectForKey:@"materialUnits"]];
+    }
+    unit.canMixAsKey = [[self class] extractOtherUMMs:[mixing objectForKey:@"canMixAsKey"]];
+    unit.canMixAsMaterial = [[self class] extractOtherUMMs:[mixing objectForKey:@"canMixAsMaterial"]];
+    
     return unit;
 }
 

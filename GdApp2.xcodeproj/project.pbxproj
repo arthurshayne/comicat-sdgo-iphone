@@ -45,6 +45,7 @@
 		057393B0191A87D600F7415E /* UnitInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 057393AF191A87D600F7415E /* UnitInfo.m */; };
 		057393B3191A921400F7415E /* UnitInfoShort.m in Sources */ = {isa = PBXBuildFile; fileRef = 057393B2191A921400F7415E /* UnitInfoShort.m */; };
 		05742BAB1910B70D00893A7F /* GDVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05742BAA1910B70D00893A7F /* GDVideoViewController.m */; };
+		057AA90C198A035200208DF6 /* UnitMixMaterialView.m in Sources */ = {isa = PBXBuildFile; fileRef = 057AA90B198A035200208DF6 /* UnitMixMaterialView.m */; };
 		0582A87D192F9249007B90C9 /* ABTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0582A87C192F9249007B90C9 /* ABTableViewCell.m */; };
 		058314241949507000023742 /* OriginListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 058314231949507000023742 /* OriginListViewController.m */; };
 		0583142B1949598E00023742 /* OriginTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0583142A1949598E00023742 /* OriginTableViewCell.m */; };
@@ -54,6 +55,7 @@
 		0592AFFB1950059C000301FD /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0592AFFA1950059C000301FD /* libz.dylib */; };
 		0592B0041950282C000301FD /* AutoCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 0592B0031950282C000301FD /* AutoCoding.m */; };
 		059547CE193CE0930039E578 /* VideoListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 059547CD193CE0930039E578 /* VideoListItem.m */; };
+		0596FEFE198B6F4E008B0CB4 /* GundamStyleBorderedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0596FEFD198B6F4E008B0CB4 /* GundamStyleBorderedButton.m */; };
 		05976CCC192CE37A008A2361 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 05976CCE192CE37A008A2361 /* Localizable.strings */; };
 		05996F9F192B61AD00BD1202 /* GDVideoListVCDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 05996F9E192B61AD00BD1202 /* GDVideoListVCDataSource.m */; };
 		05A417C21915027B0040A679 /* GDPostCategoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A417C11915027B0040A679 /* GDPostCategoryView.m */; };
@@ -69,6 +71,8 @@
 		05C7D4BF194E88A9009C0DCA /* UnitsByOriginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C7D4BE194E88A9009C0DCA /* UnitsByOriginViewController.m */; };
 		05C7D4C2194E9ED8009C0DCA /* GDUnitCollectionViewCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C7D4C1194E9ED8009C0DCA /* GDUnitCollectionViewCell2.m */; };
 		05CFFF56196417BD00C67F57 /* NetworkErrorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CFFF55196417BD00C67F57 /* NetworkErrorView.m */; };
+		05DE29801988AEDE005B4D92 /* AFPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DE297F1988AEDE005B4D92 /* AFPopupView.m */; };
+		05DE29831988B0A7005B4D92 /* UnitMixPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DE29821988B0A7005B4D92 /* UnitMixPopupView.m */; };
 		05E0DA46193644F200436B98 /* GDUnitCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E0DA45193644F200436B98 /* GDUnitCollectionViewCell.m */; };
 		05E40AD819211EF2004AA495 /* GDPostListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E40AD719211EF2004AA495 /* GDPostListTableViewCell.m */; };
 		05E4D588191B31230056839B /* NSDictionary+QueryStringBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E4D587191B31230056839B /* NSDictionary+QueryStringBuilder.m */; };
@@ -162,6 +166,8 @@
 		057393B2191A921400F7415E /* UnitInfoShort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitInfoShort.m; sourceTree = "<group>"; };
 		05742BA91910B70D00893A7F /* GDVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDVideoViewController.h; sourceTree = "<group>"; };
 		05742BAA1910B70D00893A7F /* GDVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDVideoViewController.m; sourceTree = "<group>"; };
+		057AA90A198A035200208DF6 /* UnitMixMaterialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitMixMaterialView.h; sourceTree = "<group>"; };
+		057AA90B198A035200208DF6 /* UnitMixMaterialView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitMixMaterialView.m; sourceTree = "<group>"; };
 		0582A87B192F9249007B90C9 /* ABTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTableViewCell.h; sourceTree = "<group>"; };
 		0582A87C192F9249007B90C9 /* ABTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABTableViewCell.m; sourceTree = "<group>"; };
 		058314221949507000023742 /* OriginListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OriginListViewController.h; sourceTree = "<group>"; };
@@ -178,6 +184,8 @@
 		0592B0021950282C000301FD /* AutoCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoCoding.h; sourceTree = "<group>"; };
 		0592B0031950282C000301FD /* AutoCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoCoding.m; sourceTree = "<group>"; };
 		059547CD193CE0930039E578 /* VideoListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoListItem.m; sourceTree = "<group>"; };
+		0596FEFC198B6F4E008B0CB4 /* GundamStyleBorderedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GundamStyleBorderedButton.h; sourceTree = "<group>"; };
+		0596FEFD198B6F4E008B0CB4 /* GundamStyleBorderedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GundamStyleBorderedButton.m; sourceTree = "<group>"; };
 		05976CCD192CE37A008A2361 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		05996F9D192B61AD00BD1202 /* GDVideoListVCDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDVideoListVCDataSource.h; sourceTree = "<group>"; };
 		05996F9E192B61AD00BD1202 /* GDVideoListVCDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDVideoListVCDataSource.m; sourceTree = "<group>"; };
@@ -214,6 +222,10 @@
 		05CFFF55196417BD00C67F57 /* NetworkErrorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkErrorView.m; sourceTree = "<group>"; };
 		05D9603819652E0900DD5AE3 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		05D9603A1965351F00DD5AE3 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		05DE297E1988AEDE005B4D92 /* AFPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFPopupView.h; sourceTree = "<group>"; };
+		05DE297F1988AEDE005B4D92 /* AFPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFPopupView.m; sourceTree = "<group>"; };
+		05DE29811988B0A7005B4D92 /* UnitMixPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitMixPopupView.h; sourceTree = "<group>"; };
+		05DE29821988B0A7005B4D92 /* UnitMixPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitMixPopupView.m; sourceTree = "<group>"; };
 		05E0DA44193644F200436B98 /* GDUnitCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDUnitCollectionViewCell.h; sourceTree = "<group>"; };
 		05E0DA45193644F200436B98 /* GDUnitCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDUnitCollectionViewCell.m; sourceTree = "<group>"; };
 		05E40AD619211EF2004AA495 /* GDPostListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDPostListTableViewCell.h; sourceTree = "<group>"; };
@@ -516,6 +528,8 @@
 				056D0BEC19404B040004F259 /* ScrollingTextView.m */,
 				05FFBE12193849600051AFF4 /* SVPTRViews */,
 				05C3094E193F7CB100D00A90 /* Unit */,
+				0596FEFC198B6F4E008B0CB4 /* GundamStyleBorderedButton.h */,
+				0596FEFD198B6F4E008B0CB4 /* GundamStyleBorderedButton.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -523,6 +537,7 @@
 		05A417C31915182E0040A679 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				05DE297D1988A52E005B4D92 /* AFPopupView */,
 				05953D6D1978AE2600BAA465 /* UMengUpdate */,
 				058C514A19507018000BF675 /* UMeng */,
 				0592B001195027F2000301FD /* AutoCoding */,
@@ -571,8 +586,21 @@
 				05AAB17C194349F6003FF5DC /* UnitStoryCell.m */,
 				059090C71946A42F0079C364 /* UnitVideoListView.h */,
 				059090C81946A42F0079C364 /* UnitVideoListView.m */,
+				05DE29811988B0A7005B4D92 /* UnitMixPopupView.h */,
+				05DE29821988B0A7005B4D92 /* UnitMixPopupView.m */,
+				057AA90A198A035200208DF6 /* UnitMixMaterialView.h */,
+				057AA90B198A035200208DF6 /* UnitMixMaterialView.m */,
 			);
 			name = Unit;
+			sourceTree = "<group>";
+		};
+		05DE297D1988A52E005B4D92 /* AFPopupView */ = {
+			isa = PBXGroup;
+			children = (
+				05DE297E1988AEDE005B4D92 /* AFPopupView.h */,
+				05DE297F1988AEDE005B4D92 /* AFPopupView.m */,
+			);
+			name = AFPopupView;
 			sourceTree = "<group>";
 		};
 		05E4D584191B30720056839B /* NSDictionary+QueryStringBuilder */ = {
@@ -760,11 +788,13 @@
 				057393B3191A921400F7415E /* UnitInfoShort.m in Sources */,
 				05023AEA19052791001D04F0 /* GDAppDelegate.m in Sources */,
 				05C30948193F5B0800D00A90 /* UnitMiscInfoCell.m in Sources */,
+				05DE29801988AEDE005B4D92 /* AFPopupView.m in Sources */,
 				05C7D4BF194E88A9009C0DCA /* UnitsByOriginViewController.m in Sources */,
 				0511D0BC193251CF007A9E66 /* GDPostListCollectionViewCell.m in Sources */,
 				0536FC9C194DEBE90044BE38 /* GDAppUtility.m in Sources */,
 				0530C96B190636E900CE51FA /* GDHome2ViewController.m in Sources */,
 				05C30945193F5AAF00D00A90 /* UnitWeaponCell.m in Sources */,
+				057AA90C198A035200208DF6 /* UnitMixMaterialView.m in Sources */,
 				0565B3B91908A01E00CCE77E /* GDCommunicator.m in Sources */,
 				050B654819371D2D0011F7EE /* SVPTRView.m in Sources */,
 				058C515919508445000BF675 /* UnitList.m in Sources */,
@@ -775,6 +805,7 @@
 				0506D4C319173A8A00EFAC83 /* GDPostViewController.m in Sources */,
 				058314241949507000023742 /* OriginListViewController.m in Sources */,
 				05C30942193F5A9F00D00A90 /* UnitSkillCell.m in Sources */,
+				0596FEFE198B6F4E008B0CB4 /* GundamStyleBorderedButton.m in Sources */,
 				0506D4C919174DA100EFAC83 /* SearchUnitViewController.m in Sources */,
 				05E4D588191B31230056839B /* NSDictionary+QueryStringBuilder.m in Sources */,
 				05EDB8E819517E4F003AEF0F /* OriginInfo.m in Sources */,
@@ -791,6 +822,7 @@
 				056D0BEA19400F1A0004F259 /* UnitBasicDataView.m in Sources */,
 				05FFBE1C193876000051AFF4 /* UnitGaugeBarView.m in Sources */,
 				05216A281925FB9A00807A2E /* GDVideoListViewController.m in Sources */,
+				05DE29831988B0A7005B4D92 /* UnitMixPopupView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

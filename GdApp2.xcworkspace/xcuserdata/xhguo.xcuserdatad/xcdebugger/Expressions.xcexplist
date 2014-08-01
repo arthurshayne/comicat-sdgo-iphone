@@ -3,21 +3,12 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "-[GDManager receivedHomeInfoJSON:]:GDManager.m">
+         contextName = "+[AFPopupView popupWithView:]:AFPopupView.m">
          <PersistentStrings>
             <PersistentString
-               value = "">
-            </PersistentString>
-            <PersistentString
-               value = "(NSString *)$2-&gt;_success">
-            </PersistentString>
-            <PersistentString
-               value = "(HomeInfo *)homeInfo">
+               value = "popupView">
             </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[GDPostCategoryView getGdPostCategoryBackground:]:GDPostCategoryView.m">
       </ContextState>
       <ContextState
          contextName = "__44-[GDHome2ViewController didReceiveHomeInfo:]_block_invoke:GDHome2ViewController.m">
@@ -34,6 +25,47 @@
                value = "self.backgroundLayer">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[GDManager receivedHomeInfoJSON:]:GDManager.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "">
+            </PersistentString>
+            <PersistentString
+               value = "(NSString *)$2-&gt;_success">
+            </PersistentString>
+            <PersistentString
+               value = "(HomeInfo *)homeInfo">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[UnitMixPopupView renderUMM:isKeyUnit:inCGRect:]:UnitMixPopupView.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "usingLayout">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[UnitMixMaterialView setUmm:]:UnitMixMaterialView.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "_unitImageView">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[UnitViewController tableView:numberOfRowsInSection:]:UnitViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "_unitInfo">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[GDPostCategoryView getGdPostCategoryBackground:]:GDPostCategoryView.m">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

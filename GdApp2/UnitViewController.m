@@ -11,6 +11,7 @@
 #import "MBProgressHUD.h"
 #import "UIScrollView+GDPullToRefresh.h"
 #import "SVPullToRefresh.h"
+#import "AFPopupView.h"
 
 #import "UIViewController+NavigationMax3.h"
 
@@ -27,6 +28,8 @@
 #import "UnitStoryCell.h"
 #import "GDVideoListCollectionViewCell.h"
 #import "NetworkErrorView.h"
+#import "UnitMixPopupView.h"
+#import "GundamStyleBorderedButton.h"
 
 #import "GDVideoViewController.h"
 
@@ -34,6 +37,8 @@
 
 @property (strong, nonatomic) UnitInfo *unitInfo;
 @property (weak, nonatomic) IBOutlet UITableView *rootTableView;
+
+@property (nonatomic, strong) AFPopupView *popup;
 
 @property (strong, nonatomic) UnitBasicDataView *unitBasicDataView;
 @property (strong, nonatomic) UISegmentedControl *segmentedControl;
@@ -121,6 +126,7 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
     [self.rootTableView registerClass:[UnitStoryCell class] forCellReuseIdentifier:@"Story"];
     [self.rootTableView registerClass:[UnitGetwayCell class] forCellReuseIdentifier:@"Getway"];
     [self.rootTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"VideoList"];
+    [self.rootTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Common"];
     
     [self configurePullToRefresh];
     
@@ -154,6 +160,13 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
 //        [self.unitBasicDataView playAnimations];
 //        self.animationPlayed = YES;
 //    }
+
+    if (isUmpvPreviouslyOpened) {
+        [self showUnitMixPopup];
+    } else if (isUmpvCNPreviouslyOpened) {
+        [self showUnitMixPopupCN];
+    }
+    isUmpvCNPreviouslyOpened = isUmpvCNPreviouslyOpened = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -170,7 +183,6 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
         } else {
             lastPullToRefresh = [NSDate date];
         }
-
     }];
 }
 
@@ -221,7 +233,7 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
     }
     
     [self.rootTableView reloadData];
-    
+
     [self.unitBasicDataView playAnimations];
 }
 
@@ -267,7 +279,7 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
                 // skill
                 return [self heightForSkillAtIndex:indexPath.row];
             case 2:
-                // misc1, story, getway
+                // misc, mix, story, getway
                 return [self heightForMiscAtIndex:indexPath.row];
             case 3:
                 if (self.unitInfo.videoList.count > 0) {
@@ -315,9 +327,12 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
             // misc
             return [UnitMiscInfoCell calculateHeightForUnit:self.unitInfo];
         case 1:
+            // mix, if any
+            return self.unitInfo.mixingKeyUnit ? 75 : 0;
+        case 2:
             // story
             return [UnitStoryCell calculateHeight:self.unitInfo.story];
-        case 2:
+        case 3:
             // getway
             return [UnitGetwayCell calculateHeightForUnit:self.unitInfo];
     }
@@ -325,8 +340,11 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    if (indexPath.section == 1) {
+        switch (indexPath.row) {
+
+        }
+    }
 }
 
 #pragma mark - TableViewDataSource
@@ -350,9 +368,10 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
                 case 1:
                     // skills
                     return 3;
-                case 2:
-                    // misc, story, getway
-                    return 3;
+                case 2: {
+                    // misc, mix, story, getway
+                    return 4;
+                }
                 case 3:
                     // video;
                     return 1;
@@ -365,14 +384,12 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    NSString *identifier = indexPath.section == 0 ? @"Basic" : @"Extended";
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-//;
     if (indexPath.section == 0) {
         // Basic Info
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Basic"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell.contentView addSubview:self.unitBasicDataView];
+        cell.userInteractionEnabled = NO;
         return cell;
     } else if (indexPath.section == 1) {
         switch(self.segmentedControl.selectedSegmentIndex) {
@@ -384,7 +401,7 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
                 // skill
                 return [self tableView:tableView cellForSkillAtIndex:indexPath.row];
             case 2:
-                // other
+                // misc
                 return [self tableView:tableView cellForMiscAtIndex:indexPath.row];
             case 3: {
                 UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VideoList"];
@@ -421,6 +438,8 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
     
     [cell updateSkillText];
     
+    cell.userInteractionEnabled = NO;
+    
     return cell;
 }
 
@@ -447,6 +466,8 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
     
     [cell updateWeaponText];
     
+    cell.userInteractionEnabled = NO;
+    
     return cell;
 }
 
@@ -455,20 +476,107 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
         case 0: {
             UnitMiscInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Misc"];
             cell.unit = self.unitInfo;
+            cell.userInteractionEnabled = NO;
             return cell;
         }
         case 1: {
-            UnitStoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Story"];
-            cell.story = self.unitInfo.story;
-            return cell;
+            // mix
+            return [self cellForUnitMixOnTableView:tableView];
         }
         case 2: {
+            UnitStoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Story"];
+            cell.story = self.unitInfo.story;
+            cell.userInteractionEnabled = NO;
+            return cell;
+        }
+        case 3: {
             UnitGetwayCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Getway"];
             cell.unit = self.unitInfo;
+            cell.userInteractionEnabled = NO;
             return cell;
         }
     }
     return nil;
+}
+
+- (UITableViewCell *)cellForUnitMixOnTableView:(UITableView *)tableView  {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Common"];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Common"];
+    }
+    
+    UILabel *captionLabel = [[UILabel alloc] initWithFrame:CGRectMake(23, 8, 120, 24)];
+    captionLabel.font = [UIFont systemFontOfSize:15];
+    captionLabel.text = @"合成";
+    
+    [cell.contentView addSubview:captionLabel];
+    
+    if (self.unitInfo.mixingKeyUnit) {
+        GundamStyleBorderedButton *mixButton = [[GundamStyleBorderedButton alloc] initWithFrame:CGRectMake(33, 40, 100, 24)];
+        mixButton.cutCorners = CutCornerNW | CutCornerSE | CutCornerSW | CutCornerNE;
+        mixButton.cutCornerSize = 12;
+        [mixButton setTitle:@"查看" forState:UIControlStateNormal];
+        mixButton.titleLabel.font = [UIFont systemFontOfSize:13];
+        [mixButton setTitleColor:[GDAppUtility appTintColor] forState:UIControlStateNormal];
+//        [mixButton setTitleColor:[GDAppUtility appTintColorHighlighted] forState:UIControlStateHighlighted];
+        [mixButton addTarget:self action:@selector(showUnitMixPopup) forControlEvents:UIControlEventTouchUpInside];
+        
+        [cell.contentView addSubview:mixButton];
+    }
+    
+    if (self.unitInfo.mixingKeyUnitCN) {
+        GundamStyleBorderedButton *mixButton = [[GundamStyleBorderedButton alloc] initWithFrame:CGRectMake(160, 40, 130, 24)];
+        mixButton.cutCorners = CutCornerNW | CutCornerSE | CutCornerSW | CutCornerNE;
+        mixButton.cutCornerSize = 12;
+        [mixButton setTitle:@"查看国服" forState:UIControlStateNormal];
+        mixButton.titleLabel.font = [UIFont systemFontOfSize:13];
+        [mixButton setTitleColor:[GDAppUtility appTintColor] forState:UIControlStateNormal];
+        // [mixButton setTitleColor:[GDAppUtility appTintColorHighlighted] forState:UIControlStateHighlighted];
+        [mixButton addTarget:self action:@selector(showUnitMixPopupCN) forControlEvents:UIControlEventTouchUpInside];
+        
+        [cell.contentView addSubview:mixButton];
+    }
+    
+    return cell;
+}
+
+- (void)showUnitMixPopup {
+    UnitMixPopupView *view = [[UnitMixPopupView alloc] initWithKeyUnit:self.unitInfo.mixingKeyUnit
+                                                           materialUnits:self.unitInfo.mixingMaterialUnits];
+    view.caption = @"合成需求";
+
+    self.popup = [AFPopupView popupWithView:view];
+    self.popup.hideOnBackgroundTap = YES;
+    
+    [self.popup show];
+
+    view.dismissWithClickOnUnit = ^void(NSString *unitId) {
+        [self.popup hide];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            isUmpvCNPreviouslyOpened = YES;
+            [self presentUnitView:unitId];
+        });
+    };
+}
+
+- (void)showUnitMixPopupCN {
+    UnitMixPopupView *view = [[UnitMixPopupView alloc] initWithKeyUnit:self.unitInfo.mixingKeyUnitCN
+                                                         materialUnits:self.unitInfo.mixingMaterialUnitsCN];
+    view.caption = @"国服合成需求";
+    
+    self.popup = [AFPopupView popupWithView:view];
+    self.popup.hideOnBackgroundTap = YES;
+    [self.popup show];
+    
+    view.dismissWithClickOnUnit = ^void(NSString *unitId) {
+        [self.popup hide];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            isUmpvCNPreviouslyOpened = YES;
+            [self presentUnitView:unitId];
+        });
+    };
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -516,5 +624,14 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return CGSizeMake(150, 135);
 }
+
+- (void)presentUnitView:(NSString *)unitId {
+    UnitViewController *uvc = [self.storyboard instantiateViewControllerWithIdentifier:@"UnitViewController"];
+    uvc.unitId = unitId;
+    
+    [self.navigationController pushViewController:uvc animated:YES];
+}
+
+
 
 @end

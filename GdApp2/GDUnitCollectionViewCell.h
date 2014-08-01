@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "GDPostListCollectionViewCell.h"
 
+// This is used on Home view
 @interface GDUnitCollectionViewCell : UICollectionViewCell
 
 @property (strong, nonatomic) NSString *unitId;

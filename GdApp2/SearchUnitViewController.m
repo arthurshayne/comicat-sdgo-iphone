@@ -153,8 +153,8 @@ NSString *unitIdForSegue;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSLog(@"%@",[NSThread callStackSymbols]);
-        [self.searchBar resignFirstResponder];
+    // NSLog(@"%@",[NSThread callStackSymbols]);
+    [self.searchBar resignFirstResponder];
     
 }
 

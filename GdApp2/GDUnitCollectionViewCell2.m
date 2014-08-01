@@ -81,7 +81,7 @@ static const CGFloat TEXT_PADDING = 3;
     CGContextFillRect(ctx, rect);
 
     CGFloat unitImageBorderSize = UNIT_IMAGE_WIDTH + UNIT_IMAGE_PADDING;
-    CGRect unitImageBorderRect = CGRectMake((rect.size.width - unitImageBorderSize) / 2, 4, unitImageBorderSize, unitImageBorderSize);
+    CGRect unitImageBorderRect = CGRectMake((self.frame.size.width - unitImageBorderSize) / 2, 4, unitImageBorderSize, unitImageBorderSize);
     
     // draw border
     UIColor *borderColor = [UIColor colorWithRed:195/255 green:195/255 blue:195/255 alpha:0.18];
@@ -97,7 +97,7 @@ static const CGFloat TEXT_PADDING = 3;
     CGContextSetFillColorWithColor(ctx, [[UIColor colorWithRed:247.0/255 green:247.0/255 blue:247.0/255 alpha:0.7] CGColor]);
     CGContextFillRect(ctx, unitImageBorderRect);
 
-    CGFloat unitImageLeft = (rect.size.width - UNIT_IMAGE_WIDTH) / 2;
+    CGFloat unitImageLeft = (self.frame.size.width - UNIT_IMAGE_WIDTH) / 2;
     CGFloat unitImagePadding = unitImageLeft - unitImageBorderRect.origin.x;
     CGRect imageRect = CGRectMake(unitImageLeft, unitImageBorderRect.origin.y + unitImagePadding, UNIT_IMAGE_WIDTH, UNIT_IMAGE_WIDTH);
     if (self.unitImage) {
@@ -112,7 +112,7 @@ static const CGFloat TEXT_PADDING = 3;
         [style setAlignment:NSTextAlignmentCenter];
 
         [self.modelName drawInRect:CGRectMake(TEXT_PADDING, unitImageBorderRect.origin.y + unitImageBorderRect.size.height + TEXT_PADDING,
-                                              rect.size.width - 2 * TEXT_PADDING, CGFLOAT_MAX)
+                                              self.frame.size.width - 2 * TEXT_PADDING, CGFLOAT_MAX)
                     withAttributes:@{NSParagraphStyleAttributeName: style,
                                      NSFontAttributeName: [UIFont systemFontOfSize:12],
                                      NSForegroundColorAttributeName: [UIColor darkGrayColor]}];

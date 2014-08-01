@@ -13,5 +13,6 @@
 @property (strong, nonatomic) NSString *unitId;
 @property (strong, nonatomic) NSString *modelName;
 @property (strong, nonatomic) NSString *level;
+// TODO: add "rank"
 
 @end

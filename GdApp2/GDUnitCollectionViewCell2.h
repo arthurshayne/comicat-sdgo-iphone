@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+// This is used on UnitsByOrigin view
 @interface GDUnitCollectionViewCell2 : UICollectionViewCell
 
 @property (strong, nonatomic) NSString *unitId;
