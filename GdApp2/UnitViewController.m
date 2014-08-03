@@ -485,6 +485,7 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
         }
         case 2: {
             UnitStoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Story"];
+            
             cell.story = self.unitInfo.story;
             cell.userInteractionEnabled = NO;
             return cell;
@@ -504,6 +505,9 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Common"];
     }
+    
+    // fixes text overlaps to the cell below
+    cell.clipsToBounds = YES;
     
     UILabel *captionLabel = [[UILabel alloc] initWithFrame:CGRectMake(23, 8, 120, 24)];
     captionLabel.font = [UIFont systemFontOfSize:15];
