@@ -98,4 +98,24 @@
     }
 }
 
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    static NSString *gdAppScheme = @"gdapp2";
+    if ([url.scheme isEqualToString:gdAppScheme]) {
+        NSString *action = url.host;
+        NSString *objectId = [url.path stringByReplacingOccurrencesOfString:@"/" withString:@""];
+        if (objectId) {
+            if ([action isEqualToString:@"unit"]) {
+                // [self presentUnitView:objectId];
+                return YES;
+            } else if ([action isEqualToString:@"post"]) {
+                // [self presentVideoViewController:[objectId intValue]];
+                return YES;
+            }
+        }
+        return NO;
+    }
+    return NO;
+}
+
+
 @end
