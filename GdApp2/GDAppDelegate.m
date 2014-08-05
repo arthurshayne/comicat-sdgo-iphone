@@ -11,6 +11,8 @@
 #import "GDManager.h"
 #import "GDManagerFactory.h"
 
+#import "UMSocial.h"
+
 @interface GDAppDelegate ()
 
 @property (strong, nonatomic) GDManager *manager;
@@ -27,8 +29,9 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    static NSString *umengAppKey = @"539fcbe156240bfc02007abc";
     // configure UMeng
-    [MobClick startWithAppkey:@"539fcbe156240bfc02007abc"
+    [MobClick startWithAppkey:umengAppKey
                  reportPolicy:SEND_INTERVAL
                     channelId:@"Web"];
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
@@ -37,6 +40,8 @@
     [MobClick checkUpdate:@"侦测到前方高能反应" cancelButtonTitle:@"-_-无视" otherButtonTitles:@"去看看"];
     
     [MobClick setLogEnabled:YES];
+    
+    [UMSocialData setAppKey:umengAppKey];
     
     // configure UserDefaults
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -47,11 +52,6 @@
     
     // check for unit origin update
     [self.manager checkForOriginUpdate:NO];
-    
-//    static dispatch_once_t onceToken;
-//    dispatch_once(&onceToken, ^{
-//        
-//    });
 
     // display launch image longer
     [NSThread sleepForTimeInterval:1.8];

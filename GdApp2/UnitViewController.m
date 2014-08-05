@@ -12,6 +12,7 @@
 #import "UIScrollView+GDPullToRefresh.h"
 #import "SVPullToRefresh.h"
 #import "AFPopupView.h"
+#import "UMSocial.h"
 
 #import "UIViewController+NavigationMax3.h"
 
@@ -636,6 +637,14 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
     [self.navigationController pushViewController:uvc animated:YES];
 }
 
+- (IBAction)actionButtonPressed:(id)sender {
+    [UMSocialSnsService presentSnsIconSheetView:self
+                                         appKey:nil
+                                      shareText:@"你要分享的文字"
+                                     shareImage:nil
+                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToSms,UMShareToWechatTimeline,UMShareToWechatSession,nil]
+                                       delegate:nil];
+}
 
 
 @end
