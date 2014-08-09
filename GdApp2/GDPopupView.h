@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AFPopupView : UIView {
+@interface GDPopupView : UIView {
     
 }
 
 @property (nonatomic) BOOL hideOnBackgroundTap;
 
-+(AFPopupView *)popupWithView:(UIView *)popupView;
++(GDPopupView *)popupWithView:(UIView *)popupView;
 
 -(void)show;
 -(void)hide;

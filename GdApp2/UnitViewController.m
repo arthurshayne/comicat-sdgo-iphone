@@ -11,7 +11,7 @@
 #import "MBProgressHUD.h"
 #import "UIScrollView+GDPullToRefresh.h"
 #import "SVPullToRefresh.h"
-#import "AFPopupView.h"
+#import "GDPopupView.h"
 #import "UMSocial.h"
 
 #import "UIViewController+NavigationMax3.h"
@@ -39,7 +39,7 @@
 @property (strong, nonatomic) UnitInfo *unitInfo;
 @property (weak, nonatomic) IBOutlet UITableView *rootTableView;
 
-@property (nonatomic, strong) AFPopupView *popup;
+@property (nonatomic, strong) GDPopupView *popup;
 
 @property (strong, nonatomic) UnitBasicDataView *unitBasicDataView;
 @property (strong, nonatomic) UISegmentedControl *segmentedControl;
@@ -144,6 +144,13 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
     [super viewWillAppear:animated];
     
     [MobClick beginLogPageView:@"机体详细"];
+    
+    if (isUmpvPreviouslyOpened) {
+        [self showUnitMixPopup];
+    } else if (isUmpvCNPreviouslyOpened) {
+        [self showUnitMixPopupCN];
+    }
+    isUmpvCNPreviouslyOpened = isUmpvCNPreviouslyOpened = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -162,12 +169,7 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
 //        self.animationPlayed = YES;
 //    }
 
-    if (isUmpvPreviouslyOpened) {
-        [self showUnitMixPopup];
-    } else if (isUmpvCNPreviouslyOpened) {
-        [self showUnitMixPopupCN];
-    }
-    isUmpvCNPreviouslyOpened = isUmpvCNPreviouslyOpened = NO;
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -343,7 +345,10 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 1) {
         switch (indexPath.row) {
-
+            case 1:
+                [tableView deselectRowAtIndexPath:indexPath animated:NO];
+                [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                break;
         }
     }
 }
@@ -550,7 +555,7 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
                                                            materialUnits:self.unitInfo.mixingMaterialUnits];
     view.caption = @"合成需求";
 
-    self.popup = [AFPopupView popupWithView:view];
+    self.popup = [GDPopupView popupWithView:view];
     self.popup.hideOnBackgroundTap = YES;
     
     [self.popup show];
@@ -558,8 +563,8 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
     view.dismissWithClickOnUnit = ^void(NSString *unitId) {
         [self.popup hide];
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            isUmpvCNPreviouslyOpened = YES;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            isUmpvPreviouslyOpened = YES;
             [self presentUnitView:unitId];
         });
     };
@@ -570,14 +575,14 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
                                                          materialUnits:self.unitInfo.mixingMaterialUnitsCN];
     view.caption = @"国服合成需求";
     
-    self.popup = [AFPopupView popupWithView:view];
+    self.popup = [GDPopupView popupWithView:view];
     self.popup.hideOnBackgroundTap = YES;
     [self.popup show];
     
     view.dismissWithClickOnUnit = ^void(NSString *unitId) {
         [self.popup hide];
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             isUmpvCNPreviouslyOpened = YES;
             [self presentUnitView:unitId];
         });
