@@ -12,6 +12,7 @@
 #import "GDManagerFactory.h"
 
 #import "UMSocial.h"
+#import "UMSocialWechatHandler.h"
 
 @interface GDAppDelegate ()
 
@@ -41,7 +42,9 @@
     
     [MobClick setLogEnabled:YES];
     
+    // UMeng Social
     [UMSocialData setAppKey:umengAppKey];
+    [UMSocialWechatHandler setWXAppId:@"wx533616eb0869c8b7" url:nil];
     
     // configure UserDefaults
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -113,9 +116,16 @@
             }
         }
         return NO;
+    } else {
+        return [UMSocialSnsService handleOpenURL:url];
     }
-    return NO;
 }
 
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    return [UMSocialSnsService handleOpenURL:url];
+}
 
 @end

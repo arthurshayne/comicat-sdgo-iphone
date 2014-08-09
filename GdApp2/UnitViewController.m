@@ -637,14 +637,34 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
     [self.navigationController pushViewController:uvc animated:YES];
 }
 
+
 - (IBAction)actionButtonPressed:(id)sender {
+    [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeWeb;
+    [UMSocialData defaultData].extConfig.title = @"漫猫SD敢达iPhone";
+    [UMSocialData defaultData].extConfig.wechatSessionData.url = @"http://www.sdgundam.cn/pages/app/iphone-landing-page.aspx";
+    
     [UMSocialSnsService presentSnsIconSheetView:self
                                          appKey:nil
-                                      shareText:@"你要分享的文字"
-                                     shareImage:nil
-                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToSms,UMShareToWechatTimeline,UMShareToWechatSession,nil]
-                                       delegate:nil];
+                                      shareText:@"全宇宙首款SD敢达资料App, 一如既往的提供SD敢达最新情报, 最新视频和全机体资料!"
+                                     shareImage:[UIImage imageNamed:@"AppIcon"]
+                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina, UMShareToSms, UMShareToWechatTimeline, UMShareToWechatSession, nil]
+                                       delegate:self];
+    
+
 }
 
+-(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response {
+    //根据`responseCode`得到发送结果,如果分享成功
+    if(response.responseCode == UMSResponseCodeSuccess)     {
+        //得到分享到的微博平台名
+        NSLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
+    }
+}
+
+#pragma mark - Others
+
+- (void)markViewedUnit:(NSString *)unitId {
+    
+}
 
 @end
