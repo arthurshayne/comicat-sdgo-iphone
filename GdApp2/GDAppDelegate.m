@@ -14,6 +14,11 @@
 #import "UMSocial.h"
 #import "UMSocialWechatHandler.h"
 
+#import "UnitViewController.h"
+#import "GDVideoViewController.h"
+
+#define ROOTVIEW [[[UIApplication sharedApplication] keyWindow] rootViewController]
+
 @interface GDAppDelegate ()
 
 @property (strong, nonatomic) GDManager *manager;
@@ -101,17 +106,53 @@
     }
 }
 
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+//- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+//    static NSString *gdAppScheme = @"gdapp2";
+//    if ([url.scheme isEqualToString:gdAppScheme]) {
+//        NSString *action = url.host;
+//        NSString *objectId = [url.path stringByReplacingOccurrencesOfString:@"/" withString:@""];
+//        if (objectId) {
+//            if ([action isEqualToString:@"unit"]) {
+//                // [self presentUnitView:objectId];
+//                return YES;
+//            } else if ([action isEqualToString:@"post"]) {
+//                // [self presentVideoViewController:[objectId intValue]];
+//                return YES;
+//            }
+//        }
+//        return NO;
+//    } else {
+//        return [UMSocialSnsService handleOpenURL:url];
+//    }
+//}
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
     static NSString *gdAppScheme = @"gdapp2";
     if ([url.scheme isEqualToString:gdAppScheme]) {
         NSString *action = url.host;
         NSString *objectId = [url.path stringByReplacingOccurrencesOfString:@"/" withString:@""];
         if (objectId) {
             if ([action isEqualToString:@"unit"]) {
-                // [self presentUnitView:objectId];
+                UITabBarController *rootVC = (UITabBarController *)[[[UIApplication sharedApplication] keyWindow] rootViewController];
+                UINavigationController *homeVC = (UINavigationController *)[rootVC.viewControllers objectAtIndex:0];
+                
+                UnitViewController *uvc = [homeVC.storyboard instantiateViewControllerWithIdentifier:@"UnitViewController"];
+                uvc.unitId = objectId;
+
+                [homeVC pushViewController:uvc animated:YES];
                 return YES;
-            } else if ([action isEqualToString:@"post"]) {
+            } else if ([action isEqualToString:@"video"]) {
                 // [self presentVideoViewController:[objectId intValue]];
+                UITabBarController *rootVC = (UITabBarController *)[[[UIApplication sharedApplication] keyWindow] rootViewController];
+                UINavigationController *homeVC = (UINavigationController *)[rootVC.viewControllers objectAtIndex:0];
+                
+                GDVideoViewController *gdvvc = [homeVC.storyboard instantiateViewControllerWithIdentifier:@"VideoViewController"];
+                gdvvc.postId = [objectId intValue];
+                
+                [homeVC pushViewController:gdvvc animated:YES];
                 return YES;
             }
         }
@@ -121,11 +162,5 @@
     }
 }
 
-- (BOOL)application:(UIApplication *)application
-            openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication
-         annotation:(id)annotation {
-    return [UMSocialSnsService handleOpenURL:url];
-}
 
 @end

@@ -17,6 +17,7 @@
 #import "NSDate+PrettyDate.h"
 #import "UIScrollView+GDPullToRefresh.h"
 #import "SVPullToRefresh.h"
+#import "UMSocial.h"
 
 #import "CarouselInfo.h"
 #import "VideoListItem.h"
@@ -50,6 +51,7 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *unitsCollectionView;
 
 @property (weak, nonatomic) IBOutlet UIButton *searchUnitButton;
+@property (weak, nonatomic) IBOutlet UIButton *shareButton;
 @property (strong, nonatomic) NSMutableArray *postListCellBorders;
 @property (strong, nonatomic) NSMutableArray *unitListCellBorders;
 @end
@@ -113,6 +115,8 @@ const CGFloat UNIT_CELL_WIDTH = 90;
     [self.searchUnitButton setTitleColor:[GDAppUtility appTintColor] forState:UIControlStateNormal];
     [self.searchUnitButton setTitleColor:[GDAppUtility appTintColorHighlighted] forState:UIControlStateHighlighted];
     [self.searchUnitButton setImage:[UIImage imageNamed:@"search-button-hl"] forState:UIControlStateHighlighted];
+    
+    [self.shareButton setImage:[UIImage imageNamed:@"share-button-hl"] forState:UIControlStateHighlighted];
 }
 
 - (void)prepareCarousel {
@@ -235,6 +239,19 @@ const CGFloat UNIT_CELL_WIDTH = 90;
 
 - (IBAction)prepareForSearchUnit:(id)sender {
     [self performSegueWithIdentifier:@"search-unit" sender:self];
+}
+
+- (IBAction)shareButtonPressed:(id)sender {
+    [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeWeb;
+    [UMSocialData defaultData].extConfig.title = @"漫猫SD敢达iPhone";
+    [UMSocialData defaultData].extConfig.wechatSessionData.url = @"http://www.sdgundam.cn/pages/app/iphone-landing-page.aspx";
+    
+    [UMSocialSnsService presentSnsIconSheetView:self
+                                         appKey:nil
+                                      shareText:@"全宇宙首款SD敢达资料App, 一如既往的提供SD敢达最新情报, 最新视频和全机体资料!"
+                                     shareImage:[UIImage imageNamed:@"AppIcon"]
+                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina, UMShareToSms, UMShareToWechatTimeline, UMShareToWechatSession, nil]
+                                       delegate:nil];
 }
 
 - (void)configurePullToRefresh {

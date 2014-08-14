@@ -643,19 +643,18 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
 }
 
 
-- (IBAction)actionButtonPressed:(id)sender {
+- (IBAction)shareButtonPressed:(id)sender {
     [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeWeb;
     [UMSocialData defaultData].extConfig.title = @"漫猫SD敢达iPhone";
-    [UMSocialData defaultData].extConfig.wechatSessionData.url = @"http://www.sdgundam.cn/pages/app/iphone-landing-page.aspx";
+    [UMSocialData defaultData].extConfig.wechatSessionData.url =
+        [NSString stringWithFormat:@"http://www.sdgundam.cn/pages/app/iphone-landing-page.aspx?appurl=gdapp2://unit/%@", self.unitId];
     
     [UMSocialSnsService presentSnsIconSheetView:self
                                          appKey:nil
-                                      shareText:@"全宇宙首款SD敢达资料App, 一如既往的提供SD敢达最新情报, 最新视频和全机体资料!"
+                                      shareText:[NSString stringWithFormat:@"我正在用漫猫SD敢达App查看\"%@\"的详细资料和最新视频", self.unitInfo.modelName]
                                      shareImage:[UIImage imageNamed:@"AppIcon"]
                                 shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina, UMShareToSms, UMShareToWechatTimeline, UMShareToWechatSession, nil]
-                                       delegate:self];
-    
-
+                                       delegate:nil];
 }
 
 -(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response {

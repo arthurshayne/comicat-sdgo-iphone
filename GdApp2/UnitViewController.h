@@ -9,9 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "GDManagerDelegate.h"
 
-#import "UMSocial.h"
-
-@interface UnitViewController : UIViewController <GDManagerDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UMSocialUIDelegate> {
+@interface UnitViewController : UIViewController <GDManagerDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout> {
     int postIdForSegue;
     NSDate *lastPullToRefresh;
     

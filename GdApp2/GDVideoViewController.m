@@ -11,6 +11,7 @@
 #import "GDAppDelegate.h"
 
 #import "MBProgressHUD.h"
+#import "UMSocial.h"
 
 #import "GDManagerFactory.h"
 #import "GDManager.h"
@@ -196,6 +197,21 @@
 - (void)didReceivePostInfo:(PostInfo *)returnedPostInfo {
     postInfo = returnedPostInfo;
 }
+
+- (IBAction)shareButtonPressed:(id)sender {
+    [UMSocialData defaultData].extConfig.wxMessageType = UMSocialWXMessageTypeWeb;
+    [UMSocialData defaultData].extConfig.title = @"漫猫SD敢达iPhone";
+    [UMSocialData defaultData].extConfig.wechatSessionData.url =
+        [NSString stringWithFormat:@"http://www.sdgundam.cn/pages/app/iphone-landing-page.aspx?appurl=gdapp2://video/%d", self.postId];
+    
+    [UMSocialSnsService presentSnsIconSheetView:self
+                                         appKey:nil
+                                      shareText:@"我正在用[漫猫SD敢达App]观看视频"
+                                     shareImage:[UIImage imageNamed:@"AppIcon"]
+                                shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina, UMShareToSms, UMShareToWechatTimeline, UMShareToWechatSession, nil]
+                                       delegate:nil];
+}
+
 
 //- (UIStatusBarStyle)preferredStatusBarStyle {
 //    return UIStatusBarStyleLightContent;

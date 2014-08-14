@@ -225,14 +225,25 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="5xK-Gc-3Z8">
-                                    <rect key="frame" x="162" y="8" width="142" height="22"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <rect key="frame" x="190" y="6" width="114" height="22"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                    <state key="normal" title="Search Unit" image="search-button">
+                                    <state key="normal" title="搜索机体" image="search-button">
                                         <color key="titleColor" red="1" green="0.28627450980000002" blue="0.27058823529999998" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
                                     <connections>
                                         <action selector="prepareForSearchUnit:" destination="ROR-jx-yyO" eventType="touchUpInside" id="APQ-uk-Pr8"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jrM-bW-A9J">
+                                    <rect key="frame" x="186" y="6" width="22" height="22"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="share-button">
+                                        <color key="titleColor" red="1" green="0.28627450980000002" blue="0.27058823529999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="shareButtonPressed:" destination="ROR-jx-yyO" eventType="touchUpInside" id="cz8-hm-6Fk"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -247,6 +258,7 @@
                         <outlet property="rootScrollView" destination="7Jf-ag-sZT" id="aOD-4v-Dtg"/>
                         <outlet property="searchDisplayController" destination="q11-ea-nPX" id="RIa-By-xx0"/>
                         <outlet property="searchUnitButton" destination="5xK-Gc-3Z8" id="i0M-im-qjF"/>
+                        <outlet property="shareButton" destination="jrM-bW-A9J" id="E7j-QN-2N1"/>
                         <outlet property="unitsCollectionView" destination="LAx-LI-VQr" id="CuD-e5-khP"/>
                         <outlet property="videoListCollectionView" destination="Gyd-kA-TJq" id="Dal-yt-8L8"/>
                         <segue destination="xx8-lO-ygV" kind="push" identifier="ViewVideo" id="hco-Bl-9vV"/>
@@ -358,9 +370,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="机体" id="x98-4Y-yRO">
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="ile-Q8-vRe">
+                        <barButtonItem key="rightBarButtonItem" image="share-button" id="ile-Q8-vRe">
                             <connections>
-                                <action selector="actionButtonPressed:" destination="GhT-BD-GR7" id="s9U-GY-54g"/>
+                                <action selector="shareButtonPressed:" destination="GhT-BD-GR7" id="zPr-ho-0xi"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -394,7 +406,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="视频" id="ZPh-PX-5Ij"/>
+                    <navigationItem key="navigationItem" title="视频" id="ZPh-PX-5Ij">
+                        <barButtonItem key="rightBarButtonItem" image="share-button" id="RJM-cQ-FUh">
+                            <connections>
+                                <action selector="shareButtonPressed:" destination="xx8-lO-ygV" id="ah8-7k-0dt"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="videoPlayer" destination="96L-M4-T4L" id="W8H-4X-UYq"/>
                         <segue destination="GhT-BD-GR7" kind="modal" identifier="view-unit-from-video" id="YEE-Kr-IgB"/>
@@ -599,8 +617,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="logo2" width="251" height="128"/>
+        <image name="logo2" width="125" height="64"/>
         <image name="search-button" width="22" height="22"/>
+        <image name="share-button" width="22" height="22"/>
         <image name="tab-home" width="30" height="30"/>
         <image name="tab-news" width="30" height="30"/>
         <image name="tab-unit" width="30" height="30"/>
@@ -613,8 +632,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="hco-Bl-9vV"/>
         <segue reference="sIr-PI-Iu0"/>
-        <segue reference="UQm-b0-nZb"/>
+        <segue reference="YEE-Kr-IgB"/>
+        <segue reference="rUO-bJ-kzn"/>
     </inferredMetricsTieBreakers>
 </document>
