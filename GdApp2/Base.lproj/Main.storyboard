@@ -232,7 +232,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jrM-bW-A9J">
-                                    <rect key="frame" x="185.99999951982844" y="6" width="22" height="22"/>
+                                    <rect key="frame" x="186.00000033858277" y="6" width="22" height="22"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                                     <state key="normal" image="share-button">
                                         <color key="titleColor" red="1" green="0.28627450980000002" blue="0.27058823529999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -614,7 +614,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="logo2" width="125" height="64"/>
+        <image name="logo2" width="135" height="74"/>
         <image name="search-button" width="22" height="22"/>
         <image name="share-button" width="22" height="22"/>
         <image name="tab-home" width="30" height="30"/>

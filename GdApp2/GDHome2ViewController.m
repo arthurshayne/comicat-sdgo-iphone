@@ -76,7 +76,7 @@
 
 - (GlowingLogoView *)logoView {
     if (!_logoView) {
-        _logoView = [[GlowingLogoView alloc] initWithFrame:CGRectMake(0, 0, 64, 33)];
+        _logoView = [[GlowingLogoView alloc] initWithFrame:CGRectMake(0, 0, 64, 35)];
         [self.navigationView addSubview:_logoView];
     }
     return _logoView;
@@ -141,6 +141,7 @@ const CGFloat UNIT_CELL_WIDTH = 90;
 
 - (void)configureEasterEgg {
     // EasterEgg
+    
     if ([GDEasterEgg isEasterEggEnabled]) {
         self.logoView.glowing = YES;
         
