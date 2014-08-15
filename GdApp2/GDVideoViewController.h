@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "GDManager.h"
 #import "PostInfo.h"
+#import "GDTMobBannerView.h" 
 
-@interface GDVideoViewController : UIViewController <GDManagerDelegate, UIWebViewDelegate> {
+@interface GDVideoViewController : UIViewController <GDManagerDelegate, UIWebViewDelegate, GDTMobBannerViewDelegate> {
     PostInfo *postInfo;
 }
 @property (nonatomic) int postId;

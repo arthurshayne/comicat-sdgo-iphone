@@ -132,8 +132,6 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
         _bannerView.delegate = self; // 设置Delegate
         _bannerView.currentViewController = self; //设置当前的ViewController
         _bannerView.interval = 30; //【可选】设置刷新频率;默认30秒
-        _bannerView.isTestMode = YES; //【可选】设置测试模式;默认NO
-        _bannerView.isGpsOn = NO; //【可选】开启GPS定位;默认关闭
         
         [_bannerView loadAdAndShow];
     }
@@ -622,7 +620,6 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
         [viewForHeader addSubview:self.segmentedControl];
         
         [viewForHeader addSubview:self.bannerView];
-        
         
         viewForHeader.backgroundColor = [UIColor whiteColor];
         return viewForHeader;

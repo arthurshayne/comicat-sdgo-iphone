@@ -29,7 +29,8 @@
 @property (strong, nonatomic) GDManager *manager;
 
 @property (weak, nonatomic) IBOutlet UIWebView *videoPlayer;
-@property (strong, nonatomic) UIButton *backButton;
+
+@property (strong, nonatomic) GDTMobBannerView *bannerView;
 
 @end
 
@@ -48,15 +49,35 @@
 //    [self.manager fetchPostInfo:postId];
 }
 
+- (GDTMobBannerView *)bannerView {
+    if (!_bannerView) {
+        _bannerView = [[GDTMobBannerView alloc] initWithFrame:CGRectMake(0, 64,
+                                                                         GDTMOB_AD_SIZE_320x50.width,
+                                                                         GDTMOB_AD_SIZE_320x50.height)
+                                                       appkey:@"1101753730"
+                                                  placementId:@"9007479621682215203"];
+        
+        _bannerView.delegate = self; // 设置Delegate
+        _bannerView.currentViewController = self; //设置当前的ViewController
+        _bannerView.interval = 30; //【可选】设置刷新频率;默认30秒
+        
+        [self.view addSubview:_bannerView];
+    }
+    return _bannerView;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerStarted:) name:@"UIMoviePlayerControllerDidEnterFullscreenNotification" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerFinished:) name:@"UIMoviePlayerControllerDidExitFullscreenNotification" object:nil];
 
     [self configureAndLoadVideoPlayer];
     [self configureNavigationMax3];
+    
+    [self.bannerView loadAdAndShow];
+    
+    self.videoPlayer.scrollView.contentInset = UIEdgeInsetsMake(100, 0, 0, 0);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
