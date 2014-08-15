@@ -29,6 +29,12 @@
 		050B654819371D2D0011F7EE /* SVPTRView.m in Sources */ = {isa = PBXBuildFile; fileRef = 050B654719371D2D0011F7EE /* SVPTRView.m */; };
 		0511D0BC193251CF007A9E66 /* GDPostListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511D0BB193251CF007A9E66 /* GDPostListCollectionViewCell.m */; };
 		05167570199DAD1B00D82C21 /* GlowingLogoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0516756F199DAD1B00D82C21 /* GlowingLogoView.m */; };
+		05167575199E0A1600D82C21 /* libGDTMobSDK_v2.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05167574199E0A1600D82C21 /* libGDTMobSDK_v2.2.a */; };
+		05167577199E0A6D00D82C21 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05167576199E0A6D00D82C21 /* Security.framework */; };
+		05167579199E0A7C00D82C21 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05167578199E0A7C00D82C21 /* CoreTelephony.framework */; };
+		0516757B199E0A8500D82C21 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0516757A199E0A8500D82C21 /* SystemConfiguration.framework */; };
+		0516757D199E0A9F00D82C21 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0516757C199E0A9F00D82C21 /* CoreLocation.framework */; };
+		0516757F199E0AA700D82C21 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0516757E199E0AA700D82C21 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		05191567190C16AE007439EA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05191566190C16AE007439EA /* QuartzCore.framework */; };
 		051EABAF1927118C00EAF761 /* GDCategoryListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 051EABAE1927118C00EAF761 /* GDCategoryListView.m */; };
 		05216A251925DB8600807A2E /* GDVideoListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05216A241925DB8600807A2E /* GDVideoListCollectionViewCell.m */; };
@@ -154,6 +160,14 @@
 		0511D0BB193251CF007A9E66 /* GDPostListCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDPostListCollectionViewCell.m; sourceTree = "<group>"; };
 		0516756E199DAD1B00D82C21 /* GlowingLogoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlowingLogoView.h; sourceTree = "<group>"; };
 		0516756F199DAD1B00D82C21 /* GlowingLogoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlowingLogoView.m; sourceTree = "<group>"; };
+		05167572199E0A1600D82C21 /* GDTMobBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDTMobBannerView.h; sourceTree = "<group>"; };
+		05167573199E0A1600D82C21 /* GDTMobInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDTMobInterstitial.h; sourceTree = "<group>"; };
+		05167574199E0A1600D82C21 /* libGDTMobSDK_v2.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGDTMobSDK_v2.2.a; sourceTree = "<group>"; };
+		05167576199E0A6D00D82C21 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		05167578199E0A7C00D82C21 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		0516757A199E0A8500D82C21 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		0516757C199E0A9F00D82C21 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		0516757E199E0AA700D82C21 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		05191566190C16AE007439EA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		051EABAD1927118C00EAF761 /* GDCategoryListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDCategoryListView.h; sourceTree = "<group>"; };
 		051EABAE1927118C00EAF761 /* GDCategoryListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDCategoryListView.m; sourceTree = "<group>"; };
@@ -321,6 +335,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0516757F199E0AA700D82C21 /* AdSupport.framework in Frameworks */,
+				0516757D199E0A9F00D82C21 /* CoreLocation.framework in Frameworks */,
+				0516757B199E0A8500D82C21 /* SystemConfiguration.framework in Frameworks */,
+				05167579199E0A7C00D82C21 /* CoreTelephony.framework in Frameworks */,
+				05167577199E0A6D00D82C21 /* Security.framework in Frameworks */,
 				0550E9E3198FF360004B7A71 /* libUMSocial_Sdk_ScreenShot_1.0.a in Frameworks */,
 				0550E9E6198FF360004B7A71 /* libSocialWechat.a in Frameworks */,
 				0550E9E7198FF360004B7A71 /* libWeChatSDK.a in Frameworks */,
@@ -329,6 +348,7 @@
 				05191567190C16AE007439EA /* QuartzCore.framework in Frameworks */,
 				0565B3C8190904D000CCE77E /* ImageIO.framework in Frameworks */,
 				05023ADC19052791001D04F0 /* CoreGraphics.framework in Frameworks */,
+				05167575199E0A1600D82C21 /* libGDTMobSDK_v2.2.a in Frameworks */,
 				05023ADE19052791001D04F0 /* UIKit.framework in Frameworks */,
 				05023ADA19052791001D04F0 /* Foundation.framework in Frameworks */,
 				0550E9DE198FF360004B7A71 /* libSocialSina.a in Frameworks */,
@@ -391,6 +411,11 @@
 		05023AD819052791001D04F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0516757E199E0AA700D82C21 /* AdSupport.framework */,
+				0516757C199E0A9F00D82C21 /* CoreLocation.framework */,
+				0516757A199E0A8500D82C21 /* SystemConfiguration.framework */,
+				05167578199E0A7C00D82C21 /* CoreTelephony.framework */,
+				05167576199E0A6D00D82C21 /* Security.framework */,
 				05D9603A1965351F00DD5AE3 /* AVFoundation.framework */,
 				05D9603819652E0900DD5AE3 /* MediaPlayer.framework */,
 				0592AFFA1950059C000301FD /* libz.dylib */,
@@ -493,6 +518,16 @@
 				05C7D4BE194E88A9009C0DCA /* UnitsByOriginViewController.m */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		05167571199E0A0400D82C21 /* GDTMobileBanner */ = {
+			isa = PBXGroup;
+			children = (
+				05167572199E0A1600D82C21 /* GDTMobBannerView.h */,
+				05167573199E0A1600D82C21 /* GDTMobInterstitial.h */,
+				05167574199E0A1600D82C21 /* libGDTMobSDK_v2.2.a */,
+			);
+			name = GDTMobileBanner;
 			sourceTree = "<group>";
 		};
 		0550E9A1198FF348004B7A71 /* UMSocial_Sdk_4.0 */ = {
@@ -720,6 +755,7 @@
 		05A417C31915182E0040A679 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				05167571199E0A0400D82C21 /* GDTMobileBanner */,
 				0597616419968EA000C8B2A2 /* GDPopupView */,
 				0550E9C7198FF360004B7A71 /* UMSocial_Sdk_Extra_Frameworks */,
 				0550E9A1198FF348004B7A71 /* UMSocial_Sdk_4.0 */,
@@ -1200,6 +1236,19 @@
 					"$(PROJECT_DIR)/GdApp2/UMSocial_Sdk_Extra_Frameworks/UMSocial_Shake_Sdk",
 					"$(PROJECT_DIR)/GdApp2/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					ImageIO,
+					"-framework",
+					MapKit,
+					"-framework",
+					QuartzCore,
+					"-lstdc++",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "40BA3AA9-E273-440E-BC19-F315316355EC";
 				SWIFT_OBJC_BRIDGING_HEADER = "GdApp2/GdApp2-Bridging-Header.h";
@@ -1236,6 +1285,19 @@
 					"$(PROJECT_DIR)/GdApp2/UMSocial_Sdk_Extra_Frameworks/UMSocial_ScreenShot_Sdk",
 					"$(PROJECT_DIR)/GdApp2/UMSocial_Sdk_Extra_Frameworks/UMSocial_Shake_Sdk",
 					"$(PROJECT_DIR)/GdApp2/UMSocial_Sdk_Extra_Frameworks/Wechat",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					ImageIO,
+					"-framework",
+					MapKit,
+					"-framework",
+					QuartzCore,
+					"-lstdc++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "EF4A3839-9917-4EB6-9046-3C9F64A3E5AA";

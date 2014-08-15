@@ -48,6 +48,8 @@
 @property (strong, nonatomic) UICollectionView *videoListView;
 @property (strong, nonatomic) UILabel *noVideoLabel;
 
+@property (strong, nonatomic) GDTMobBannerView *bannerView;
+
 @property (strong, nonatomic) GDManager *manager;
 
 @end
@@ -117,6 +119,25 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
     }
     
     return _manager;
+}
+
+- (GDTMobBannerView *)bannerView {
+    if (!_bannerView) {
+        _bannerView = [[GDTMobBannerView alloc] initWithFrame:CGRectMake(0, 36,
+                                                                         GDTMOB_AD_SIZE_320x50.width,
+                                                                         GDTMOB_AD_SIZE_320x50.height)
+                                                       appkey:@"1101753730"
+                                                  placementId:@"9079537215720143139"];
+        
+        _bannerView.delegate = self; // 设置Delegate
+        _bannerView.currentViewController = self; //设置当前的ViewController
+        _bannerView.interval = 30; //【可选】设置刷新频率;默认30秒
+        _bannerView.isTestMode = YES; //【可选】设置测试模式;默认NO
+        _bannerView.isGpsOn = NO; //【可选】开启GPS定位;默认关闭
+        
+        [_bannerView loadAdAndShow];
+    }
+    return _bannerView;
 }
 
 - (void)viewDidLoad {
@@ -272,7 +293,7 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
 #pragma mark - TableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return section == 0 ? 0 : 36 /* for segmented control*/;
+    return section == 0 ? 0 : 90 /* for segmented control*/;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -599,6 +620,10 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
     if(section == 1) {
         UIView *viewForHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 32)];
         [viewForHeader addSubview:self.segmentedControl];
+        
+        [viewForHeader addSubview:self.bannerView];
+        
+        
         viewForHeader.backgroundColor = [UIColor whiteColor];
         return viewForHeader;
     }

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "GDManagerDelegate.h"
+#import "GDTMobBannerView.h" 
 
-@interface UnitViewController : UIViewController <GDManagerDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout> {
+@interface UnitViewController : UIViewController <GDManagerDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, GDTMobBannerViewDelegate> {
     int postIdForSegue;
     NSDate *lastPullToRefresh;
     
