@@ -15,6 +15,9 @@ GDManagerDelegate, UICollectionViewDataSource, UICollectionViewDelegate> {
     NSDate *lastPullToRefresh;
     int postIdForSegue;
     NSString *unitIdForSegue;
+    
+    BOOL logoGlowing;
+    BOOL logoGlowed;
 }
 
 @end

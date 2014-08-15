@@ -28,17 +28,25 @@
 #import "GDPostViewController.h"
 #import "UnitViewController.h"
 
+#import "GDEasterEgg.h"
+
 #import "GDVideoListCollectionViewCell.h"
 #import "GDPostListCollectionViewCell.h"
 #import "GDUnitCollectionViewCell.h"
 #import "GDPostCategoryView.h"
 #import "NetworkErrorView.h"
+#import "GlowingLogoView.h"
 
 @interface GDHome2ViewController ()
 
 //@property (strong, nonatomic) NSArray *images;  // of UIImage
 @property (strong, nonatomic) GDManager *manager;
 @property (strong, nonatomic) HomeInfo *homeInfo;
+
+
+
+@property (weak, nonatomic) IBOutlet UIView *navigationView;
+@property (strong, nonatomic) GlowingLogoView *logoView;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *rootScrollView;
 
@@ -64,6 +72,14 @@
     }
     
     return _manager;
+}
+
+- (GlowingLogoView *)logoView {
+    if (!_logoView) {
+        _logoView = [[GlowingLogoView alloc] initWithFrame:CGRectMake(0, 0, 64, 33)];
+        [self.navigationView addSubview:_logoView];
+    }
+    return _logoView;
 }
 
 const CGFloat POSTLIST_CELL_HEIGHT = 65;
@@ -96,6 +112,10 @@ const CGFloat UNIT_CELL_WIDTH = 90;
     [self.infiniteScrollView startAutoScroll];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [self configureEasterEgg];
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 
@@ -117,6 +137,39 @@ const CGFloat UNIT_CELL_WIDTH = 90;
     [self.searchUnitButton setImage:[UIImage imageNamed:@"search-button-hl"] forState:UIControlStateHighlighted];
     
     [self.shareButton setImage:[UIImage imageNamed:@"share-button-hl"] forState:UIControlStateHighlighted];
+}
+
+- (void)configureEasterEgg {
+    // EasterEgg
+    if ([GDEasterEgg isEasterEggEnabled]) {
+        self.logoView.glowing = YES;
+        
+    } else {
+        
+    }
+    
+    UITapGestureRecognizer *tapOnce = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(logoTapped:)];
+    UITapGestureRecognizer *tapTwice = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(logoTappedTwice:)];
+    tapTwice.numberOfTapsRequired = 2;
+    
+    [tapOnce requireGestureRecognizerToFail:tapTwice];
+    
+    [self.logoView addGestureRecognizer:tapOnce];
+    [self.logoView addGestureRecognizer:tapTwice];
+}
+
+- (void)logoTapped:(id)sender {
+    NSLog(@"TAPPED!");
+    if ([GDEasterEgg isEasterEggEnabled]) {
+        
+    }
+}
+
+- (void)logoTappedTwice:(id)sender {
+    NSLog(@"TAPPED 2!!!");
+    if ([GDEasterEgg isEasterEggEnabled]) {
+        
+    }
 }
 
 - (void)prepareCarousel {

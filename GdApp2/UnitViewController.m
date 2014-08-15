@@ -18,6 +18,8 @@
 
 #import "GDManager.h"
 #import "GDManagerFactory.h"
+#import "UnitService.h"
+#import "GDEasterEgg.h"
 
 #import "UnitInfo.h"
 
@@ -215,6 +217,10 @@ static const NSString *CELL_IDENTIFIER = @"VideoListViewCell";
     [self stopAllLoadingAnimations];
     
     self.unitInfo = unitInfo;
+    
+    // NSLog([NSString stringWithFormat:@"%d", [UnitService areUnitsAllViewed:@[@"15011", @"15001"]]]);
+    [UnitService markUnitViewed:self.unitId];
+    [GDEasterEgg proceedEasterEggDiscovery:self.unitId];
     
     // setup basic data view
     self.unitBasicDataView.modelName = unitInfo.modelName;
