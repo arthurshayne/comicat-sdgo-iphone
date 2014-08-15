@@ -33,12 +33,12 @@ static const CGFloat UNIT_IMAGE_WIDTH = 77.5;
     _unitId = unitId;
     
     if (![self displayCachedImageForUnitId:unitId]) {
-        [[SDWebImageManager sharedManager] downloadWithURL:[GDAppUtility URLForUnitImageOfUnitId:unitId]
+        [[SDWebImageManager sharedManager] downloadImageWithURL:[GDAppUtility URLForUnitImageOfUnitId:unitId]
                                                                         options:0
                                                                        progress:^(NSInteger receivedSize, NSInteger expectedSize) {
                                                                            // progression tracking code
                                                                        }
-                                                                      completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
+                                                                      completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *url) {
                                                                           if ([unitId isEqualToString:self.unitId]) {
                                                                               self.unitImage = image;
                                                                               [self setNeedsDisplay];

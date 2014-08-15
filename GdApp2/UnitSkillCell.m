@@ -36,12 +36,12 @@ const CGFloat SKILL_CELL_PADDING = 8;
     _skillId = skillId;
     NSURL *skillImageURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://cdn.sdgundam.cn/data-source/acc/skill/%d.gif", _skillId]];
     
-    [[SDWebImageManager sharedManager] downloadWithURL:skillImageURL
+    [[SDWebImageManager sharedManager] downloadImageWithURL:skillImageURL
                                                options:0
                                               progress:^(NSInteger receivedSize, NSInteger expectedSize) {
                                                   // progression tracking code
                                               }
-                                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
+                                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *url) {
                                                  if (image && finished) {
                                                      self.skillImage = image;
                                                      [self setNeedsDisplay]; // InRect:CGRectMake(0, 0, 150, 84)];

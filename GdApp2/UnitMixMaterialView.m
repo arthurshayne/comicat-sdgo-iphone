@@ -85,7 +85,7 @@
 - (void)setUmm:(UnitMixMaterial *)umm {
     _umm = umm;
     
-    [self.unitImageView setImageWithURL:[GDAppUtility URLForUnitImageOfUnitId:umm.unitId]
+    [self.unitImageView sd_setImageWithURL:[GDAppUtility URLForUnitImageOfUnitId:umm.unitId]
                        placeholderImage:[UIImage imageNamed:@"placeholder-unit"]];
     self.levelLabel.text = umm.level;
 }

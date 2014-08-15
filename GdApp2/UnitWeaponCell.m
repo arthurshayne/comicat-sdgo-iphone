@@ -34,12 +34,12 @@ const NSString *WEAPON_PE_NONE = @"无";
     _weaponId = weaponId;
     NSURL *weaponImageURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://cdn.sdgundam.cn/data-source/acc/weapon/%d.gif", _weaponId]];
     
-    [[SDWebImageManager sharedManager] downloadWithURL:weaponImageURL
+    [[SDWebImageManager sharedManager] downloadImageWithURL:weaponImageURL
                                                options:0
                                               progress:^(NSInteger receivedSize, NSInteger expectedSize) {
                                                   // progression tracking code
                                               }
-                                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
+                                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *url) {
                                                  if (image && finished) {
                                                      weaponImage = image;
                                                      [self setNeedsDisplay]; // InRect:CGRectMake(0, 0, 150, 84)];

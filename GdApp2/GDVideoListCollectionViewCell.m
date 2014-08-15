@@ -90,12 +90,12 @@
     _dateString = [GDAppUtility dateStringByDay:self.videoListItem.created];
     [self setNeedsDisplay];
     
-    [[SDWebImageManager sharedManager] downloadWithURL:[NSURL URLWithString:self.videoListItem.imageURL]
+    [[SDWebImageManager sharedManager] downloadImageWithURL:[NSURL URLWithString:self.videoListItem.imageURL]
                                                options:0
                                               progress:^(NSInteger receivedSize, NSInteger expectedSize) {
                                                   // progression tracking code
                                               }
-                                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
+                                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
                                                  if (image && finished) {
                                                      self.titleImage = image;
                                                      [self setNeedsDisplayInRect:CGRectMake(0, 0, 150, 84)];

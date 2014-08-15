@@ -25,12 +25,12 @@ static const CGFloat TEXT_PADDING = 3;
     _unitId = unitId;
 
     if (![self displayCachedImageForUnitId:unitId] && self.showRemoteImage) {
-        [[SDWebImageManager sharedManager] downloadWithURL:[GDAppUtility URLForUnitImageOfUnitId:unitId]
+        [[SDWebImageManager sharedManager] downloadImageWithURL:[GDAppUtility URLForUnitImageOfUnitId:unitId]
                                                    options:0
                                                   progress:^(NSInteger receivedSize, NSInteger expectedSize) {
                                                       // progression tracking code
                                                   }
-                                                 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished) {
+                                                 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
                                                      if (image && finished) {
                                                          // NSLog(@"local: %@ self: %@", unitId, self.unitId);
                                                          if ([unitId isEqualToString:self.unitId]) {

@@ -131,7 +131,6 @@ const CGFloat UNIT_CELL_WIDTH = 90;
     [self.carouselLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
     [self.carouselLabel setFont:[UIFont systemFontOfSize:14]];
     
-
     [self.searchUnitButton setTitleColor:[GDAppUtility appTintColor] forState:UIControlStateNormal];
     [self.searchUnitButton setTitleColor:[GDAppUtility appTintColorHighlighted] forState:UIControlStateHighlighted];
     [self.searchUnitButton setImage:[UIImage imageNamed:@"search-button-hl"] forState:UIControlStateHighlighted];
@@ -422,7 +421,7 @@ const CGFloat UNIT_CELL_WIDTH = 90;
     CarouselInfo *ci = (CarouselInfo*)[self.homeInfo.carousel objectAtIndex:index];
   
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:frame];
-    [imageView setImageWithURL:[NSURL URLWithString:ci.imageURL] placeholderImage:[UIImage imageNamed:@"placeholder-carousel"]];
+    [imageView sd_setImageWithURL:[NSURL URLWithString:ci.imageURL] placeholderImage:[UIImage imageNamed:@"placeholder-carousel"]];
     imageView.userInteractionEnabled = YES;
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(carouselTapped:)];

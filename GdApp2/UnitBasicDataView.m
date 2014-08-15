@@ -128,7 +128,7 @@ const float UNIT_MAX_ABILITY_VALUE = 205;
 
 - (void)setUnitId:(NSString *)unitId {
     _unitId = unitId;
-    [self.unitImageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://cdn.sdgundam.cn/data-source/acc/unit-yoppa/app/%@.png", unitId]]];
+    [self.unitImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://cdn.sdgundam.cn/data-source/acc/unit-yoppa/app/%@.png", unitId]]];
 }
 
 - (void)setModelName:(NSString *)modelName {

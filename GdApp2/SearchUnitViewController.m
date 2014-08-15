@@ -135,7 +135,7 @@ NSString *unitIdForSegue;
     
     // image
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(8, 4, 79, 79)];
-    [imageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://cdn.sdgundam.cn/data-source/acc/unit-3g/%@.png", u.unitId]]];
+    [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://cdn.sdgundam.cn/data-source/acc/unit-3g/%@.png", u.unitId]]];
     [cell.contentView addSubview:imageView];
     
     UILabel *rankLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 49, 100, 21)];
