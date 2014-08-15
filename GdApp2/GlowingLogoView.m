@@ -43,8 +43,7 @@
                               delay:0
                             options:UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse | UIViewAnimationCurveEaseInOut
                          animations:^{
-                             self.glowingLogoImageView.alpha = 0.85;
-                             self.logoImageView.alpha = 0.5;
+                             self.glowingLogoImageView.alpha = 1;
                          } completion:^(BOOL finished) {
                              
                          }];
