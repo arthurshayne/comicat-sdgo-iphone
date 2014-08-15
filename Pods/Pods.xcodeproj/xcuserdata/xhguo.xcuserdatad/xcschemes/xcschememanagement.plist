@@ -19,12 +19,22 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-Objective-LevelDB.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-SDWebImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>Pods-SVPullToRefresh.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-libwebp.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -36,37 +46,6 @@
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
-	<dict>
-		<key>2211F932492249C88912F989</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>60D241A59ECE4444A5B2643C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>617F65835DC0421CA3E8B57F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>6323D206E1084234B82A44F5</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A5BCA8BB72F84C0AB4457EAE</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E8D5D42D09054D0E88EC8511</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-	</dict>
+	<dict/>
 </dict>
 </plist>
