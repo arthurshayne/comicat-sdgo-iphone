@@ -18,6 +18,7 @@
 #import "UIScrollView+GDPullToRefresh.h"
 #import "SVPullToRefresh.h"
 #import "UMSocial.h"
+#import <JTSImageViewController.h>
 
 #import "CarouselInfo.h"
 #import "VideoListItem.h"
@@ -145,7 +146,7 @@ const CGFloat UNIT_CELL_WIDTH = 90;
         self.logoView.glowing = YES;
         
     } else {
-        
+        self.logoView.glowing = NO;
     }
     
     UITapGestureRecognizer *tapOnce = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(logoTapped:)];
@@ -159,16 +160,34 @@ const CGFloat UNIT_CELL_WIDTH = 90;
 }
 
 - (void)logoTapped:(id)sender {
+    // [GDEasterEgg turnOnEasterEgg];
     NSLog(@"TAPPED!");
     if ([GDEasterEgg isEasterEggEnabled]) {
+        // Create image info
+        JTSImageInfo *imageInfo = [[JTSImageInfo alloc] init];
+        imageInfo.image = [UIImage imageNamed:@"better-launch"];
+        imageInfo.referenceRect = self.logoView.frame;
+        imageInfo.referenceView = self.view;
         
+        // Setup view controller
+        JTSImageViewController *imageViewer = [[JTSImageViewController alloc]
+                                               initWithImageInfo:imageInfo
+                                               mode:JTSImageViewControllerMode_Image
+                                               backgroundStyle:JTSImageViewControllerBackgroundStyle_ScaledDimmedBlurred];
+        
+        // Present the view controller.
+        [imageViewer showFromViewController:self transition:JTSImageViewControllerTransition_FromOriginalPosition];
     }
 }
 
 - (void)logoTappedTwice:(id)sender {
     NSLog(@"TAPPED 2!!!");
     if ([GDEasterEgg isEasterEggEnabled]) {
+        UnitViewController *uvc = [self.storyboard instantiateViewControllerWithIdentifier:@"UnitViewController"];
+        uvc.unitId = @"88888";
         
+        [self.navigationController pushViewController:uvc animated:YES];
+
     }
 }
 

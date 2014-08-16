@@ -217,11 +217,11 @@
                     <navigationItem key="navigationItem" id="9WW-Lq-cUv">
                         <nil key="title"/>
                         <view key="titleView" contentMode="scaleToFill" id="YOv-nu-9Uy">
-                            <rect key="frame" x="8" y="6" width="304" height="33"/>
+                            <rect key="frame" x="8" y="6" width="257" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="5xK-Gc-3Z8">
-                                    <rect key="frame" x="190" y="6" width="114" height="22"/>
+                                    <rect key="frame" x="144" y="5" width="114" height="22"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <state key="normal" title="搜索机体" image="search-button">
@@ -231,20 +231,14 @@
                                         <action selector="prepareForSearchUnit:" destination="ROR-jx-yyO" eventType="touchUpInside" id="APQ-uk-Pr8"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jrM-bW-A9J">
-                                    <rect key="frame" x="186.00000033858277" y="6" width="22" height="22"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" image="share-button">
-                                        <color key="titleColor" red="1" green="0.28627450980000002" blue="0.27058823529999998" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="shareButtonPressed:" destination="ROR-jx-yyO" eventType="touchUpInside" id="cz8-hm-6Fk"/>
-                                    </connections>
-                                </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
+                        <barButtonItem key="rightBarButtonItem" image="share-button" id="u4Q-Ew-hau">
+                            <connections>
+                                <action selector="shareButtonPressed:" destination="ROR-jx-yyO" id="jvb-2O-Yv2"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="carouselLabel" destination="hfW-Gs-gbF" id="wvV-x2-lOX"/>
@@ -255,7 +249,6 @@
                         <outlet property="rootScrollView" destination="7Jf-ag-sZT" id="aOD-4v-Dtg"/>
                         <outlet property="searchDisplayController" destination="q11-ea-nPX" id="RIa-By-xx0"/>
                         <outlet property="searchUnitButton" destination="5xK-Gc-3Z8" id="i0M-im-qjF"/>
-                        <outlet property="shareButton" destination="jrM-bW-A9J" id="E7j-QN-2N1"/>
                         <outlet property="unitsCollectionView" destination="LAx-LI-VQr" id="CuD-e5-khP"/>
                         <outlet property="videoListCollectionView" destination="Gyd-kA-TJq" id="Dal-yt-8L8"/>
                         <segue destination="xx8-lO-ygV" kind="push" identifier="ViewVideo" id="hco-Bl-9vV"/>
@@ -350,11 +343,11 @@
             <objects>
                 <viewController storyboardIdentifier="UnitViewController" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="GhT-BD-GR7" customClass="UnitViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="epK-CJ-wO1">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="D3i-ye-0fI">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="contentInset" minX="0.0" minY="64" maxX="0.0" maxY="64"/>
@@ -386,7 +379,7 @@
         <!--Video View Controller - 视频-->
         <scene sceneID="FHX-fo-FcE">
             <objects>
-                <viewController storyboardIdentifier="VideoViewController" id="xx8-lO-ygV" customClass="GDVideoViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VideoViewController" automaticallyAdjustsScrollViewInsets="NO" id="xx8-lO-ygV" customClass="GDVideoViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WpV-Mo-D9T">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -630,7 +623,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="hco-Bl-9vV"/>
-        <segue reference="UQm-b0-nZb"/>
         <segue reference="sIr-PI-Iu0"/>
+        <segue reference="YEE-Kr-IgB"/>
     </inferredMetricsTieBreakers>
 </document>

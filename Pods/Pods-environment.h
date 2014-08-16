@@ -30,6 +30,12 @@
 #define COCOAPODS_VERSION_MINOR_GBInfiniteScrollView_PageControl 7
 #define COCOAPODS_VERSION_PATCH_GBInfiniteScrollView_PageControl 0
 
+// JTSImageViewController
+#define COCOAPODS_POD_AVAILABLE_JTSImageViewController
+#define COCOAPODS_VERSION_MAJOR_JTSImageViewController 1
+#define COCOAPODS_VERSION_MINOR_JTSImageViewController 1
+#define COCOAPODS_VERSION_PATCH_JTSImageViewController 1
+
 // MBProgressHUD
 #define COCOAPODS_POD_AVAILABLE_MBProgressHUD
 #define COCOAPODS_VERSION_MAJOR_MBProgressHUD 0
