@@ -24,7 +24,7 @@ static NSString *UnitViewedPrefix = @"UNIT_VIEWED_%@";
 
 + (void)markUnitViewed:(NSString *)unitId {
     [[[self class] ldbInstance]
-        setObject:[NSNumber numberWithBool:YES] forKey:[NSString stringWithFormat:UnitViewedPrefix, unitId]];
+        setObject:[NSDate date] forKey:[NSString stringWithFormat:UnitViewedPrefix, unitId]];
 }
 
 + (BOOL)isUnitViewed:(NSString *)unitId {
