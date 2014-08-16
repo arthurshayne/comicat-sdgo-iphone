@@ -14,6 +14,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 
 #import "UnitViewController.h"
+#import "GDVideoViewController.h"
 
 @interface GDPostViewController ()
 
@@ -83,7 +84,7 @@
             if ([action isEqualToString:@"unit"]) {
                 [self presentUnitView:objectId];
                 return NO;
-            } else if ([action isEqualToString:@"post"]) {
+            } else if ([action isEqualToString:@"video"]) {
                 [self presentVideoViewController:[objectId intValue]];
                 return NO;
             }
@@ -108,12 +109,10 @@
 }
 
 - (void)presentVideoViewController:(int)postId {
-//    GDVideoViewController *gdvvc = [self.storyboard instantiateViewControllerWithIdentifier:@"VideoViewController"];
-//    gdvvc.postId = postId;
-//    
-//    [self.navigationController pushViewController:gdvvc animated:YES];
-    // [self presentViewController:gdvvc animated:YES completion:nil];
+    GDVideoViewController *gdvvc = [self.storyboard instantiateViewControllerWithIdentifier:@"VideoViewController"];
+    gdvvc.postId = postId;
     
+    [self.navigationController pushViewController:gdvvc animated:YES];
 }
 
 @end
