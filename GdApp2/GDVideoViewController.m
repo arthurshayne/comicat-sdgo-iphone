@@ -15,6 +15,7 @@
 
 #import "GDManagerFactory.h"
 #import "GDManager.h"
+#import "PostService.h"
 
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
@@ -76,8 +77,11 @@
     [self configureNavigationMax3];
     
     [self.bannerView loadAdAndShow];
-    
     self.videoPlayer.scrollView.contentInset = UIEdgeInsetsMake(100, 0, 0, 0);
+    
+    NSLog(@"Video Last Viewed @: %@", [PostService videoLastViewedAt:self.postId]);
+    [PostService markVideoLastViewed:self.postId];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
