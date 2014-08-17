@@ -17,6 +17,8 @@
 #import "UnitViewController.h"
 #import "GDVideoViewController.h"
 
+#import "iRate.h"
+
 #define ROOTVIEW [[[UIApplication sharedApplication] keyWindow] rootViewController]
 
 @interface GDAppDelegate ()
@@ -50,6 +52,18 @@
     // UMeng Social
     [UMSocialData setAppKey:umengAppKey];
     [UMSocialWechatHandler setWXAppId:@"wx533616eb0869c8b7" url:nil];
+    
+    // irate
+    [iRate sharedInstance].daysUntilPrompt = 5;
+    [iRate sharedInstance].usesUntilPrompt = 15;
+    
+    [iRate sharedInstance].messageTitle = @"评分换模型啦!";
+    [iRate sharedInstance].message = @"现在去苹果应用商店给[漫猫SD敢达App]评５星, 就可凭截图抽取高达模型! 详情请到漫猫SD敢达网站查询.";
+    [iRate sharedInstance].cancelButtonLabel = @"再说吧~";
+    [iRate sharedInstance].remindButtonLabel = @"模型神马的也不太给力啊-_-|||";
+    [iRate sharedInstance].rateButtonLabel = @"太棒了~点此评分!";
+    
+    // [iRate sharedInstance].previewMode = YES;
     
     // configure UserDefaults
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
