@@ -61,7 +61,7 @@
     [iRate sharedInstance].message = @"现在去苹果应用商店给[漫猫SD敢达App]评５星, 就可凭截图抽取高达模型! 详情请到漫猫SD敢达网站查询.";
     [iRate sharedInstance].cancelButtonLabel = @"再说吧~";
     [iRate sharedInstance].remindButtonLabel = @"模型神马的也不太给力啊-_-|||";
-    [iRate sharedInstance].rateButtonLabel = @"太棒了~点此评分!";
+    [iRate sharedInstance].rateButtonLabel = @"太棒了~这就去评个分!";
     
     // [iRate sharedInstance].previewMode = YES;
     
