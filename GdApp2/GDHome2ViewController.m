@@ -161,7 +161,6 @@ const CGFloat UNIT_CELL_WIDTH = 90;
 
 - (void)logoTapped:(id)sender {
     // [GDEasterEgg turnOnEasterEgg];
-    NSLog(@"TAPPED!");
     if ([GDEasterEgg isEasterEggEnabled]) {
         // Create image info
         JTSImageInfo *imageInfo = [[JTSImageInfo alloc] init];
@@ -181,7 +180,6 @@ const CGFloat UNIT_CELL_WIDTH = 90;
 }
 
 - (void)logoTappedTwice:(id)sender {
-    NSLog(@"TAPPED 2!!!");
     if ([GDEasterEgg isEasterEggEnabled]) {
         UnitViewController *uvc = [self.storyboard instantiateViewControllerWithIdentifier:@"UnitViewController"];
         uvc.unitId = @"88888";

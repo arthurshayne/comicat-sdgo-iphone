@@ -93,6 +93,7 @@
 		05C30948193F5B0800D00A90 /* UnitMiscInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C30947193F5B0800D00A90 /* UnitMiscInfoCell.m */; };
 		05C3094B193F5B4400D00A90 /* UnitGetwayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C3094A193F5B4400D00A90 /* UnitGetwayCell.m */; };
 		05C3D3FF191E4203001B69ED /* UnitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C3D3FE191E4203001B69ED /* UnitViewController.m */; };
+		05C4BD7E19A0B2BD0031B990 /* PostService.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C4BD7D19A0B2BD0031B990 /* PostService.m */; };
 		05C7D4BF194E88A9009C0DCA /* UnitsByOriginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C7D4BE194E88A9009C0DCA /* UnitsByOriginViewController.m */; };
 		05C7D4C2194E9ED8009C0DCA /* GDUnitCollectionViewCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = 05C7D4C1194E9ED8009C0DCA /* GDUnitCollectionViewCell2.m */; };
 		05CFFF56196417BD00C67F57 /* NetworkErrorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CFFF55196417BD00C67F57 /* NetworkErrorView.m */; };
@@ -288,6 +289,8 @@
 		05C3D400191E5525001B69ED /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		05C3D401191E5526001B69ED /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		05C3D402191E5526001B69ED /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		05C4BD7C19A0B2BD0031B990 /* PostService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostService.h; sourceTree = "<group>"; };
+		05C4BD7D19A0B2BD0031B990 /* PostService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostService.m; sourceTree = "<group>"; };
 		05C7D4BD194E88A9009C0DCA /* UnitsByOriginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitsByOriginViewController.h; sourceTree = "<group>"; };
 		05C7D4BE194E88A9009C0DCA /* UnitsByOriginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitsByOriginViewController.m; sourceTree = "<group>"; };
 		05C7D4C0194E9ED8009C0DCA /* GDUnitCollectionViewCell2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDUnitCollectionViewCell2.h; sourceTree = "<group>"; };
@@ -831,6 +834,8 @@
 				05FA3BFE199C5007002A4F7C /* UnitService.m */,
 				05FA3C00199C6755002A4F7C /* GeneralService.h */,
 				05FA3C01199C6755002A4F7C /* GeneralService.m */,
+				05C4BD7C19A0B2BD0031B990 /* PostService.h */,
+				05C4BD7D19A0B2BD0031B990 /* PostService.m */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -1014,6 +1019,7 @@
 				0582A87D192F9249007B90C9 /* ABTableViewCell.m in Sources */,
 				05E0DA46193644F200436B98 /* GDUnitCollectionViewCell.m in Sources */,
 				05CFFF56196417BD00C67F57 /* NetworkErrorView.m in Sources */,
+				05C4BD7E19A0B2BD0031B990 /* PostService.m in Sources */,
 				0506D4BD19171DC100EFAC83 /* GDTabBarController.m in Sources */,
 				053177AC19598F58005D96B4 /* CarouselInfo.m in Sources */,
 				051EABAF1927118C00EAF761 /* GDCategoryListView.m in Sources */,

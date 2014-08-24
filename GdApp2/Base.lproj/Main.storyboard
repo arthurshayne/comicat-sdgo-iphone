@@ -223,7 +223,6 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="5xK-Gc-3Z8">
                                     <rect key="frame" x="144" y="5" width="114" height="22"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <state key="normal" title="搜索机体" image="search-button">
                                         <color key="titleColor" red="1" green="0.28627450980000002" blue="0.27058823529999998" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
@@ -343,11 +342,11 @@
             <objects>
                 <viewController storyboardIdentifier="UnitViewController" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="GhT-BD-GR7" customClass="UnitViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="epK-CJ-wO1">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="D3i-ye-0fI">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="contentInset" minX="0.0" minY="64" maxX="0.0" maxY="64"/>
@@ -622,8 +621,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="hco-Bl-9vV"/>
         <segue reference="sIr-PI-Iu0"/>
-        <segue reference="YEE-Kr-IgB"/>
+        <segue reference="hco-Bl-9vV"/>
+        <segue reference="UQm-b0-nZb"/>
     </inferredMetricsTieBreakers>
 </document>

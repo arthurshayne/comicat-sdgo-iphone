@@ -57,11 +57,11 @@
     [iRate sharedInstance].daysUntilPrompt = 5;
     [iRate sharedInstance].usesUntilPrompt = 15;
     
-    [iRate sharedInstance].messageTitle = @"评分换模型啦!";
-    [iRate sharedInstance].message = @"现在去苹果应用商店给[漫猫SD敢达App]评５星, 就可凭截图抽取高达模型! 详情请到漫猫SD敢达网站查询.";
+    [iRate sharedInstance].messageTitle = @"求五星好评! 换取各种福利";
+    [iRate sharedInstance].message = @"现在去苹果应用商店给[漫猫SD敢达App]评五星, 就可凭截图换取各种福利, 详情请到漫猫SD敢达网站查询!";
     [iRate sharedInstance].cancelButtonLabel = @"再说吧~";
-    [iRate sharedInstance].remindButtonLabel = @"模型神马的也不太给力啊-_-|||";
-    [iRate sharedInstance].rateButtonLabel = @"太棒了~这就去评个分!";
+    [iRate sharedInstance].remindButtonLabel = @"福利不给力...再等等-_-";
+    [iRate sharedInstance].rateButtonLabel = @"太棒了~马上去评个分!";
     
     // [iRate sharedInstance].previewMode = YES;
     
@@ -76,7 +76,7 @@
     [self.manager checkForOriginUpdate:NO];
 
     // display launch image longer
-    [NSThread sleepForTimeInterval:1.8];
+    // [NSThread sleepForTimeInterval:1.8];
     
     return YES;
 }
